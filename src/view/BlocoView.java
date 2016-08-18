@@ -419,7 +419,6 @@ public class BlocoView extends javax.swing.JInternalFrame {
         btnSalvarBloco.setEnabled(false);
         btnCancelarBloco.setEnabled(false);
         tbeBloco.setEnabled(true);
-        
     }
     
     public void desativaCampos(){
