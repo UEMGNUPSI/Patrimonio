@@ -1,0 +1,104 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dao;
+
+/**
+ *
+ * @author nupsi-02
+ */
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import model.SalaM;
+
+
+public class SalaDAO {
+    PreparedStatement pst;
+    String sql;
+    
+    public void salvar(SalaM sala) throws SQLException{
+        sql = "insert into Sala values(?,?,?)";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, 0);
+        pst.setString(2, sala.getDescricao());
+        pst.setInt(3, sala.getPiso().getId());
+        pst.execute();
+        pst.close();
+    }
+    
+     public SalaM busca(int id) throws SQLException{
+        sql = "select * from Sala where id = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id);
+        SalaM sala = null;
+        PisoDAO piso = new PisoDAO();
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+           sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")));
+        }
+        pst.close();
+        return sala;
+    }
+     
+     public List<SalaM> listaTodos() throws SQLException{
+        List<SalaM> listaSala = new ArrayList<SalaM>();
+        sql = "select * from Sala order by id_piso";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        ResultSet rs = pst.executeQuery();
+        PisoDAO piso = new PisoDAO();
+        while(rs.next()){
+           listaSala.add(new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso"))));
+        }
+        pst.close();
+        return listaSala;
+    }
+     
+        public void excluir(SalaM sala) throws SQLException{
+        sql = "delete from Sala where id = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, sala.getId());
+        pst.execute();
+        pst.close();
+    }
+        public void alterar(SalaM sala) throws SQLException{
+         sql = "update Sala set nome = ? where id = ?" ;
+         pst = Conexao.getInstance().prepareStatement(sql);
+         pst.setString(1, sala.getDescricao());
+         pst.setInt(2, sala.getId());
+         pst.execute();
+         pst.close();
+     }
+        
+        public SalaM buscaNome(String nome) throws SQLException{
+           sql = "select * from Sala where nome = ?";
+           pst = Conexao.getInstance().prepareStatement(sql);
+           pst.setString(1, nome);
+           SalaM sala = null;
+           PisoDAO piso = new PisoDAO();
+           ResultSet rs = pst.executeQuery();
+           while(rs.next()){
+               sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")));
+            }
+            pst.close();
+            return sala;
+     }
+        
+        public List<SalaM> buscaPis(int id) throws SQLException{
+         List<SalaM> listaSala = new ArrayList<>();
+         sql = "select * from Sala where id_piso = ?";
+         pst = Conexao.getInstance().prepareStatement(sql);
+         pst.setInt(1, id);
+         ResultSet rs = pst.executeQuery();
+         PisoDAO piso = new PisoDAO();
+         while(rs.next()){
+            listaSala.add(new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso"))));
+          }
+         pst.close();
+         return listaSala;
+     }
+}
