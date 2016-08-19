@@ -57,7 +57,9 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         preencheComboBox();
         limpaCamposTipo();
         limpaCamposSubTipo();
-
+        
+        //preparaSalvareCancelarTipo();
+        //btnSalvarSubtipo.setEnabled(false);
     }
     TipoM tipo;
     SubTipoM subTipo;
@@ -68,7 +70,9 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     BufferedImage bi = null;
     File fi = new File("");
     String caminho = fi.getAbsolutePath() + "/imagem/";
-
+    
+    
+    
     public void atualizaTabelaTipo() {
         try {
             listaTipo = tipoDAO.listaTodos();
@@ -148,18 +152,18 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     public void limpaCamposTipo() {
         tfdIDTipo.setText("");
         tfdDescricaoTipo.setText("");
-        btnAdicionarTipo.setEnabled(true);
-        btnExcluirTipo.setEnabled(false);
-        btnAlterarTipo.setEnabled(false);
+        //btnSalvarTipo.setEnabled(true);
+        //btnExcluirTipo.setEnabled(false);
+        //btnAlterarTipo.setEnabled(false);
     }
 
     public void limpaCamposSubTipo() {
         tfdIDSubTipo.setText("");
         tfdDescricaoSubTipo.setText("");
         cbxSubtipo.setSelectedIndex(0);
-        btnAdicionarSubtipo.setEnabled(true);
-        btnExcluirSubtipo.setEnabled(false);
-        btnAlterarSubtipo.setEnabled(false);
+        //btnSalvarSubtipo.setEnabled(true);
+        //btnExcluirSubtipo.setEnabled(false);
+       // btnAlterarSubtipo.setEnabled(false);
         jLabel1.setIcon(null);
     }
 
@@ -196,20 +200,22 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         lblTipo = new javax.swing.JLabel();
         btnAlterarTipo = new javax.swing.JButton();
         btnExcluirTipo = new javax.swing.JButton();
-        btnAdicionarTipo = new javax.swing.JButton();
+        btnSalvarTipo = new javax.swing.JButton();
         btnAlterarSubtipo = new javax.swing.JButton();
-        btnExcluirSubtipo = new javax.swing.JButton();
-        btnAdicionarSubtipo = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnSalvarSubtipo = new javax.swing.JButton();
+        btnAdicionarImagem = new javax.swing.JButton();
         lblIDTipo = new javax.swing.JLabel();
         tfdIDTipo = new javax.swing.JTextField();
         tfdIDSubTipo = new javax.swing.JTextField();
         lblIDTipo1 = new javax.swing.JLabel();
         cbxSubtipo = new javax.swing.JComboBox<>();
-        btnLimparTipo = new javax.swing.JButton();
-        btnLimparSubtipo = new javax.swing.JButton();
+        btnNovoTipo = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        btnCancelarSubtipo = new javax.swing.JButton();
+        btnNovoSubtipo = new javax.swing.JButton();
+        btnExcluirSubtipo = new javax.swing.JButton();
+        btnCancelarTipo = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbeTipo = new javax.swing.JTable();
@@ -223,13 +229,18 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
 
         lblDescricaoTipo.setText("Descrição");
 
+        tfdDescricaoTipo.setEnabled(false);
+
         lblSubtipo.setText("Subtipo");
 
         lblDescricaoSubtipo.setText("Descrição");
 
+        tfdDescricaoSubTipo.setEnabled(false);
+
         lblTipo.setText("Tipo");
 
         btnAlterarTipo.setText("Alterar");
+        btnAlterarTipo.setEnabled(false);
         btnAlterarTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarTipoActionPerformed(evt);
@@ -237,44 +248,42 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         });
 
         btnExcluirTipo.setText("Excluir");
+        btnExcluirTipo.setEnabled(false);
         btnExcluirTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirTipoActionPerformed(evt);
             }
         });
 
-        btnAdicionarTipo.setText("Adicionar");
-        btnAdicionarTipo.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarTipo.setText("Salvar");
+        btnSalvarTipo.setEnabled(false);
+        btnSalvarTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarTipoActionPerformed(evt);
+                btnSalvarTipoActionPerformed(evt);
             }
         });
 
         btnAlterarSubtipo.setText("Alterar");
+        btnAlterarSubtipo.setEnabled(false);
         btnAlterarSubtipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarSubtipoActionPerformed(evt);
             }
         });
 
-        btnExcluirSubtipo.setText("Excluir");
-        btnExcluirSubtipo.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarSubtipo.setText("Salvar");
+        btnSalvarSubtipo.setEnabled(false);
+        btnSalvarSubtipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirSubtipoActionPerformed(evt);
+                btnSalvarSubtipoActionPerformed(evt);
             }
         });
 
-        btnAdicionarSubtipo.setText("Adicionar");
-        btnAdicionarSubtipo.addActionListener(new java.awt.event.ActionListener() {
+        btnAdicionarImagem.setText("Adicionar Imagem");
+        btnAdicionarImagem.setEnabled(false);
+        btnAdicionarImagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarSubtipoActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Adicionar Imagem");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAdicionarImagemActionPerformed(evt);
             }
         });
 
@@ -292,23 +301,17 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         lblIDTipo1.setText("ID");
 
         cbxSubtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Selecione--" }));
+        cbxSubtipo.setEnabled(false);
         cbxSubtipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxSubtipoActionPerformed(evt);
             }
         });
 
-        btnLimparTipo.setText("Novo");
-        btnLimparTipo.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoTipo.setText("Novo");
+        btnNovoTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparTipoActionPerformed(evt);
-            }
-        });
-
-        btnLimparSubtipo.setText("Novo");
-        btnLimparSubtipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparSubtipoActionPerformed(evt);
+                btnNovoTipoActionPerformed(evt);
             }
         });
 
@@ -330,8 +333,39 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        btnCancelarSubtipo.setText("Cancelar");
+        btnCancelarSubtipo.setEnabled(false);
+        btnCancelarSubtipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarSubtipoActionPerformed(evt);
+            }
+        });
+
+        btnNovoSubtipo.setText("Novo");
+        btnNovoSubtipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoSubtipoActionPerformed(evt);
+            }
+        });
+
+        btnExcluirSubtipo.setText("Excluir");
+        btnExcluirSubtipo.setEnabled(false);
+        btnExcluirSubtipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirSubtipoActionPerformed(evt);
+            }
+        });
+
+        btnCancelarTipo.setText("Cancelar");
+        btnCancelarTipo.setEnabled(false);
+        btnCancelarTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarTipoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlTipoSubtipoLayout = new javax.swing.GroupLayout(pnlTipoSubtipo);
         pnlTipoSubtipo.setLayout(pnlTipoSubtipoLayout);
@@ -345,48 +379,54 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                                 .addContainerGap()
                                 .addComponent(tfdDescricaoTipo))
                             .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblDescricaoTipo)
+                                    .addComponent(lblDescricaoSubtipo)
                                     .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblDescricaoTipo)
-                                            .addComponent(lblDescricaoSubtipo)
-                                            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                                .addGap(102, 102, 102)
-                                                .addComponent(lblSubtipo))
-                                            .addComponent(jButton1)
-                                            .addComponent(lblIDTipo)
-                                            .addComponent(tfdIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGap(102, 102, 102)
+                                        .addComponent(lblSubtipo))
+                                    .addComponent(btnAdicionarImagem)
+                                    .addComponent(lblIDTipo)
+                                    .addComponent(tfdIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                            .addComponent(btnNovoTipo)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnSalvarTipo)
+                                            .addGap(3, 3, 3)
+                                            .addComponent(btnCancelarTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnAlterarTipo)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(btnExcluirTipo)
+                                            .addGap(23, 23, 23))
+                                        .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                            .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(lblIDTipo1, javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTipoSubtipoLayout.createSequentialGroup()
                                                     .addComponent(tfdIDSubTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTipoSubtipoLayout.createSequentialGroup()
-                                                    .addComponent(btnAdicionarTipo)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(btnExcluirTipo)
-                                                    .addGap(2, 2, 2)
-                                                    .addComponent(btnAlterarTipo)
-                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                    .addComponent(btnLimparTipo)))))
-                                    .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                        .addGap(105, 105, 105)
-                                        .addComponent(lblTipo)))
-                                .addGap(16, 16, 16)))
+                                                    .addGap(88, 88, 88)
+                                                    .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                .addGap(105, 105, 105)
+                                .addComponent(lblTipo)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTipoSubtipoLayout.createSequentialGroup()
-                                .addComponent(btnAdicionarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnNovoSubtipo)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluirSubtipo)
+                                .addComponent(btnSalvarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAlterarSubtipo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnLimparSubtipo))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluirSubtipo)
+                                .addGap(12, 12, 12))
                             .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfdDescricaoSubTipo)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -407,10 +447,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 .addComponent(tfdDescricaoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionarTipo)
+                    .addComponent(btnSalvarTipo)
                     .addComponent(btnExcluirTipo)
                     .addComponent(btnAlterarTipo)
-                    .addComponent(btnLimparTipo))
+                    .addComponent(btnNovoTipo)
+                    .addComponent(btnCancelarTipo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -426,16 +467,17 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdDescricaoSubTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnAdicionarImagem)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionarSubtipo)
-                    .addComponent(btnExcluirSubtipo)
                     .addComponent(btnAlterarSubtipo)
-                    .addComponent(btnLimparSubtipo))
-                .addContainerGap())
+                    .addComponent(btnNovoSubtipo)
+                    .addComponent(btnSalvarSubtipo)
+                    .addComponent(btnCancelarSubtipo)
+                    .addComponent(btnExcluirSubtipo))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tbeTipo.setModel(new javax.swing.table.DefaultTableModel(
@@ -494,9 +536,9 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -511,7 +553,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -520,27 +562,27 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAdicionarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarTipoActionPerformed
+    private void btnSalvarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarTipoActionPerformed
         if (tfdDescricaoTipo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoTipo.requestFocusInWindow();
-        } else {
+        } else  if (tfdIDTipo.getText().isEmpty()){
             tipo = new TipoM();
             tipo.setDescricao(tfdDescricaoTipo.getText());
 
             try {
                 tipoDAO.salvar(tipo);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabelaTipo();
-                preencheComboBox();
-                atualizaTabelaSubTipo();
-                limpaCamposTipo();
+                //atualizaTabelaTipo();
+                //preencheComboBox();
+                
+                //limpaCamposTipo();
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -550,8 +592,34 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 }
             }
 
+        }else{
+            
+            tipo = new TipoM();
+            tipo.setDescricao(tfdDescricaoTipo.getText());
+            tipo.setId(Integer.parseInt(tfdIDTipo.getText()));
+
+            try {
+                tipoDAO.alterar(tipo);
+                JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                //atualizaTabelaTipo();
+                
+                //atualizaTabelaSubTipo();
+                limpaCamposTipo();
+            } catch (SQLException ex) {
+                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(null, "Tipo já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
         }
-    }//GEN-LAST:event_btnAdicionarTipoActionPerformed
+        preparaSalvareCancelarTipo();
+        desativaCamposTipo();
+        atualizaTabelaTipo();
+        preencheComboBox();
+        atualizaTabelaSubTipo();
+    }//GEN-LAST:event_btnSalvarTipoActionPerformed
 
     private void btnExcluirTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTipoActionPerformed
 
@@ -578,11 +646,16 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
 
             }
         }
+        desativaCamposTipo();
+        preparaSalvareCancelarTipo();
     }//GEN-LAST:event_btnExcluirTipoActionPerformed
 
     private void btnAlterarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarTipoActionPerformed
-
-        if (tfdIDTipo.getText().isEmpty()) {
+        
+        preparaAlterarTipo();
+        ativaCamposTipo();
+        
+        /*if (tfdIDTipo.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um Tipo!", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
             tipo = new TipoM();
@@ -605,20 +678,21 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
-
+*/
     }//GEN-LAST:event_btnAlterarTipoActionPerformed
 
-    private void btnLimparTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparTipoActionPerformed
+    private void btnNovoTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoTipoActionPerformed
         // TODO add your handling code here:
         limpaCamposTipo();
+        preparaNovoTipo();
         //preencheComboBox();
-        btnAdicionarTipo.setEnabled(true);
-    }//GEN-LAST:event_btnLimparTipoActionPerformed
+        //btnSalvarTipo.setEnabled(true);
+    }//GEN-LAST:event_btnNovoTipoActionPerformed
 
     private void tbeTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeTipoMouseClicked
         tfdIDTipo.setText(tbeTipo.getValueAt(tbeTipo.getSelectedRow(), 0).toString());
         tfdDescricaoTipo.setText(tbeTipo.getValueAt(tbeTipo.getSelectedRow(), 1).toString());
-        btnAdicionarTipo.setEnabled(false);
+        btnSalvarTipo.setEnabled(false);
         btnExcluirTipo.setEnabled(true);
         btnAlterarTipo.setEnabled(true);
     }//GEN-LAST:event_tbeTipoMouseClicked
@@ -629,25 +703,44 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfdIDTipoActionPerformed
 
 
-    private void btnAdicionarSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarSubtipoActionPerformed
+    private void btnSalvarSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarSubtipoActionPerformed
 
         if (tfdDescricaoSubTipo.getText().isEmpty() || cbxSubtipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoSubTipo.requestFocusInWindow();
-        } else {
+        } else if(tfdIDSubTipo.getText().isEmpty()){
             subTipo = new SubTipoM();
-
             subTipo.setDescricao(tfdDescricaoSubTipo.getText());
-
             subTipo.setTipo(listaTipo.get(cbxSubtipo.getSelectedIndex() - 1));
-
-            try {
-                subTipoDAO.salvar(subTipo);
-                atualizaTabelaSubTipo();
-                salvarImagen();
-                JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            try {               
+                subTipoDAO.salvar(subTipo);                
+                if(bi!=null){
+                salvarImagen();                
+                }                
                 limpaCamposSubTipo();
-
+                //atualizaTabelaSubTipo();
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(null, "Subtipo já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }       
+    }else{
+            subTipo = new SubTipoM();
+            subTipo.setDescricao(tfdDescricaoSubTipo.getText());
+            subTipo.setTipo(listaTipo.get(cbxSubtipo.getSelectedIndex() - 1));
+            subTipo.setId(Integer.parseInt(tfdIDSubTipo.getText()));
+            try {
+                subTipoDAO.alterar(subTipo);
+                //atualizaTabelaSubTipo();
+                if(bi!=null){
+                salvarImagen();               
+                }
+                JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                limpaCamposSubTipo();
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -656,9 +749,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
-
         }
-    }//GEN-LAST:event_btnAdicionarSubtipoActionPerformed
+        desativaCamposSubtipo();
+        preparaSalvareCancelarSubtipo();
+        atualizaTabelaSubTipo();
+    }//GEN-LAST:event_btnSalvarSubtipoActionPerformed
 
 
     private void btnExcluirSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirSubtipoActionPerformed
@@ -691,11 +786,17 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
 
             }
         }
-
+         desativaCamposSubtipo();
+         preparaSalvareCancelarSubtipo();
     }//GEN-LAST:event_btnExcluirSubtipoActionPerformed
 
     private void btnAlterarSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarSubtipoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:      
+        preparaAlterarSubtipo();
+        ativaCamposSubtipo();
+        
+        
+/*
         if (tfdIDSubTipo.getText().isEmpty() || cbxSubtipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Selecione SubTipo!", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
@@ -723,24 +824,25 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             }
 
         }
-
+*/
     }//GEN-LAST:event_btnAlterarSubtipoActionPerformed
 
-    private void btnLimparSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparSubtipoActionPerformed
+    private void btnNovoSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoSubtipoActionPerformed
         // TODO add your handling code here:
+        preparaNovoSubTipo();
         limpaCamposSubTipo();
-        cbxSubtipo.setSelectedIndex(0);
-        btnAdicionarSubtipo.setEnabled(true);
+        //cbxSubtipo.setSelectedIndex(0);
+        //btnSalvarSubtipo.setEnabled(true);
         //cbxSubtipo.setEnabled(true);
 
-    }//GEN-LAST:event_btnLimparSubtipoActionPerformed
+    }//GEN-LAST:event_btnNovoSubtipoActionPerformed
 
     private void tbeSubTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSubTipoMouseClicked
         tfdIDSubTipo.setText(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 0).toString());
         tfdDescricaoSubTipo.setText(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString());
         btnExcluirSubtipo.setEnabled(true);
         btnAlterarSubtipo.setEnabled(true);
-        btnAdicionarSubtipo.setEnabled(false);
+        btnSalvarSubtipo.setEnabled(false);
         String nome = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString();
         String descricao = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString();
         int cont = 1;
@@ -779,7 +881,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxSubtipoActionPerformed
 
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnAdicionarImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarImagemActionPerformed
         bi = null;
         // TODO add your handling code here:
         JFileChooser fileChooser = new JFileChooser();
@@ -806,7 +908,21 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             jLabel1.setIcon(new ImageIcon(aux));//seta no jlabe
 
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnAdicionarImagemActionPerformed
+
+    private void btnCancelarSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarSubtipoActionPerformed
+        // TODO add your handling code here:
+        limpaCamposSubTipo();
+        preparaSalvareCancelarSubtipo();
+        desativaCamposSubtipo();
+    }//GEN-LAST:event_btnCancelarSubtipoActionPerformed
+
+    private void btnCancelarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarTipoActionPerformed
+        // TODO add your handling code here:
+        limpaCamposTipo();
+        preparaSalvareCancelarTipo();
+        desativaCamposTipo();
+    }//GEN-LAST:event_btnCancelarTipoActionPerformed
 
     public void salvarImagen() {
 
@@ -818,18 +934,87 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         }
     }
 
-
+    public void preparaNovoSubTipo(){  
+        btnNovoSubtipo.setEnabled(false);
+        cbxSubtipo.setEnabled(true);
+        tfdDescricaoSubTipo.setEnabled(true);
+        btnAdicionarImagem.setEnabled(true);
+        btnSalvarSubtipo.setEnabled(true);
+        btnCancelarSubtipo.setEnabled(true);
+        tbeSubTipo.setEnabled(false);
+        tbeSubTipo.clearSelection();
+    }
+    public void preparaNovoTipo(){
+        tfdDescricaoTipo.setEnabled(true);
+        btnNovoTipo.setEnabled(false);
+        btnSalvarTipo.setEnabled(true);
+        btnCancelarTipo.setEnabled(true);
+        tbeTipo.setEnabled(false);
+        tbeTipo.clearSelection();   
+    }
+    public void preparaSalvareCancelarSubtipo(){
+        btnNovoSubtipo.setEnabled(true);
+        btnSalvarSubtipo.setEnabled(false);
+        btnCancelarSubtipo.setEnabled(false);
+        tbeSubTipo.setEnabled(true); 
+    }
+    public void preparaSalvareCancelarTipo(){
+        btnNovoTipo.setEnabled(true);
+        btnSalvarTipo.setEnabled(false);
+        btnCancelarTipo.setEnabled(false);
+        tbeTipo.setEnabled(true);
+    }
+    public void desativaCamposSubtipo(){
+        cbxSubtipo.setEnabled(false);
+        tfdDescricaoSubTipo.setEnabled(false);
+        btnAdicionarImagem.setEnabled(false);
+        btnSalvarSubtipo.setEnabled(false);
+        btnCancelarSubtipo.setEnabled(false);
+        btnAlterarSubtipo.setEnabled(false);
+        btnExcluirSubtipo.setEnabled(false);
+    } 
+    public void desativaCamposTipo(){
+        tfdDescricaoTipo.setEnabled(false);
+    }
+    public void ativaCamposTipo(){
+        tfdDescricaoTipo.setEnabled(true);
+    }
+    public void ativaCamposSubtipo(){
+        cbxSubtipo.setEnabled(true);
+        tfdDescricaoSubTipo.setEnabled(true);
+        btnAdicionarImagem.setEnabled(true);
+    }
+    public void preparaAlterarSubtipo(){
+        btnNovoSubtipo.setEnabled(false);
+        btnExcluirSubtipo.setEnabled(false);
+        btnAlterarSubtipo.setEnabled(false);
+        btnSalvarSubtipo.setEnabled(true);
+        btnCancelarSubtipo.setEnabled(true);
+        tbeSubTipo.setEnabled(false);
+        tbeSubTipo.clearSelection();
+    }
+    public void preparaAlterarTipo(){
+        btnNovoTipo.setEnabled(false);
+        btnExcluirTipo.setEnabled(false);
+        btnAlterarTipo.setEnabled(false);
+        btnSalvarTipo.setEnabled(true);
+        btnCancelarTipo.setEnabled(true);
+        tbeTipo.setEnabled(false);
+        tbeTipo.clearSelection();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionarSubtipo;
-    private javax.swing.JButton btnAdicionarTipo;
+    private javax.swing.JButton btnAdicionarImagem;
     private javax.swing.JButton btnAlterarSubtipo;
     private javax.swing.JButton btnAlterarTipo;
+    private javax.swing.JButton btnCancelarSubtipo;
+    private javax.swing.JButton btnCancelarTipo;
     private javax.swing.JButton btnExcluirSubtipo;
     private javax.swing.JButton btnExcluirTipo;
-    private javax.swing.JButton btnLimparSubtipo;
-    private javax.swing.JButton btnLimparTipo;
+    private javax.swing.JButton btnNovoSubtipo;
+    private javax.swing.JButton btnNovoTipo;
+    private javax.swing.JButton btnSalvarSubtipo;
+    private javax.swing.JButton btnSalvarTipo;
     private javax.swing.JComboBox<String> cbxSubtipo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

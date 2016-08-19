@@ -27,7 +27,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <Component id="pnlTipoSubtipo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
@@ -38,7 +38,7 @@
           <Component id="pnlTipoSubtipo" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -58,44 +58,42 @@
                                   <Component id="tfdDescricaoTipo" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lblDescricaoTipo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblDescricaoSubtipo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                                                  <Component id="lblSubtipo" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lblIDTipo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="tfdIDTipo" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                                  <Component id="lblIDTipo1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="tfdIDSubTipo" min="-2" pref="50" max="-2" attributes="0"/>
-                                                      <EmptySpace max="32767" attributes="0"/>
-                                                      <Component id="cbxSubtipo" min="-2" pref="138" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="btnAdicionarTipo" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="btnExcluirTipo" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                                                      <Component id="btnAlterarTipo" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="btnLimparTipo" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
+                                      <Component id="lblDescricaoTipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblDescricaoSubtipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
+                                          <Component id="lblSubtipo" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="btnAdicionarImagem" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lblIDTipo" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfdIDTipo" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="btnNovoTipo" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnSalvarTipo" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                              <Component id="btnCancelarTipo" max="32767" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnAlterarTipo" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="btnExcluirTipo" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="lblIDTipo1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="tfdIDSubTipo" min="-2" pref="50" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                                              <Component id="cbxSubtipo" min="-2" pref="138" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
-                                          <Component id="lblTipo" min="-2" max="-2" attributes="0"/>
-                                      </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Component id="lblTipo" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -104,13 +102,16 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="btnAdicionarSubtipo" max="32767" attributes="0"/>
+                                  <Component id="btnNovoSubtipo" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnExcluirSubtipo" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnSalvarSubtipo" max="32767" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnCancelarSubtipo" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnAlterarSubtipo" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="btnLimparSubtipo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="btnExcluirSubtipo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                               </Group>
                               <Component id="spdTipoSubtipo" alignment="1" max="32767" attributes="0"/>
                               <Component id="tfdDescricaoSubTipo" alignment="0" max="32767" attributes="0"/>
@@ -137,10 +138,11 @@
                   <Component id="tfdDescricaoTipo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnAdicionarTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSalvarTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnExcluirTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAlterarTipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnLimparTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNovoTipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelarTipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="spdTipoSubtipo" min="-2" pref="7" max="-2" attributes="0"/>
@@ -158,17 +160,18 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tfdDescricaoSubTipo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAdicionarImagem" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" pref="142" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnAdicionarSubtipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnExcluirSubtipo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnAlterarSubtipo" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnLimparSubtipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnNovoSubtipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSalvarSubtipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelarSubtipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnExcluirSubtipo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -180,6 +183,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfdDescricaoTipo">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="spdTipoSubtipo">
         </Component>
@@ -194,6 +200,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfdDescricaoSubTipo">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTipo">
           <Properties>
@@ -203,6 +212,7 @@
         <Component class="javax.swing.JButton" name="btnAlterarTipo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Alterar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarTipoActionPerformed"/>
@@ -211,49 +221,46 @@
         <Component class="javax.swing.JButton" name="btnExcluirTipo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirTipoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAdicionarTipo">
+        <Component class="javax.swing.JButton" name="btnSalvarTipo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Adicionar"/>
+            <Property name="text" type="java.lang.String" value="Salvar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarTipoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarTipoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAlterarSubtipo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Alterar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarSubtipoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnExcluirSubtipo">
+        <Component class="javax.swing.JButton" name="btnSalvarSubtipo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="text" type="java.lang.String" value="Salvar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirSubtipoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarSubtipoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAdicionarSubtipo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Adicionar"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarSubtipoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="btnAdicionarImagem">
           <Properties>
             <Property name="text" type="java.lang.String" value="Adicionar Imagem"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarImagemActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblIDTipo">
@@ -286,6 +293,7 @@
                 <StringItem index="0" value="--Selecione--"/>
               </StringArray>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxSubtipoActionPerformed"/>
@@ -294,20 +302,12 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="btnLimparTipo">
+        <Component class="javax.swing.JButton" name="btnNovoTipo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Novo"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparTipoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnLimparSubtipo">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Novo"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparSubtipoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoTipoActionPerformed"/>
           </Events>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -340,7 +340,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -350,6 +350,41 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="btnCancelarSubtipo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarSubtipoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnNovoSubtipo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Novo"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoSubtipoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnExcluirSubtipo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirSubtipoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCancelarTipo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarTipoActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPanel" name="jPanel1">
@@ -358,9 +393,9 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="411" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jScrollPane2" min="-2" pref="412" max="-2" attributes="0"/>
               </Group>
           </Group>
