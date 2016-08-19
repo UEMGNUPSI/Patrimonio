@@ -493,10 +493,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
-            atualizaTabelaConservacao();
-            preparaSalvareCancelarStatus();
+             atualizaTabelaConservacao();
+            preparaSalvareCancelarConservacao();
             desativaCamposConservacao();
-            limpaCamposConservacao();
+            limpaCamposConservacao(); 
         } else {
             grauConservacao = new GrauConservacaoM();
             grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
@@ -513,9 +513,11 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
-        atualizaTabelaConservacao();
-        preparaSalvareCancelarConservacao();
-        desativaCamposConservacao();
+            atualizaTabelaConservacao();
+            preparaSalvareCancelarConservacao();
+            desativaCamposConservacao();
+            limpaCamposConservacao();
+        
 
         }
 
@@ -566,7 +568,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
 
 
     private void btnSalvarStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarStatusActionPerformed
-        // TODO add your handling code here:
+        
         if (tfdDescricaoStatus.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoStatus.requestFocusInWindow();
@@ -607,6 +609,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             atualizaTabelaStatus();
             preparaSalvareCancelarStatus();
             desativaCamposStatus();
+            limpaCamposStatus();
         }
     }//GEN-LAST:event_btnSalvarStatusActionPerformed
 
@@ -638,9 +641,11 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirStatusActionPerformed
 
     private void btnAlterarStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarStatusActionPerformed
-        limpaCamposStatus();
+        
         preparaAlterarStatus();
-        desativaCamposStatus();
+        ativaCamposStatus();
+       
+        
     }//GEN-LAST:event_btnAlterarStatusActionPerformed
 
     private void btnNovoStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoStatusActionPerformed
@@ -653,19 +658,14 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         tfdIDConservacao.setText(tbeConservacao.getValueAt(tbeConservacao.getSelectedRow(), 0).toString());
         tdfDescricaoConservacao.setText(tbeConservacao.getValueAt(tbeConservacao.getSelectedRow(), 1).toString());
-        btnSalvarConservacao.setEnabled(false);
-        btnExcluirConservacao.setEnabled(true);
-        btnAlterarConservacao.setEnabled(true);
-
+        preparaSelecaoTabelaConservacao();
     }//GEN-LAST:event_tbeConservacaoMouseClicked
 
     private void tbeStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeStatusMouseClicked
         // TODO add your handling code here:
         tfdIDStatus.setText(tbeStatus.getValueAt(tbeStatus.getSelectedRow(), 0).toString());
         tfdDescricaoStatus.setText(tbeStatus.getValueAt(tbeStatus.getSelectedRow(), 1).toString());
-        btnSalvarStatus.setEnabled(false);
-        btnExcluirStatus.setEnabled(true);
-        btnAlterarStatus.setEnabled(true);
+        preparaSelecaoTabelaStatus();
     }//GEN-LAST:event_tbeStatusMouseClicked
 
     private void btnCancelarConservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarConservacaoActionPerformed
@@ -687,7 +687,6 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
      public void limpaCamposConservacaoo() {
         tfdIDConservacao.setText("");
         tdfDescricaoConservacao.setText("");
-        
     }
     
     public void preparaNovoConservacao() {
@@ -699,7 +698,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
     }
     public void preparaSalvareCancelarConservacao() {
         btnNovoConservacao.setEnabled(true);
-        btnSalvarConservacao.setEnabled(false);
+        btnSalvarConservacao.setEnabled(false); //VERIFICAR PORQUE ESSE FILHO DAPUTA NAO DESATIVA
         btnCancelarConservacao.setEnabled(false);
         tbeConservacao.setEnabled(true);
     }
@@ -726,18 +725,27 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         btnExcluirConservacao.setEnabled(false);
         btnAlterarConservacao.setEnabled(false);
     }
+     public void preparaSelecaoTabelaConservacao(){
+     btnSalvarConservacao.setEnabled(false);
+        btnExcluirConservacao.setEnabled(true);
+        btnAlterarConservacao.setEnabled(true);
+     }
     
     // FIM MÉTODOS DE CONTROLE DE BOTÕES CONSERVAÇÃO 
        
     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES STATUS
      
       public void limpaCamposStatus() {
-        tfdIDStatus.setText(" ");
-        tfdDescricaoStatus.setText(" ");
+        tfdIDStatus.setText("");
+        tfdDescricaoStatus.setText("");
     }
     
     public void preparaNovoStatus() {
-        
+        btnNovoStatus.setEnabled(false);
+        btnSalvarStatus.setEnabled(true);
+        btnCancelarStatus.setEnabled(true);
+        tbeStatus.setEnabled(false);
+        tbeStatus.clearSelection();
     }
     public void preparaSalvareCancelarStatus() {
         btnNovoStatus.setEnabled(true);
@@ -767,6 +775,12 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
      public void preparaExcluirStatus() {
         btnExcluirStatus.setEnabled(false);
         btnAlterarStatus.setEnabled(false);
+    }
+     
+    public void preparaSelecaoTabelaStatus() {
+        btnSalvarStatus.setEnabled(false);
+        btnExcluirStatus.setEnabled(true);
+        btnAlterarStatus.setEnabled(true);
     }
     //  FIM MÉTODOS DE CONTROLE DE BOTÕES STATUS
      
