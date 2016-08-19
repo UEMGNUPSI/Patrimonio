@@ -278,9 +278,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         tfdTelefone.setText(tbeUnidade.getValueAt(tbeUnidade.getSelectedRow(), 2).toString());
         tfdEndereco.setText(tbeUnidade.getValueAt(tbeUnidade.getSelectedRow(), 3).toString());
         tfdEmail.setText(tbeUnidade.getValueAt(tbeUnidade.getSelectedRow(), 4).toString());
-        btnAlterarUnidade.setEnabled(true);
-        btnExcluirUnidade.setEnabled(true);
-        btnSalvar.setEnabled(false);
+        preparaSelecaoTabela();
     }//GEN-LAST:event_tbeUnidadeMouseClicked
 
     private void btnExcluirUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirUnidadeActionPerformed
@@ -451,6 +449,8 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         btnNovo.setEnabled(false);
         btnSalvar.setEnabled(true);
         btnCancelar.setEnabled(true);
+        btnAlterarUnidade.setEnabled(false);
+        btnExcluirUnidade.setEnabled(false);
         tbeUnidade.setEnabled(false);
         tbeUnidade.clearSelection();
     }
@@ -491,6 +491,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         tbeUnidade.clearSelection();
     }
     
+    public void preparaSelecaoTabela(){
+        btnNovo.setEnabled(true);
+        btnExcluirUnidade.setEnabled(true);
+        btnAlterarUnidade.setEnabled(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarUnidade;

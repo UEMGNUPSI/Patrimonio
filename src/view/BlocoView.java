@@ -294,10 +294,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
     private void tbeBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBlocoMouseClicked
         tfdIDBloco.setText(tbeBloco.getValueAt(tbeBloco.getSelectedRow(), 0).toString());
         tfdDescricaoBloco.setText(tbeBloco.getValueAt(tbeBloco.getSelectedRow(), 1).toString());
-        btnAlterarBloco.setEnabled(true);
-        btnSalvarBloco.setEnabled(false);
-        btnExcluirBloco.setEnabled(true);
-        cbxUnidade.setEnabled(false);
+        preparaSelecaoTabela();
        
     }//GEN-LAST:event_tbeBlocoMouseClicked
 
@@ -411,6 +408,8 @@ public class BlocoView extends javax.swing.JInternalFrame {
         btnNovoBloco.setEnabled(false);
         btnSalvarBloco.setEnabled(true);
         btnCancelarBloco.setEnabled(true);
+        btnAlterarBloco.setEnabled(false);
+        btnExcluirBloco.setEnabled(false);
         tbeBloco.setEnabled(false);
         tbeBloco.clearSelection();
     }
@@ -419,7 +418,9 @@ public class BlocoView extends javax.swing.JInternalFrame {
         btnNovoBloco.setEnabled(true);
         btnSalvarBloco.setEnabled(false);
         btnCancelarBloco.setEnabled(false);
+        btnExcluirBloco.setEnabled(false);
         tbeBloco.setEnabled(true);
+        tbeBloco.clearSelection();
     }
     
     public void desativaCampos(){
@@ -434,6 +435,13 @@ public class BlocoView extends javax.swing.JInternalFrame {
     public void ativaCampos(){
         tfdDescricaoBloco.setEnabled(true);
         cbxUnidade.setEnabled(true);
+    }
+    
+    public void preparaSelecaoTabela(){
+        btnNovoBloco.setEnabled(true);
+        btnExcluirBloco.setEnabled(true);
+        btnAlterarBloco.setEnabled(true);
+        
     }
     public UnidadeM pegaUnidade() {
         try {

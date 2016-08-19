@@ -388,13 +388,11 @@ public class EntidadeView extends javax.swing.JInternalFrame {
 
     private void tbeEntidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeEntidadeMouseClicked
         // TODO add your handling code here:
-        btnSalvar.setEnabled(false);
-        btnExcluir.setEnabled(true);
-        btnAlterar.setEnabled(true);
         tfdID.setText(tbeEntidade.getValueAt(tbeEntidade.getSelectedRow(), 0).toString());
         tfdNome.setText(tbeEntidade.getValueAt(tbeEntidade.getSelectedRow(), 1).toString());
         tfdCnpj.setText(tbeEntidade.getValueAt(tbeEntidade.getSelectedRow(), 2).toString());
         tfdContato.setText(tbeEntidade.getValueAt(tbeEntidade.getSelectedRow(), 3).toString());
+        preparaSelecaoTabela();
     }//GEN-LAST:event_tbeEntidadeMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -444,6 +442,8 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         btnNovo.setEnabled(false);
         btnSalvar.setEnabled(true);
         btnCancelar.setEnabled(true);
+        btnAlterar.setEnabled(false);
+        btnExcluir.setEnabled(false);
         tbeEntidade.setEnabled(false);
         tbeEntidade.clearSelection();
     }
@@ -460,6 +460,12 @@ public class EntidadeView extends javax.swing.JInternalFrame {
     public void preparaExcluir() {
         btnExcluir.setEnabled(false);
         btnAlterar.setEnabled(false);
+    }
+    
+    public void preparaSelecaoTabela(){
+        btnNovo.setEnabled(true);
+        btnExcluir.setEnabled(true);
+        btnAlterar.setEnabled(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
