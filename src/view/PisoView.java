@@ -510,7 +510,9 @@ public class PisoView extends javax.swing.JInternalFrame {
         }
         return null;
     }
-
+    
+     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES 
+    
     public void limpaCamposPiso() {
         tfdDescricaoPiso.setText("");
         tfdIDPiso.setText("");
@@ -566,7 +568,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnAlterarPiso.setEnabled(false);
     }
     
-     
+     // FIM MÉTODOS DE CONTROLE DE BOTÕES 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarPiso;

@@ -403,6 +403,8 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES
+    
     public void preparaSalvareCancelar() {
         btnNovo.setEnabled(true);
         btnSalvar.setEnabled(false);
@@ -467,6 +469,8 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         btnExcluir.setEnabled(true);
         btnAlterar.setEnabled(true);
     }
+    
+    // FIM MÉTODOS DE CONTROLE DE BOTÕES
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

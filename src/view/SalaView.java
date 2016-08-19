@@ -544,6 +544,9 @@ public class SalaView extends javax.swing.JInternalFrame {
         return null;
     }
 
+    
+     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES 
+    
     public void limpaCamposSala() {
         cbxUnidade1.setSelectedIndex(0);
         tfdDescricaoSala.setText("");
@@ -600,6 +603,9 @@ public class SalaView extends javax.swing.JInternalFrame {
         btnExcluirSala.setEnabled(false);
         btnAlterarSala.setEnabled(false);
     }
+     
+     // FIM MÉTODOS DE CONTROLE DE BOTÕES 
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarSala;
     private javax.swing.JButton btnCancelarSala;

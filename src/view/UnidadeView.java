@@ -445,6 +445,9 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         tbeUnidade.updateUI();
     }
     
+    
+     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES 
+    
     public void preparaNovo(){
         btnNovo.setEnabled(false);
         btnSalvar.setEnabled(true);
@@ -496,6 +499,8 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         btnExcluirUnidade.setEnabled(true);
         btnAlterarUnidade.setEnabled(true);
     }
+    
+     // FIM MÉTODOS DE CONTROLE DE BOTÕES 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarUnidade;

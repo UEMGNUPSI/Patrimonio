@@ -388,6 +388,22 @@ public class BlocoView extends javax.swing.JInternalFrame {
         desativaCampos();
     }//GEN-LAST:event_btnCancelarBlocoActionPerformed
     
+      public UnidadeM pegaUnidade() {
+        try {
+            if (cbxUnidade.getSelectedIndex() == 0 ){
+                JOptionPane.showMessageDialog(null, "Selecione uma Unidade.");
+            }else {
+                return unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    
+    // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES
+    
     public void preparaAlterar(){
         btnNovoBloco.setEnabled(false);
         btnExcluirBloco.setEnabled(false);
@@ -444,18 +460,10 @@ public class BlocoView extends javax.swing.JInternalFrame {
         btnAlterarBloco.setEnabled(true);
         
     }
-    public UnidadeM pegaUnidade() {
-        try {
-            if (cbxUnidade.getSelectedIndex() == 0 ){
-                JOptionPane.showMessageDialog(null, "Selecione uma Unidade.");
-            }else {
-                return unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
+    
+   // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES
+    
+  
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
