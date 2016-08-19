@@ -842,17 +842,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         tfdDescricaoSubTipo.setText(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString());
         btnExcluirSubtipo.setEnabled(true);
         btnAlterarSubtipo.setEnabled(true);
-        btnSalvarSubtipo.setEnabled(false);
+        cbxSubtipo.setSelectedItem(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString());
+        
         String nome = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString();
         String descricao = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString();
-        int cont = 1;
-        for (TipoM tipo1 : listaTipo) {
-            if (tipo1.getDescricao().equals(nome)) {
-                cbxSubtipo.setSelectedIndex(cont);
-            }
-            cont++;
-        }
-
+        
         File arq = new File(caminho + descricao + ".jpg");
         if (arq.exists() == true) {
             try {
@@ -941,6 +935,8 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         btnAdicionarImagem.setEnabled(true);
         btnSalvarSubtipo.setEnabled(true);
         btnCancelarSubtipo.setEnabled(true);
+        btnAlterarSubtipo.setEnabled(false);
+        btnExcluirSubtipo.setEnabled(false);
         tbeSubTipo.setEnabled(false);
         tbeSubTipo.clearSelection();
     }
@@ -949,6 +945,8 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         btnNovoTipo.setEnabled(false);
         btnSalvarTipo.setEnabled(true);
         btnCancelarTipo.setEnabled(true);
+        btnAlterarTipo.setEnabled(false);
+        btnExcluirTipo.setEnabled(false);
         tbeTipo.setEnabled(false);
         tbeTipo.clearSelection();   
     }

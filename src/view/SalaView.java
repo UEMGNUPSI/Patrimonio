@@ -336,13 +336,13 @@ public class SalaView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 842, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 684, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -485,6 +485,9 @@ public class SalaView extends javax.swing.JInternalFrame {
         cbxBloco1.setEnabled(false);
         cbxPiso1.setEnabled(false);
         cbxUnidade1.setEnabled(false);
+        cbxUnidade1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 4).toString());
+        cbxBloco1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 3).toString());
+        cbxPiso1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tbeSalaMouseClicked
 
     private void btnNovoSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoSalaActionPerformed
@@ -541,6 +544,9 @@ public class SalaView extends javax.swing.JInternalFrame {
         return null;
     }
 
+    
+     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES 
+    
     public void limpaCamposSala() {
         cbxUnidade1.setSelectedIndex(0);
         tfdDescricaoSala.setText("");
@@ -565,12 +571,6 @@ public class SalaView extends javax.swing.JInternalFrame {
     }
     
     public void ativaCampos() {
-        cbxUnidade1.setSelectedIndex(0);
-        cbxUnidade1.setEnabled(true);
-        cbxBloco1.setSelectedIndex(0);
-        cbxBloco1.setEnabled(true);
-        cbxPiso1.setSelectedIndex(0);
-        cbxPiso1.setEnabled(true);
         tfdIDSala.setEnabled(true);
         tfdDescricaoSala.setEnabled(true);
     }
@@ -603,6 +603,9 @@ public class SalaView extends javax.swing.JInternalFrame {
         btnExcluirSala.setEnabled(false);
         btnAlterarSala.setEnabled(false);
     }
+     
+     // FIM MÉTODOS DE CONTROLE DE BOTÕES 
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarSala;
     private javax.swing.JButton btnCancelarSala;

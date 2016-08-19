@@ -379,6 +379,7 @@ public class PisoView extends javax.swing.JInternalFrame {
             piso.setBloco(pegaBloco());
             try {
                 pisoDAO.salvar(piso);
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -445,6 +446,8 @@ public class PisoView extends javax.swing.JInternalFrame {
         tfdDescricaoPiso.setText(tbePiso.getValueAt(tbePiso.getSelectedRow(), 1).toString());
         cbxBloco1.setEnabled(false);
         cbxUnidade1.setEnabled(false);
+        cbxUnidade1.setSelectedItem(tbePiso.getValueAt(tbePiso.getSelectedRow(), 3).toString());
+        cbxBloco1.setSelectedItem(tbePiso.getValueAt(tbePiso.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tbePisoMouseClicked
 
     private void btnAlterarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarPisoActionPerformed
@@ -507,7 +510,9 @@ public class PisoView extends javax.swing.JInternalFrame {
         }
         return null;
     }
-
+    
+     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES 
+    
     public void limpaCamposPiso() {
         tfdDescricaoPiso.setText("");
         tfdIDPiso.setText("");
@@ -532,10 +537,6 @@ public class PisoView extends javax.swing.JInternalFrame {
     }
     
     public void ativaCampos() {
-        cbxUnidade1.setSelectedIndex(0);
-        cbxUnidade1.setEnabled(true);
-        cbxBloco1.setSelectedIndex(0);
-        cbxBloco1.setEnabled(true);
         tfdIDPiso.setEnabled(true);
         tfdDescricaoPiso.setEnabled(true);
     }
@@ -567,7 +568,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnAlterarPiso.setEnabled(false);
     }
     
-     
+     // FIM MÉTODOS DE CONTROLE DE BOTÕES 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarPiso;
