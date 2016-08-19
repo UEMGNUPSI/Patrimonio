@@ -741,16 +741,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         btnExcluirSubtipo.setEnabled(true);
         btnAlterarSubtipo.setEnabled(true);
         btnAdicionarSubtipo.setEnabled(false);
+        cbxSubtipo.setSelectedItem(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString());
+        
         String nome = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString();
         String descricao = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString();
-        int cont = 1;
-        for (TipoM tipo1 : listaTipo) {
-            if (tipo1.getDescricao().equals(nome)) {
-                cbxSubtipo.setSelectedIndex(cont);
-            }
-            cont++;
-        }
-
+        
         File arq = new File(caminho + descricao + ".jpg");
         if (arq.exists() == true) {
             try {

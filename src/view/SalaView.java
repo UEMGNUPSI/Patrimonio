@@ -485,6 +485,9 @@ public class SalaView extends javax.swing.JInternalFrame {
         cbxBloco1.setEnabled(false);
         cbxPiso1.setEnabled(false);
         cbxUnidade1.setEnabled(false);
+        cbxUnidade1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 4).toString());
+        cbxBloco1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 3).toString());
+        cbxPiso1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tbeSalaMouseClicked
 
     private void btnNovoSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoSalaActionPerformed
@@ -565,12 +568,6 @@ public class SalaView extends javax.swing.JInternalFrame {
     }
     
     public void ativaCampos() {
-        cbxUnidade1.setSelectedIndex(0);
-        cbxUnidade1.setEnabled(true);
-        cbxBloco1.setSelectedIndex(0);
-        cbxBloco1.setEnabled(true);
-        cbxPiso1.setSelectedIndex(0);
-        cbxPiso1.setEnabled(true);
         tfdIDSala.setEnabled(true);
         tfdDescricaoSala.setEnabled(true);
     }

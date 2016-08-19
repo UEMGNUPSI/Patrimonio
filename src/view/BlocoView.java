@@ -294,6 +294,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
     private void tbeBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBlocoMouseClicked
         tfdIDBloco.setText(tbeBloco.getValueAt(tbeBloco.getSelectedRow(), 0).toString());
         tfdDescricaoBloco.setText(tbeBloco.getValueAt(tbeBloco.getSelectedRow(), 1).toString());
+        cbxUnidade.setSelectedItem(tbeBloco.getValueAt(tbeBloco.getSelectedRow(), 2).toString());
         preparaSelecaoTabela();
        
     }//GEN-LAST:event_tbeBlocoMouseClicked

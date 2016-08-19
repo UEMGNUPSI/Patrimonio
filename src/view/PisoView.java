@@ -446,6 +446,8 @@ public class PisoView extends javax.swing.JInternalFrame {
         tfdDescricaoPiso.setText(tbePiso.getValueAt(tbePiso.getSelectedRow(), 1).toString());
         cbxBloco1.setEnabled(false);
         cbxUnidade1.setEnabled(false);
+        cbxUnidade1.setSelectedItem(tbePiso.getValueAt(tbePiso.getSelectedRow(), 3).toString());
+        cbxBloco1.setSelectedItem(tbePiso.getValueAt(tbePiso.getSelectedRow(), 2).toString());
     }//GEN-LAST:event_tbePisoMouseClicked
 
     private void btnAlterarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarPisoActionPerformed
@@ -533,10 +535,6 @@ public class PisoView extends javax.swing.JInternalFrame {
     }
     
     public void ativaCampos() {
-        cbxUnidade1.setSelectedIndex(0);
-        cbxUnidade1.setEnabled(true);
-        cbxBloco1.setSelectedIndex(0);
-        cbxBloco1.setEnabled(true);
         tfdIDPiso.setEnabled(true);
         tfdDescricaoPiso.setEnabled(true);
     }
