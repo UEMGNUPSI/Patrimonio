@@ -75,7 +75,8 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnSalvarPiso = new javax.swing.JButton();
         btnExcluirPiso = new javax.swing.JButton();
         btnAlterarPiso = new javax.swing.JButton();
-        cbxLimparPiso = new javax.swing.JButton();
+        btnNovoPiso = new javax.swing.JButton();
+        btnCancelarPiso = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -113,6 +114,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         lblSelecBloco1.setText("Selecione o bloco:");
 
         cbxUnidade1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UEMG", "Cadastrar Unidade" }));
+        cbxUnidade1.setEnabled(false);
         cbxUnidade1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbxUnidade1ItemStateChanged(evt);
@@ -149,6 +151,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         });
 
         cbxBloco1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bloco A", "Cadastrar Bloco" }));
+        cbxBloco1.setEnabled(false);
         cbxBloco1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxBloco1ActionPerformed(evt);
@@ -158,10 +161,14 @@ public class PisoView extends javax.swing.JInternalFrame {
         lblIDPiso.setText("ID");
 
         tfdIDPiso.setEditable(false);
+        tfdIDPiso.setEnabled(false);
 
         lblDescricaoPiso.setText("Descrição");
 
-        btnSalvarPiso.setText("Adicionar");
+        tfdDescricaoPiso.setEnabled(false);
+
+        btnSalvarPiso.setText("Salvar");
+        btnSalvarPiso.setEnabled(false);
         btnSalvarPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarPisoActionPerformed(evt);
@@ -169,6 +176,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         });
 
         btnExcluirPiso.setText("Excluir");
+        btnExcluirPiso.setEnabled(false);
         btnExcluirPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirPisoActionPerformed(evt);
@@ -176,16 +184,25 @@ public class PisoView extends javax.swing.JInternalFrame {
         });
 
         btnAlterarPiso.setText("Alterar");
+        btnAlterarPiso.setEnabled(false);
         btnAlterarPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarPisoActionPerformed(evt);
             }
         });
 
-        cbxLimparPiso.setText("Novo");
-        cbxLimparPiso.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoPiso.setText("Novo");
+        btnNovoPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxLimparPisoActionPerformed(evt);
+                btnNovoPisoActionPerformed(evt);
+            }
+        });
+
+        btnCancelarPiso.setText("Cancelar");
+        btnCancelarPiso.setEnabled(false);
+        btnCancelarPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarPisoActionPerformed(evt);
             }
         });
 
@@ -197,14 +214,6 @@ public class PisoView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnSalvarPiso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnExcluirPiso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAlterarPiso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxLimparPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cbxUnidade1, 0, 1, Short.MAX_VALUE)
@@ -215,19 +224,29 @@ public class PisoView extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbxBloco1, 0, 1, Short.MAX_VALUE)
                             .addComponent(lblSelecBloco1)))
+                    .addComponent(tfdDescricaoPiso)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfdIDPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblIDPiso)
-                            .addComponent(lblDescricaoPiso))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(tfdDescricaoPiso))
+                            .addComponent(lblDescricaoPiso)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnNovoPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalvarPiso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelarPiso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAlterarPiso)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluirPiso)))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -247,10 +266,11 @@ public class PisoView extends javax.swing.JInternalFrame {
                 .addComponent(tfdDescricaoPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSalvarPiso)
-                    .addComponent(btnExcluirPiso)
                     .addComponent(btnAlterarPiso)
-                    .addComponent(cbxLimparPiso))
+                    .addComponent(btnNovoPiso)
+                    .addComponent(btnSalvarPiso)
+                    .addComponent(btnCancelarPiso)
+                    .addComponent(btnExcluirPiso))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -338,21 +358,21 @@ public class PisoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxUnidade1ActionPerformed
 
     private void cbxBloco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBloco1ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbxBloco1ActionPerformed
 
-    private void cbxLimparPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxLimparPisoActionPerformed
+    private void btnNovoPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPisoActionPerformed
         limpaCamposPiso();
-        btnAlterarPiso.setEnabled(false);
-        btnSalvarPiso.setEnabled(true);
-        btnExcluirPiso.setEnabled(false);
-    }//GEN-LAST:event_cbxLimparPisoActionPerformed
+        preparaNovo();
+        ativaCampos();
+        tfdDescricaoPiso.requestFocusInWindow();
+    }//GEN-LAST:event_btnNovoPisoActionPerformed
 
     private void btnSalvarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPisoActionPerformed
         if (tfdDescricaoPiso.getText().isEmpty() || cbxUnidade1.getSelectedIndex() == 0 || cbxBloco1.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoPiso.requestFocusInWindow();
-        } else {
+        } else if (tfdIDPiso.getText().isEmpty()){
             piso = new PisoM();
             piso.setDescricao(tfdDescricaoPiso.getText());
             piso.setBloco(pegaBloco());
@@ -361,11 +381,24 @@ public class PisoView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
-            JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            atualizaTabelaPiso();
-            limpaCamposPiso();
-
         }
+            else{
+
+            piso = new PisoM();
+            piso.setDescricao(tfdDescricaoPiso.getText());      
+            piso.setId(Integer.parseInt(tfdIDPiso.getText()));
+            btnSalvarPiso.setEnabled(true);
+            try {
+                pisoDAO.alterar(piso);
+                JOptionPane.showMessageDialog(null, "Alterado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+            preparaSalvareCancelar();
+            desativaCampos();
+            atualizaTabelaPiso();  
+        
     }//GEN-LAST:event_btnSalvarPisoActionPerformed
 
     private void btnExcluirPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPisoActionPerformed
@@ -394,9 +427,15 @@ public class PisoView extends javax.swing.JInternalFrame {
 
             }
         }
+        limpaCamposPiso();
+        atualizaTabelaPiso();
+        preparaExcluir();
+        desativaCampos();
     }//GEN-LAST:event_btnExcluirPisoActionPerformed
 
     private void tbePisoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePisoMouseClicked
+          //falta preencher os combobox!!  //falta preencher os combobox!!
+            //falta preencher os combobox!!   //falta preencher os combobox!!
         limpaCamposPiso();
         btnSalvarPiso.setEnabled(false);
         btnAlterarPiso.setEnabled(true);
@@ -408,7 +447,9 @@ public class PisoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbePisoMouseClicked
 
     private void btnAlterarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarPisoActionPerformed
-        if (tfdIDPiso.getText().isEmpty()) {
+        preparaAlterar();
+        ativaCampos();
+        /* if (tfdIDPiso.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um Piso", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
             piso = new PisoM();
@@ -427,7 +468,7 @@ public class PisoView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
             }
 
-        }
+        }*/
     }//GEN-LAST:event_btnAlterarPisoActionPerformed
 
     private void cbxUnidade1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxUnidade1ItemStateChanged
@@ -450,6 +491,13 @@ public class PisoView extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_cbxUnidade1PropertyChange
 
+    private void btnCancelarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPisoActionPerformed
+        // TODO add your handling code here:
+        limpaCamposPiso();
+        preparaSalvareCancelar();
+        desativaCampos();
+    }//GEN-LAST:event_btnCancelarPisoActionPerformed
+
     public BlocoM pegaBloco() {
         try {
             return blocoDAO.buscaNome(cbxBloco1.getSelectedItem().toString());
@@ -467,13 +515,66 @@ public class PisoView extends javax.swing.JInternalFrame {
         cbxBloco1.setEnabled(true);
         cbxUnidade1.setEnabled(true);
     }
-
+    
+    public void preparaNovo() {
+        btnNovoPiso.setEnabled(false);
+        btnSalvarPiso.setEnabled(true);
+        btnCancelarPiso.setEnabled(true);
+        tbePiso.setEnabled(false);
+        tbePiso.clearSelection();
+    }
+    public void preparaSalvareCancelar() {
+        btnNovoPiso.setEnabled(true);
+        btnSalvarPiso.setEnabled(false);
+        btnCancelarPiso.setEnabled(false);
+        tbePiso.setEnabled(true);
+    }
+    
+    public void ativaCampos() {
+        cbxUnidade1.setSelectedIndex(0);
+        cbxUnidade1.setEnabled(true);
+        cbxBloco1.setSelectedIndex(0);
+        cbxBloco1.setEnabled(true);
+        tfdIDPiso.setEnabled(true);
+        tfdDescricaoPiso.setEnabled(true);
+    }
+    
+    public void desativaCampos(){
+       cbxUnidade1.setSelectedIndex(0);
+       cbxUnidade1.setEnabled(false);
+       cbxBloco1.setSelectedIndex(0);
+       cbxBloco1.setEnabled(false);
+       tfdIDPiso.setText("");
+       tfdIDPiso.setEnabled(false);
+       tfdDescricaoPiso.setEnabled(false);
+       btnSalvarPiso.setEnabled(false);
+       btnCancelarPiso.setEnabled(false);
+       btnAlterarPiso.setEnabled(false);
+       btnExcluirPiso.setEnabled(false);
+    } 
+     public void preparaAlterar() {
+        btnNovoPiso.setEnabled(false);
+        btnExcluirPiso.setEnabled(false);
+        btnAlterarPiso.setEnabled(false);
+        btnSalvarPiso.setEnabled(true);
+        btnCancelarPiso.setEnabled(true);
+        tbePiso.setEnabled(false);
+        tbePiso.clearSelection();
+     }
+     public void preparaExcluir() {
+        btnExcluirPiso.setEnabled(false);
+        btnAlterarPiso.setEnabled(false);
+    }
+    
+     
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarPiso;
+    private javax.swing.JButton btnCancelarPiso;
     private javax.swing.JButton btnExcluirPiso;
+    private javax.swing.JButton btnNovoPiso;
     private javax.swing.JButton btnSalvarPiso;
     private javax.swing.JComboBox<String> cbxBloco1;
-    private javax.swing.JButton cbxLimparPiso;
     private javax.swing.JComboBox<String> cbxUnidade1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblDescricaoPiso;

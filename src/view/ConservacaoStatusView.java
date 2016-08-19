@@ -39,8 +39,9 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         this.setVisible(true);
         atualizaTabelaConservacao();
         atualizaTabelaStatus();
-        limpaCamposConservacao();
-        limpaStatus();
+        
+        //limpaCamposConservacao();
+        //limpaCamposStatus();
 
     }
 
@@ -131,19 +132,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
     public void limpaCamposConservacao() {
         tfdIDConservacao.setText("");
         tdfDescricaoConservacao.setText("");
-        btnAdicionarConservacao.setEnabled(true);
+        btnSalvarConservacao.setEnabled(true);
         btnExcluirConservacao.setEnabled(false);
         btnAlterarConservacao.setEnabled(false);
     }
-
-    public void limpaStatus() {
-        tfdIDStatus.setText("");
-        tfdDescricaoStatus.setText("");
-        btnAdicionarStatus.setEnabled(true);
-        btnExcluirStatus.setEnabled(false);
-        btnAlterarStatus.setEnabled(false);
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,23 +152,25 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         lblIDConservacao = new javax.swing.JLabel();
         tdfDescricaoConservacao = new javax.swing.JTextField();
-        btnLimpaStatus = new javax.swing.JButton();
+        btnNovoStatus = new javax.swing.JButton();
         btnAlterarStatus = new javax.swing.JButton();
         lblDescricaoConservacao = new javax.swing.JLabel();
-        btnLimpaConservacao = new javax.swing.JButton();
+        btnNovoConservacao = new javax.swing.JButton();
         btnExcluirStatus = new javax.swing.JButton();
         lblConservacao = new javax.swing.JLabel();
-        btnAdicionarStatus = new javax.swing.JButton();
+        btnSalvarStatus = new javax.swing.JButton();
         tfdDescricaoStatus = new javax.swing.JTextField();
         lblDescricaoStatus = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         spdTipoSubtipo = new javax.swing.JSeparator();
         lblIDStatus = new javax.swing.JLabel();
-        btnAdicionarConservacao = new javax.swing.JButton();
+        btnSalvarConservacao = new javax.swing.JButton();
         tfdIDStatus = new javax.swing.JTextField();
         btnExcluirConservacao = new javax.swing.JButton();
         tfdIDConservacao = new javax.swing.JTextField();
         btnAlterarConservacao = new javax.swing.JButton();
+        btnCancelarConservacao = new javax.swing.JButton();
+        btnCancelarStatus = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -251,14 +245,17 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
 
         lblIDConservacao.setText("ID");
 
-        btnLimpaStatus.setText("Novo");
-        btnLimpaStatus.addActionListener(new java.awt.event.ActionListener() {
+        tdfDescricaoConservacao.setEnabled(false);
+
+        btnNovoStatus.setText("Novo");
+        btnNovoStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpaStatusActionPerformed(evt);
+                btnNovoStatusActionPerformed(evt);
             }
         });
 
         btnAlterarStatus.setText("Alterar");
+        btnAlterarStatus.setEnabled(false);
         btnAlterarStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarStatusActionPerformed(evt);
@@ -267,14 +264,15 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
 
         lblDescricaoConservacao.setText("Descrição");
 
-        btnLimpaConservacao.setText("Novo");
-        btnLimpaConservacao.addActionListener(new java.awt.event.ActionListener() {
+        btnNovoConservacao.setText("Novo");
+        btnNovoConservacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpaConservacaoActionPerformed(evt);
+                btnNovoConservacaoActionPerformed(evt);
             }
         });
 
         btnExcluirStatus.setText("Excluir");
+        btnExcluirStatus.setEnabled(false);
         btnExcluirStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirStatusActionPerformed(evt);
@@ -283,12 +281,15 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
 
         lblConservacao.setText("Grau de Conservação");
 
-        btnAdicionarStatus.setText("Adicionar");
-        btnAdicionarStatus.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarStatus.setText("Salvar");
+        btnSalvarStatus.setEnabled(false);
+        btnSalvarStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarStatusActionPerformed(evt);
+                btnSalvarStatusActionPerformed(evt);
             }
         });
+
+        tfdDescricaoStatus.setEnabled(false);
 
         lblDescricaoStatus.setText("Descrição");
 
@@ -296,16 +297,19 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
 
         lblIDStatus.setText("ID");
 
-        btnAdicionarConservacao.setText("Adicionar");
-        btnAdicionarConservacao.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvarConservacao.setText("Salvar");
+        btnSalvarConservacao.setEnabled(false);
+        btnSalvarConservacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAdicionarConservacaoActionPerformed(evt);
+                btnSalvarConservacaoActionPerformed(evt);
             }
         });
 
         tfdIDStatus.setEditable(false);
+        tfdIDStatus.setEnabled(false);
 
         btnExcluirConservacao.setText("Excluir");
+        btnExcluirConservacao.setEnabled(false);
         btnExcluirConservacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirConservacaoActionPerformed(evt);
@@ -313,11 +317,29 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         });
 
         tfdIDConservacao.setEditable(false);
+        tfdIDConservacao.setEnabled(false);
 
         btnAlterarConservacao.setText("Alterar");
+        btnAlterarConservacao.setEnabled(false);
         btnAlterarConservacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarConservacaoActionPerformed(evt);
+            }
+        });
+
+        btnCancelarConservacao.setText("Cancelar");
+        btnCancelarConservacao.setEnabled(false);
+        btnCancelarConservacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarConservacaoActionPerformed(evt);
+            }
+        });
+
+        btnCancelarStatus.setText("Cancelar");
+        btnCancelarStatus.setEnabled(false);
+        btnCancelarStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarStatusActionPerformed(evt);
             }
         });
 
@@ -327,12 +349,30 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(lblConservacao))
-                    .addComponent(lblDescricaoConservacao)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tdfDescricaoConservacao)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(tfdDescricaoStatus)
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnNovoStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalvarStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelarStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlterarStatus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluirStatus)
+                        .addGap(19, 19, 19))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfdIDStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblIDStatus))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(72, 72, 72)
@@ -341,30 +381,26 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                                 .addGap(1, 1, 1)
                                 .addComponent(lblIDConservacao))
                             .addComponent(tfdIDConservacao, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGap(69, 69, 69)
+                                    .addComponent(lblConservacao))
+                                .addComponent(lblDescricaoConservacao)
+                                .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(lblDescricaoStatus)
+                                    .addGap(54, 54, 54)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnAdicionarConservacao)
+                                .addComponent(btnNovoConservacao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluirConservacao)
+                                .addComponent(btnSalvarConservacao)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnCancelarConservacao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAlterarConservacao)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLimpaConservacao)))
-                        .addComponent(tdfDescricaoConservacao, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(spdTipoSubtipo)
-                    .addComponent(tfdDescricaoStatus)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblDescricaoStatus)
-                        .addComponent(tfdIDStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblIDStatus)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(btnAdicionarStatus)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnExcluirStatus)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnAlterarStatus)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnLimpaStatus))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(btnExcluirConservacao)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,28 +417,30 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 .addComponent(tdfDescricaoConservacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionarConservacao)
+                    .addComponent(btnSalvarConservacao)
                     .addComponent(btnExcluirConservacao)
                     .addComponent(btnAlterarConservacao)
-                    .addComponent(btnLimpaConservacao))
+                    .addComponent(btnNovoConservacao)
+                    .addComponent(btnCancelarConservacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(3, 3, 3)
                 .addComponent(lblIDStatus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdIDStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(9, 9, 9)
                 .addComponent(lblDescricaoStatus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdDescricaoStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionarStatus)
+                    .addComponent(btnSalvarStatus)
                     .addComponent(btnExcluirStatus)
                     .addComponent(btnAlterarStatus)
-                    .addComponent(btnLimpaStatus))
+                    .addComponent(btnNovoStatus)
+                    .addComponent(btnCancelarStatus))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -411,11 +449,11 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -425,7 +463,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 640, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -433,20 +471,18 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAdicionarConservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarConservacaoActionPerformed
+    private void btnSalvarConservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarConservacaoActionPerformed
         // TODO add your handling code here:
         if (tdfDescricaoConservacao.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
             tdfDescricaoConservacao.requestFocusInWindow();
-        } else {
+        } else if (tfdIDConservacao.getText().isEmpty()) {
             grauConservacao = new GrauConservacaoM();
             grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
 
             try {
                 grauConservacaoDAO.salvar(grauConservacao);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabelaConservacao();
-                limpaCamposConservacao();
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -455,11 +491,34 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
+            atualizaTabelaConservacao();
+            preparaSalvareCancelarStatus();
+            desativaCamposConservacao();
+            limpaCamposConservacao();
+        } else {
+            grauConservacao = new GrauConservacaoM();
+            grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
+            grauConservacao.setId(Integer.parseInt(tfdIDConservacao.getText()));
+        
+        try {
+            grauConservacaoDAO.alterar(grauConservacao);
+            JOptionPane.showMessageDialog(null, "Conservação alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+            if (ex.getErrorCode() == 1062) {
+                JOptionPane.showMessageDialog(null, "Conservacao já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+        atualizaTabelaConservacao();
+        preparaSalvareCancelarConservacao();
+        desativaCamposConservacao();
 
         }
 
 
-    }//GEN-LAST:event_btnAdicionarConservacaoActionPerformed
+    }//GEN-LAST:event_btnSalvarConservacaoActionPerformed
 
     private void btnExcluirConservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirConservacaoActionPerformed
         // TODO add your handling code here:
@@ -472,8 +531,6 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             if (confirma == 0) {
                 try {
                     grauConservacaoDAO.excluir(grauConservacao);
-                    limpaCamposConservacao();
-                    atualizaTabelaConservacao();
                 } catch (SQLException ex) {
                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
@@ -482,6 +539,9 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                     }
                 }
+                limpaCamposConservacao();
+                atualizaTabelaConservacao();
+                preparaExcluirConservacao();
 
             }
         }
@@ -489,49 +549,31 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
 
     private void btnAlterarConservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarConservacaoActionPerformed
         // TODO add your handling code here:
-        if (tfdIDConservacao.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione Grau de Conservação!", "Erro", JOptionPane.WARNING_MESSAGE);
-        } else {
-            grauConservacao = new GrauConservacaoM();
-            grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
-            grauConservacao.setId(Integer.parseInt(tfdIDConservacao.getText()));
-        }
-        try {
-            grauConservacaoDAO.alterar(grauConservacao);
-            JOptionPane.showMessageDialog(null, "Conservação alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            atualizaTabelaConservacao();
-            limpaCamposConservacao();
-        } catch (SQLException ex) {
-            Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
-            if (ex.getErrorCode() == 1062) {
-                JOptionPane.showMessageDialog(null, "Conservacao já existente", "Erro", JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-        }
+        preparaAlterarConservacao();
+        ativaCamposConservacao();
 
     }//GEN-LAST:event_btnAlterarConservacaoActionPerformed
 
-    private void btnLimpaConservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpaConservacaoActionPerformed
+    private void btnNovoConservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoConservacaoActionPerformed
         // TODO add your handling code here:
         limpaCamposConservacao();
-    }//GEN-LAST:event_btnLimpaConservacaoActionPerformed
+        preparaNovoConservacao();
+        ativaCamposConservacao();
+    }//GEN-LAST:event_btnNovoConservacaoActionPerformed
 
 
-    private void btnAdicionarStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarStatusActionPerformed
+    private void btnSalvarStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarStatusActionPerformed
         // TODO add your handling code here:
         if (tfdDescricaoStatus.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoStatus.requestFocusInWindow();
-        } else {
+        } else if (tfdIDStatus.getText().isEmpty()){
             status = new StatusM();
             status.setNome(tfdDescricaoStatus.getText());
 
             try {
                 statusDAO.salvar(status);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabelaStatus();
-                limpaStatus();
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -540,15 +582,35 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                 }
             }
-
+            atualizaTabelaStatus();
+            preparaSalvareCancelarStatus();
+            desativaCamposStatus();
+            limpaCamposStatus();       
+        } else {         
+            status = new StatusM();
+            status.setNome(tfdDescricaoStatus.getText());
+            status.setId(Integer.parseInt(tfdIDStatus.getText()));
+            try {
+                statusDAO.alterar(status);
+                JOptionPane.showMessageDialog(null, "Status alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(null, "Status já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+            atualizaTabelaStatus();
+            preparaSalvareCancelarStatus();
+            desativaCamposStatus();
         }
-    }//GEN-LAST:event_btnAdicionarStatusActionPerformed
+    }//GEN-LAST:event_btnSalvarStatusActionPerformed
 
     private void btnExcluirStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirStatusActionPerformed
 
         if (tfdIDStatus.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um Status de Patrimônio!", "Erro", JOptionPane.WARNING_MESSAGE);
-
         } else {
             status = new StatusM();
             status.setId(Integer.parseInt(tfdIDStatus.getText()));
@@ -556,8 +618,6 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             if (confirma == 0) {
                 try {
                     statusDAO.excluir(status);
-                    limpaStatus();
-                    atualizaTabelaStatus();
                 } catch (SQLException ex) {
                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
@@ -566,47 +626,31 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
                     }
                 }
+                limpaCamposStatus();
+                atualizaTabelaStatus();
+                preparaExcluirStatus();
 
             }
         }
     }//GEN-LAST:event_btnExcluirStatusActionPerformed
 
     private void btnAlterarStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarStatusActionPerformed
-        if (tfdIDStatus.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione Grau de Conservação!", "Erro", JOptionPane.WARNING_MESSAGE);
-        } else {
-            status = new StatusM();
-            status.setNome(tfdDescricaoStatus.getText());
-            status.setId(Integer.parseInt(tfdIDStatus.getText()));
-
-        }
-        try {
-            statusDAO.alterar(status);
-            JOptionPane.showMessageDialog(null, "Status alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            limpaStatus();
-            atualizaTabelaStatus();
-        } catch (SQLException ex) {
-            Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
-            if (ex.getErrorCode() == 1062) {
-                JOptionPane.showMessageDialog(null, "Status já existente", "Erro", JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-        }
-
-
+        limpaCamposStatus();
+        preparaAlterarStatus();
+        desativaCamposStatus();
     }//GEN-LAST:event_btnAlterarStatusActionPerformed
 
-    private void btnLimpaStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpaStatusActionPerformed
-
-        limpaStatus();
-    }//GEN-LAST:event_btnLimpaStatusActionPerformed
+    private void btnNovoStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoStatusActionPerformed
+       limpaCamposStatus();
+       preparaNovoStatus();
+       ativaCamposStatus();
+    }//GEN-LAST:event_btnNovoStatusActionPerformed
 
     private void tbeConservacaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeConservacaoMouseClicked
         // TODO add your handling code here:
         tfdIDConservacao.setText(tbeConservacao.getValueAt(tbeConservacao.getSelectedRow(), 0).toString());
         tdfDescricaoConservacao.setText(tbeConservacao.getValueAt(tbeConservacao.getSelectedRow(), 1).toString());
-        btnAdicionarConservacao.setEnabled(false);
+        btnSalvarConservacao.setEnabled(false);
         btnExcluirConservacao.setEnabled(true);
         btnAlterarConservacao.setEnabled(true);
 
@@ -616,21 +660,121 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         tfdIDStatus.setText(tbeStatus.getValueAt(tbeStatus.getSelectedRow(), 0).toString());
         tfdDescricaoStatus.setText(tbeStatus.getValueAt(tbeStatus.getSelectedRow(), 1).toString());
-        btnAdicionarStatus.setEnabled(false);
+        btnSalvarStatus.setEnabled(false);
         btnExcluirStatus.setEnabled(true);
         btnAlterarStatus.setEnabled(true);
     }//GEN-LAST:event_tbeStatusMouseClicked
 
+    private void btnCancelarConservacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarConservacaoActionPerformed
+        // TODO add your handling code here:
+        limpaCamposConservacao();
+        preparaSalvareCancelarConservacao();
+        desativaCamposConservacao();
+    }//GEN-LAST:event_btnCancelarConservacaoActionPerformed
+
+    private void btnCancelarStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarStatusActionPerformed
+        // TODO add your handling code here:
+        limpaCamposStatus();
+        preparaSalvareCancelarStatus();
+        desativaCamposStatus();
+    }//GEN-LAST:event_btnCancelarStatusActionPerformed
+
+    // CONTROLE DO CONSERVAÇÃO  // CONTROLE DO CONSERVAÇÃO  // CONTROLE DO CONSERVAÇÃO  // CONTROLE DO CONSERVAÇÃO
+     public void limpaCamposConservacaoo() {
+        tfdIDConservacao.setText("");
+        tdfDescricaoConservacao.setText("");
+        
+    }
+    
+    public void preparaNovoConservacao() {
+        btnNovoConservacao.setEnabled(false);
+        btnSalvarConservacao.setEnabled(true);
+        btnCancelarConservacao.setEnabled(true);
+        tbeConservacao.setEnabled(false);
+        tbeConservacao.clearSelection();
+    }
+    public void preparaSalvareCancelarConservacao() {
+        btnNovoConservacao.setEnabled(true);
+        btnSalvarConservacao.setEnabled(false);
+        btnCancelarConservacao.setEnabled(false);
+        tbeConservacao.setEnabled(true);
+    }
+    
+    public void ativaCamposConservacao() {
+        
+        tdfDescricaoConservacao.setEnabled(true);
+    }
+    
+    public void desativaCamposConservacao(){
+       tdfDescricaoConservacao.setEnabled(false);
+       
+    } 
+     public void preparaAlterarConservacao() {
+        btnNovoConservacao.setEnabled(false);
+        btnExcluirConservacao.setEnabled(false);
+        btnAlterarConservacao.setEnabled(false);
+        btnSalvarConservacao.setEnabled(true);
+        btnCancelarConservacao.setEnabled(true);
+        tbeConservacao.setEnabled(false);
+        tbeConservacao.clearSelection();
+     }
+     public void preparaExcluirConservacao() {
+        btnExcluirConservacao.setEnabled(false);
+        btnAlterarConservacao.setEnabled(false);
+    }
+    
+     // CONTROLE DO STATUS // CONTROLE DO STATUS // CONTROLE DO STATUS // CONTROLE DO STATUS 
+      public void limpaCamposStatus() {
+        tfdIDStatus.setText(" ");
+        tfdDescricaoStatus.setText(" ");
+    }
+    
+    public void preparaNovoStatus() {
+        
+    }
+    public void preparaSalvareCancelarStatus() {
+        btnNovoStatus.setEnabled(true);
+        btnSalvarStatus.setEnabled(false);
+        btnCancelarStatus.setEnabled(false);
+        tbeStatus.setEnabled(true);
+    }
+    
+    public void ativaCamposStatus() {
+        tfdDescricaoStatus.setEnabled(true);
+        
+    }
+    
+    public void desativaCamposStatus(){
+       tfdDescricaoStatus.setEnabled(false);
+    } 
+     public void preparaAlterarStatus() {
+         btnNovoStatus.setEnabled(false);
+         btnExcluirStatus.setEnabled(false);
+         btnAlterarStatus.setEnabled(false);
+         btnSalvarStatus.setEnabled(true);
+         btnCancelarStatus.setEnabled(true);
+         tbeStatus.setEnabled(false);
+         tbeStatus.clearSelection();
+       
+     }
+     public void preparaExcluirStatus() {
+        btnExcluirStatus.setEnabled(false);
+        btnAlterarStatus.setEnabled(false);
+    }
+    
+     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdicionarConservacao;
-    private javax.swing.JButton btnAdicionarStatus;
     private javax.swing.JButton btnAlterarConservacao;
     private javax.swing.JButton btnAlterarStatus;
+    private javax.swing.JButton btnCancelarConservacao;
+    private javax.swing.JButton btnCancelarStatus;
     private javax.swing.JButton btnExcluirConservacao;
     private javax.swing.JButton btnExcluirStatus;
-    private javax.swing.JButton btnLimpaConservacao;
-    private javax.swing.JButton btnLimpaStatus;
+    private javax.swing.JButton btnNovoConservacao;
+    private javax.swing.JButton btnNovoStatus;
+    private javax.swing.JButton btnSalvarConservacao;
+    private javax.swing.JButton btnSalvarStatus;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

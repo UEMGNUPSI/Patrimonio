@@ -29,15 +29,6 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnSalvarPiso" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="btnExcluirPiso" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnAlterarPiso" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="cbxLimparPiso" min="-2" pref="79" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="cbxUnidade1" pref="0" max="32767" attributes="0"/>
@@ -53,24 +44,35 @@
                           <Component id="lblSelecBloco1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Component id="tfdDescricaoPiso" alignment="0" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="tfdIDPiso" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                           <Component id="lblIDPiso" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="lblDescricaoPiso" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnNovoPiso" min="-2" pref="79" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnSalvarPiso" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnCancelarPiso" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnAlterarPiso" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="btnExcluirPiso" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="tfdDescricaoPiso" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="444" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="391" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane1" alignment="0" pref="586" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" pref="589" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -92,10 +94,11 @@
               <Component id="tfdDescricaoPiso" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnSalvarPiso" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnExcluirPiso" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAlterarPiso" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbxLimparPiso" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnNovoPiso" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnSalvarPiso" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCancelarPiso" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnExcluirPiso" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -161,6 +164,7 @@
             <StringItem index="1" value="Cadastrar Unidade"/>
           </StringArray>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbxUnidade1ItemStateChanged"/>
@@ -182,6 +186,7 @@
             <StringItem index="1" value="Cadastrar Bloco"/>
           </StringArray>
         </Property>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxBloco1ActionPerformed"/>
@@ -198,6 +203,7 @@
     <Component class="javax.swing.JTextField" name="tfdIDPiso">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDescricaoPiso">
@@ -206,10 +212,14 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfdDescricaoPiso">
+      <Properties>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="btnSalvarPiso">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Adicionar"/>
+        <Property name="text" type="java.lang.String" value="Salvar"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarPisoActionPerformed"/>
@@ -218,6 +228,7 @@
     <Component class="javax.swing.JButton" name="btnExcluirPiso">
       <Properties>
         <Property name="text" type="java.lang.String" value="Excluir"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirPisoActionPerformed"/>
@@ -226,17 +237,27 @@
     <Component class="javax.swing.JButton" name="btnAlterarPiso">
       <Properties>
         <Property name="text" type="java.lang.String" value="Alterar"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarPisoActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="cbxLimparPiso">
+    <Component class="javax.swing.JButton" name="btnNovoPiso">
       <Properties>
         <Property name="text" type="java.lang.String" value="Novo"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxLimparPisoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoPisoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnCancelarPiso">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancelar"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarPisoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
