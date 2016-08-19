@@ -20,8 +20,9 @@ import model.BlocoM;
 import model.UnidadeM;
 
 /**
- *
- * @author Leopoldo
+ * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
+ * @author NUPSI - Núcle de Práticas em Sistemas de Informação
+ * Equipe: Gustavo Pinoti,Leopoldo Ferreira, Marlon Moro, Murillo Cuervo
  */
 public class BlocoView extends javax.swing.JInternalFrame {
 

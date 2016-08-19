@@ -33,8 +33,9 @@ import model.TipoM;
 import model.UnidadeM;
 
 /**
- *
- * @author Murillo e Leopoldo
+ * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
+ * @author NUPSI - Núcle de Práticas em Sistemas de Informação
+ * Equipe: Gustavo Pinoti,Leopoldo Ferreira, Marlon Moro, Murillo Cuervo
  */
 //concertar alterar do subTipo ********************************************************************************************
 public class TipoSubtipoView extends javax.swing.JInternalFrame {
