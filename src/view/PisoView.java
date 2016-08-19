@@ -379,6 +379,7 @@ public class PisoView extends javax.swing.JInternalFrame {
             piso.setBloco(pegaBloco());
             try {
                 pisoDAO.salvar(piso);
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
