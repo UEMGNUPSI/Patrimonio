@@ -133,7 +133,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
     public void limpaCamposConservacao() {
         tfdIDConservacao.setText("");
         tdfDescricaoConservacao.setText("");
-        btnSalvarConservacao.setEnabled(true);
+        //btnSalvarConservacao.setEnabled(true);
         btnExcluirConservacao.setEnabled(false);
         btnAlterarConservacao.setEnabled(false);
     }
@@ -698,7 +698,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
     }
     public void preparaSalvareCancelarConservacao() {
         btnNovoConservacao.setEnabled(true);
-        btnSalvarConservacao.setEnabled(false); //VERIFICAR PORQUE ESSE FILHO DAPUTA NAO DESATIVA
+        btnSalvarConservacao.setEnabled(false); 
         btnCancelarConservacao.setEnabled(false);
         tbeConservacao.setEnabled(true);
     }
