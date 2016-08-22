@@ -551,6 +551,9 @@ public class SalaView extends javax.swing.JInternalFrame {
         btnExcluirSala.setEnabled(false);
         tbeSala.setEnabled(false);
         tbeSala.clearSelection();
+        cbxUnidade1.setEnabled(true);
+        cbxBloco1.setEnabled(true);
+        cbxPiso1.setEnabled(true);
     }
     public void preparaSalvareCancelar() {
         btnNovoSala.setEnabled(true);
