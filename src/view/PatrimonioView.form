@@ -46,46 +46,53 @@
                       <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                       <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lblCodigo" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
-                      <Component id="tfdID" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="lblID" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                          <Component id="lblPatrimonio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
+                          <Component id="btnNovoPatrimonio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnSalvarPatrimonio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnCancelarPatrimonio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="btnAlterarPatrimonio" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnExcluirPatrimonio" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="lblDescricao" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
-                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="tfdCodigo" alignment="0" max="32767" attributes="0"/>
-                          <Component id="lblGrauConservacao" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblStatus" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNotaFiscal" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="btnAdicionarPatrimonio" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnExcluirPatrimonio" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="btnAlterarPatirmonio" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="cbxLimparPatrimonio" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblCodigo" alignment="0" min="-2" pref="61" max="-2" attributes="0"/>
+                              <Component id="tfdIDPatrimonio" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="lblID" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+                                  <Component id="lblPatrimonio" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="lblDescricao" alignment="0" min="-2" pref="102" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="tfdCodigoPatrimonio" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="lblGrauConservacao" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblStatus" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblNotaFiscal" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbxStatus" alignment="0" pref="270" max="32767" attributes="0"/>
+                                  <Component id="cbxConservacao" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="cbxOrgao" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
+                                  <Component id="tfdDescricaoPatrimonio" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="tfdNotaFiscalPatrimonio" alignment="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="cbxStatus" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cbxConservacao" alignment="0" max="32767" attributes="0"/>
-                          <Component id="cbxOrgao" alignment="0" min="-2" pref="130" max="-2" attributes="0"/>
-                          <Component id="tfdDescricao" alignment="0" max="32767" attributes="0"/>
-                          <Component id="tfdNotaFiscal" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jScrollPane1" pref="767" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jScrollPane1" pref="718" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" alignment="1" pref="561" max="32767" attributes="0"/>
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -96,7 +103,7 @@
                                   <Component id="lblID" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="tfdID" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfdIDPatrimonio" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                                           <Component id="lblCodigo" min="-2" max="-2" attributes="0"/>
@@ -106,11 +113,11 @@
                               <Component id="lblPatrimonio" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfdCodigo" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="tfdCodigoPatrimonio" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblDescricao" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfdDescricao" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="tfdDescricaoPatrimonio" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblGrauConservacao" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
@@ -122,17 +129,18 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblNotaFiscal" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="tfdNotaFiscal" min="-2" pref="20" max="-2" attributes="0"/>
+                          <Component id="tfdNotaFiscalPatrimonio" min="-2" pref="20" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="cbxOrgao" min="-2" pref="27" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnAdicionarPatrimonio" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnExcluirPatrimonio" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btnAlterarPatirmonio" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="cbxLimparPatrimonio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnNovoPatrimonio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnSalvarPatrimonio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnAlterarPatrimonio" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnCancelarPatrimonio" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
@@ -141,7 +149,7 @@
                           <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="165" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -162,7 +170,10 @@
             <Property name="text" type="java.lang.String" value="Patrim&#xf4;nio"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfdNotaFiscal">
+        <Component class="javax.swing.JTextField" name="tfdNotaFiscalPatrimonio">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCodigo">
           <Properties>
@@ -174,7 +185,10 @@
             <Property name="text" type="java.lang.String" value="Org&#xe3;o"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfdCodigo">
+        <Component class="javax.swing.JTextField" name="tfdCodigoPatrimonio">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbxOrgao">
           <Properties>
@@ -183,6 +197,7 @@
                 <StringItem index="0" value="UEMG"/>
               </StringArray>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -193,7 +208,10 @@
             <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfdDescricao">
+        <Component class="javax.swing.JTextField" name="tfdDescricaoPatrimonio">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblGrauConservacao">
           <Properties>
@@ -276,6 +294,7 @@
                 <StringItem index="0" value="Piso 1"/>
               </StringArray>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxConservacaoActionPerformed"/>
@@ -291,6 +310,7 @@
                 <StringItem index="0" value="Piso 1"/>
               </StringArray>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -299,33 +319,36 @@
         <Component class="javax.swing.JButton" name="btnExcluirPatrimonio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExcluirPatrimonioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAdicionarPatrimonio">
+        <Component class="javax.swing.JButton" name="btnSalvarPatrimonio">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Adicionar"/>
+            <Property name="text" type="java.lang.String" value="Salvar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAdicionarPatrimonioActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarPatrimonioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAlterarPatirmonio">
+        <Component class="javax.swing.JButton" name="btnAlterarPatrimonio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Alterar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarPatirmonioActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlterarPatrimonioActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="cbxLimparPatrimonio">
+        <Component class="javax.swing.JButton" name="btnNovoPatrimonio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Novo"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxLimparPatrimonioActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoPatrimonioActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblID">
@@ -333,8 +356,9 @@
             <Property name="text" type="java.lang.String" value="ID"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfdID">
+        <Component class="javax.swing.JTextField" name="tfdIDPatrimonio">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
@@ -396,6 +420,7 @@
                     <StringItem index="0" value="UEMG"/>
                   </StringArray>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxUnidadeActionPerformed"/>
@@ -416,6 +441,7 @@
                     <StringItem index="0" value="Bloco A"/>
                   </StringArray>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxBlocoActionPerformed"/>
@@ -436,6 +462,7 @@
                     <StringItem index="0" value="Piso 1"/>
                   </StringArray>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxPisoActionPerformed"/>
@@ -456,6 +483,7 @@
                     <StringItem index="0" value="Sala 1"/>
                   </StringArray>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxSalaActionPerformed"/>
@@ -513,6 +541,7 @@
                     <StringItem index="1" value="Cadastrar Tipo"/>
                   </StringArray>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbxTipoActionPerformed"/>
@@ -534,6 +563,7 @@
                     <StringItem index="1" value="Cadastrar Subtipo"/>
                   </StringArray>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -541,6 +571,15 @@
             </Component>
           </SubComponents>
         </Container>
+        <Component class="javax.swing.JButton" name="btnCancelarPatrimonio">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cancelar"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarPatrimonioActionPerformed"/>
+          </Events>
+        </Component>
       </SubComponents>
     </Container>
   </SubComponents>
