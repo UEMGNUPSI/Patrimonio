@@ -507,7 +507,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tbePatrimonio.setRowHeight(25);
         tbePatrimonio.updateUI();
     }
-
+    
     public void atualizaBoxTipo() {
         cbxTipo.removeAllItems();
         cbxTipo.addItem("--Selecione--");
@@ -690,7 +690,19 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdID.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 0).toString());
         tfdCodigo.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 1).toString());
         tfdDescricao.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 2).toString());
-        tfdNotaFiscal.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 7).toString());
+        PatrimonioM patri = pegaPatrimonio();
+        
+        cbxTipo.setSelectedItem(patri.getSubTipo().getTipo().getDescricao());
+        cbxSuptipo.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 3).toString());
+       
+        cbxUnidade.setSelectedItem(patri.getSala().getPiso().getBloco().getUnidadeM().getNome());
+        cbxBloco.setSelectedItem(patri.getSala().getPiso().getBloco().getDescricao());
+        cbxPiso.setSelectedItem(patri.getSala().getPiso().getDescricao());
+        cbxSala.setSelectedItem(patri.getSala().getDescricao());
+        cbxConservacao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 5).toString());
+        cbxStatus.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 6).toString());
+       cbxOrgao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 7).toString());
+        
         btnAdicionarPatrimonio.setEnabled((false));
         btnExcluirPatrimonio.setEnabled(true);
         btnAlterarPatirmonio.setEnabled(true);
@@ -706,6 +718,17 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxUnidade.setEnabled(false);
     }//GEN-LAST:event_tbePatrimonioMouseClicked
 
+    
+    public PatrimonioM pegaPatrimonio(){
+        try {
+            PatrimonioM patrimo = patrimonioDAO.busca(Integer.parseInt(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 0).toString()));
+            return patrimo;
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
     private void btnAdicionarPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarPatrimonioActionPerformed
         if (tfdDescricao.getText().isEmpty() || tfdCodigo.getText().isEmpty() || tfdNotaFiscal.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSuptipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
