@@ -412,7 +412,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
         cbxUnidade.setEnabled(true);
         tbeBloco.setEnabled(false);
         tbeBloco.clearSelection();
-        
+       
     }
     public void limpaCamposBloco() {
         tfdIDBloco.setText("");
@@ -428,6 +428,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
         btnExcluirBloco.setEnabled(false);
         tbeBloco.setEnabled(false);
         tbeBloco.clearSelection();
+        
     }
     
     public void preparaSalvareCancelar(){
@@ -437,6 +438,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
         btnExcluirBloco.setEnabled(false);
         tbeBloco.setEnabled(true);
         tbeBloco.clearSelection();
+        cbxUnidade.setSelectedIndex(0);
     }
     
     public void desativaCampos(){
