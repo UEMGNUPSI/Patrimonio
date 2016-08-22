@@ -76,9 +76,10 @@ public class PrincipalView extends javax.swing.JFrame {
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 513, Short.MAX_VALUE)
+            .addGap(0, 484, Short.MAX_VALUE)
         );
 
+        mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
         mnuCadastrar.setText("Cadastrar");
 
         mniEntidade.setText("Entidade");
@@ -160,12 +161,15 @@ public class PrincipalView extends javax.swing.JFrame {
 
         mnbPrincipal.add(mnuCadastrar);
 
+        mnuMovimentacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/movimentacao.fw.png"))); // NOI18N
         mnuMovimentacoes.setText("Movimentações");
         mnbPrincipal.add(mnuMovimentacoes);
 
+        mnuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/relatorio48.fw.png"))); // NOI18N
         mnuRelatorios.setText("Relatórios");
         mnbPrincipal.add(mnuRelatorios);
 
+        mnuSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/sobre.fw.png"))); // NOI18N
         mnuSobre.setText("Sobre");
         mnbPrincipal.add(mnuSobre);
 

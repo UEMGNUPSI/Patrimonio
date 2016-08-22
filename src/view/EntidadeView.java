@@ -315,7 +315,10 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
-            }  
+            }
+            preparaSalvareCancelar();
+            desativaCampos();
+            atualizaTabelaEntidade();
 
         } 
         else {
@@ -334,11 +337,12 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            }   
-        }
+            }
         preparaSalvareCancelar();
         desativaCampos();
-        atualizaTabelaEntidade();    
+        atualizaTabelaEntidade();
+        }
+            
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed

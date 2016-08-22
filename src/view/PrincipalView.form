@@ -21,6 +21,9 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnuCadastrar">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/icones/Crystal_Clear_action_edit_add.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
           <SubComponents>
@@ -116,16 +119,25 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuMovimentacoes">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/icones/movimentacao.fw.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Movimenta&#xe7;&#xf5;es"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuRelatorios">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/icones/relatorio48.fw.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuSobre">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/view/icones/sobre.fw.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Sobre"/>
           </Properties>
         </Menu>
@@ -178,7 +190,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="513" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="484" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>

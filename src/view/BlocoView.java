@@ -329,7 +329,6 @@ public class BlocoView extends javax.swing.JInternalFrame {
                 preparaSalvareCancelar();
                 desativaCampos();
                 limpaCamposBloco();
-        limpaCamposBloco();
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());

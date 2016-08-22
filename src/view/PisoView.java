@@ -127,12 +127,12 @@ public class PisoView extends javax.swing.JInternalFrame {
             }
         });
         cbxUnidade1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
-            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
+            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
+                cbxUnidade1PopupMenuCanceled(evt);
             }
             public void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent evt) {
             }
-            public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
-                cbxUnidade1PopupMenuCanceled(evt);
+            public void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent evt) {
             }
         });
         cbxUnidade1.addActionListener(new java.awt.event.ActionListener() {
@@ -247,7 +247,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -364,9 +364,9 @@ public class PisoView extends javax.swing.JInternalFrame {
 
     private void btnNovoPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPisoActionPerformed
         limpaCamposPiso();
-        preparaNovo();
         ativaCampos();
-        tfdDescricaoPiso.requestFocusInWindow();
+        preparaNovo();
+        cbxUnidade1.requestFocusInWindow();
     }//GEN-LAST:event_btnNovoPisoActionPerformed
 
     private void btnSalvarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPisoActionPerformed
@@ -383,24 +383,27 @@ public class PisoView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
-            else{
+        preparaSalvareCancelar();
+        desativaCampos();
+        atualizaTabelaPiso();
+        limpaCamposPiso();
+        } else{
 
             piso = new PisoM();
             piso.setDescricao(tfdDescricaoPiso.getText());      
             piso.setId(Integer.parseInt(tfdIDPiso.getText()));
-            btnSalvarPiso.setEnabled(true);
             try {
                 pisoDAO.alterar(piso);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
+        preparaSalvareCancelar();
+        desativaCampos();
+        atualizaTabelaPiso();
+        limpaCamposPiso();
         }
-            preparaSalvareCancelar();
-            desativaCampos();
-            atualizaTabelaPiso();  
-        
+                
     }//GEN-LAST:event_btnSalvarPisoActionPerformed
 
     private void btnExcluirPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPisoActionPerformed
@@ -415,9 +418,7 @@ public class PisoView extends javax.swing.JInternalFrame {
                     pisoDAO.excluir(piso);
                     atualizaTabelaPiso();
                     limpaCamposPiso();
-                    btnSalvarPiso.setEnabled(true);
-                    btnExcluirPiso.setEnabled(false);
-                    btnAlterarPiso.setEnabled(false);
+                    preparaExcluir();
                 } catch (SQLException ex) {
                     Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
@@ -438,16 +439,14 @@ public class PisoView extends javax.swing.JInternalFrame {
     private void tbePisoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePisoMouseClicked
           //falta preencher os combobox!!  //falta preencher os combobox!!
             //falta preencher os combobox!!   //falta preencher os combobox!!
-        limpaCamposPiso();
-        btnSalvarPiso.setEnabled(false);
-        btnAlterarPiso.setEnabled(true);
-        btnExcluirPiso.setEnabled(true);
+        
         tfdIDPiso.setText(tbePiso.getValueAt(tbePiso.getSelectedRow(), 0).toString());
         tfdDescricaoPiso.setText(tbePiso.getValueAt(tbePiso.getSelectedRow(), 1).toString());
         cbxBloco1.setEnabled(false);
         cbxUnidade1.setEnabled(false);
         cbxUnidade1.setSelectedItem(tbePiso.getValueAt(tbePiso.getSelectedRow(), 3).toString());
         cbxBloco1.setSelectedItem(tbePiso.getValueAt(tbePiso.getSelectedRow(), 2).toString());
+        preparaSelecaoTabelaPiso();
     }//GEN-LAST:event_tbePisoMouseClicked
 
     private void btnAlterarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarPisoActionPerformed
@@ -526,6 +525,8 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnNovoPiso.setEnabled(false);
         btnSalvarPiso.setEnabled(true);
         btnCancelarPiso.setEnabled(true);
+        btnAlterarPiso.setEnabled(false);
+        btnExcluirPiso.setEnabled(false);
         tbePiso.setEnabled(false);
         tbePiso.clearSelection();
     }
@@ -566,6 +567,12 @@ public class PisoView extends javax.swing.JInternalFrame {
      public void preparaExcluir() {
         btnExcluirPiso.setEnabled(false);
         btnAlterarPiso.setEnabled(false);
+    }
+     
+    public void preparaSelecaoTabelaPiso(){
+        btnNovoPiso.setEnabled(true);
+        btnExcluirPiso.setEnabled(true);
+        btnAlterarPiso.setEnabled(true);
     }
     
      // FIM MÉTODOS DE CONTROLE DE BOTÕES 

@@ -266,10 +266,11 @@ public class SalaView extends javax.swing.JInternalFrame {
                             .addComponent(lblIDSala)
                             .addComponent(tfdIDSala, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbxUnidade1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfdDescricaoSala)
+                            .addComponent(cbxUnidade1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblSelecBloco1)
                                     .addComponent(cbxBloco1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -280,23 +281,22 @@ public class SalaView extends javax.swing.JInternalFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(cbxPiso1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnNovoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnSalvarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnCancelarSala)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnAlterarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExcluirSala, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tfdDescricaoSala, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lblSelecUnidade1)
-                                        .addComponent(lblDescricaoSala)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(btnNovoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnSalvarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnCancelarSala)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnAlterarSala, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnExcluirSala, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(60, 60, 60))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblSelecUnidade1)
+                                    .addComponent(lblDescricaoSala))
+                                .addGap(94, 94, 94)))
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,9 +336,9 @@ public class SalaView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 842, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 852, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -412,6 +412,10 @@ public class SalaView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
+            atualizaTabelaSala();
+            preparaSalvareCancelar();
+            desativaCampos();
+            limpaCamposSala();
         } else{
 
             sala = new SalaM();
@@ -425,18 +429,12 @@ public class SalaView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        }
-        
-    
-            
-            
+            atualizaTabelaSala();
             preparaSalvareCancelar();
             desativaCampos();
-            atualizaTabelaSala();  
-            
-
-        
+            limpaCamposSala();
+        }
+       
     }//GEN-LAST:event_btnSalvarSalaActionPerformed
 
     private void btnExcluirSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirSalaActionPerformed
@@ -472,22 +470,14 @@ public class SalaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirSalaActionPerformed
 
     private void tbeSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSalaMouseClicked
-        
-        //falta preencher os combobox!!  //falta preencher os combobox!!
-          //falta preencher os combobox!!  //falta preencher os combobox!!
-        
+    
         limpaCamposSala();
         tfdIDSala.setText(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
         tfdDescricaoSala.setText(tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString());
-        btnSalvarSala.setEnabled(false);
-        btnAlterarSala.setEnabled(true);
-        btnExcluirSala.setEnabled(true);
-        cbxBloco1.setEnabled(false);
-        cbxPiso1.setEnabled(false);
-        cbxUnidade1.setEnabled(false);
         cbxUnidade1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 4).toString());
         cbxBloco1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 3).toString());
         cbxPiso1.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 2).toString());
+        preparaSelecaoTabelaSala();
     }//GEN-LAST:event_tbeSalaMouseClicked
 
     private void btnNovoSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoSalaActionPerformed
@@ -551,15 +541,14 @@ public class SalaView extends javax.swing.JInternalFrame {
         cbxUnidade1.setSelectedIndex(0);
         tfdDescricaoSala.setText("");
         tfdIDSala.setText("");
-        cbxBloco1.setEnabled(true);
-        cbxPiso1.setEnabled(true);
-        cbxUnidade1.setEnabled(true);
     }
     
     public void preparaNovo() {
         btnNovoSala.setEnabled(false);
         btnSalvarSala.setEnabled(true);
         btnCancelarSala.setEnabled(true);
+        btnAlterarSala.setEnabled(false);
+        btnExcluirSala.setEnabled(false);
         tbeSala.setEnabled(false);
         tbeSala.clearSelection();
     }
@@ -590,19 +579,33 @@ public class SalaView extends javax.swing.JInternalFrame {
        btnAlterarSala.setEnabled(false);
        btnExcluirSala.setEnabled(false);
     } 
-     public void preparaAlterar() {
+    public void preparaAlterar() {
         btnNovoSala.setEnabled(false);
         btnExcluirSala.setEnabled(false);
         btnAlterarSala.setEnabled(false);
         btnSalvarSala.setEnabled(true);
         btnCancelarSala.setEnabled(true);
-        tbeSala.setEnabled(false);
+        cbxUnidade1.setEnabled(false);
+        cbxBloco1.setEnabled(false);
+        cbxPiso1.setEnabled(false);
+        tbeSala.setEnabled(false);        
         tbeSala.clearSelection();
-     }
-     public void preparaExcluir() {
+        tfdDescricaoSala.requestFocusInWindow();
+    
+    }
+    public void preparaExcluir() {
         btnExcluirSala.setEnabled(false);
         btnAlterarSala.setEnabled(false);
     }
+     
+    public void preparaSelecaoTabelaSala(){
+        btnNovoSala.setEnabled(true);
+        btnExcluirSala.setEnabled(true);
+        btnAlterarSala.setEnabled(true);
+         
+    
+    }
+    
      
      // FIM MÉTODOS DE CONTROLE DE BOTÕES 
      
