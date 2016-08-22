@@ -171,6 +171,11 @@ public class PrincipalView extends javax.swing.JFrame {
 
         mnuSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/sobre.fw.png"))); // NOI18N
         mnuSobre.setText("Sobre");
+        mnuSobre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuSobreMouseClicked(evt);
+            }
+        });
         mnbPrincipal.add(mnuSobre);
 
         setJMenuBar(mnbPrincipal);
@@ -251,6 +256,13 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.add(sala);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniSalaActionPerformed
+
+    private void mnuSobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuSobreMouseClicked
+        SobreView sobre = new SobreView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(sobre);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mnuSobreMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
