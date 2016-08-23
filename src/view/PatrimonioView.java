@@ -777,6 +777,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 patrimonioDAO.salvar(patrimonio);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaPatrimonio();
+                preparaSalvareCancelar();
+                desativaCampos();
+                limpaCamposPatrimonio();
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -800,7 +803,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 limpaCamposPatrimonio();
             }catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+                 if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(null, "Patrimonio já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                }
             }
             
         }
@@ -822,9 +829,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     preparaExcluir();
                     desativaCampos();
                     JOptionPane.showMessageDialog(null, "Patrimônio excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                    btnExcluirPatrimonio.setEnabled(false);
-                    btnAlterarPatrimonio.setEnabled(false);
-                    btnSalvarPatrimonio.setEnabled(true);
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -1004,6 +1009,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     public void preparaExcluir() {
         btnExcluirPatrimonio.setEnabled(false);
         btnAlterarPatrimonio.setEnabled(false);
+        
     }
      
     public void preparaSelecaoTabelaPatrimonio(){
