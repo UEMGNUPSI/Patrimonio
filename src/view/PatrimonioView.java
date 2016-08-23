@@ -919,12 +919,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
        cbxConservacao.setEnabled(true);     
        cbxStatus.setEnabled(true);
        cbxOrgao.setEnabled(true);
-        cbxUnidade.setEnabled(true);     
-        cbxBloco.setEnabled(true);      
-        cbxPiso.setEnabled(true);   
-        cbxSala.setEnabled(true);    
-        cbxTipo.setEnabled(true);  
-        cbxSuptipo.setEnabled(true);
      
         
     }
