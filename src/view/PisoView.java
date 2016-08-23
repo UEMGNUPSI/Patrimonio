@@ -403,6 +403,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         atualizaTabelaPiso();
         limpaCamposPiso();
         }
+        
                 
     }//GEN-LAST:event_btnSalvarPisoActionPerformed
 
@@ -517,8 +518,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         tfdIDPiso.setText("");
         cbxUnidade1.setSelectedIndex(0);
         cbxBloco1.setSelectedIndex(0);
-        cbxBloco1.setEnabled(true);
-        cbxUnidade1.setEnabled(true);
+        
     }
     
     public void preparaNovo() {
@@ -527,6 +527,8 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnCancelarPiso.setEnabled(true);
         btnAlterarPiso.setEnabled(false);
         btnExcluirPiso.setEnabled(false);
+        cbxBloco1.setEnabled(true);
+        cbxUnidade1.setEnabled(true);
         tbePiso.setEnabled(false);
         tbePiso.clearSelection();
     }
@@ -534,6 +536,8 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnNovoPiso.setEnabled(true);
         btnSalvarPiso.setEnabled(false);
         btnCancelarPiso.setEnabled(false);
+        cbxUnidade1.setEnabled(false);
+        cbxBloco1.setEnabled(false);
         tbePiso.setEnabled(true);
     }
     
