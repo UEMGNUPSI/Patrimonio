@@ -492,7 +492,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Conservacao já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Conservacao já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -513,7 +513,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
             if (ex.getErrorCode() == 1062) {
-                JOptionPane.showMessageDialog(null, "Conservacao já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Conservacao já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
@@ -540,7 +540,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
-                        JOptionPane.showMessageDialog(null, "Impossível excluir essa Conservação, ela já possui Patrimonios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossível excluir essa Conservação, ela já possui patrimônios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                     }
@@ -588,7 +588,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Status já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Status já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                 }
@@ -608,7 +608,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Status já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Status já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -631,7 +631,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
-                        JOptionPane.showMessageDialog(null, "Impossível excluir esse Status, ele já possui Patrimonio cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossível excluir esse Status, ele já possui patrimônio cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
                     }

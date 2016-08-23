@@ -371,7 +371,7 @@ public class PisoView extends javax.swing.JInternalFrame {
 
     private void btnSalvarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPisoActionPerformed
         if (tfdDescricaoPiso.getText().isEmpty() || cbxUnidade1.getSelectedIndex() == 0 || cbxBloco1.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoPiso.requestFocusInWindow();
         } else if (tfdIDPiso.getText().isEmpty()){
             piso = new PisoM();
@@ -379,7 +379,7 @@ public class PisoView extends javax.swing.JInternalFrame {
             piso.setBloco(pegaBloco());
             try {
                 pisoDAO.salvar(piso);
-                JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -394,7 +394,7 @@ public class PisoView extends javax.swing.JInternalFrame {
             piso.setId(Integer.parseInt(tfdIDPiso.getText()));
             try {
                 pisoDAO.alterar(piso);
-                JOptionPane.showMessageDialog(null, "Alterado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -409,7 +409,7 @@ public class PisoView extends javax.swing.JInternalFrame {
 
     private void btnExcluirPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPisoActionPerformed
         if (tfdIDPiso.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione um Piso", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione um Piso.", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
             piso = new PisoM();
             piso.setId(Integer.parseInt(tfdIDPiso.getText()));
@@ -423,7 +423,7 @@ public class PisoView extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
-                        JOptionPane.showMessageDialog(null, "Impossível excluir esse Piso, ele já possui Salas cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossível excluir esse Piso, ele já possui Salas cadastradas!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                     }

@@ -750,7 +750,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     
     private void btnSalvarPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPatrimonioActionPerformed
         if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSuptipo.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoPatrimonio.requestFocusInWindow();
         } else  if (tfdIDPatrimonio.getText().isEmpty()){
             patrimonio = new PatrimonioM();
@@ -764,7 +764,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patrimonio.setSubTipo(pegaSubtipo());
             try {
                 patrimonioDAO.salvar(patrimonio);
-                JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
                 desativaCampos();
@@ -772,7 +772,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Patrimonio já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Patrimônio já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                 }
@@ -785,7 +785,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patrimonio.setNotaFiscal(tfdNotaFiscalPatrimonio.getText());
             try{
                 patrimonioDAO.alterar(patrimonio);
-                JOptionPane.showMessageDialog(null, "Patrimonio atualizado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Patrimônio atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
                 limpaCamposPatrimonio();
@@ -793,7 +793,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             }catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                  if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Patrimonio já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Patrimônio já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                 }
@@ -806,7 +806,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     private void btnExcluirPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPatrimonioActionPerformed
         if (tfdIDPatrimonio.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione um Patrimonio", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione um Patrimônio.", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
             patrimonio = new PatrimonioM();
             patrimonio.setId(Integer.parseInt(tfdIDPatrimonio.getText()));

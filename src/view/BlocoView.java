@@ -301,7 +301,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
 
     private void btnSalvarBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarBlocoActionPerformed
         if (tfdDescricaoBloco.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoBloco.requestFocusInWindow();
         } else if (tfdIDBloco.getText().isEmpty()){
             bloco = new BlocoM();
@@ -309,7 +309,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
             bloco.setUnidadeM(pegaUnidade());
             try {
                 blocoDAO.salvar(bloco);
-                JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE); 
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE); 
                 atualizaTabelaBloco();
                 preparaSalvareCancelar();
                 desativaCampos();
@@ -324,7 +324,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
             bloco.setDescricao(tfdDescricaoBloco.getText());
             try {
                 blocoDAO.alterar(bloco);
-                JOptionPane.showMessageDialog(null, "Bloco atualizado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Bloco atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaBloco();
                 preparaSalvareCancelar();
                 desativaCampos();

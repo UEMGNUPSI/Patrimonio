@@ -335,7 +335,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (tfdNome.getText().isEmpty() || tfdEmail.getText().isEmpty() || tfdEndereco.getText().isEmpty() || tfdTelefone.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdNome.requestFocusInWindow();
         } else if (tfdID.getText().isEmpty()) {
             unidade = new UnidadeM();
@@ -345,7 +345,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
             unidade.setEmail(tfdEmail.getText());
             try {
                 unidadeDAO.salvar(unidade);
-                JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaUnidade();
                 preparaSalvareCancelar();
                 desativaCampos();
@@ -353,7 +353,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Unidade já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Unidade já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
 
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -371,13 +371,13 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 unidade.setEmail(tfdEmail.getText());
                 try {
                     unidadeDAO.alterar(unidade);
-                    JOptionPane.showMessageDialog(null, "Alterado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
                     LimpaCamposUnidade();
                     desativaCampos();
                 } catch (SQLException ex){
                     if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Unidade já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Unidade já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
 
                     } else {
                         Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);

@@ -401,7 +401,7 @@ public class SalaView extends javax.swing.JInternalFrame {
 
     private void btnSalvarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarSalaActionPerformed
         if (tfdDescricaoSala.getText().isEmpty() || cbxUnidade1.getSelectedIndex() == 0 || cbxBloco1.getSelectedIndex() == 0 || cbxPiso1.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoSala.requestFocusInWindow();
         } else if (tfdIDSala.getText().isEmpty()){
             sala = new SalaM();
@@ -425,7 +425,7 @@ public class SalaView extends javax.swing.JInternalFrame {
             btnSalvarSala.setEnabled(true);
             try {
                 salaDAO.alterar(sala);
-                JOptionPane.showMessageDialog(null, "Alterado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -439,7 +439,7 @@ public class SalaView extends javax.swing.JInternalFrame {
 
     private void btnExcluirSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirSalaActionPerformed
         if (tfdIDSala.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione um Piso", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione um Piso.", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
             sala = new SalaM();
             sala.setId(Integer.parseInt(tfdIDSala.getText()));

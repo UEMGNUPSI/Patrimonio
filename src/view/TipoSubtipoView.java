@@ -591,7 +591,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Tipo já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Tipo já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -619,7 +619,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Tipo já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Tipo já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -735,7 +735,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Subtipo já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Subtipo já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -762,7 +762,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Subtipo já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Subtipo já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -794,7 +794,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
-                        JOptionPane.showMessageDialog(null, "Impossível excluir este subtipo, existem patrimônio cadastrados com esse subtipo!", "Erro", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossível excluir este subtipo, existem patrimônios cadastrados com esse subtipo!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                     }
