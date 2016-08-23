@@ -169,6 +169,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
         cbxOrgao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UEMG" }));
         cbxOrgao.setEnabled(false);
+        cbxOrgao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxOrgaoActionPerformed(evt);
+            }
+        });
 
         lblDescricao.setText("Descrição");
 
@@ -823,6 +828,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         desativaCampos();       
     }//GEN-LAST:event_btnCancelarPatrimonioActionPerformed
 
+    private void cbxOrgaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxOrgaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxOrgaoActionPerformed
+
     public EntidadeM pegaEntidade() {
         try {
             return entidadeDAO.buscaNome(cbxOrgao.getSelectedItem().toString());
@@ -918,7 +927,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
        
        cbxConservacao.setEnabled(true);     
        cbxStatus.setEnabled(true);
-       cbxOrgao.setEnabled(true);
+  
      
         
     }
