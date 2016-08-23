@@ -32,7 +32,6 @@ public class EntidadeView extends javax.swing.JInternalFrame {
     public EntidadeView() {
         entidadeDAO = new EntidadeDAO();
         listaEntidade = new ArrayList<>();
-        JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
         initComponents();  
         this.setVisible(true);
         atualizaTabelaEntidade();

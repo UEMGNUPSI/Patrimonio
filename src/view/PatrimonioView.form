@@ -193,9 +193,7 @@
         <Component class="javax.swing.JComboBox" name="cbxOrgao">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="UEMG"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -293,9 +291,7 @@
         <Component class="javax.swing.JComboBox" name="cbxConservacao">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Piso 1"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -309,9 +305,7 @@
         <Component class="javax.swing.JComboBox" name="cbxStatus">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Piso 1"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -419,9 +413,7 @@
             <Component class="javax.swing.JComboBox" name="cbxUnidade">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="UEMG"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -440,9 +432,7 @@
             <Component class="javax.swing.JComboBox" name="cbxBloco">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="Bloco A"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -461,9 +451,7 @@
             <Component class="javax.swing.JComboBox" name="cbxPiso">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="Piso 1"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -482,9 +470,7 @@
             <Component class="javax.swing.JComboBox" name="cbxSala">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="1">
-                    <StringItem index="0" value="Sala 1"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -539,10 +525,7 @@
             <Component class="javax.swing.JComboBox" name="cbxTipo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Mobilia"/>
-                    <StringItem index="1" value="Cadastrar Tipo"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
@@ -561,10 +544,7 @@
             <Component class="javax.swing.JComboBox" name="cbxSuptipo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Cadeira"/>
-                    <StringItem index="1" value="Cadastrar Subtipo"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
