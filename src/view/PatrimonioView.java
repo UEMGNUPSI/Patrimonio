@@ -720,7 +720,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoPatrimonioActionPerformed
 
     private void tbePatrimonioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePatrimonioMouseClicked
-        limpaCamposPatrimonio();
+        
         tfdIDPatrimonio.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 0).toString());
         tfdCodigoPatrimonio.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 1).toString());
         tfdDescricaoPatrimonio.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 2).toString());
@@ -737,19 +737,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxStatus.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 6).toString());
        cbxOrgao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 7).toString());
         
-        btnSalvarPatrimonio.setEnabled((false));
-        btnExcluirPatrimonio.setEnabled(true);
-        btnAlterarPatrimonio.setEnabled(true);
-        cbxStatus.setEnabled(false);
-        cbxBloco.setEnabled(false);
-        cbxConservacao.setEnabled(false);
-        btnNovoPatrimonio.setEnabled(true);
-        cbxOrgao.setEnabled(false);
-        cbxPiso.setEnabled(false);
-        cbxSala.setEnabled(false);
-        cbxSuptipo.setEnabled(false);
-        cbxTipo.setEnabled(false);
-        cbxUnidade.setEnabled(false);
+       
+        preparaSelecaoTabelaPatrimonio();
     }//GEN-LAST:event_tbePatrimonioMouseClicked
 
     
@@ -805,8 +794,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             if (confirma == 0) {
                 try {
                     patrimonioDAO.excluir(patrimonio);
-                    atualizaTabelaPatrimonio();
                     limpaCamposPatrimonio();
+                    atualizaTabelaPatrimonio();
+                    preparaExcluir();
+                    desativaCampos();
                     JOptionPane.showMessageDialog(null, "Patrimônio excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     btnExcluirPatrimonio.setEnabled(false);
                     btnAlterarPatrimonio.setEnabled(false);
@@ -816,47 +807,20 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 }
 
             }
+        
         }
+        
     }//GEN-LAST:event_btnExcluirPatrimonioActionPerformed
 
     private void btnAlterarPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarPatrimonioActionPerformed
-        if (tfdIDPatrimonio.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione um Patrimonio", "Erro", JOptionPane.WARNING_MESSAGE);
-        } else {
-            patrimonio = new PatrimonioM();
-            patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
-            patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
-            patrimonio.setEntidade(pegaEntidade());
-            patrimonio.setGrau_conservacao(pegaGrau());
-            patrimonio.setNotaFiscal(tfdNotaFiscalPatrimonio.getText());
-            patrimonio.setSala(pegaSala());
-            patrimonio.setStatus(pegaStatus());
-            patrimonio.setSubTipo(pegaSubtipo());
-            patrimonio.setId(Integer.parseInt(tfdIDPatrimonio.getText()));
-
-            try {
-                patrimonioDAO.alterar(patrimonio);
-                JOptionPane.showMessageDialog(null, "Patrimonio atualizado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabelaPatrimonio();
-                limpaCamposPatrimonio();
-                btnAlterarPatrimonio.setEnabled(false);
-                btnExcluirPatrimonio.setEnabled(false);
-                btnSalvarPatrimonio.setEnabled(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
-
-                if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Patrimonio já existente", "Erro", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
-                }
-            }
-
-        }
+        preparaAlterar();
+        ativaCampos();
     }//GEN-LAST:event_btnAlterarPatrimonioActionPerformed
 
     private void btnCancelarPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPatrimonioActionPerformed
-        // TODO add your handling code here:
+        limpaCamposPatrimonio();
+        preparaSalvareCancelar();
+        desativaCampos();       
     }//GEN-LAST:event_btnCancelarPatrimonioActionPerformed
 
     public EntidadeM pegaEntidade() {
@@ -909,24 +873,26 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     public void limpaCamposPatrimonio() {
         cbxUnidade.setSelectedIndex(0);
         cbxTipo.setSelectedIndex(0);
-        tfdIDPatrimonio.setText("");
-        tfdCodigoPatrimonio.setText("");
-        tfdDescricaoPatrimonio.setText("");
         cbxConservacao.setSelectedIndex(0);
         cbxStatus.setSelectedIndex(0);
         cbxOrgao.setSelectedIndex(0);
+        tfdIDPatrimonio.setText("");
+        tfdCodigoPatrimonio.setText("");
+        tfdDescricaoPatrimonio.setText("");
         tfdNotaFiscalPatrimonio.setText("");
-        cbxStatus.setEnabled(true);
-        cbxBloco.setEnabled(true);
-        cbxConservacao.setEnabled(true);
         btnNovoPatrimonio.setEnabled(true);
+        
+       
+        cbxStatus.setEnabled(true);
+        cbxConservacao.setEnabled(true);
         cbxOrgao.setEnabled(true);
+        
+        cbxUnidade.setEnabled(true);
+        cbxBloco.setEnabled(true);
         cbxPiso.setEnabled(true);
         cbxSala.setEnabled(true);
-        cbxStatus.setEnabled(true);
-        cbxSuptipo.setEnabled(true);
         cbxTipo.setEnabled(true);
-        cbxUnidade.setEnabled(true);
+        cbxSuptipo.setEnabled(true);
     }
     
     public void preparaNovo() {
@@ -949,15 +915,41 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdCodigoPatrimonio.setEnabled(true);
         tfdDescricaoPatrimonio.setEnabled(true);
         tfdNotaFiscalPatrimonio.setEnabled(true);
+       
+       cbxConservacao.setEnabled(true);     
+       cbxStatus.setEnabled(true);
+       cbxOrgao.setEnabled(true);
+        cbxUnidade.setEnabled(true);     
+        cbxBloco.setEnabled(true);      
+        cbxPiso.setEnabled(true);   
+        cbxSala.setEnabled(true);    
+        cbxTipo.setEnabled(true);  
+        cbxSuptipo.setEnabled(true);
+     
+        
     }
     
     public void desativaCampos(){
+        
        cbxConservacao.setSelectedIndex(0);
        cbxConservacao.setEnabled(false);
        cbxStatus.setSelectedIndex(0);
        cbxStatus.setEnabled(false);
        cbxOrgao.setSelectedIndex(0);
        cbxOrgao.setEnabled(false);
+        cbxUnidade.setEnabled(false);
+        cbxUnidade.setSelectedIndex(0);
+        cbxBloco.setEnabled(false);
+        cbxBloco.setSelectedIndex(0);
+        cbxPiso.setEnabled(false);
+        cbxPiso.setSelectedIndex(0);
+        cbxSala.setEnabled(false);
+        cbxSala.setSelectedIndex(0);
+        cbxTipo.setEnabled(false);
+        cbxTipo.setSelectedIndex(0);
+        cbxSuptipo.setEnabled(false);
+        cbxSuptipo.setSelectedIndex(0);
+       
        
        tfdIDPatrimonio.setText("");
        tfdIDPatrimonio.setEnabled(false);
@@ -994,9 +986,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
      
     public void preparaSelecaoTabelaPatrimonio(){
+       
         btnNovoPatrimonio.setEnabled(true);
         btnExcluirPatrimonio.setEnabled(true);
         btnAlterarPatrimonio.setEnabled(true);
+       
  
     }
          

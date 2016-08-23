@@ -400,7 +400,7 @@ public class SalaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxBloco1ActionPerformed
 
     private void btnSalvarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarSalaActionPerformed
-        if (tfdDescricaoSala.getText().isEmpty() || cbxUnidade1.getSelectedIndex() == 0 || cbxBloco1.getSelectedIndex() == 0) {
+        if (tfdDescricaoSala.getText().isEmpty() || cbxUnidade1.getSelectedIndex() == 0 || cbxBloco1.getSelectedIndex() == 0 || cbxPiso1.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoSala.requestFocusInWindow();
         } else if (tfdIDSala.getText().isEmpty()){
