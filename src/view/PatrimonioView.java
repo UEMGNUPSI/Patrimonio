@@ -762,7 +762,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSuptipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoPatrimonio.requestFocusInWindow();
-        } else {
+        } else  if (tfdIDPatrimonio.getText().isEmpty()){
             patrimonio = new PatrimonioM();
             patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
             patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
@@ -785,9 +785,26 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                 }
             }
-
-            //limpaCamposPatrimonio();
+        } else {
+            patrimonio = new PatrimonioM();
+            patrimonio.setId(Integer.parseInt(tfdIDPatrimonio.getText()));
+            patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
+            patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
+            patrimonio.setNotaFiscal(tfdNotaFiscalPatrimonio.getText());
+            try{
+                patrimonioDAO.alterar(patrimonio);
+                JOptionPane.showMessageDialog(null, "Patrimonio atualizado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabelaPatrimonio();
+                preparaSalvareCancelar();
+                desativaCampos();
+                limpaCamposPatrimonio();
+            }catch (SQLException ex) {
+                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+            
         }
+        
     }//GEN-LAST:event_btnSalvarPatrimonioActionPerformed
 
     private void btnExcluirPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPatrimonioActionPerformed
