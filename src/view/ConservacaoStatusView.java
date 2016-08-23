@@ -485,6 +485,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             try {
                 grauConservacaoDAO.salvar(grauConservacao);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabelaConservacao();
+                preparaSalvareCancelarConservacao();
+                desativaCamposConservacao();
+            limpaCamposConservacao(); 
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -493,10 +497,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
-             atualizaTabelaConservacao();
-            preparaSalvareCancelarConservacao();
-            desativaCamposConservacao();
-            limpaCamposConservacao(); 
+             
         } else {
             grauConservacao = new GrauConservacaoM();
             grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
@@ -505,6 +506,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         try {
             grauConservacaoDAO.alterar(grauConservacao);
             JOptionPane.showMessageDialog(null, "Conservação alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            atualizaTabelaConservacao();
+            preparaSalvareCancelarConservacao();
+            desativaCamposConservacao();
+            limpaCamposConservacao();
         } catch (SQLException ex) {
             Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
             if (ex.getErrorCode() == 1062) {
@@ -513,10 +518,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
-            atualizaTabelaConservacao();
-            preparaSalvareCancelarConservacao();
-            desativaCamposConservacao();
-            limpaCamposConservacao();
+            
         
 
         }
@@ -579,6 +581,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             try {
                 statusDAO.salvar(status);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabelaStatus();
+                preparaSalvareCancelarStatus();
+                desativaCamposStatus();
+                limpaCamposStatus();  
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -587,10 +593,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                 }
             }
-            atualizaTabelaStatus();
-            preparaSalvareCancelarStatus();
-            desativaCamposStatus();
-            limpaCamposStatus();       
+                 
         } else {         
             status = new StatusM();
             status.setNome(tfdDescricaoStatus.getText());
@@ -598,6 +601,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             try {
                 statusDAO.alterar(status);
                 JOptionPane.showMessageDialog(null, "Status alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabelaStatus();
+                preparaSalvareCancelarStatus();
+                desativaCamposStatus();
+                limpaCamposStatus();
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -606,10 +613,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
-            atualizaTabelaStatus();
-            preparaSalvareCancelarStatus();
-            desativaCamposStatus();
-            limpaCamposStatus();
+            
         }
     }//GEN-LAST:event_btnSalvarStatusActionPerformed
 
@@ -744,6 +748,8 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         btnNovoStatus.setEnabled(false);
         btnSalvarStatus.setEnabled(true);
         btnCancelarStatus.setEnabled(true);
+        btnAlterarStatus.setEnabled(false);
+        btnExcluirStatus.setEnabled(false);
         tbeStatus.setEnabled(false);
         tbeStatus.clearSelection();
     }
@@ -751,6 +757,8 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         btnNovoStatus.setEnabled(true);
         btnSalvarStatus.setEnabled(false);
         btnCancelarStatus.setEnabled(false);
+        btnAlterarStatus.setEnabled(false);
+        btnExcluirStatus.setEnabled(false);
         tbeStatus.setEnabled(true);
     }
     
