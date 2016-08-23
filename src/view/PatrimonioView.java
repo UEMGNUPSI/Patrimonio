@@ -741,6 +741,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxConservacao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 5).toString());
         cbxStatus.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 6).toString());
        cbxOrgao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 7).toString());
+       tfdNotaFiscalPatrimonio.setText(patri.getNotaFiscal());
         
        
         preparaSelecaoTabelaPatrimonio();
