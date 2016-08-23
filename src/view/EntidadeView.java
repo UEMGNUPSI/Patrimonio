@@ -295,7 +295,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (tfdNome.getText().isEmpty() || tfdCnpj.getText().isEmpty() || tfdContato.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Prencha todos os campos", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdNome.requestFocusInWindow();
         } else if (tfdID.getText().isEmpty()){
             entidade = new EntidadeM();
@@ -304,7 +304,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
             entidade.setContato(tfdContato.getText());
             try {
                 entidadeDAO.salvar(entidade);
-                JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaEntidade();
                 limpaCamposEntidade();
                 preparaSalvareCancelar();
@@ -314,7 +314,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Entidade já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Entidade com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -324,7 +324,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         } 
         else {
             if (tfdID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione uma Entidade", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione uma Entidade.", "Erro", JOptionPane.WARNING_MESSAGE);
             } else {
                 entidade = new EntidadeM();
                 entidade.setId(Integer.parseInt(tfdID.getText()));
@@ -334,13 +334,13 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                
                 try {
                     entidadeDAO.alterar(entidade);
-                    JOptionPane.showMessageDialog(null, "Entidade atualizada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Entidade atualizada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
                     desativaCampos();
                     atualizaTabelaEntidade();
                 } catch (SQLException ex) {
                     if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Entidade já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Entidade com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -353,7 +353,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (tfdID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione uma Entidade", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione uma Entidade.", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
             entidade = new EntidadeM();
             entidade.setId(Integer.parseInt(tfdID.getText()));
@@ -367,7 +367,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 } catch (SQLException ex) {
                     Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
-                        JOptionPane.showMessageDialog(null, "Impossível excluir essa Entidade, ele já possui patrimonios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossível excluir essa Entidade, ela já possui patrimônios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                     }
