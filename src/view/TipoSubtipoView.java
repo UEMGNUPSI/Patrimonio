@@ -579,10 +579,15 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             try {
                 tipoDAO.salvar(tipo);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                //atualizaTabelaTipo();
-                //preencheComboBox();
                 
-                //limpaCamposTipo();
+                preparaSalvareCancelarTipo();
+                desativaCamposTipo();
+                atualizaTabelaTipo();
+                preencheComboBox();
+                atualizaTabelaSubTipo();
+                limpaCamposTipo();
+                
+                
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -591,6 +596,8 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
+                
+                
 
         }else{
             
@@ -601,10 +608,14 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             try {
                 tipoDAO.alterar(tipo);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                //atualizaTabelaTipo();
                 
-                //atualizaTabelaSubTipo();
+                preparaSalvareCancelarTipo();
+                desativaCamposTipo();
+                atualizaTabelaTipo();
+                preencheComboBox();
+                atualizaTabelaSubTipo();
                 limpaCamposTipo();
+                
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -613,12 +624,9 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
+                
         }
-        preparaSalvareCancelarTipo();
-        desativaCamposTipo();
-        atualizaTabelaTipo();
-        preencheComboBox();
-        atualizaTabelaSubTipo();
+        
     }//GEN-LAST:event_btnSalvarTipoActionPerformed
 
     private void btnExcluirTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirTipoActionPerformed
@@ -716,9 +724,13 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 subTipoDAO.salvar(subTipo);                
                 if(bi!=null){
                 salvarImagen();                
-                }                
+                }   
+                
                 limpaCamposSubTipo();
-                //atualizaTabelaSubTipo();
+                desativaCamposSubtipo();
+                preparaSalvareCancelarSubtipo();
+                atualizaTabelaSubTipo();
+   
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
@@ -735,12 +747,18 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             subTipo.setId(Integer.parseInt(tfdIDSubTipo.getText()));
             try {
                 subTipoDAO.alterar(subTipo);
-                //atualizaTabelaSubTipo();
+                
                 if(bi!=null){
                 salvarImagen();               
                 }
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                
                 limpaCamposSubTipo();
+                limpaCamposSubTipo();
+                desativaCamposSubtipo();
+                preparaSalvareCancelarSubtipo();
+               
+                atualizaTabelaSubTipo();
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -750,9 +768,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 }
             }
         }
-        desativaCamposSubtipo();
-        preparaSalvareCancelarSubtipo();
-        atualizaTabelaSubTipo();
+        
     }//GEN-LAST:event_btnSalvarSubtipoActionPerformed
 
 
