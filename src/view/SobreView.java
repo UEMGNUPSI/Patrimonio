@@ -43,7 +43,7 @@ public class SobreView extends javax.swing.JInternalFrame {
         jLabel2.setText("Gustavo Pinoti     Leopoldo Ferreira    Marlon Moro    Murillo Cuervo");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel3.setText("Software de Patrimonio - UEMG");
+        jLabel3.setText("Software de Patrimônio - UEMG");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel4.setText("Versão 0.1");

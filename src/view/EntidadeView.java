@@ -307,6 +307,9 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaEntidade();
                 limpaCamposEntidade();
+                preparaSalvareCancelar();
+                desativaCampos();
+                atualizaTabelaEntidade();
 
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
@@ -316,9 +319,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
             }
-            preparaSalvareCancelar();
-            desativaCampos();
-            atualizaTabelaEntidade();
+            
 
         } 
         else {
@@ -330,17 +331,22 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 entidade.setNome(tfdNome.getText());
                 entidade.setCnpj(tfdCnpj.getText());
                 entidade.setContato(tfdContato.getText());
-                btnSalvar.setEnabled(true);
+               
                 try {
                     entidadeDAO.alterar(entidade);
                     JOptionPane.showMessageDialog(null, "Entidade atualizada com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    preparaSalvareCancelar();
+                    desativaCampos();
+                    atualizaTabelaEntidade();
                 } catch (SQLException ex) {
-                    Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(null, "Entidade já existente", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
                 }
             }
-        preparaSalvareCancelar();
-        desativaCampos();
-        atualizaTabelaEntidade();
+       
         }
             
     }//GEN-LAST:event_btnSalvarActionPerformed
