@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
 import model.UnidadeM;
+import util.LimiteDigitos;
 
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -37,6 +38,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
         initComponents();
         this.setVisible(true);
         atualizaBoxUnidade();
+        tfdDescricaoBloco.setDocument(new LimiteDigitos(45));
     }
 
     BlocoM bloco;

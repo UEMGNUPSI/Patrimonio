@@ -22,6 +22,7 @@ import model.BlocoM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
+import util.LimiteDigitos;
 
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -58,6 +59,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         atualizaBoxUnidade();
         btnExcluirSala.setEnabled(false);
         btnAlterarSala.setEnabled(false);
+        tfdDescricaoSala.setDocument(new LimiteDigitos(45));
     }
 
     public void atualizaTabelaSala() {

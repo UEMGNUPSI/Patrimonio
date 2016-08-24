@@ -31,6 +31,7 @@ import model.StatusM;
 import model.SubTipoM;
 import model.TipoM;
 import model.UnidadeM;
+import util.LimiteDigitos;
 
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -57,6 +58,8 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         preencheComboBox();
         limpaCamposTipo();
         limpaCamposSubTipo();
+        tfdDescricaoSubTipo.setDocument(new LimiteDigitos(45));
+        tfdDescricaoTipo.setDocument(new LimiteDigitos(45));
         
         //preparaSalvareCancelarTipo();
         //btnSalvarSubtipo.setEnabled(false);

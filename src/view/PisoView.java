@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
 import model.PisoM;
 import model.UnidadeM;
+import util.LimiteDigitos;
 
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -52,6 +53,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         atualizaBoxUnidade();
         btnAlterarPiso.setEnabled(false);
         btnExcluirPiso.setEnabled(false);
+        tfdDescricaoPiso.setDocument(new LimiteDigitos(45));
     }
 
     /**

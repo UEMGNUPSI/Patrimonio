@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.UnidadeM;
+import util.LimiteDigitos;
 
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -33,6 +34,10 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         initComponents();
         this.setVisible(true);
         atualizaTabelaUnidade();
+        tfdEmail.setDocument(new LimiteDigitos(45));
+        tfdEndereco.setDocument(new LimiteDigitos(45));
+        tfdNome.setDocument(new LimiteDigitos(45));
+        tfdTelefone.setDocument(new LimiteDigitos(45));
         
     }
 

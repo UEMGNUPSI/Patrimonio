@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.GrauConservacaoM;
 import model.StatusM;
-
+import util.LimiteDigitos;
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
  * @author NUPSI - Núcle de Práticas em Sistemas de Informação
@@ -40,7 +40,8 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         this.setVisible(true);
         atualizaTabelaConservacao();
         atualizaTabelaStatus();
-        
+        tdfDescricaoConservacao.setDocument(new LimiteDigitos(45));
+        tfdDescricaoStatus.setDocument(new LimiteDigitos(45));
         //limpaCamposConservacao();
         //limpaCamposStatus();
 

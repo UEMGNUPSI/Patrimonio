@@ -6,18 +6,17 @@
 package view;
 
 import dao.EntidadeDAO;
-import java.beans.PropertyVetoException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.EntidadeM;
+import util.LimiteDigitos;
 
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -35,7 +34,9 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         initComponents();  
         this.setVisible(true);
         atualizaTabelaEntidade();
-        
+        tfdCnpj.setDocument(new LimiteDigitos(45));
+        tfdContato.setDocument(new LimiteDigitos(45));
+        tfdNome.setDocument(new LimiteDigitos(45));
 
     }
 
