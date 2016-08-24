@@ -708,9 +708,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxTipoActionPerformed
 
     private void btnNovoPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPatrimonioActionPerformed
-        limpaCamposPatrimonio();
+        //limpaCamposPatrimonio();
         preparaNovo();
         ativaCamposNovo();
+        tfdIDPatrimonio.setText("");
+        tfdCodigoPatrimonio.setText("");
         tfdCodigoPatrimonio.requestFocusInWindow();  
     }//GEN-LAST:event_btnNovoPatrimonioActionPerformed
 
@@ -768,7 +770,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
                 desativaCampos();
-                limpaCamposPatrimonio();
+                //limpaCamposPatrimonio();
             } catch (SQLException ex) {
                 Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -897,7 +899,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxTipo.setSelectedIndex(0);
         cbxConservacao.setSelectedIndex(0);
         cbxStatus.setSelectedIndex(0);
-        cbxOrgao.setSelectedIndex(0);
+        cbxOrgao.setSelectedIndex(0); 
         tfdIDPatrimonio.setText("");
         tfdCodigoPatrimonio.setText("");
         tfdDescricaoPatrimonio.setText("");
@@ -959,32 +961,32 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     
     public void desativaCampos(){
               
-        cbxConservacao.setSelectedIndex(0);
+        //cbxConservacao.setSelectedIndex(0);
         cbxConservacao.setEnabled(false);
-        cbxStatus.setSelectedIndex(0);
+       // cbxStatus.setSelectedIndex(0);
         cbxStatus.setEnabled(false);
-        cbxOrgao.setSelectedIndex(0);
+       // cbxOrgao.setSelectedIndex(0);
         cbxOrgao.setEnabled(false);
         cbxUnidade.setEnabled(false);
-        cbxUnidade.setSelectedIndex(0);
+       // cbxUnidade.setSelectedIndex(0);
         cbxBloco.setEnabled(false);
-        cbxBloco.setSelectedIndex(0);
+       // cbxBloco.setSelectedIndex(0);
         cbxPiso.setEnabled(false);
-        cbxPiso.setSelectedIndex(0);
+       // cbxPiso.setSelectedIndex(0);
         cbxSala.setEnabled(false);
-        cbxSala.setSelectedIndex(0);
+       // cbxSala.setSelectedIndex(0);
         cbxTipo.setEnabled(false);
-        cbxTipo.setSelectedIndex(0);
+       // cbxTipo.setSelectedIndex(0);
         cbxSuptipo.setEnabled(false);
-        cbxSuptipo.setSelectedIndex(0);
+       // cbxSuptipo.setSelectedIndex(0);
        
-        tfdIDPatrimonio.setText("");
+       // tfdIDPatrimonio.setText("");
         tfdIDPatrimonio.setEnabled(false);
-        tfdCodigoPatrimonio.setText("");
+      //  tfdCodigoPatrimonio.setText("");
         tfdCodigoPatrimonio.setEnabled(false);
-        tfdDescricaoPatrimonio.setText("");
+       // tfdDescricaoPatrimonio.setText("");
         tfdDescricaoPatrimonio.setEnabled(false);
-        tfdNotaFiscalPatrimonio.setText("");
+       // tfdNotaFiscalPatrimonio.setText("");
         tfdNotaFiscalPatrimonio.setEnabled(false);
  
         btnCancelarPatrimonio.setEnabled(false);
