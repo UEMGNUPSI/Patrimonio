@@ -7,6 +7,7 @@ package view;
 
 import java.awt.Frame;
 import javax.swing.JFrame;
+import model.UsuarioM;
 
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -18,10 +19,17 @@ public class PrincipalView extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    public PrincipalView() {
+    UsuarioM usuarioAtivo = new UsuarioM();
+    public PrincipalView(UsuarioM usuario) {
         initComponents();
         this.setVisible(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        usuarioAtivo = usuario;
+        
+        if(usuario.isAdmin() == false){
+             mnuCadastrar.setEnabled(false);
+        }
+        
     }
 
     /**
