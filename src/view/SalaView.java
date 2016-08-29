@@ -265,11 +265,6 @@ public class SalaView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblIDSala)
-                            .addComponent(tfdIDSala, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfdDescricaoSala)
                             .addComponent(cbxUnidade1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -294,11 +289,15 @@ public class SalaView extends javax.swing.JInternalFrame {
                                 .addComponent(btnExcluirSala, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblSelecUnidade1)
-                                    .addComponent(lblDescricaoSala))
-                                .addGap(94, 94, 94)))
-                        .addContainerGap())))
+                                .addComponent(lblDescricaoSala)
+                                .addGap(147, 147, 147)))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblIDSala)
+                            .addComponent(tfdIDSala, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSelecUnidade1))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -486,7 +485,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         limpaCamposSala();
         preparaNovo();
         ativaCampos();
-        tfdDescricaoSala.requestFocusInWindow();
+        
         
     }//GEN-LAST:event_btnNovoSalaActionPerformed
 
@@ -556,6 +555,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         cbxUnidade1.setEnabled(true);
         cbxBloco1.setEnabled(true);
         cbxPiso1.setEnabled(true);
+        cbxUnidade1.requestFocusInWindow();
     }
     public void preparaSalvareCancelar() {
         btnNovoSala.setEnabled(true);
