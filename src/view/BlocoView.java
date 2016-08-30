@@ -419,7 +419,6 @@ public class BlocoView extends javax.swing.JInternalFrame {
     public void limpaCamposBloco() {
         tfdIDBloco.setText("");
         tfdDescricaoBloco.setText("");
-        cbxUnidade.setSelectedIndex(0);
 
     }
     
