@@ -700,6 +700,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         btnCancelarConservacao.setEnabled(true);
         tbeConservacao.setEnabled(false);
         tbeConservacao.clearSelection();
+        tdfDescricaoConservacao.requestFocusInWindow();
     }
     public void preparaSalvareCancelarConservacao() {
         btnNovoConservacao.setEnabled(true);
@@ -753,6 +754,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         btnExcluirStatus.setEnabled(false);
         tbeStatus.setEnabled(false);
         tbeStatus.clearSelection();
+        tfdDescricaoStatus.requestFocusInWindow();
     }
     public void preparaSalvareCancelarStatus() {
         btnNovoStatus.setEnabled(true);

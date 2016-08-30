@@ -451,6 +451,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
     public void preparaExcluir(){
         btnExcluirBloco.setEnabled(false);
         btnAlterarBloco.setEnabled(false);
+        cbxUnidade.setSelectedIndex(0);
     }
     public void ativaCampos(){
         tfdDescricaoBloco.setEnabled(true);

@@ -957,7 +957,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         btnExcluirSubtipo.setEnabled(false);
         tbeSubTipo.setEnabled(false);
         tbeSubTipo.clearSelection();
-        tfdDescricaoSubTipo.requestFocusInWindow();
+        cbxSubtipo.requestFocusInWindow();
     }
     public void preparaNovoTipo(){
         tfdDescricaoTipo.setEnabled(true);
