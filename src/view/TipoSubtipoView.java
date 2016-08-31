@@ -696,8 +696,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         limpaCamposTipo();
         preparaNovoTipo();
-        //preencheComboBox();
-        //btnSalvarTipo.setEnabled(true);
+        
     }//GEN-LAST:event_btnNovoTipoActionPerformed
 
     private void tbeTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeTipoMouseClicked
@@ -958,6 +957,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         btnExcluirSubtipo.setEnabled(false);
         tbeSubTipo.setEnabled(false);
         tbeSubTipo.clearSelection();
+        cbxSubtipo.requestFocusInWindow();
     }
     public void preparaNovoTipo(){
         tfdDescricaoTipo.setEnabled(true);

@@ -34,6 +34,7 @@ import model.StatusM;
 import model.SubTipoM;
 import model.TipoM;
 import model.UnidadeM;
+import util.LimiteDigitos;
 
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -97,6 +98,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         atualizaBoxStatus();
         atualizaBoxEntidade();
         atualizaTabelaPatrimonio();
+        tfdCodigoPatrimonio.setDocument(new LimiteDigitos(45));
+        tfdDescricaoPatrimonio.setDocument(new LimiteDigitos(45));
+        tfdNotaFiscalPatrimonio.setDocument(new LimiteDigitos(45));
        
     }
 

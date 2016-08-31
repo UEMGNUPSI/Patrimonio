@@ -372,6 +372,7 @@ public class SalaView extends javax.swing.JInternalFrame {
                 for (BlocoM bloc : listaBloco) {
                     cbxBloco1.addItem(bloc.getDescricao());
                 }
+                cbxBloco1.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxBloco1.removeAllItems();
                 cbxBloco1.addItem("--Selecione--");
@@ -394,6 +395,7 @@ public class SalaView extends javax.swing.JInternalFrame {
                 for (PisoM pis : listaPiso) {
                     cbxPiso1.addItem(pis.getDescricao());
                 }
+                cbxPiso1.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxPiso1.removeAllItems();
                 cbxPiso1.addItem("--Selecione--");
@@ -486,8 +488,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         limpaCamposSala();
         preparaNovo();
         ativaCampos();
-        tfdDescricaoSala.requestFocusInWindow();
-        
+               
     }//GEN-LAST:event_btnNovoSalaActionPerformed
 
     private void btnAlterarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarSalaActionPerformed
@@ -518,6 +519,7 @@ public class SalaView extends javax.swing.JInternalFrame {
 
     private void cbxPiso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPiso1ActionPerformed
         // TODO add your handling code here:
+        tfdDescricaoSala.requestFocusInWindow();
     }//GEN-LAST:event_cbxPiso1ActionPerformed
 
     private void btnCancelarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarSalaActionPerformed
@@ -556,6 +558,8 @@ public class SalaView extends javax.swing.JInternalFrame {
         cbxUnidade1.setEnabled(true);
         cbxBloco1.setEnabled(true);
         cbxPiso1.setEnabled(true);
+        cbxUnidade1.requestFocusInWindow();
+        
     }
     public void preparaSalvareCancelar() {
         btnNovoSala.setEnabled(true);

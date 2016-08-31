@@ -1,0 +1,3 @@
+usuario = "root";
+senha = "root";
+url = "jdbc:mysql://localhost:3306/patrimonio";
