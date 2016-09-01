@@ -131,7 +131,35 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtSenhaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jBuLogin.requestFocusInWindow();
+            usuario = null;
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                if (jtUsuario.getText().isEmpty()) {
+                    erro.setText("O nome do usuario deve ser preechido");
+                    erro.setVisible(true);
+                } else if (jtSenha.getText().isEmpty()) {
+                    erro.setText("A senha deve ser preechida");
+                    erro.setVisible(true);
+                } else {
+                    usuario = usuarioDAO.busca(jtUsuario.getText(), jtSenha.getText());
+                    if(usuario == null){
+                        JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
+                        jtUsuario.setText("");
+                        jtSenha.setText("");
+                    }else{
+                        PrincipalView pv = new PrincipalView(usuario);
+                        this.dispose();
+                    }
+                    
+                    
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto", "Erro", JOptionPane.ERROR_MESSAGE);
+                jtUsuario.setText("");
+                jtSenha.setText("");
+
+            }
+        }
         }
     }//GEN-LAST:event_jtSenhaKeyPressed
 
@@ -153,6 +181,8 @@ public class LoginView extends javax.swing.JFrame {
                     jtSenha.setText("");
                 }else{
                     PrincipalView pv = new PrincipalView(usuario);
+                    this.dispose();
+                    
                 }
                 
                 //this.dispose();
@@ -166,34 +196,7 @@ public class LoginView extends javax.swing.JFrame {
     }//GEN-LAST:event_jBuLoginActionPerformed
 
     private void jBuLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBuLoginKeyPressed
-        usuario = null;
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            try {
-                if (jtUsuario.getText().isEmpty()) {
-                    erro.setText("O nome do usuario deve ser preechido");
-                    erro.setVisible(true);
-                } else if (jtSenha.getText().isEmpty()) {
-                    erro.setText("A senha deve ser preechida");
-                    erro.setVisible(true);
-                } else {
-                    usuario = usuarioDAO.busca(jtUsuario.getText(), jtSenha.getText());
-                    if(usuario == null){
-                        JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
-                        jtUsuario.setText("");
-                        jtSenha.setText("");
-                    }else{
-                        PrincipalView pv = new PrincipalView(usuario);
-                    }
-                    
-                    //this.dispose();
-                }
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto", "Erro", JOptionPane.ERROR_MESSAGE);
-                jtUsuario.setText("");
-                jtSenha.setText("");
-
-            }
-        }
+        
     }//GEN-LAST:event_jBuLoginKeyPressed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel erro;
