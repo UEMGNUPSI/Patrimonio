@@ -41,7 +41,7 @@ public class SobreView extends javax.swing.JInternalFrame {
         jLabel1.setText("Developed by NUPSI");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
-        jLabel2.setText("Graduandos: Gustavo Pinoti    Leopoldo Ferreira    Marlon Moro    Murillo Cuervo");
+        jLabel2.setText("Discentes: Gustavo Pinoti    Leopoldo Ferreira    Marlon Moro    Murillo Cuervo");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel3.setText("Software de Patrimônio - UEMG");
@@ -72,7 +72,7 @@ public class SobreView extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel2))))
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(113, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

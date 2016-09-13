@@ -234,6 +234,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tbePatrimonio);
+        if (tbePatrimonio.getColumnModel().getColumnCount() > 0) {
+            tbePatrimonio.getColumnModel().getColumn(0).setPreferredWidth(20);
+        }
 
         cbxConservacao.setEnabled(false);
         cbxConservacao.addActionListener(new java.awt.event.ActionListener() {

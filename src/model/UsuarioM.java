@@ -40,6 +40,7 @@ public class UsuarioM {
         this.masp = masp;
         this.contato = contato;
     }
+     
 
     public Integer getId() {
         return id;
