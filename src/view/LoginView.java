@@ -141,7 +141,7 @@ public class LoginView extends javax.swing.JFrame {
                     erro.setText("A senha deve ser preechida");
                     erro.setVisible(true);
                 } else {
-                    usuario = usuarioDAO.busca(jtUsuario.getText(), jtSenha.getText());
+                    usuario = usuarioDAO.valida(jtUsuario.getText(), jtSenha.getText());
                     if(usuario == null){
                         JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
                         jtUsuario.setText("");
@@ -174,7 +174,7 @@ public class LoginView extends javax.swing.JFrame {
                 erro.setText("A senha deve ser preechido");
                 erro.setVisible(true);
             } else {
-                usuario = usuarioDAO.busca(jtUsuario.getText(), jtSenha.getText());
+                usuario = usuarioDAO.valida(jtUsuario.getText(), jtSenha.getText());
                 if(usuario == null){
                     JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
                     jtUsuario.setText("");
