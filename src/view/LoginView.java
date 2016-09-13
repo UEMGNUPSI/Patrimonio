@@ -21,7 +21,7 @@ public class LoginView extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
-        erro.setVisible(false);
+        //erro.setVisible(false);
         this.jtUsuario.requestFocus();
         usuario = new UsuarioM();
         usuarioDAO = new UsuarioDAO();
@@ -68,7 +68,6 @@ public class LoginView extends javax.swing.JFrame {
         });
 
         erro.setForeground(new java.awt.Color(153, 0, 0));
-        erro.setText("erro");
         erro.setMaximumSize(new java.awt.Dimension(110, 39));
         erro.setMinimumSize(new java.awt.Dimension(110, 39));
 
@@ -91,16 +90,18 @@ public class LoginView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(erro, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2)
-                        .addComponent(jtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jBuLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jLabel1)
+                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBuLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(22, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(erro, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,15 +110,14 @@ public class LoginView extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(erro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jBuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(erro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -135,17 +135,22 @@ public class LoginView extends javax.swing.JFrame {
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
                 if (jtUsuario.getText().isEmpty()) {
-                    erro.setText("O nome do usuario deve ser preechido");
-                    erro.setVisible(true);
+                   // erro.setText("O nome do usuario deve ser preechido");
+                   // erro.setVisible(true);
+                   JOptionPane.showMessageDialog(null, "O usuário deve ser preenchido", "Alerta", JOptionPane.INFORMATION_MESSAGE);
+                    jtUsuario.requestFocus();
                 } else if (jtSenha.getText().isEmpty()) {
-                    erro.setText("A senha deve ser preechida");
-                    erro.setVisible(true);
+                   // erro.setText("A senha deve ser preechida");
+                   // erro.setVisible(true);
+                   JOptionPane.showMessageDialog(null, "A senha deve ser preenchida", "Alerta", JOptionPane.INFORMATION_MESSAGE);
+                    jtSenha.requestFocus();
                 } else {
                     usuario = usuarioDAO.valida(jtUsuario.getText(), jtSenha.getText());
                     if(usuario == null){
                         JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
                         jtUsuario.setText("");
                         jtSenha.setText("");
+                        jtUsuario.requestFocus();
                     }else{
                         PrincipalView pv = new PrincipalView(usuario);
                         this.dispose();
@@ -157,6 +162,7 @@ public class LoginView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto", "Erro", JOptionPane.ERROR_MESSAGE);
                 jtUsuario.setText("");
                 jtSenha.setText("");
+                jtUsuario.requestFocus();
 
             }
         }
@@ -167,18 +173,22 @@ public class LoginView extends javax.swing.JFrame {
         usuario = null;
         try {
             if (jtUsuario.getText().isEmpty()) {
-                erro.setText("O nome do usuario deve ser preechido");
-                erro.setVisible(true);
+                //erro.setText("O nome do usuario deve ser preechido");
+                JOptionPane.showMessageDialog(null, "O usuário deve ser preenchido", "Alerta", JOptionPane.INFORMATION_MESSAGE);
+                jtUsuario.requestFocus();
 
             } else if (jtSenha.getText().isEmpty()) {
-                erro.setText("A senha deve ser preechido");
-                erro.setVisible(true);
+                //erro.setText("A senha deve ser preechido");
+                //erro.setVisible(true);
+                JOptionPane.showMessageDialog(null, "A senha deve ser preenchida", "Alerta", JOptionPane.INFORMATION_MESSAGE);
+                jtSenha.requestFocus();
             } else {
                 usuario = usuarioDAO.valida(jtUsuario.getText(), jtSenha.getText());
                 if(usuario == null){
                     JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
                     jtUsuario.setText("");
                     jtSenha.setText("");
+                    jtUsuario.requestFocus();
                 }else{
                     PrincipalView pv = new PrincipalView(usuario);
                     this.dispose();
@@ -191,7 +201,9 @@ public class LoginView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
             jtUsuario.setText("");
             jtSenha.setText("");
+            jtUsuario.requestFocus();
             ex.printStackTrace();
+            
         }
     }//GEN-LAST:event_jBuLoginActionPerformed
 
