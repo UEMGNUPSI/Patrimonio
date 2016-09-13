@@ -28,6 +28,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
      */
     public UsuarioView() {
         initComponents();
+        this.setVisible(true);
         listaUsuario = new ArrayList<>();
     }
     UsuarioM usuario;

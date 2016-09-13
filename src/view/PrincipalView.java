@@ -192,6 +192,11 @@ public class PrincipalView extends javax.swing.JFrame {
                 mniAdicionarUsuarioMouseClicked(evt);
             }
         });
+        mniAdicionarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniAdicionarUsuarioActionPerformed(evt);
+            }
+        });
         mnuUsuario.add(mniAdicionarUsuario);
 
         mnbPrincipal.add(mnuUsuario);
@@ -292,11 +297,15 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuSobreMouseClicked
 
     private void mniAdicionarUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniAdicionarUsuarioMouseClicked
+        //sem uso 
+    }//GEN-LAST:event_mniAdicionarUsuarioMouseClicked
+
+    private void mniAdicionarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAdicionarUsuarioActionPerformed
         UsuarioView usuario = new UsuarioView();
         pnlPrincipal.removeAll();
         pnlPrincipal.add(usuario);
         pnlPrincipal.updateUI();
-    }//GEN-LAST:event_mniAdicionarUsuarioMouseClicked
+    }//GEN-LAST:event_mniAdicionarUsuarioActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
