@@ -67,4 +67,17 @@ public class UsuarioDAO {
         pst.execute();
         pst.close();
     }
+        public void alterar(UsuarioM usuario) throws SQLException{
+         sql = "update Usuario set usuario = ?, senha = ?, admin = ?, masp = ?, nome = ?, contato = ? where id = ?";
+         pst = Conexao.getInstance().prepareStatement(sql);
+         pst.setString(1, usuario.getUsuario());
+         pst.setString(2, usuario.getSenha());
+         pst.setBoolean(3, usuario.isAdmin());
+         pst.setString(4, usuario.getMasp());
+         pst.setString(5, usuario.getNome());
+         pst.setString(6, usuario.getContato());
+         pst.setInt(7, usuario.getId());
+         pst.execute();
+         pst.close();
+     }
 }
