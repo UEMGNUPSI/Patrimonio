@@ -121,14 +121,14 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         lblCodigo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         tfdCodigoPatrimonio = new javax.swing.JTextField();
-        cbxOrgao = new javax.swing.JComboBox<String>();
+        cbxOrgao = new javax.swing.JComboBox<>();
         lblDescricao = new javax.swing.JLabel();
         tfdDescricaoPatrimonio = new javax.swing.JTextField();
         lblGrauConservacao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbePatrimonio = new javax.swing.JTable();
-        cbxConservacao = new javax.swing.JComboBox<String>();
-        cbxStatus = new javax.swing.JComboBox<String>();
+        cbxConservacao = new javax.swing.JComboBox<>();
+        cbxStatus = new javax.swing.JComboBox<>();
         btnExcluirPatrimonio = new javax.swing.JButton();
         btnSalvarPatrimonio = new javax.swing.JButton();
         btnAlterarPatrimonio = new javax.swing.JButton();
@@ -137,18 +137,18 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdIDPatrimonio = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblSelecUnidade = new javax.swing.JLabel();
-        cbxUnidade = new javax.swing.JComboBox<String>();
+        cbxUnidade = new javax.swing.JComboBox<>();
         lblSelecBloco = new javax.swing.JLabel();
-        cbxBloco = new javax.swing.JComboBox<String>();
+        cbxBloco = new javax.swing.JComboBox<>();
         lblSelecPiso = new javax.swing.JLabel();
-        cbxPiso = new javax.swing.JComboBox<String>();
+        cbxPiso = new javax.swing.JComboBox<>();
         lblSelecSala = new javax.swing.JLabel();
-        cbxSala = new javax.swing.JComboBox<String>();
+        cbxSala = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         lblSelecTipo = new javax.swing.JLabel();
-        cbxTipo = new javax.swing.JComboBox<String>();
+        cbxTipo = new javax.swing.JComboBox<>();
         lblSelecSubtipo = new javax.swing.JLabel();
-        cbxSuptipo = new javax.swing.JComboBox<String>();
+        cbxSuptipo = new javax.swing.JComboBox<>();
         btnCancelarPatrimonio = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPatrimonioComposto = new javax.swing.JTable();
@@ -159,11 +159,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         btnAlterarPatrimonioComposto = new javax.swing.JButton();
         btnNovoPatrimonioComposto = new javax.swing.JButton();
         tfdDescricaoPatrimonioComposto = new javax.swing.JTextField();
-        cbxStatusPatrimonioComposto = new javax.swing.JComboBox<String>();
+        cbxStatusPatrimonioComposto = new javax.swing.JComboBox<>();
         lblGrauConservacao1 = new javax.swing.JLabel();
         lblDescricao1 = new javax.swing.JLabel();
         lblStatus1 = new javax.swing.JLabel();
-        cbxConservacaoPatrimonioComposto = new javax.swing.JComboBox<String>();
+        cbxConservacaoPatrimonioComposto = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         ckxPatrimonioComposto = new javax.swing.JCheckBox();
 
@@ -542,6 +542,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         );
 
         ckxPatrimonioComposto.setText("PatrimonioComposto");
+        ckxPatrimonioComposto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ckxPatrimonioCompostoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlPatrimonioLayout = new javax.swing.GroupLayout(pnlPatrimonio);
         pnlPatrimonio.setLayout(pnlPatrimonioLayout);
@@ -1056,6 +1061,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private void cbxConservacaoPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxConservacaoPatrimonioCompostoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxConservacaoPatrimonioCompostoActionPerformed
+
+    private void ckxPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckxPatrimonioCompostoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ckxPatrimonioCompostoActionPerformed
 
     public EntidadeM pegaEntidade() {
         try {
