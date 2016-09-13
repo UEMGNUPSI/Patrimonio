@@ -238,7 +238,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
         try {
             listaUnidade = unidadeDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaUnidade.size()][5];
         int i = 0;
@@ -253,7 +253,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
         try {
             listaBloco = blocoDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaBloco.size()][4];
         int i = 0;
@@ -317,7 +317,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
                 desativaCampos();
                 limpaCamposBloco();
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         } else {
@@ -332,7 +332,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
                 desativaCampos();
                 limpaCamposBloco();
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ex.getMessage());
 
             }
@@ -356,7 +356,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
                     limpaCamposBloco();
                     preparaExcluir();
                 } catch (SQLException ex) {
-                    Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
                         JOptionPane.showMessageDialog(null, "Impossível excluir esse Bloco, ele já possui Pisos cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {

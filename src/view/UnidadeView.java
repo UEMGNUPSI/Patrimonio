@@ -297,7 +297,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 try {
                     unidadeDAO.excluir(unidade);
                 } catch (SQLException ex) {
-                    Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
                         JOptionPane.showMessageDialog(null, "Impossível excluir essa unidade, ela já possui blocos cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
@@ -356,7 +356,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 desativaCampos();
                 LimpaCamposUnidade();
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
                     JOptionPane.showMessageDialog(null, "Unidade já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
 
@@ -385,7 +385,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Unidade já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
 
                     } else {
-                        Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
                 }
@@ -412,7 +412,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         try {
             listaUnidade = unidadeDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaUnidade.size()][5];
         int i = 0;

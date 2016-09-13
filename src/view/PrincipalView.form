@@ -29,7 +29,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniEntidade">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Entidade"/>
+                <Property name="text" type="java.lang.String" value="Org&#xe3;o"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniEntidadeActionPerformed"/>

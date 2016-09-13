@@ -685,7 +685,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         try {
             listaPatrimonio = patrimonioDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaPatrimonio.size()][8];
         int i = 0;
@@ -736,7 +736,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         try {
             listaTipo = tipoDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaTipo.size()][5];
         int i = 0;
@@ -751,7 +751,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         try {
             listaEntidade = entidadeDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaEntidade.size()][5];
         int i = 0;
@@ -766,7 +766,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         try {
             listaGrau = grauDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaGrau.size()][5];
         int i = 0;
@@ -781,7 +781,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         try {
             listaStatus = statusDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaStatus.size()][5];
         int i = 0;
@@ -818,7 +818,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         try {
             listaUnidade = unidadeDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaUnidade.size()][5];
         int i = 0;
@@ -962,8 +962,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 preparaSalvareCancelar();
                 desativaCampos();
                 limpaCamposPatrimonio();
+                PatrimonioM ultimo = pegaPatrimonio();
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
                     JOptionPane.showMessageDialog(null, "Patrimônio já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
@@ -984,7 +985,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 limpaCamposPatrimonio();
                 desativaCampos();
             }catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                  if (ex.getErrorCode() == 1062) {
                     JOptionPane.showMessageDialog(null, "Patrimônio já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
@@ -1014,7 +1015,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     JOptionPane.showMessageDialog(null, "Patrimônio excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     
                 } catch (SQLException ex) {
-                    Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }

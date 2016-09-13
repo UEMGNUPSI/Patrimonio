@@ -90,7 +90,7 @@ public class PrincipalView extends javax.swing.JFrame {
         mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
         mnuCadastrar.setText("Cadastrar");
 
-        mniEntidade.setText("Entidade");
+        mniEntidade.setText("Orgão");
         mniEntidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniEntidadeActionPerformed(evt);
@@ -204,7 +204,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void mniEntidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEntidadeActionPerformed
         // TODO add your handling code here:
-        EntidadeView entidade = new EntidadeView();
+        OrgaoView entidade = new OrgaoView();
         pnlPrincipal.removeAll();
         pnlPrincipal.add(entidade);
         pnlPrincipal.updateUI();

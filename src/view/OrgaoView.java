@@ -23,12 +23,12 @@ import util.LimiteDigitos;
  * @author NUPSI - Núcle de Práticas em Sistemas de Informação
  * Equipe: Gustavo Pinoti,Leopoldo Ferreira, Marlon Moro, Murillo Cuervo
  */
-public class EntidadeView extends javax.swing.JInternalFrame {
+public class OrgaoView extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Orgão
      */
-    public EntidadeView() {
+    public OrgaoView() {
         entidadeDAO = new EntidadeDAO();
         listaEntidade = new ArrayList<>();
         initComponents();  
@@ -49,7 +49,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         try {
             listaEntidade = entidadeDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaEntidade.size()][4];
         int i = 0;
@@ -63,7 +63,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         String tituloColuna[] = {"ID", "Nome", "CNPJ", "Contato"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
-        tbeEntidade.setModel(new DefaultTableModel(dados, tituloColuna) {
+        tbeOrgao.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
                 false, false, false, false
             };
@@ -73,16 +73,16 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
-        tbeEntidade.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeEntidade.getColumnModel().getColumn(1).setPreferredWidth(300);
-        tbeEntidade.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tbeEntidade.getColumnModel().getColumn(3).setPreferredWidth(300);
+        tbeOrgao.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeOrgao.getColumnModel().getColumn(1).setPreferredWidth(300);
+        tbeOrgao.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tbeOrgao.getColumnModel().getColumn(3).setPreferredWidth(300);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeEntidade.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tbeEntidade.setRowHeight(25);
-        tbeEntidade.updateUI();
+        tbeOrgao.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeOrgao.setRowHeight(25);
+        tbeOrgao.updateUI();
 
     }
 
@@ -95,7 +95,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlEntidade = new javax.swing.JPanel();
+        pnlOrgao = new javax.swing.JPanel();
         btnAlterar = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
         tfdID = new javax.swing.JTextField();
@@ -110,12 +110,12 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         btnCancelar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbeEntidade = new javax.swing.JTable();
+        tbeOrgao = new javax.swing.JTable();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Cadastrar Entidade");
+        setTitle("Cadastrar Orgão");
         setToolTipText("");
         try {
             setSelected(true);
@@ -184,11 +184,11 @@ public class EntidadeView extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout pnlEntidadeLayout = new javax.swing.GroupLayout(pnlEntidade);
-        pnlEntidade.setLayout(pnlEntidadeLayout);
-        pnlEntidadeLayout.setHorizontalGroup(
-            pnlEntidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEntidadeLayout.createSequentialGroup()
+        javax.swing.GroupLayout pnlOrgaoLayout = new javax.swing.GroupLayout(pnlOrgao);
+        pnlOrgao.setLayout(pnlOrgaoLayout);
+        pnlOrgaoLayout.setHorizontalGroup(
+            pnlOrgaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOrgaoLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -200,14 +200,14 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pnlEntidadeLayout.createSequentialGroup()
+            .addGroup(pnlOrgaoLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(pnlEntidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlOrgaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfdNome, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdContato, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdCnpj)
-                    .addGroup(pnlEntidadeLayout.createSequentialGroup()
-                        .addGroup(pnlEntidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlOrgaoLayout.createSequentialGroup()
+                        .addGroup(pnlOrgaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblTelefone)
                             .addComponent(lblEmail)
                             .addComponent(lblCnpj)
@@ -216,9 +216,9 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        pnlEntidadeLayout.setVerticalGroup(
-            pnlEntidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlEntidadeLayout.createSequentialGroup()
+        pnlOrgaoLayout.setVerticalGroup(
+            pnlOrgaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlOrgaoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -236,7 +236,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(tfdContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pnlEntidadeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlOrgaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlterar)
                     .addComponent(btnNovo)
                     .addComponent(btnSalvar)
@@ -245,7 +245,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 .addContainerGap(47, Short.MAX_VALUE))
         );
 
-        tbeEntidade.setModel(new javax.swing.table.DefaultTableModel(
+        tbeOrgao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -264,27 +264,27 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 return types [columnIndex];
             }
         });
-        tbeEntidade.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tbeEntidade.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbeOrgao.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbeOrgao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbeEntidadeMouseClicked(evt);
+                tbeOrgaoMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(tbeEntidade);
+        jScrollPane2.setViewportView(tbeOrgao);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlEntidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlOrgao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addComponent(pnlEntidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(pnlOrgao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -313,7 +313,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                 atualizaTabelaEntidade();
 
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
                     JOptionPane.showMessageDialog(null, "Entidade com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
@@ -366,7 +366,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
                     limpaCamposEntidade();
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
                         JOptionPane.showMessageDialog(null, "Impossível excluir essa Entidade, ela já possui patrimônios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
@@ -397,14 +397,14 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         ativaCampos();
     }//GEN-LAST:event_btnAlterarActionPerformed
 
-    private void tbeEntidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeEntidadeMouseClicked
+    private void tbeOrgaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeOrgaoMouseClicked
         // TODO add your handling code here:
-        tfdID.setText(tbeEntidade.getValueAt(tbeEntidade.getSelectedRow(), 0).toString());
-        tfdNome.setText(tbeEntidade.getValueAt(tbeEntidade.getSelectedRow(), 1).toString());
-        tfdCnpj.setText(tbeEntidade.getValueAt(tbeEntidade.getSelectedRow(), 2).toString());
-        tfdContato.setText(tbeEntidade.getValueAt(tbeEntidade.getSelectedRow(), 3).toString());
+        tfdID.setText(tbeOrgao.getValueAt(tbeOrgao.getSelectedRow(), 0).toString());
+        tfdNome.setText(tbeOrgao.getValueAt(tbeOrgao.getSelectedRow(), 1).toString());
+        tfdCnpj.setText(tbeOrgao.getValueAt(tbeOrgao.getSelectedRow(), 2).toString());
+        tfdContato.setText(tbeOrgao.getValueAt(tbeOrgao.getSelectedRow(), 3).toString());
         preparaSelecaoTabela();
-    }//GEN-LAST:event_tbeEntidadeMouseClicked
+    }//GEN-LAST:event_tbeOrgaoMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
@@ -420,7 +420,7 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         btnNovo.setEnabled(true);
         btnSalvar.setEnabled(false);
         btnCancelar.setEnabled(false);
-        tbeEntidade.setEnabled(true);
+        tbeOrgao.setEnabled(true);
     }
     
     public void limpaCamposEntidade() {
@@ -457,8 +457,8 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         btnCancelar.setEnabled(true);
         btnAlterar.setEnabled(false);
         btnExcluir.setEnabled(false);
-        tbeEntidade.setEnabled(false);
-        tbeEntidade.clearSelection();
+        tbeOrgao.setEnabled(false);
+        tbeOrgao.clearSelection();
     }
     public void preparaAlterar() {
         btnNovo.setEnabled(false);
@@ -466,8 +466,8 @@ public class EntidadeView extends javax.swing.JInternalFrame {
         btnAlterar.setEnabled(false);
         btnSalvar.setEnabled(true);
         btnCancelar.setEnabled(true);
-        tbeEntidade.setEnabled(false);
-        tbeEntidade.clearSelection();
+        tbeOrgao.setEnabled(false);
+        tbeOrgao.clearSelection();
     }
     
     public void preparaExcluir() {
@@ -494,8 +494,8 @@ public class EntidadeView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTelefone;
-    private javax.swing.JPanel pnlEntidade;
-    private javax.swing.JTable tbeEntidade;
+    private javax.swing.JPanel pnlOrgao;
+    private javax.swing.JTable tbeOrgao;
     private javax.swing.JTextField tfdCnpj;
     private javax.swing.JTextField tfdContato;
     private javax.swing.JTextField tfdID;

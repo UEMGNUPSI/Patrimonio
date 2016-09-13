@@ -66,7 +66,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         try {
             listaSala = salaDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaSala.size()][5];
         int i = 0;
@@ -109,7 +109,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         try {
             listaUnidade = unidadeDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaUnidade.size()][5];
         int i = 0;
@@ -414,7 +414,7 @@ public class SalaView extends javax.swing.JInternalFrame {
             try {
                 salaDAO.salvar(sala);
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
             }
             atualizaTabelaSala();
             preparaSalvareCancelar();
@@ -431,7 +431,7 @@ public class SalaView extends javax.swing.JInternalFrame {
                 salaDAO.alterar(sala);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
             }
             atualizaTabelaSala();
             preparaSalvareCancelar();
@@ -457,7 +457,7 @@ public class SalaView extends javax.swing.JInternalFrame {
                     btnAlterarSala.setEnabled(false);
                     btnSalvarSala.setEnabled(true);
                 } catch (SQLException ex) {
-                    Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
                         JOptionPane.showMessageDialog(null, "Impossível deletar esta sala, pois possuem patrimônios cadastrados.", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {

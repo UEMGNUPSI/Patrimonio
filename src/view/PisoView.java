@@ -284,7 +284,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         try {
             listaPiso = pisoDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaPiso.size()][4];
         int i = 0;
@@ -326,7 +326,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         try {
             listaUnidade = unidadeDAO.listaTodos();
         } catch (SQLException ex) {
-            Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         String dados[][] = new String[listaUnidade.size()][5];
         int i = 0;
@@ -383,7 +383,7 @@ public class PisoView extends javax.swing.JInternalFrame {
                 pisoDAO.salvar(piso);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         preparaSalvareCancelar();
         desativaCampos();
@@ -398,7 +398,7 @@ public class PisoView extends javax.swing.JInternalFrame {
                 pisoDAO.alterar(piso);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         preparaSalvareCancelar();
         desativaCampos();
@@ -423,7 +423,7 @@ public class PisoView extends javax.swing.JInternalFrame {
                     limpaCamposPiso();
                     preparaExcluir();
                 } catch (SQLException ex) {
-                    Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
                         JOptionPane.showMessageDialog(null, "Impossível excluir esse Piso, ele já possui Salas cadastradas!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
