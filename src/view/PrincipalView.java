@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
@@ -28,26 +29,22 @@ public class PrincipalView extends javax.swing.JFrame {
     UsuarioM usuarioAtivo = new UsuarioM();
     public PrincipalView(UsuarioM usuario) {
         initComponents();
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        pack();
-        setSize(screenSize.width,screenSize.height);
         this.setVisible(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         usuarioAtivo = usuario;
-        //foto = new JLabel(new ImageIcon("/view/icones/logo.png"));
         if(usuario.isAdmin() == false){
              mnuCadastrar.setEnabled(false);
              mniAdicionarUsuario.setEnabled(false);
         }
         pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
         foto.setText("");
-        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/logo.png")));
-        
-        
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/logo.png"))); 
         
     }
-    
 
+    PrincipalView() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -356,7 +353,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel foto;
+    public javax.swing.JLabel foto;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
