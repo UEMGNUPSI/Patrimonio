@@ -5,8 +5,14 @@
  */
 package view;
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Toolkit;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import model.UsuarioM;
 
 /**
@@ -22,16 +28,26 @@ public class PrincipalView extends javax.swing.JFrame {
     UsuarioM usuarioAtivo = new UsuarioM();
     public PrincipalView(UsuarioM usuario) {
         initComponents();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        pack();
+        setSize(screenSize.width,screenSize.height);
         this.setVisible(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         usuarioAtivo = usuario;
-        
+        //foto = new JLabel(new ImageIcon("/view/icones/logo.png"));
         if(usuario.isAdmin() == false){
              mnuCadastrar.setEnabled(false);
              mniAdicionarUsuario.setEnabled(false);
         }
+        pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
+        foto.setText("");
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/logo.png")));
+        
+        
         
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,6 +62,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         pnlPrincipal = new javax.swing.JPanel();
+        foto = new javax.swing.JLabel();
         mnbPrincipal = new javax.swing.JMenuBar();
         mnuCadastrar = new javax.swing.JMenu();
         mniEntidade = new javax.swing.JMenuItem();
@@ -80,15 +97,24 @@ public class PrincipalView extends javax.swing.JFrame {
 
         pnlPrincipal.setName("NUPSI"); // NOI18N
 
+        foto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        foto.setText("jLabel1");
+
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
         pnlPrincipalLayout.setHorizontalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 931, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
+                .addContainerGap(513, Short.MAX_VALUE)
+                .addComponent(foto)
+                .addGap(384, 384, 384))
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 486, Short.MAX_VALUE)
+            .addGroup(pnlPrincipalLayout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addComponent(foto)
+                .addContainerGap(290, Short.MAX_VALUE))
         );
 
         mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
@@ -309,6 +335,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel foto;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
