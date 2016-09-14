@@ -92,4 +92,25 @@ public class PatrimonioDAO {
          pst.execute();
          pst.close();
      }
+     
+     public List<PatrimonioM> listaTodosSala(int id_sala) throws SQLException{
+        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
+        sql = "select * from Patrimonio where id_sala = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id_sala);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        EntidadeDAO entidade = new EntidadeDAO();
+        while(rs.next()){
+           listaPat.add(new PatrimonioM(rs.getInt("id"),
+                   rs.getString("descricao"),
+                   rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade"))));
+        }
+        pst.close();
+        return listaPat;
+    }
 }

@@ -6,6 +6,7 @@
 package view;
 
 import dao.BlocoDAO;
+import dao.PatrimonioDAO;
 import dao.PisoDAO;
 import dao.SalaDAO;
 import dao.UnidadeDAO;
@@ -19,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
+import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
@@ -39,10 +41,11 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     List<BlocoM> listaBloco;
     List<UnidadeM> listaUnidade;
     List<PisoM> listaPiso;
+    List<PatrimonioM> listaPatrimonio;
     PisoM pisoM;
     BlocoM blocoM;
     UnidadeM unidadeM;
-
+    PatrimonioDAO patrimonioDAO;
     public RelatorioView() {
         salaDAO = new SalaDAO();
         listaSala = new ArrayList<>();
@@ -56,6 +59,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         blocoM = new BlocoM();
         pisoM = new PisoM();
         listaSalaSelecionados = new ArrayList<>();
+        listaPatrimonio = new ArrayList<>();
+        patrimonioDAO = new PatrimonioDAO();
         initComponents();
         this.setVisible(true);
         atualizaTabelaSala();
@@ -217,6 +222,11 @@ public class RelatorioView extends javax.swing.JInternalFrame {
 
         btnGerarPDF.setText("Gerar PDF");
         btnGerarPDF.setEnabled(false);
+        btnGerarPDF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerarPDFActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Selecione a Unidade:");
 
@@ -446,6 +456,17 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         atualizaTabelaSelecionados(pisoM.getId());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnGerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarPDFActionPerformed
+       
+        try {
+            listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString()));
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Impossivel se conectar ao banco");
+            Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGerarPDFActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
