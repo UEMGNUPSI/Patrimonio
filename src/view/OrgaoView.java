@@ -74,9 +74,9 @@ public class OrgaoView extends javax.swing.JInternalFrame {
             }
         });
         tbeOrgao.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeOrgao.getColumnModel().getColumn(1).setPreferredWidth(300);
-        tbeOrgao.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tbeOrgao.getColumnModel().getColumn(3).setPreferredWidth(300);
+        tbeOrgao.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tbeOrgao.getColumnModel().getColumn(2).setPreferredWidth(250);
+        tbeOrgao.getColumnModel().getColumn(3).setPreferredWidth(250);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);

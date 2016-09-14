@@ -140,9 +140,9 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
-        tbeSubTipo.getColumnModel().getColumn(0).setPreferredWidth(75);
-        tbeSubTipo.getColumnModel().getColumn(1).setPreferredWidth(175);
-        tbeSubTipo.getColumnModel().getColumn(2).setPreferredWidth(175);
+        tbeSubTipo.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeSubTipo.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbeSubTipo.getColumnModel().getColumn(2).setPreferredWidth(150);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -404,14 +404,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(btnExcluirTipo)
                                             .addGap(23, 23, 23))
+                                        .addComponent(lblIDTipo1)
                                         .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                            .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(lblIDTipo1, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlTipoSubtipoLayout.createSequentialGroup()
-                                                    .addComponent(tfdIDSubTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addGap(88, 88, 88)
-                                                    .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                            .addComponent(tfdIDSubTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(88, 88, 88)
+                                            .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
                                 .addGap(105, 105, 105)
                                 .addComponent(lblTipo)))
@@ -540,13 +537,13 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
@@ -565,7 +562,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();

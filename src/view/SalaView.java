@@ -92,9 +92,10 @@ public class SalaView extends javax.swing.JInternalFrame {
             }
         });
         tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(200);
+        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(400);
+        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(130);
+        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(130);
+        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(130);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -340,17 +341,17 @@ public class SalaView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 842, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 422, Short.MAX_VALUE))
+                .addGap(0, 251, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 670, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
