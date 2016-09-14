@@ -132,6 +132,10 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuRelatoriosMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuRelatoriosActionPerformed"/>
+          </Events>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuUsuario">
           <Properties>

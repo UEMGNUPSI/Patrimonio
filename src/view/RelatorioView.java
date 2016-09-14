@@ -123,7 +123,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbeSala = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnGerarPDF = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         cbxRelatorioUnidade = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
@@ -161,7 +161,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbeSala);
 
-        jButton1.setText("Gerar PDF");
+        btnGerarPDF.setText("Gerar PDF");
+        btnGerarPDF.setEnabled(false);
 
         jLabel1.setText("Selecione a Unidade:");
 
@@ -184,6 +185,11 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         jLabel3.setText("Selecione o Piso:");
 
         cbxRelatorioPiso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxRelatorioPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxRelatorioPisoActionPerformed(evt);
+            }
+        });
 
         tfdIDSala.setEditable(false);
         tfdIDSala.setEnabled(false);
@@ -237,7 +243,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnGerarPDF, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -267,7 +273,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                         .addComponent(tfdDescricaoSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnGerarPDF)
                 .addContainerGap())
         );
 
@@ -327,7 +333,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         cbxRelatorioUnidade.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 4).toString());
         cbxRelatorioBloco.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 3).toString());
         cbxRelatorioPiso.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 2).toString());
-        //preparaSelecaoTabelaSala();
+        preparaSelecaoTabelaSala();
     }//GEN-LAST:event_tbeSalaMouseClicked
 
        public PisoM pegaSala() {
@@ -338,6 +344,10 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         }
         return null;
     }
+        public void preparaSelecaoTabelaSala(){
+        btnGerarPDF.setEnabled(true);   
+    }
+       
     
     
     
@@ -350,12 +360,17 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdDescricaoSalaActionPerformed
 
+    private void cbxRelatorioPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRelatorioPisoActionPerformed
+        // TODO add your handling code here:
+        tfdDescricaoSala.requestFocusInWindow();
+    }//GEN-LAST:event_cbxRelatorioPisoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGerarPDF;
     private javax.swing.JComboBox<String> cbxRelatorioBloco;
     private javax.swing.JComboBox<String> cbxRelatorioPiso;
     private javax.swing.JComboBox<String> cbxRelatorioUnidade;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
