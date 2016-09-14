@@ -205,6 +205,16 @@ public class PrincipalView extends javax.swing.JFrame {
 
         mnuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/relatorio48.fw.png"))); // NOI18N
         mnuRelatorios.setText("Relatórios");
+        mnuRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuRelatoriosMouseClicked(evt);
+            }
+        });
+        mnuRelatorios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuRelatoriosActionPerformed(evt);
+            }
+        });
         mnbPrincipal.add(mnuRelatorios);
 
         mnuUsuario.setText("Usuário");
@@ -332,6 +342,17 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.add(usuario);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniAdicionarUsuarioActionPerformed
+
+    private void mnuRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRelatoriosActionPerformed
+       
+    }//GEN-LAST:event_mnuRelatoriosActionPerformed
+
+    private void mnuRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuRelatoriosMouseClicked
+        RelatorioView relatorio = new RelatorioView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(relatorio);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mnuRelatoriosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
