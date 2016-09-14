@@ -24,6 +24,12 @@ import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 
 /**
  *
@@ -458,14 +464,31 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarPDFActionPerformed
-       
+       Document document = new Document();
         try {
-            listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString()));
+            int numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
+            listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
+            try {
+                    
+                    PdfWriter.getInstance(document, new FileOutputStream("C:\\PDF\\Relatorio Sala "+numeroSala+".pdf"));
+                     document.open();
+                     
+                     for(int i = 0; i < 10;i++){
+                         document.add(new Paragraph("Patrimonio: "+i));
+                     }
+                     JOptionPane.showMessageDialog(null, "PDF criado com uscesso");
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (DocumentException ex) {
+               Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
+           }
+            document.close();
             
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Impossivel se conectar ao banco");
             Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_btnGerarPDFActionPerformed
 
     
