@@ -102,11 +102,11 @@ public class SalaDAO {
          return listaSala;
      }
         
-        public List<SalaM> listaSelecionados(int id) throws SQLException{
+        public List<SalaM> listaSelecionados(int id_piso) throws SQLException{
         List<SalaM> listaSala = new ArrayList<SalaM>();
         sql = "select * from Sala where id_piso = ? order by id_piso";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setInt(1, id);
+        pst.setInt(1, id_piso);
         ResultSet rs = pst.executeQuery();
         PisoDAO piso = new PisoDAO();
         while(rs.next()){

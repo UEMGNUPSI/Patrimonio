@@ -40,6 +40,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     List<UnidadeM> listaUnidade;
     List<PisoM> listaPiso;
     PisoM pisoM;
+    BlocoM blocoM;
+    UnidadeM unidadeM;
 
     public RelatorioView() {
         salaDAO = new SalaDAO();
@@ -50,6 +52,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         listaUnidade = new ArrayList<>();
         listaBloco = new ArrayList<>();
         listaPiso = new ArrayList<>();
+        unidadeM = new UnidadeM();
+        blocoM = new BlocoM();
         pisoM = new PisoM();
         listaSalaSelecionados = new ArrayList<>();
         initComponents();
@@ -99,9 +103,9 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         tbeSala.updateUI();
     }
     
-    public void atualizaTabelaSelecionados(int id) {
+    public void atualizaTabelaSelecionados(int id_piso) {
         try {
-            listaSalaSelecionados = salaDAO.listaSelecionados(id);
+            listaSalaSelecionados = salaDAO.listaSelecionados(id_piso);
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -428,10 +432,12 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxRelatorioPisoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if(cbxRelatorioPiso.getSelectedItem().toString() == "--Selecione--"){
-            JOptionPane.showMessageDialog(null, "Selecione um piso para a busca.", "Erro", JOptionPane.WARNING_MESSAGE);
+        if (tfdDescricaoSala.getText().isEmpty() || cbxRelatorioUnidade.getSelectedIndex() == 0 || cbxRelatorioBloco.getSelectedIndex() == 0 || cbxRelatorioPiso.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);       
         }else{
         try {
+           // unidadeM = unidadeDAO.buscaNome(cbxRelatorioUnidade.getSelectedItem().toString());
+           // blocoM = blocoDAO.buscaNome(cbxRelatorioBloco.getSelectedItem().toString());
             pisoM = pisoDAO.buscaNome(cbxRelatorioPiso.getSelectedItem().toString());
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
