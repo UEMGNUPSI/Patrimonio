@@ -344,7 +344,7 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAdicionarUsuarioActionPerformed
 
     private void mnuRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRelatoriosActionPerformed
-       
+       //sem uso
     }//GEN-LAST:event_mnuRelatoriosActionPerformed
 
     private void mnuRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuRelatoriosMouseClicked
