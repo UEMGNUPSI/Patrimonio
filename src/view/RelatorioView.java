@@ -470,11 +470,12 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
             try {
                     
-                    PdfWriter.getInstance(document, new FileOutputStream("C:\\PDF\\Relatorio Sala "+numeroSala+".pdf"));
+                    PdfWriter.getInstance(document, new FileOutputStream("C:\\PDF\\Relatorio "+tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString()+".pdf"));
                      document.open();
                      
-                     for(int i = 0; i < 10;i++){
-                         document.add(new Paragraph("Patrimonio: "+i));
+                     for(PatrimonioM patrimonio : listaPatrimonio){
+                        
+                        
                      }
                      JOptionPane.showMessageDialog(null, "PDF criado com uscesso");
             } catch (FileNotFoundException ex) {
