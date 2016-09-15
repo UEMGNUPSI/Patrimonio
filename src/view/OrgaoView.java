@@ -5,7 +5,7 @@
  */
 package view;
 
-import dao.EntidadeDAO;
+import dao.OrgaoDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import model.EntidadeM;
+import model.OrgaoM;
 import util.LimiteDigitos;
 
 /**
@@ -29,35 +29,35 @@ public class OrgaoView extends javax.swing.JInternalFrame {
      * Creates new form Orgão
      */
     public OrgaoView() {
-        entidadeDAO = new EntidadeDAO();
-        listaEntidade = new ArrayList<>();
+        orgaoDAO = new OrgaoDAO();
+        listaOrgao = new ArrayList<>();
         initComponents();  
         this.setVisible(true);
-        atualizaTabelaEntidade();
+        atualizaTabelaOrgao();
         tfdCnpj.setDocument(new LimiteDigitos(45));
         tfdContato.setDocument(new LimiteDigitos(45));
         tfdNome.setDocument(new LimiteDigitos(45));
 
     }
 
-    EntidadeM entidade;
-    EntidadeDAO entidadeDAO;
-    List<EntidadeM> listaEntidade;
+    OrgaoM orgao;
+    OrgaoDAO orgaoDAO;
+    List<OrgaoM> listaOrgao;
 
-    public void atualizaTabelaEntidade() {
+    public void atualizaTabelaOrgao() {
 
         try {
-            listaEntidade = entidadeDAO.listaTodos();
+            listaOrgao = orgaoDAO.listaTodos();
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String dados[][] = new String[listaEntidade.size()][4];
+        String dados[][] = new String[listaOrgao.size()][4];
         int i = 0;
-        for (EntidadeM entidade1 : listaEntidade) {
-            dados[i][0] = String.valueOf(entidade1.getId());
-            dados[i][1] = entidade1.getNome();
-            dados[i][2] = entidade1.getCnpj();
-            dados[i][3] = entidade1.getContato();
+        for (OrgaoM orgao1 : listaOrgao) {
+            dados[i][0] = String.valueOf(orgao1.getId());
+            dados[i][1] = orgao1.getNome();
+            dados[i][2] = orgao1.getCnpj();
+            dados[i][3] = orgao1.getContato();
             i++;
         }
         String tituloColuna[] = {"ID", "Nome", "CNPJ", "Contato"};
@@ -316,23 +316,23 @@ public class OrgaoView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdNome.requestFocusInWindow();
         } else if (tfdID.getText().isEmpty()){
-            entidade = new EntidadeM();
-            entidade.setNome(tfdNome.getText());
-            entidade.setCnpj(tfdCnpj.getText());
-            entidade.setContato(tfdContato.getText());
+            orgao = new OrgaoM();
+            orgao.setNome(tfdNome.getText());
+            orgao.setCnpj(tfdCnpj.getText());
+            orgao.setContato(tfdContato.getText());
             try {
-                entidadeDAO.salvar(entidade);
+                orgaoDAO.salvar(orgao);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabelaEntidade();
-                limpaCamposEntidade();
+                atualizaTabelaOrgao();
+                limpaCamposOrgao();
                 preparaSalvareCancelar();
                 desativaCampos();
-                atualizaTabelaEntidade();
+                atualizaTabelaOrgao();
 
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Entidade com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Orgao com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -342,23 +342,23 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         } 
         else {
             if (tfdID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione uma Entidade.", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione um Orgao.", "Erro", JOptionPane.WARNING_MESSAGE);
             } else {
-                entidade = new EntidadeM();
-                entidade.setId(Integer.parseInt(tfdID.getText()));
-                entidade.setNome(tfdNome.getText());
-                entidade.setCnpj(tfdCnpj.getText());
-                entidade.setContato(tfdContato.getText());
+                orgao = new OrgaoM();
+                orgao.setId(Integer.parseInt(tfdID.getText()));
+                orgao.setNome(tfdNome.getText());
+                orgao.setCnpj(tfdCnpj.getText());
+                orgao.setContato(tfdContato.getText());
                
                 try {
-                    entidadeDAO.alterar(entidade);
-                    JOptionPane.showMessageDialog(null, "Entidade atualizada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    orgaoDAO.alterar(orgao);
+                    JOptionPane.showMessageDialog(null, "Orgao atualizada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
                     desativaCampos();
-                    atualizaTabelaEntidade();
+                    atualizaTabelaOrgao();
                 } catch (SQLException ex) {
                     if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Entidade com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Orgao com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, ex.getMessage());
                 }
@@ -371,21 +371,21 @@ public class OrgaoView extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (tfdID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione uma Entidade.", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione uma Orgao.", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
-            entidade = new EntidadeM();
-            entidade.setId(Integer.parseInt(tfdID.getText()));
+            orgao = new OrgaoM();
+            orgao.setId(Integer.parseInt(tfdID.getText()));
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdNome.getText() + " ?");
             if (confirma == 0) {
                 try {
-                    entidadeDAO.excluir(entidade);
-                    atualizaTabelaEntidade();
-                    limpaCamposEntidade();
+                    orgaoDAO.excluir(orgao);
+                    atualizaTabelaOrgao();
+                    limpaCamposOrgao();
 
                 } catch (SQLException ex) {
                     Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
-                        JOptionPane.showMessageDialog(null, "Impossível excluir essa Entidade, ela já possui patrimônios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Impossível excluir essa Orgao, ela já possui patrimônios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                     }
@@ -393,13 +393,13 @@ public class OrgaoView extends javax.swing.JInternalFrame {
 
             }
         }
-        limpaCamposEntidade();
-        atualizaTabelaEntidade();
+        limpaCamposOrgao();
+        atualizaTabelaOrgao();
         preparaExcluir();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        limpaCamposEntidade();
+        limpaCamposOrgao();
         preparaNovo();
         ativaCampos();
         tfdNome.requestFocusInWindow();
@@ -425,7 +425,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        limpaCamposEntidade();
+        limpaCamposOrgao();
         preparaSalvareCancelar();
         desativaCampos();
         
@@ -444,7 +444,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         tbeOrgao.setEnabled(true);
     }
     
-    public void limpaCamposEntidade() {
+    public void limpaCamposOrgao() {
         
         tfdID.setText("");
         tfdNome.setText("");        

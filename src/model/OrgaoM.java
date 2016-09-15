@@ -9,16 +9,16 @@ package model;
  *
  * @author nupsi-02
  */
-public class EntidadeM {
+public class OrgaoM {
     private Integer id;
     private String nome;
     private String cnpj;
     private String contato;
 
-    public EntidadeM() {
+    public OrgaoM() {
     }
 
-    public EntidadeM(Integer id, String nome, String cnpj, String contato) {
+    public OrgaoM(Integer id, String nome, String cnpj, String contato) {
         this.id = id;
         this.nome = nome;
         this.cnpj = cnpj;

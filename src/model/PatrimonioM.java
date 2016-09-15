@@ -18,13 +18,13 @@ public class PatrimonioM {
     private StatusM status;
     private SalaM sala;
     private String notaFiscal;
-    private EntidadeM entidade;
+    private OrgaoM entidade;
 
     public PatrimonioM() {
         
     }
 
-    public PatrimonioM(Integer id, String codigo,String descricao,SubTipoM subTipo, GrauConservacaoM grau_conservacao, StatusM status, SalaM sala, String notaFiscal, EntidadeM entidade) {        this.id = id;
+    public PatrimonioM(Integer id, String descricao,String codigo,SubTipoM subTipo, GrauConservacaoM grau_conservacao, StatusM status, SalaM sala, String notaFiscal, OrgaoM entidade) {        this.id = id;
         this.codigo = codigo;
         this.subTipo = subTipo;
         this.descricao = descricao;
@@ -99,11 +99,11 @@ public class PatrimonioM {
         this.notaFiscal = notaFiscal;
     }
 
-    public EntidadeM getEntidade() {
+    public OrgaoM getEntidade() {
         return entidade;
     }
 
-    public void setEntidade(EntidadeM entidade) {
+    public void setEntidade(OrgaoM entidade) {
         this.entidade = entidade;
     }
    
