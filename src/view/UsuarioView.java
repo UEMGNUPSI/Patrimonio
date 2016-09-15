@@ -52,8 +52,6 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         ckxAdministrador = new javax.swing.JCheckBox();
         tfdID = new javax.swing.JTextField();
         tfdUsuario = new javax.swing.JTextField();
-        tfdSenha = new javax.swing.JTextField();
-        tfdConfirmaSenha = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -66,6 +64,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        tfdSenha = new javax.swing.JPasswordField();
+        tfdConfirmaSenha = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbeUsuario = new javax.swing.JTable();
 
@@ -82,10 +82,6 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         tfdID.setEnabled(false);
 
         tfdUsuario.setEnabled(false);
-
-        tfdSenha.setEnabled(false);
-
-        tfdConfirmaSenha.setEnabled(false);
 
         jLabel5.setText("Confirmar Senha");
 
@@ -140,6 +136,10 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
         jLabel12.setText("MASP");
 
+        tfdSenha.setEnabled(false);
+
+        tfdConfirmaSenha.setEnabled(false);
+
         javax.swing.GroupLayout pnlUsuarioLayout = new javax.swing.GroupLayout(pnlUsuario);
         pnlUsuario.setLayout(pnlUsuarioLayout);
         pnlUsuarioLayout.setHorizontalGroup(
@@ -148,8 +148,6 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnlUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfdUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfdSenha, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfdConfirmaSenha, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdNome, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdMasp, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdContato, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -174,7 +172,9 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                             .addComponent(jLabel12)
                             .addComponent(jLabel10)
                             .addComponent(tfdID, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tfdSenha)
+                    .addComponent(tfdConfirmaSenha))
                 .addContainerGap())
         );
         pnlUsuarioLayout.setVerticalGroup(
@@ -204,7 +204,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdConfirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,8 +262,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 158, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
         );
 
         pack();
@@ -425,8 +425,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
         preparaAlterar();
         ativaCampos();
-        tfdSenha.setEnabled(false);
-        tfdConfirmaSenha.setEnabled(false);
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void tbeUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeUsuarioMouseClicked
@@ -440,6 +439,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         tfdNome.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 3).toString());
         tfdMasp.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 4).toString());
         tfdContato.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 5).toString());
+       
 
        preparaSelecaoTabela();
     }//GEN-LAST:event_tbeUsuarioMouseClicked
@@ -546,12 +546,12 @@ public class UsuarioView extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlUsuario;
     private javax.swing.JTable tbeUsuario;
-    private javax.swing.JTextField tfdConfirmaSenha;
+    private javax.swing.JPasswordField tfdConfirmaSenha;
     private javax.swing.JTextField tfdContato;
     private javax.swing.JTextField tfdID;
     private javax.swing.JTextField tfdMasp;
     private javax.swing.JTextField tfdNome;
-    private javax.swing.JTextField tfdSenha;
+    private javax.swing.JPasswordField tfdSenha;
     private javax.swing.JTextField tfdUsuario;
     // End of variables declaration//GEN-END:variables
 }

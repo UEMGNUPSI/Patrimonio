@@ -30,9 +30,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <Component id="pnlUsuario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="158" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
-          <Component id="jScrollPane1" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" pref="559" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -46,8 +46,6 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="tfdUsuario" alignment="1" max="32767" attributes="0"/>
-                      <Component id="tfdSenha" alignment="1" max="32767" attributes="0"/>
-                      <Component id="tfdConfirmaSenha" alignment="1" max="32767" attributes="0"/>
                       <Component id="tfdNome" alignment="1" max="32767" attributes="0"/>
                       <Component id="tfdMasp" alignment="1" max="32767" attributes="0"/>
                       <Component id="tfdContato" alignment="1" max="32767" attributes="0"/>
@@ -76,6 +74,8 @@
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="tfdSenha" alignment="0" max="32767" attributes="0"/>
+                      <Component id="tfdConfirmaSenha" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -108,7 +108,7 @@
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tfdSenha" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tfdConfirmaSenha" min="-2" max="-2" attributes="0"/>
@@ -156,16 +156,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="tfdUsuario">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfdSenha">
-          <Properties>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="tfdConfirmaSenha">
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
@@ -247,6 +237,16 @@
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
             <Property name="text" type="java.lang.String" value="MASP"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="tfdSenha">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="tfdConfirmaSenha">
+          <Properties>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
       </SubComponents>
