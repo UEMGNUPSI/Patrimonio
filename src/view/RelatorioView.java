@@ -103,9 +103,9 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             }
         });
         tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(200);
+        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(150);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -114,9 +114,9 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         tbeSala.updateUI();
     }
     
-    public void atualizaTabelaSelecionados(int id_piso) {
+    public void atualizaTabelaSelecionados(int id_piso, int id_bloco, int id_unidade) {
         try {
-            listaSalaSelecionados = salaDAO.listaSelecionados(id_piso);
+            listaSalaSelecionados = salaDAO.listaSelecionados(id_piso, id_bloco, id_unidade);
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -144,9 +144,9 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             }
         });
         tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(200);
-        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(200);
+        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(150);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -299,7 +299,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 188, Short.MAX_VALUE)
+                                .addGap(0, 203, Short.MAX_VALUE)
                                 .addComponent(jLabel1)
                                 .addGap(64, 64, 64))
                             .addComponent(cbxRelatorioUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -318,8 +318,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel3)
                                         .addComponent(cbxRelatorioPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(8, 8, 8)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(11, 11, 11)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -448,18 +448,18 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxRelatorioPisoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if (tfdDescricaoSala.getText().isEmpty() || cbxRelatorioUnidade.getSelectedIndex() == 0 || cbxRelatorioBloco.getSelectedIndex() == 0 || cbxRelatorioPiso.getSelectedIndex() == 0){
+        if (cbxRelatorioUnidade.getSelectedIndex() == 0 || cbxRelatorioBloco.getSelectedIndex() == 0 || cbxRelatorioPiso.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);       
         }else{
         try {
-           // unidadeM = unidadeDAO.buscaNome(cbxRelatorioUnidade.getSelectedItem().toString());
-           // blocoM = blocoDAO.buscaNome(cbxRelatorioBloco.getSelectedItem().toString());
+            unidadeM = unidadeDAO.buscaNome(cbxRelatorioUnidade.getSelectedItem().toString());
+            blocoM = blocoDAO.buscaNome(cbxRelatorioBloco.getSelectedItem().toString());
             pisoM = pisoDAO.buscaNome(cbxRelatorioPiso.getSelectedItem().toString());
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Selecione um piso para a busca.", "Erro", JOptionPane.WARNING_MESSAGE);
         }
-        atualizaTabelaSelecionados(pisoM.getId());
+        atualizaTabelaSelecionados(pisoM.getId(),blocoM.getId(),unidadeM.getId());
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
