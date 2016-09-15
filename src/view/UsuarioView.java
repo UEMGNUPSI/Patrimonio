@@ -27,14 +27,15 @@ public class UsuarioView extends javax.swing.JInternalFrame {
      * Creates new form UsuarioView
      */
     public UsuarioView() {
-        initComponents();
+         listaUsuario = new ArrayList<>();
+        initComponents();      
         this.setVisible(true);
-        listaUsuario = new ArrayList<>();
+        atualizaTabelaUsuario();
     }
     UsuarioM usuario;
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     List<UsuarioM> listaUsuario;
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,8 +52,6 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         ckxAdministrador = new javax.swing.JCheckBox();
         tfdID = new javax.swing.JTextField();
         tfdUsuario = new javax.swing.JTextField();
-        tfdSenha = new javax.swing.JTextField();
-        tfdConfirmaSenha = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
@@ -65,6 +64,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        tfdSenha = new javax.swing.JPasswordField();
+        tfdConfirmaSenha = new javax.swing.JPasswordField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbeUsuario = new javax.swing.JTable();
 
@@ -75,15 +76,12 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         jLabel4.setText("Senha");
 
         ckxAdministrador.setText("Administrador");
+        ckxAdministrador.setEnabled(false);
 
         tfdID.setEditable(false);
         tfdID.setEnabled(false);
 
-        tfdUsuario.setEditable(false);
-
-        tfdSenha.setEditable(false);
-
-        tfdConfirmaSenha.setEditable(false);
+        tfdUsuario.setEnabled(false);
 
         jLabel5.setText("Confirmar Senha");
 
@@ -126,17 +124,21 @@ public class UsuarioView extends javax.swing.JInternalFrame {
             }
         });
 
-        tfdNome.setEditable(false);
+        tfdNome.setEnabled(false);
 
-        tfdMasp.setEditable(false);
+        tfdMasp.setEnabled(false);
 
-        tfdContato.setEditable(false);
+        tfdContato.setEnabled(false);
 
         jLabel10.setText("Contato");
 
         jLabel11.setText("Nome");
 
         jLabel12.setText("MASP");
+
+        tfdSenha.setEnabled(false);
+
+        tfdConfirmaSenha.setEnabled(false);
 
         javax.swing.GroupLayout pnlUsuarioLayout = new javax.swing.GroupLayout(pnlUsuario);
         pnlUsuario.setLayout(pnlUsuarioLayout);
@@ -146,8 +148,6 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(pnlUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfdUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfdSenha, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfdConfirmaSenha, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdNome, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdMasp, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(tfdContato, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -172,7 +172,9 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                             .addComponent(jLabel12)
                             .addComponent(jLabel10)
                             .addComponent(tfdID, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(tfdSenha)
+                    .addComponent(tfdConfirmaSenha))
                 .addContainerGap())
         );
         pnlUsuarioLayout.setVerticalGroup(
@@ -202,7 +204,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdConfirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -237,6 +239,11 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbeUsuarioMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbeUsuario);
         if (tbeUsuario.getColumnModel().getColumnCount() > 0) {
             tbeUsuario.getColumnModel().getColumn(0).setPreferredWidth(20);
@@ -255,8 +262,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 158, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
         );
 
         pack();
@@ -273,14 +280,13 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         for (UsuarioM usuario1 : listaUsuario) {
             dados[i][0] = String.valueOf(usuario1.getId());
             dados[i][1] = usuario1.getUsuario();
-            dados[i][2] = usuario1.getSenha();
-            dados[i][3] = ""+usuario1.isAdmin();
-            dados[i][4] = usuario1.getNome();
-            dados[i][5] = usuario1.getMasp();
-            dados[i][6] = usuario1.getContato();
+            dados[i][2] = ""+usuario1.isAdmin();
+            dados[i][3] = usuario1.getNome();
+            dados[i][4] = usuario1.getMasp();
+            dados[i][5] = usuario1.getContato();
             i++;
         }
-        String tituloColuna[] = {"ID", "Usuario", "Nome", "MASP", "Contato", "Administrador"};
+        String tituloColuna[] = {"ID", "Usuario", "Admin", "Nome", "MASP", "Contato"};
         
         DefaultTableModel tabelaUsuario = new DefaultTableModel();
         tabelaUsuario.setDataVector(dados, tituloColuna);
@@ -300,7 +306,6 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         tbeUsuario.getColumnModel().getColumn(3).setPreferredWidth(300);
         tbeUsuario.getColumnModel().getColumn(4).setPreferredWidth(150);
         tbeUsuario.getColumnModel().getColumn(5).setPreferredWidth(300);
-        tbeUsuario.getColumnModel().getColumn(6).setPreferredWidth(150);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -311,11 +316,12 @@ public class UsuarioView extends javax.swing.JInternalFrame {
     }
     
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if (tfdUsuario.getText().isEmpty() || tfdSenha.getText().isEmpty() || tfdConfirmaSenha.getText().isEmpty() || tfdNome.getText().isEmpty() || tfdMasp.getText().isEmpty() || tfdContato.getText().isEmpty()) {
+         if (tfdUsuario.getText().isEmpty() || tfdSenha.getText().isEmpty() || tfdConfirmaSenha.getText().isEmpty() || tfdNome.getText().isEmpty() || tfdMasp.getText().isEmpty() || tfdContato.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
-            tfdUsuario.requestFocusInWindow();
+            tfdNome.requestFocusInWindow();
         } else if (tfdID.getText().isEmpty()){
-            if(tfdSenha == tfdConfirmaSenha){
+            if(tfdSenha.getText().equals(tfdConfirmaSenha.getText())){
+                
                 usuario = new UsuarioM();
                 usuario.setUsuario(tfdUsuario.getText());
                 usuario.setSenha(tfdSenha.getText());
@@ -330,10 +336,10 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                     limpaCamposUsuario();
                     preparaSalvareCancelar();
                     desativaCampos();
-                    atualizaTabelaUsuario();
+                  
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UsuarioView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1062) {
                         JOptionPane.showMessageDialog(null, "Usuario com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
@@ -349,7 +355,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 usuario = new UsuarioM();
                 usuario.setId(Integer.parseInt(tfdID.getText()));
                 usuario.setUsuario(tfdUsuario.getText());
-                usuario.setSenha(tfdSenha.getText());
+                //usuario.setSenha(tfdSenha.getText());
                 usuario.setAdmin(ckxAdministrador.isSelected());
                 usuario.setNome(tfdNome.getText());
                 usuario.setMasp(tfdMasp.getText());
@@ -357,13 +363,13 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
                 try {
                     usuarioDAO.alterar(usuario);
-                    JOptionPane.showMessageDialog(null, "Entidade atualizada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Usuario atualizada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
                     desativaCampos();
                     atualizaTabelaUsuario();
                 } catch (SQLException ex) {
                     if (ex.getErrorCode() == 1062) {
-                        JOptionPane.showMessageDialog(null, "Entidade com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Usuario com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
                     } else {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
                     }
@@ -386,13 +392,13 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         limpaCamposUsuario();
         preparaNovo();
         ativaCampos();
-        tfdUsuario.requestFocusInWindow();
+        tfdNome.requestFocusInWindow();
 
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         if (tfdID.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione uma Entidade.", "Erro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Selecione uma Usuario.", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
             usuario = new UsuarioM();
             usuario.setId(Integer.parseInt(tfdID.getText()));
@@ -404,12 +410,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                     limpaCamposUsuario();
 
                 } catch (SQLException ex) {
-                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
-                    if (ex.getErrorCode() == 1451) {
-                        JOptionPane.showMessageDialog(null, "Impossível excluir essa Entidade, ela já possui patrimônios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
-                    }
+                    Logger.getLogger(UsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
                 }
 
             }
@@ -420,12 +422,27 @@ public class UsuarioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        //Antigo
-        /**/
 
         preparaAlterar();
         ativaCampos();
+        
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void tbeUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeUsuarioMouseClicked
+        String admStr;
+        boolean admBol;
+        tfdID.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 0).toString());
+        tfdUsuario.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 1).toString());
+        admStr = tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 2).toString();
+            admBol = Boolean.parseBoolean(admStr);
+            ckxAdministrador.setSelected(admBol);
+        tfdNome.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 3).toString());
+        tfdMasp.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 4).toString());
+        tfdContato.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 5).toString());
+       
+
+       preparaSelecaoTabela();
+    }//GEN-LAST:event_tbeUsuarioMouseClicked
 
         // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES
     
@@ -445,7 +462,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         tfdUsuario.setText("");        
         tfdSenha.setText("");       
         tfdConfirmaSenha.setText("");  
-        
+        ckxAdministrador.setSelected(false);
 
     }
     
@@ -456,6 +473,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         tfdUsuario.setEnabled(true);   
         tfdSenha.setEnabled(true);    
         tfdConfirmaSenha.setEnabled(true);
+        ckxAdministrador.setEnabled(true);
        
     }
     
@@ -475,6 +493,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         tfdMasp.setEnabled(false);
         tfdContato.setText("");
         tfdContato.setEnabled(false);
+        ckxAdministrador.setEnabled(false);
+
     } 
    
     public void preparaNovo() {
@@ -512,14 +532,10 @@ public class UsuarioView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnCancelar1;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnNovo1;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnSalvar1;
     private javax.swing.JCheckBox ckxAdministrador;
-    private javax.swing.JCheckBox ckxAdministrador1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -527,24 +543,15 @@ public class UsuarioView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlUsuario;
-    private javax.swing.JPanel pnlUsuario1;
     private javax.swing.JTable tbeUsuario;
-    private javax.swing.JTextField tfdConfirmaSenha;
-    private javax.swing.JTextField tfdConfirmaSenha1;
+    private javax.swing.JPasswordField tfdConfirmaSenha;
     private javax.swing.JTextField tfdContato;
     private javax.swing.JTextField tfdID;
-    private javax.swing.JTextField tfdID1;
     private javax.swing.JTextField tfdMasp;
     private javax.swing.JTextField tfdNome;
-    private javax.swing.JTextField tfdSenha;
-    private javax.swing.JTextField tfdSenha1;
+    private javax.swing.JPasswordField tfdSenha;
     private javax.swing.JTextField tfdUsuario;
-    private javax.swing.JTextField tfdUsuario1;
     // End of variables declaration//GEN-END:variables
 }
