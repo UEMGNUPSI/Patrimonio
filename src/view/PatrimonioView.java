@@ -68,6 +68,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     List<PatrimonioM> listaPatrimonio;
     PatrimonioDAO patrimonioDAO;
     PatrimonioM patrimonio;
+    
+    BlocoM bloc;
+    UnidadeM unid;
+    PisoM pis;
 
     public PatrimonioView() {
         pisoDAO = new PisoDAO();
@@ -90,7 +94,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         subtipoDAO = new SubTipoDAO();
         listaPatrimonio = new ArrayList<>();
         patrimonioDAO = new PatrimonioDAO();
+        
+        bloc = new BlocoM();
+        unid = new UnidadeM();
+        pis = new PisoM();
+        
         initComponents();
+        
         this.setVisible(true);
         atualizaBoxUnidade();
         atualizaBoxTipo();
@@ -792,30 +802,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             cbxStatus.addItem(stat.getNome());
         }
     }
-
-    private void cbxBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBlocoActionPerformed
-        if (cbxBloco.getSelectedIndex() < 1) {
-            cbxPiso.removeAllItems();
-            cbxPiso.addItem("--Selecione--");
-        } else {
-            cbxPiso.removeAllItems();
-            cbxPiso.addItem("--Selecione--");
-            BlocoM bloc = new BlocoM();
-
-            try {
-                bloc = blocoDAO.buscaNome(cbxBloco.getSelectedItem().toString());
-                listaPiso = pisoDAO.buscaBloc(bloc.getId());
-                for (PisoM pis : listaPiso) {
-                    cbxPiso.addItem(pis.getDescricao());
-                }
-            } catch (SQLException ex) {
-                cbxPiso.removeAllItems();
-                cbxPiso.addItem("--Selecione--");
-            }
-        }
-    }//GEN-LAST:event_cbxBlocoActionPerformed
-
-    public void atualizaBoxUnidade() {
+     public void atualizaBoxUnidade() {
         cbxUnidade.removeAllItems();
         cbxUnidade.addItem("--Selecione--");
         try {
@@ -831,11 +818,42 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     }
 
+    private void cbxBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBlocoActionPerformed
+                
+        
+        
+        if (cbxBloco.getSelectedIndex() < 1) {
+            cbxPiso.removeAllItems();
+            cbxPiso.addItem("--Selecione--");
+        } else {
+            cbxPiso.removeAllItems();
+            cbxPiso.addItem("--Selecione--");
+            
+
+            try {
+                //bloc = blocoDAO.buscaNome(cbxBloco.getSelectedItem().toString());
+                bloc = blocoDAO.busca_id_unidade(unid.getId(), cbxBloco.getSelectedItem().toString());
+                listaPiso = pisoDAO.buscaBloc(bloc.getId());
+                for (PisoM pis : listaPiso) {
+                    cbxPiso.addItem(pis.getDescricao());
+                }
+            } catch (SQLException ex) {
+                cbxPiso.removeAllItems();
+                cbxPiso.addItem("--Selecione--");
+            }
+        }
+        
+        
+    }//GEN-LAST:event_cbxBlocoActionPerformed
+
+   
+
     private void cbxSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSalaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxSalaActionPerformed
 
     private void cbxUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidadeActionPerformed
+
         if (cbxUnidade.getSelectedIndex() < 1) {
             cbxBloco.removeAllItems();
             cbxBloco.addItem("--Selecione--");
@@ -843,7 +861,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         } else {
             cbxBloco.removeAllItems();
             cbxBloco.addItem("--Selecione--");
-            UnidadeM unid = new UnidadeM();
+            //UnidadeM unid = new UnidadeM();
             try {
                 unid = unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());
                 listaBloco = blocoDAO.buscaUni(unid.getId());
@@ -854,6 +872,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 Logger.getLogger(PisoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        
+        
     }//GEN-LAST:event_cbxUnidadeActionPerformed
 
     private void cbxPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPisoActionPerformed
@@ -863,10 +883,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         } else {
             cbxSala.removeAllItems();
             cbxSala.addItem("--Selecione--");
-            PisoM pis = new PisoM();
+            //PisoM pis = new PisoM();
 
             try {
-                pis = pisoDAO.buscaNome(cbxPiso.getSelectedItem().toString());
+                //pis = pisoDAO.buscaNome(cbxPiso.getSelectedItem().toString());
+                pis = pisoDAO.busca_id_bloco(bloc.getId(), cbxPiso.getSelectedItem().toString());
                 listaSala = salaDAO.buscaPis(pis.getId());
                 for (SalaM sal : listaSala) {
                     cbxSala.addItem(sal.getDescricao());
