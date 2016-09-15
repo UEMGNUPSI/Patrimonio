@@ -418,6 +418,7 @@ public class SalaView extends javax.swing.JInternalFrame {
             sala.setPiso(pegaSala());
             try {
                 salaDAO.salvar(sala);
+                JOptionPane.showMessageDialog(null, "Gravado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
             }
