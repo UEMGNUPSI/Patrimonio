@@ -69,6 +69,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbeUsuario = new javax.swing.JTable();
 
+        setClosable(true);
+
         jLabel2.setText("ID");
 
         jLabel3.setText("Nome de Usuário");
@@ -355,7 +357,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 usuario = new UsuarioM();
                 usuario.setId(Integer.parseInt(tfdID.getText()));
                 usuario.setUsuario(tfdUsuario.getText());
-                //usuario.setSenha(tfdSenha.getText());
+                usuario.setSenha(tfdSenha.getText());
                 usuario.setAdmin(ckxAdministrador.isSelected());
                 usuario.setNome(tfdNome.getText());
                 usuario.setMasp(tfdMasp.getText());
@@ -429,9 +431,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void tbeUsuarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeUsuarioMouseClicked
-        String admStr;
-        boolean admBol;
-        tfdID.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 0).toString());
+       String admStr;
+        boolean admBol; 
         tfdUsuario.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 1).toString());
         admStr = tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 2).toString();
             admBol = Boolean.parseBoolean(admStr);
@@ -439,8 +440,18 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         tfdNome.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 3).toString());
         tfdMasp.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 4).toString());
         tfdContato.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 5).toString());
-       
-
+        
+        // Bloco senha para pegar a senha direto do banco
+        tfdID.setText(tbeUsuario.getValueAt(tbeUsuario.getSelectedRow(), 0).toString());
+        try {
+            usuario = usuarioDAO.UsuarioMById(Integer.parseInt(tfdID.getText()));
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tfdSenha.setText(usuario.getSenha());
+        tfdConfirmaSenha.setText(usuario.getSenha());
+        // Fim bloco senha
+        
        preparaSelecaoTabela();
     }//GEN-LAST:event_tbeUsuarioMouseClicked
 

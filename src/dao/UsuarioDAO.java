@@ -79,5 +79,19 @@ public class UsuarioDAO {
          pst.setInt(7, usuario.getId());
          pst.execute();
          pst.close();
-     }
+     } 
+        public UsuarioM UsuarioMById(int id) throws SQLException {
+        UsuarioM usuario = null;
+        sql = "Select * from usuario where id=?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id);
+        pst.executeQuery();
+        ResultSet rs = pst.getResultSet();
+        while(rs.next()){
+               usuario = new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("admin"),
+                       rs.getString("nome"), rs.getString("masp"), rs.getString("contato"));
+            }
+            pst.close();
+            return usuario;
+    }
 }
