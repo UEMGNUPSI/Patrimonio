@@ -17,7 +17,7 @@ import java.util.List;
 import model.EntidadeM;
 
 public class EntidadeDAO {
-     PreparedStatement pst;
+    PreparedStatement pst;
     String sql;
     
     public void salvar(EntidadeM entidade) throws SQLException{
@@ -46,8 +46,8 @@ public class EntidadeDAO {
      
      public List<EntidadeM> listaTodos() throws SQLException{
         List<EntidadeM> listaEnti = new ArrayList<EntidadeM>();
-        sql = "select * from Entidade order by nome";
-        pst = Conexao.getInstance().prepareStatement(sql);
+       sql = "select * from Entidade order by nome";
+       pst = Conexao.getInstance().prepareStatement(sql);
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
            listaEnti.add(new EntidadeM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato")));
