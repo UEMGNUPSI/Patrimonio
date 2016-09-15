@@ -694,8 +694,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         int i = 0;
         for (PatrimonioM pat : listaPatrimonio) {
             dados[i][0] = String.valueOf(pat.getId());
-            dados[i][1] = pat.getDescricao();
-            dados[i][2] = pat.getCodigo();
+            dados[i][1] = pat.getCodigo();
+            dados[i][2] = pat.getDescricao();
             dados[i][3] = pat.getSubTipo().getDescricao();
             dados[i][4] = pat.getSala().getDescricao();
             dados[i][5] = pat.getGrau_conservacao().getDescricao();
