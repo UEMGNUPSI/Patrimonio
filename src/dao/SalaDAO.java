@@ -104,18 +104,19 @@ public class SalaDAO {
         
         public List<SalaM> listaSelecionados(int id_piso, int id_bloco, int id_unidade) throws SQLException{
         List<SalaM> listaSala = new ArrayList<SalaM>();
-        //sql = "select * from Sala where id_piso = ? order by id_piso";
-        sql = "select * from Sala s \n" +
+        sql = "select * from Sala where id_piso = ? order by id_piso";
+        
+        /*sql = "select * from Sala s \n" +
                 "inner join Piso p on (s.id_piso = ?)\n" +
                 "inner join Bloco b on (p.id_bloco = ?)\n" +
                 "inner join Unidade u on (b.id_unidade = ?)\n" +
-                "group by \n" +
+                "order by \n" +
                 "s.id";
-        
+        */
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, id_piso);
-        pst.setInt(2, id_bloco);
-        pst.setInt(3, id_unidade);
+        //pst.setInt(2, id_bloco);
+        //pst.setInt(3, id_unidade);
         ResultSet rs = pst.executeQuery();
         PisoDAO piso = new PisoDAO();
         while(rs.next()){

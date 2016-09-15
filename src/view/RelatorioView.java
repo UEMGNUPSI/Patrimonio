@@ -454,9 +454,9 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);       
         }else{
         try {
-            unidadeM = unidadeDAO.buscaNome(cbxRelatorioUnidade.getSelectedItem().toString());
-            blocoM = blocoDAO.buscaNome(cbxRelatorioBloco.getSelectedItem().toString());
-            pisoM = pisoDAO.buscaNome(cbxRelatorioPiso.getSelectedItem().toString());
+            unidadeM = unidadeDAO.buscaNome(cbxRelatorioUnidade.getSelectedItem().toString());//pega a unidade selecionada
+            blocoM = blocoDAO.busca_id_unidade(unidadeM.getId(), cbxRelatorioBloco.getSelectedItem().toString());// todos os blocos da unidade de cima
+            pisoM = pisoDAO.busca_id_bloco(blocoM.getId(), cbxRelatorioPiso.getSelectedItem().toString());//todos os pisos da unidade de cima
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Selecione um piso para a busca.", "Erro", JOptionPane.WARNING_MESSAGE);

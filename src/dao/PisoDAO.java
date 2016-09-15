@@ -46,6 +46,20 @@ public class PisoDAO {
         pst.close();
         return piso;
     }
+      public PisoM busca_id_bloco(int id_bloco, String nome_piso) throws SQLException{
+        sql = "select * from Piso where id_bloco = ? and nome = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id_bloco);
+        pst.setString(2, nome_piso);
+        PisoM piso = null;
+        BlocoDAO bloco = new BlocoDAO();
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+           piso = new PisoM(rs.getInt("id"),rs.getString("nome"), bloco.busca(rs.getInt("id_bloco")));
+        }
+        pst.close();
+        return piso;
+    }
  
       public List<PisoM> listaTodos() throws SQLException{
         List<PisoM> listaPiso = new ArrayList<PisoM>();
