@@ -14,13 +14,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.EntidadeM;
+import model.OrgaoM;
 
-public class EntidadeDAO {
+public class OrgaoDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar(EntidadeM entidade) throws SQLException{
+    public void salvar(OrgaoM entidade) throws SQLException{
         sql = "insert into Entidade values(?,?,?,?)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
@@ -31,32 +31,32 @@ public class EntidadeDAO {
         pst.close();
     }
     
-     public EntidadeM busca(int id) throws SQLException{
+     public OrgaoM busca(int id) throws SQLException{
         sql = "select * from Entidade where id = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, id);
-        EntidadeM entidade = null;
+        OrgaoM entidade = null;
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-           entidade = new EntidadeM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato"));
+           entidade = new OrgaoM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato"));
         }
         pst.close();
         return entidade;
     }
      
-     public List<EntidadeM> listaTodos() throws SQLException{
-        List<EntidadeM> listaEnti = new ArrayList<EntidadeM>();
+     public List<OrgaoM> listaTodos() throws SQLException{
+        List<OrgaoM> listaEnti = new ArrayList<OrgaoM>();
        sql = "select * from Entidade order by nome";
        pst = Conexao.getInstance().prepareStatement(sql);
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-           listaEnti.add(new EntidadeM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato")));
+           listaEnti.add(new OrgaoM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato")));
         }
         pst.close();
         return listaEnti;
     }
      
-      public void excluir(EntidadeM entidade) throws SQLException{
+      public void excluir(OrgaoM entidade) throws SQLException{
         sql = "delete from Entidade where id = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, entidade.getId());
@@ -64,7 +64,7 @@ public class EntidadeDAO {
         pst.close();
     }
       
-     public void alterar(EntidadeM entidade) throws SQLException{
+     public void alterar(OrgaoM entidade) throws SQLException{
          sql = "update Entidade set nome = ?, cnpj = ?, contato = ? where id = ?";
          pst = Conexao.getInstance().prepareStatement(sql);
          pst.setString(1, entidade.getNome());
@@ -75,14 +75,14 @@ public class EntidadeDAO {
          pst.close();
      }
      
-     public EntidadeM buscaNome(String nome) throws SQLException{
+     public OrgaoM buscaNome(String nome) throws SQLException{
            sql = "select * from Entidade where nome = ?";
            pst = Conexao.getInstance().prepareStatement(sql);
            pst.setString(1, nome);
-           EntidadeM entidade = null;
+           OrgaoM entidade = null;
            ResultSet rs = pst.executeQuery();
            while(rs.next()){
-               entidade = new EntidadeM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato"));
+               entidade = new OrgaoM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato"));
             }
             pst.close();
             return entidade;

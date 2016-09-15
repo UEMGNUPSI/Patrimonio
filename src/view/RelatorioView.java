@@ -200,6 +200,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
 
+        setClosable(true);
+
         tbeSala.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
