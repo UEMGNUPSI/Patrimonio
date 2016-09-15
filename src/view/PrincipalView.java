@@ -95,14 +95,15 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.setName("NUPSI"); // NOI18N
 
         foto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        foto.setText("jLabel1");
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/logo (1).png"))); // NOI18N
+        foto.setText("Developed By Nupsi");
 
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
         pnlPrincipalLayout.setHorizontalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
-                .addContainerGap(513, Short.MAX_VALUE)
+                .addContainerGap(386, Short.MAX_VALUE)
                 .addComponent(foto)
                 .addGap(384, 384, 384))
         );
@@ -111,7 +112,7 @@ public class PrincipalView extends javax.swing.JFrame {
             .addGroup(pnlPrincipalLayout.createSequentialGroup()
                 .addGap(182, 182, 182)
                 .addComponent(foto)
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addContainerGap(732, Short.MAX_VALUE))
         );
 
         mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
@@ -353,7 +354,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JLabel foto;
+    private javax.swing.JLabel foto;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
