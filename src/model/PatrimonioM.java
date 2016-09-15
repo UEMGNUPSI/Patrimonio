@@ -24,7 +24,7 @@ public class PatrimonioM {
         
     }
 
-    public PatrimonioM(Integer id, String codigo,String descricao,SubTipoM subTipo, GrauConservacaoM grau_conservacao, StatusM status, SalaM sala, String notaFiscal, EntidadeM entidade) {        this.id = id;
+    public PatrimonioM(Integer id, String descricao,String codigo,SubTipoM subTipo, GrauConservacaoM grau_conservacao, StatusM status, SalaM sala, String notaFiscal, EntidadeM entidade) {        this.id = id;
         this.codigo = codigo;
         this.subTipo = subTipo;
         this.descricao = descricao;
