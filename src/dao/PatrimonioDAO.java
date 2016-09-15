@@ -46,7 +46,7 @@ public class PatrimonioDAO {
         GrauConservacaoDAO grau = new GrauConservacaoDAO();
         StatusDAO status = new StatusDAO();
         SalaDAO sala = new SalaDAO();
-        EntidadeDAO entidade = new EntidadeDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
            pat = new PatrimonioM(rs.getInt("id"), rs.getString("descricao"),rs.getString("codigo"), subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")));
         }
@@ -63,7 +63,7 @@ public class PatrimonioDAO {
         GrauConservacaoDAO grau = new GrauConservacaoDAO();
         StatusDAO status = new StatusDAO();
         SalaDAO sala = new SalaDAO();
-        EntidadeDAO entidade = new EntidadeDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
@@ -103,7 +103,7 @@ public class PatrimonioDAO {
         GrauConservacaoDAO grau = new GrauConservacaoDAO();
         StatusDAO status = new StatusDAO();
         SalaDAO sala = new SalaDAO();
-        EntidadeDAO entidade = new EntidadeDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),

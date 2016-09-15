@@ -6,7 +6,7 @@
 package view;
 
 import dao.BlocoDAO;
-import dao.EntidadeDAO;
+import dao.OrgaoDAO;
 import dao.GrauConservacaoDAO;
 import dao.PatrimonioDAO;
 import dao.PisoDAO;
@@ -25,7 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
-import model.EntidadeM;
+import model.OrgaoM;
 import model.GrauConservacaoM;
 import model.PatrimonioM;
 import model.PisoM;
@@ -59,8 +59,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     List<StatusM> listaStatus;
     GrauConservacaoDAO grauDAO;
     StatusDAO statusDAO;
-    List<EntidadeM> listaEntidade;
-    EntidadeDAO entidadeDAO;
+    List<OrgaoM> listaEntidade;
+    OrgaoDAO entidadeDAO;
     List<TipoM> listaTipo;
     TipoDAO tipoDAO;
     List<SubTipoM> listaSub;
@@ -83,7 +83,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         grauDAO = new GrauConservacaoDAO();
         statusDAO = new StatusDAO();
         listaEntidade = new ArrayList<>();
-        entidadeDAO = new EntidadeDAO();
+        entidadeDAO = new OrgaoDAO();
         listaTipo = new ArrayList<>();
         tipoDAO = new TipoDAO();
         listaSub = new ArrayList<>();
@@ -758,7 +758,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         String dados[][] = new String[listaEntidade.size()][5];
         int i = 0;
-        for (EntidadeM ent : listaEntidade) {
+        for (OrgaoM ent : listaEntidade) {
             cbxOrgao.addItem(ent.getNome());
         }
     }
@@ -1070,7 +1070,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ckxPatrimonioCompostoActionPerformed
 
-    public EntidadeM pegaEntidade() {
+    public OrgaoM pegaEntidade() {
         try {
             return entidadeDAO.buscaNome(cbxOrgao.getSelectedItem().toString());
         } catch (SQLException ex) {
