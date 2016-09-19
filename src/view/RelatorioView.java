@@ -476,8 +476,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                      document.open();
                      document.add(new Paragraph("Patrimonios Presentes na Sala "+tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString()));
                      for(PatrimonioM patrimonio : listaPatrimonio){
-                        document.add(new Paragraph("Orgão: "+patrimonio.getEntidade().toString()+"  Código: "+patrimonio.getCodigo().toString()+"  Descriçao: "+patrimonio.getDescricao().toString()
-                        +"  Conservação: "+patrimonio.getGrau_conservacao().toString()));
+                        document.add(new Paragraph(""+patrimonio.getEntidade().getNome()+"    "+patrimonio.getCodigo().toString()+"    "+patrimonio.getDescricao().toString()
+                        +"    "+patrimonio.getGrau_conservacao().getDescricao()));
                         
                      }
                      JOptionPane.showMessageDialog(null, "PDF criado com uscesso");
