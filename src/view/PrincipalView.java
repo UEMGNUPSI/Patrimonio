@@ -36,9 +36,8 @@ public class PrincipalView extends javax.swing.JFrame {
              mnuCadastrar.setEnabled(false);
              mniAdicionarUsuario.setEnabled(false);
         }
-        pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
-        foto.setText("");
-        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/logo.png"))); 
+        //pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
+        
         
     }
 
@@ -62,7 +61,7 @@ public class PrincipalView extends javax.swing.JFrame {
         foto = new javax.swing.JLabel();
         mnbPrincipal = new javax.swing.JMenuBar();
         mnuCadastrar = new javax.swing.JMenu();
-        mniEntidade = new javax.swing.JMenuItem();
+        mniOrgao = new javax.swing.JMenuItem();
         mnuLocalizacao = new javax.swing.JMenu();
         mniUnidade = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
@@ -94,37 +93,38 @@ public class PrincipalView extends javax.swing.JFrame {
 
         pnlPrincipal.setName("NUPSI"); // NOI18N
 
-        foto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        foto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/logo (1).png"))); // NOI18N
-        foto.setText("Developed By Nupsi");
+        foto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        foto.setAlignmentY(0.0F);
+        foto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        foto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
         pnlPrincipalLayout.setHorizontalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
-                .addContainerGap(386, Short.MAX_VALUE)
-                .addComponent(foto)
-                .addGap(384, 384, 384))
+                .addGap(0, 1058, Short.MAX_VALUE)
+                .addComponent(foto))
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                .addGap(182, 182, 182)
                 .addComponent(foto)
-                .addContainerGap(732, Short.MAX_VALUE))
+                .addGap(0, 976, Short.MAX_VALUE))
         );
 
         mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
         mnuCadastrar.setText("Cadastrar");
 
-        mniEntidade.setText("Orgão");
-        mniEntidade.addActionListener(new java.awt.event.ActionListener() {
+        mniOrgao.setText("Orgão");
+        mniOrgao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniEntidadeActionPerformed(evt);
+                mniOrgaoActionPerformed(evt);
             }
         });
-        mnuCadastrar.add(mniEntidade);
+        mnuCadastrar.add(mniOrgao);
 
         mnuLocalizacao.setText("Localização");
 
@@ -260,13 +260,13 @@ public class PrincipalView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mniEntidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniEntidadeActionPerformed
+    private void mniOrgaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniOrgaoActionPerformed
         // TODO add your handling code here:
         OrgaoView entidade = new OrgaoView();
         pnlPrincipal.removeAll();
         pnlPrincipal.add(entidade);
         pnlPrincipal.updateUI();
-    }//GEN-LAST:event_mniEntidadeActionPerformed
+    }//GEN-LAST:event_mniOrgaoActionPerformed
 
     private void mniIncluirPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniIncluirPatrimonioActionPerformed
         // TODO add your handling code here:
@@ -354,7 +354,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel foto;
+    public javax.swing.JLabel foto;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -367,9 +367,9 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAdicionarUsuario;
     private javax.swing.JMenuItem mniBloco;
     private javax.swing.JMenuItem mniConservacaoStatus;
-    private javax.swing.JMenuItem mniEntidade;
     private javax.swing.JMenuItem mniIncluirPatrimonio;
     private javax.swing.JMenuItem mniMinhaConta;
+    private javax.swing.JMenuItem mniOrgao;
     private javax.swing.JMenuItem mniPiso;
     private javax.swing.JMenuItem mniSala;
     private javax.swing.JMenuItem mniTipoSubtipo;
