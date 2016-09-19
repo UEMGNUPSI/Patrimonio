@@ -363,6 +363,7 @@ public class SalaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfdIDSalaActionPerformed
 
     private void cbxUnidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidade1ActionPerformed
+        /*
         if (cbxUnidade1.getSelectedIndex() < 1) {
             cbxBloco1.removeAllItems();
             cbxBloco1.addItem("--Selecione--");
@@ -383,9 +384,54 @@ public class SalaView extends javax.swing.JInternalFrame {
                 cbxBloco1.addItem("--Selecione--");
             }
         }
+        */
+        if (cbxUnidade1.getSelectedIndex() < 1) {
+            cbxBloco1.removeAllItems();
+            cbxBloco1.addItem("--Selecione--");
+
+        } else {
+            cbxBloco1.removeAllItems();
+            cbxBloco1.addItem("--Selecione--");
+            UnidadeM unid = new UnidadeM();
+            try {
+                unid = unidadeDAO.buscaNome(cbxUnidade1.getSelectedItem().toString());
+                listaBloco = blocoDAO.buscaUni(unid.getId());
+                for (BlocoM bloc : listaBloco) {
+                    cbxBloco1.addItem(bloc.getDescricao());
+                }
+                cbxBloco1.requestFocusInWindow();
+            } catch (SQLException ex) {
+                cbxBloco1.removeAllItems();
+                cbxBloco1.addItem("--Selecione--");
+            }
+        }
+    
+
     }//GEN-LAST:event_cbxUnidade1ActionPerformed
 
     private void cbxBloco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBloco1ActionPerformed
+        /*
+        if (cbxBloco1.getSelectedIndex() < 1) {
+            cbxPiso1.removeAllItems();
+            cbxPiso1.addItem("--Selecione--");
+        } else {
+            cbxPiso1.removeAllItems();
+            cbxPiso1.addItem("--Selecione--");
+            BlocoM bloc = new BlocoM();
+
+            try {
+                bloc = blocoDAO.buscaNome(cbxBloco1.getSelectedItem().toString());
+                listaPiso = pisoDAO.buscaBloc(bloc.getId());
+                for (PisoM pis : listaPiso) {
+                    cbxPiso1.addItem(pis.getDescricao());
+                }
+                cbxPiso1.requestFocusInWindow();
+            } catch (SQLException ex) {
+                cbxPiso1.removeAllItems();
+                cbxPiso1.addItem("--Selecione--");
+            }
+        }
+        */
         if (cbxBloco1.getSelectedIndex() < 1) {
             cbxPiso1.removeAllItems();
             cbxPiso1.addItem("--Selecione--");
