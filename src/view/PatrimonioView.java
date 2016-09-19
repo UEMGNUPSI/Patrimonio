@@ -73,6 +73,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     UnidadeM unid;
     PisoM pis;
 
+    int ultimoID;
+    
     public PatrimonioView() {
         pisoDAO = new PisoDAO();
         listaPiso = new ArrayList<>();
@@ -963,7 +965,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
     
     private void btnSalvarPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPatrimonioActionPerformed
-        if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSuptipo.getSelectedIndex() == 0) {
+        // original if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSuptipo.getSelectedIndex() == 0) {
+        if (tfdDescricaoPatrimonio.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoPatrimonio.requestFocusInWindow();
         } else  if (tfdIDPatrimonio.getText().isEmpty()){
@@ -976,14 +979,16 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patrimonio.setSala(pegaSala());
             patrimonio.setStatus(pegaStatus());
             patrimonio.setSubTipo(pegaSubtipo());
+            patrimonio.setKit(ckxPatrimonioComposto.isSelected());
             try {
-                patrimonioDAO.salvar(patrimonio);
+                ultimoID = patrimonioDAO.salvar(patrimonio);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "ID gerado: " + ultimoID);
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
                 desativaCampos();
                 limpaCamposPatrimonio();
-                PatrimonioM ultimo = pegaPatrimonio();
+                //PatrimonioM ultimo = pegaPatrimonio();
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {

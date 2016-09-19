@@ -20,9 +20,13 @@ public class PatrimonioDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar(PatrimonioM patrimonio) throws SQLException{
-        sql = "insert into Patrimonio values(?,?,?,?,?,?,?,?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+     
+    public int salvar(PatrimonioM patrimonio) throws SQLException{
+        int auxID = 0;
+        
+        sql = "insert into Patrimonio values(?,?,?,?,?,?,?,?,?,?)";
+        //acrescentei o PreparedStatement.RETURN_GENERATED_KEYS
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, patrimonio.getDescricao());
         pst.setString(3, patrimonio.getCodigo());
@@ -32,8 +36,17 @@ public class PatrimonioDAO {
         pst.setInt(7, patrimonio.getSala().getId());
         pst.setString(8, patrimonio.getNotaFiscal());
         pst.setInt(9, patrimonio.getEntidade().getId());
+        pst.setBoolean(10, patrimonio.getKit());
         pst.execute();
-        pst.close();
+        //pst.close();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
+ 
+        pst.close(); 
+        return auxID;
     }
     
     public PatrimonioM busca(int id) throws SQLException{
@@ -48,7 +61,7 @@ public class PatrimonioDAO {
         SalaDAO sala = new SalaDAO();
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
-           pat = new PatrimonioM(rs.getInt("id"), rs.getString("descricao"),rs.getString("codigo"), subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")));
+           pat = new PatrimonioM(rs.getInt("id"), rs.getString("descricao"),rs.getString("codigo"), subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean("kit"));
         }
         pst.close();
         return pat;
@@ -68,7 +81,13 @@ public class PatrimonioDAO {
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
                    rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade"))));
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),
+                   rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")),
+                   rs.getBoolean("kit")));
         }
         pst.close();
         return listaPat;
@@ -108,7 +127,7 @@ public class PatrimonioDAO {
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
                    rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade"))));
+                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
         }
         pst.close();
         return listaPat;
