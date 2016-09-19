@@ -819,9 +819,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
 
     private void cbxBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBlocoActionPerformed
-                
-        
-        
         if (cbxBloco.getSelectedIndex() < 1) {
             cbxPiso.removeAllItems();
             cbxPiso.addItem("--Selecione--");
