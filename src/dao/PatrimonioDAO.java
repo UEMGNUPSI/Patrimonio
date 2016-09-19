@@ -102,12 +102,13 @@ public class PatrimonioDAO {
     }
     
      public void alterar(PatrimonioM patrimonio) throws SQLException{
-         sql = "update Patrimonio set descricao = ?, codigo = ?, nota_fiscal = ? where id = ?" ;
+         sql = "update Patrimonio set descricao = ?, codigo = ?, nota_fiscal = ?, kit = ? where id = ?" ;
          pst = Conexao.getInstance().prepareStatement(sql);
          pst.setString(1, patrimonio.getDescricao());
          pst.setString(2, patrimonio.getCodigo());
          pst.setString(3, patrimonio.getNotaFiscal());
-         pst.setInt(4, patrimonio.getId());
+         pst.setBoolean(4, patrimonio.getKit());
+         pst.setInt(5, patrimonio.getId());
          pst.execute();
          pst.close();
      }

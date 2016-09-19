@@ -557,6 +557,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         );
 
         ckxPatrimonioComposto.setText("PatrimonioComposto");
+        ckxPatrimonioComposto.setEnabled(false);
         ckxPatrimonioComposto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ckxPatrimonioCompostoActionPerformed(evt);
@@ -932,6 +933,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     private void tbePatrimonioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePatrimonioMouseClicked
         
+        
         tfdIDPatrimonio.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 0).toString());
         tfdCodigoPatrimonio.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 1).toString());
         tfdDescricaoPatrimonio.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 2).toString());
@@ -946,9 +948,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxSala.setSelectedItem(patri.getSala().getDescricao());
         cbxConservacao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 5).toString());
         cbxStatus.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 6).toString());
-       cbxOrgao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 7).toString());
-       tfdNotaFiscalPatrimonio.setText(patri.getNotaFiscal());
-        
+        cbxOrgao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 7).toString());
+        tfdNotaFiscalPatrimonio.setText(patri.getNotaFiscal());
+        ckxPatrimonioComposto.setSelected(patri.getKit());
        
         preparaSelecaoTabelaPatrimonio();
     }//GEN-LAST:event_tbePatrimonioMouseClicked
@@ -965,11 +967,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
     
     private void btnSalvarPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPatrimonioActionPerformed
-        // original if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSuptipo.getSelectedIndex() == 0) {
-        if (tfdDescricaoPatrimonio.getText().isEmpty()) {
+        
+        if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSuptipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoPatrimonio.requestFocusInWindow();
         } else  if (tfdIDPatrimonio.getText().isEmpty()){
+            //Se estiver o campo ID estiver vazio siginifica que será um novo objeto.
             patrimonio = new PatrimonioM();
             patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
             patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
@@ -981,14 +984,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patrimonio.setSubTipo(pegaSubtipo());
             patrimonio.setKit(ckxPatrimonioComposto.isSelected());
             try {
+                //Recebe o ultimo ID gerado
                 ultimoID = patrimonioDAO.salvar(patrimonio);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                JOptionPane.showMessageDialog(null, "ID gerado: " + ultimoID);
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
                 desativaCampos();
                 limpaCamposPatrimonio();
-                //PatrimonioM ultimo = pegaPatrimonio();
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -998,11 +1000,14 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 }
             }
         } else {
+            //Se o campo ID não estiver vazio trata-se de uma alteração
             patrimonio = new PatrimonioM();
             patrimonio.setId(Integer.parseInt(tfdIDPatrimonio.getText()));
             patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
             patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
             patrimonio.setNotaFiscal(tfdNotaFiscalPatrimonio.getText());
+            patrimonio.setKit(ckxPatrimonioComposto.isSelected());
+            
             try{
                 patrimonioDAO.alterar(patrimonio);
                 JOptionPane.showMessageDialog(null, "Patrimônio atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -1151,6 +1156,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdDescricaoPatrimonio.setText("");
         tfdNotaFiscalPatrimonio.setText("");
         btnNovoPatrimonio.setEnabled(true);
+        ckxPatrimonioComposto.setSelected(false);
+        
         
     }
     
@@ -1162,6 +1169,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         btnExcluirPatrimonio.setEnabled(false);
         tbePatrimonio.setEnabled(false);
         tbePatrimonio.clearSelection();
+        
     }
     
     public void preparaSalvareCancelar() {
@@ -1187,7 +1195,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxSala.setEnabled(true);
         cbxTipo.setEnabled(true);
         cbxSuptipo.setEnabled(true);
-  
+        ckxPatrimonioComposto.setEnabled(true);
      
         
     }
@@ -1202,6 +1210,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxStatus.setEnabled(true);
         cbxConservacao.setEnabled(true);
         cbxOrgao.setEnabled(true);
+        ckxPatrimonioComposto.setEnabled(true);
         
     }
     
@@ -1234,6 +1243,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdDescricaoPatrimonio.setEnabled(false);
         tfdNotaFiscalPatrimonio.setText("");
         tfdNotaFiscalPatrimonio.setEnabled(false);
+        
+        ckxPatrimonioComposto.setEnabled(false);
  
         btnCancelarPatrimonio.setEnabled(false);
         btnSalvarPatrimonio.setEnabled(false);
