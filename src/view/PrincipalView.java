@@ -9,11 +9,14 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Image;
 import java.awt.Toolkit;
+import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import model.UsuarioM;
 
 /**
@@ -36,7 +39,9 @@ public class PrincipalView extends javax.swing.JFrame {
              mnuCadastrar.setEnabled(false);
              mniAdicionarUsuario.setEnabled(false);
         }
-        //pnlPrincipal.setLayout(new FlowLayout(FlowLayout.CENTER));
+        URL url = this.getClass().getResource("/view/icones/icon.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
         
         
     }

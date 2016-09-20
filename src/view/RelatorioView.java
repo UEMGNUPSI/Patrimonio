@@ -500,37 +500,43 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             doc.open();
             
             
-            /*Font f1 = new Font(Font.HELVETICA, 14, Font.BOLD);
-            Font f2 = new Font(Font.HELVETICA, 12, Font.BOLD);
-            Font f3 = new Font(Font.HELVETICA, 12, Font.NORMAL);
-            Font f4 = new Font(Font.HELVETICA, 10, Font.BOLD);
-            Font f5 = new Font(Font.HELVETICA, 10, Font.NORMAL);*/
+            Font f1 = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
+            Font f2 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
+            Font f3 = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+            Font f4 = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
+            Font f5 = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 
-            Paragraph titulo1 = new Paragraph("Universidade do Estado de Minas Gerais");
+            Paragraph titulo1 = new Paragraph("Universidade do Estado de Minas Gerais",f2);
             titulo1.setAlignment(Element.ALIGN_CENTER);
             titulo1.setSpacingAfter(10);
 
+            Paragraph titulo2 = new Paragraph("" + tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString() ,f2);
+            titulo2.setAlignment(Element.ALIGN_CENTER);
+            titulo2.setSpacingAfter(10);
+            
+            
             doc.add(titulo1);
+            doc.add(titulo2);
 
             PdfPTable tabela = new PdfPTable(new float[]{0.25f, 0.90f, 0.25f,0.20f});
             tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
             tabela.setWidthPercentage(100f);
 
-            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Codigo"));
+            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Codigo",f3));
             cabecalho1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-            //cabecalho1.setBorder(0);
+            cabecalho1.setBorder(0);
 
-            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Descrição"));
+            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Descrição",f3));
             cabecalho2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-            //cabecalho2.setBorder(0);
+            cabecalho2.setBorder(0);
             
-            PdfPCell cabecalho3 = new PdfPCell(new Paragraph("Conservação"));
+            PdfPCell cabecalho3 = new PdfPCell(new Paragraph("Conservação",f3));
             cabecalho3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-            //cabecalho3.setBorder(0);
+            cabecalho3.setBorder(0);
             
-            PdfPCell cabecalho4 = new PdfPCell(new Paragraph("Orgão"));
+            PdfPCell cabecalho4 = new PdfPCell(new Paragraph("Orgão",f3));
             cabecalho4.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
-            //cabecalho4.setBorder(0);
+            cabecalho4.setBorder(0);
 
             tabela.addCell(cabecalho1);
             tabela.addCell(cabecalho2);
@@ -538,25 +544,25 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             tabela.addCell(cabecalho4);
 
             for (PatrimonioM patrimonio : listaPatrimonio) {
-                Paragraph p1 = new Paragraph(patrimonio.getCodigo());
+                Paragraph p1 = new Paragraph(patrimonio.getCodigo(),f5);
                 p1.setAlignment(Element.ALIGN_JUSTIFIED);
                 PdfPCell col1 = new PdfPCell(p1);
-                //col1.setBorder(1);
+                col1.setBorder(0);
                 
-                Paragraph p2 = new Paragraph(patrimonio.getDescricao());
+                Paragraph p2 = new Paragraph(patrimonio.getDescricao(),f5);
                 p2.setAlignment(Element.ALIGN_JUSTIFIED);
                 PdfPCell col2 = new PdfPCell(p2);
-                //col2.setBorder(1);
+                col2.setBorder(0);
                 
-                Paragraph p3 = new Paragraph(patrimonio.getGrau_conservacao().getDescricao());
+                Paragraph p3 = new Paragraph(patrimonio.getGrau_conservacao().getDescricao(),f5);
                 p3.setAlignment(Element.ALIGN_JUSTIFIED);
                 PdfPCell col3 = new PdfPCell(p3);
-                //col3.setBorder(1);
+                col3.setBorder(0);
                 
-                Paragraph p4 = new Paragraph(patrimonio.getEntidade().getNome());
+                Paragraph p4 = new Paragraph(patrimonio.getEntidade().getNome(),f5);
                 p4.setAlignment(Element.ALIGN_JUSTIFIED);
                 PdfPCell col4 = new PdfPCell(p4);
-                //col4.setBorder(1);
+                col4.setBorder(0);
                 
                 tabela.addCell(col1);
                 tabela.addCell(col2);

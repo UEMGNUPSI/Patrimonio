@@ -9,6 +9,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import dao.Conexao;
 import dao.UsuarioDAO;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import model.UsuarioM;
 
 public class LoginView extends javax.swing.JFrame {
@@ -25,6 +28,10 @@ public class LoginView extends javax.swing.JFrame {
         this.jtUsuario.requestFocus();
         usuario = new UsuarioM();
         usuarioDAO = new UsuarioDAO();
+        
+        URL url = this.getClass().getResource("/view/icones/icon.png");
+        Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
+        this.setIconImage(imagemTitulo);
     }
 
     /**
