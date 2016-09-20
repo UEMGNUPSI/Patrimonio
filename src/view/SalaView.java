@@ -42,6 +42,7 @@ public class SalaView extends javax.swing.JInternalFrame {
     List<PisoM> listaPiso;
     UnidadeM unid;
     BlocoM bloc;
+    PisoM piso;
 
     /**
      * Creates new form SalaView
@@ -64,6 +65,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         tfdDescricaoSala.setDocument(new LimiteDigitos(45));
         unid = new UnidadeM();
         bloc = new BlocoM();
+        piso = new PisoM();
     }
 
     public void atualizaTabelaSala() {
@@ -528,27 +530,6 @@ public class SalaView extends javax.swing.JInternalFrame {
     private void btnAlterarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarSalaActionPerformed
         preparaAlterar();
         ativaCampos();
-        /*if (tfdIDSala.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione uma Sala", "Erro", JOptionPane.WARNING_MESSAGE);
-        } else {
-            sala = new SalaM();
-            sala.setId(Integer.parseInt(tfdIDSala.getText()));
-            sala.setDescricao(tfdDescricaoSala.getText());
-
-            try {
-                salaDAO.alterar(sala);
-                JOptionPane.showMessageDialog(null, "Sala atualizada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabelaSala();
-                btnAlterarSala.setEnabled(false);
-                btnExcluirSala.setEnabled(false);
-                btnSalvarSala.setEnabled(true);
-                limpaCamposSala();
-            } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
-            }
-
-        }*/
     }//GEN-LAST:event_btnAlterarSalaActionPerformed
 
     private void cbxPiso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPiso1ActionPerformed
@@ -565,7 +546,9 @@ public class SalaView extends javax.swing.JInternalFrame {
 
     public PisoM pegaSala() {
         try {
-            return pisoDAO.buscaNome(cbxPiso1.getSelectedItem().toString());
+            //return pisoDAO.buscaNome(cbxPiso1.getSelectedItem().toString());  
+            piso = pisoDAO.busca_id_bloco(bloc.getId(), cbxPiso1.getSelectedItem().toString());
+            return piso;
         } catch (SQLException ex) {
             Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
         }
