@@ -26,10 +26,19 @@ import model.SalaM;
 import model.UnidadeM;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import java.awt.Desktop;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import static javafx.scene.text.Font.font;
 
 /**
  *
@@ -52,6 +61,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     BlocoM blocoM;
     UnidadeM unidadeM;
     PatrimonioDAO patrimonioDAO;
+    Document doc;
     public RelatorioView() {
         salaDAO = new SalaDAO();
         listaSala = new ArrayList<>();
@@ -466,35 +476,108 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnGerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarPDFActionPerformed
-       Document document = new Document();
+        String nomediretorio = null;
+        String nomepasta = "Relatorios"; // Informe o nome da pasta que armazenará o relatório
+        String separador = java.io.File.separator;
+        try {
+            nomediretorio = "C:" + separador + nomepasta;
+            if (!new File(nomediretorio).exists()) {
+                (new File(nomediretorio)).mkdir();
+            }
+            gerarDocumento();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnGerarPDFActionPerformed
+
+    public void gerarDocumento() throws FileNotFoundException{
         try {
             int numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
             listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
-            try {
-                    
-                    PdfWriter.getInstance(document, new FileOutputStream("C:\\PDF\\Relatorio "+tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString()+".pdf"));
-                     document.open();
-                     document.add(new Paragraph("Patrimonios Presentes na Sala "+tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString()));
-                     for(PatrimonioM patrimonio : listaPatrimonio){
-                        document.add(new Paragraph(""+patrimonio.getEntidade().getNome()+"    "+patrimonio.getCodigo().toString()+"    "+patrimonio.getDescricao().toString()
-                        +"    "+patrimonio.getGrau_conservacao().getDescricao()));
-                        
-                     }
-                     JOptionPane.showMessageDialog(null, "PDF criado com uscesso");
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (DocumentException ex) {
-               Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
-           }
-            document.close();
+            doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
+            String caminho = "C:/Relatorios/Relatorio" + tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString() +  ".pdf";
+            PdfWriter.getInstance(doc, new FileOutputStream(caminho));
+            doc.open();
             
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Impossivel se conectar ao banco");
-            Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }//GEN-LAST:event_btnGerarPDFActionPerformed
+            
+            /*Font f1 = new Font(Font.HELVETICA, 14, Font.BOLD);
+            Font f2 = new Font(Font.HELVETICA, 12, Font.BOLD);
+            Font f3 = new Font(Font.HELVETICA, 12, Font.NORMAL);
+            Font f4 = new Font(Font.HELVETICA, 10, Font.BOLD);
+            Font f5 = new Font(Font.HELVETICA, 10, Font.NORMAL);*/
 
+            Paragraph titulo1 = new Paragraph("Universidade do Estado de Minas Gerais");
+            titulo1.setAlignment(Element.ALIGN_CENTER);
+            titulo1.setSpacingAfter(10);
+
+            doc.add(titulo1);
+
+            PdfPTable tabela = new PdfPTable(new float[]{0.25f, 0.90f, 0.25f,0.20f});
+            tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
+            tabela.setWidthPercentage(100f);
+
+            PdfPCell cabecalho1 = new PdfPCell(new Paragraph("Codigo"));
+            cabecalho1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+            //cabecalho1.setBorder(0);
+
+            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Descrição"));
+            cabecalho2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+            //cabecalho2.setBorder(0);
+            
+            PdfPCell cabecalho3 = new PdfPCell(new Paragraph("Conservação"));
+            cabecalho3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+            //cabecalho3.setBorder(0);
+            
+            PdfPCell cabecalho4 = new PdfPCell(new Paragraph("Orgão"));
+            cabecalho4.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
+            //cabecalho4.setBorder(0);
+
+            tabela.addCell(cabecalho1);
+            tabela.addCell(cabecalho2);
+            tabela.addCell(cabecalho3);
+            tabela.addCell(cabecalho4);
+
+            for (PatrimonioM patrimonio : listaPatrimonio) {
+                Paragraph p1 = new Paragraph(patrimonio.getCodigo());
+                p1.setAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell col1 = new PdfPCell(p1);
+                //col1.setBorder(1);
+                
+                Paragraph p2 = new Paragraph(patrimonio.getDescricao());
+                p2.setAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell col2 = new PdfPCell(p2);
+                //col2.setBorder(1);
+                
+                Paragraph p3 = new Paragraph(patrimonio.getGrau_conservacao().getDescricao());
+                p3.setAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell col3 = new PdfPCell(p3);
+                //col3.setBorder(1);
+                
+                Paragraph p4 = new Paragraph(patrimonio.getEntidade().getNome());
+                p4.setAlignment(Element.ALIGN_JUSTIFIED);
+                PdfPCell col4 = new PdfPCell(p4);
+                //col4.setBorder(1);
+                
+                tabela.addCell(col1);
+                tabela.addCell(col2);
+                tabela.addCell(col3);
+                tabela.addCell(col4);
+            }
+
+            doc.add(tabela);
+
+            doc.close();
+            JOptionPane.showMessageDialog(null, "Relatório salvo com sucesso");
+            Desktop.getDesktop().open(new File(caminho));
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } catch (IOException exx) {
+            exx.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Documento de Relatorios aberto. Feche para gerar um novo.");
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
