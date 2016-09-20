@@ -42,6 +42,7 @@ public class PrincipalView extends javax.swing.JFrame {
         URL url = this.getClass().getResource("/view/icones/icon.png");
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(imagemTitulo);
+        mniMinhaConta.setEnabled(false);
         
         
     }
