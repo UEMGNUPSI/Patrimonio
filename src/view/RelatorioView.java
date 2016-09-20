@@ -113,9 +113,10 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             }
         });
         tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(100);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);

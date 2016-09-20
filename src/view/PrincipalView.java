@@ -220,6 +220,7 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         mnbPrincipal.add(mnuRelatorios);
 
+        mnuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/user.png"))); // NOI18N
         mnuUsuario.setText("Usuário");
 
         mniMinhaConta.setText("Minha Conta");
