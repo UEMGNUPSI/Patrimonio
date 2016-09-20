@@ -41,6 +41,7 @@ public class SalaView extends javax.swing.JInternalFrame {
     List<UnidadeM> listaUnidade;
     List<PisoM> listaPiso;
     UnidadeM unid;
+    BlocoM bloc;
 
     /**
      * Creates new form SalaView
@@ -62,6 +63,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         btnAlterarSala.setEnabled(false);
         tfdDescricaoSala.setDocument(new LimiteDigitos(45));
         unid = new UnidadeM();
+        bloc = new BlocoM();
     }
 
     public void atualizaTabelaSala() {
@@ -366,7 +368,7 @@ public class SalaView extends javax.swing.JInternalFrame {
 
     private void cbxUnidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidade1ActionPerformed
      
-        if (cbxUnidade1.getSelectedIndex() < 1) {
+        /*if (cbxUnidade1.getSelectedIndex() < 1) {
             cbxBloco1.removeAllItems();
             cbxBloco1.addItem("--Selecione--");
 
@@ -385,6 +387,25 @@ public class SalaView extends javax.swing.JInternalFrame {
                 cbxBloco1.removeAllItems();
                 cbxBloco1.addItem("--Selecione--");
             }
+        }*/
+        
+        if (cbxUnidade1.getSelectedIndex() < 1) {
+            cbxBloco1.removeAllItems();
+            cbxBloco1.addItem("--Selecione--");
+
+        } else {
+            cbxBloco1.removeAllItems();
+            cbxBloco1.addItem("--Selecione--");
+            //cbxBloco1 unid = new UnidadeM();
+            try {
+                unid = unidadeDAO.buscaNome(cbxUnidade1.getSelectedItem().toString());
+                listaBloco = blocoDAO.buscaUni(unid.getId());
+                for (BlocoM bloc : listaBloco) {
+                    cbxBloco1.addItem(bloc.getDescricao());
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(PisoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     
 
@@ -398,7 +419,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         } else {
             cbxPiso1.removeAllItems();
             cbxPiso1.addItem("--Selecione--");
-            BlocoM bloc = new BlocoM();
+            
 
             try {
                 //bloc = blocoDAO.buscaNome(cbxBloco1.getSelectedItem().toString());

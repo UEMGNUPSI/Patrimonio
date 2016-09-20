@@ -61,8 +61,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         tfdDescricaoSubTipo.setDocument(new LimiteDigitos(45));
         tfdDescricaoTipo.setDocument(new LimiteDigitos(45));
         
-        //preparaSalvareCancelarTipo();
-        //btnSalvarSubtipo.setEnabled(false);
+      
     }
     TipoM tipo;
     SubTipoM subTipo;
@@ -155,18 +154,14 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     public void limpaCamposTipo() {
         tfdIDTipo.setText("");
         tfdDescricaoTipo.setText("");
-        //btnSalvarTipo.setEnabled(true);
-        //btnExcluirTipo.setEnabled(false);
-        //btnAlterarTipo.setEnabled(false);
+       
     }
 
     public void limpaCamposSubTipo() {
         tfdIDSubTipo.setText("");
         tfdDescricaoSubTipo.setText("");
         cbxSubtipo.setSelectedIndex(0);
-        //btnSalvarSubtipo.setEnabled(true);
-        //btnExcluirSubtipo.setEnabled(false);
-       // btnAlterarSubtipo.setEnabled(false);
+       
         jLabel1.setIcon(null);
     }
 
@@ -663,30 +658,8 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         preparaAlterarTipo();
         ativaCamposTipo();
         
-        /*if (tfdIDTipo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione um Tipo!", "Erro", JOptionPane.WARNING_MESSAGE);
-        } else {
-            tipo = new TipoM();
-            tipo.setDescricao(tfdDescricaoTipo.getText());
-            tipo.setId(Integer.parseInt(tfdIDTipo.getText()));
+       
 
-        }
-        try {
-            tipoDAO.alterar(tipo);
-            JOptionPane.showMessageDialog(null, "Tipo Alterado Com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            atualizaTabelaTipo();
-            preencheComboBox();
-            atualizaTabelaSubTipo();
-            limpaCamposTipo();
-        } catch (SQLException ex) {
-            Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
-            if (ex.getErrorCode() == 1062) {
-                JOptionPane.showMessageDialog(null, "Tipo já existente", "Erro", JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-        }
-*/
     }//GEN-LAST:event_btnAlterarTipoActionPerformed
 
     private void btnNovoTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoTipoActionPerformed
@@ -811,44 +784,14 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         ativaCamposSubtipo();
         
         
-/*
-        if (tfdIDSubTipo.getText().isEmpty() || cbxSubtipo.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Selecione SubTipo!", "Erro", JOptionPane.WARNING_MESSAGE);
-        } else {
-            subTipo = new SubTipoM();
-            subTipo.setDescricao(tfdDescricaoSubTipo.getText());
-            subTipo.setId(Integer.parseInt(tfdIDSubTipo.getText()));
 
-            subTipo.setTipo(listaTipo.get(cbxSubtipo.getSelectedIndex() - 1));
-
-            try {
-                subTipoDAO.alterar(subTipo);
-                salvarImagen();
-                JOptionPane.showMessageDialog(null, "SubTipo alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabelaSubTipo();
-                cbxSubtipo.setSelectedIndex(0);
-                limpaCamposSubTipo();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
-                if (ex.getErrorCode() == 1062) {
-                    JOptionPane.showMessageDialog(null, "Subtipo já existente", "Erro", JOptionPane.WARNING_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, ex.getMessage());
-                }
-            }
-
-        }
-*/
     }//GEN-LAST:event_btnAlterarSubtipoActionPerformed
 
     private void btnNovoSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoSubtipoActionPerformed
         // TODO add your handling code here:
         preparaNovoSubTipo();
         limpaCamposSubTipo();
-        //cbxSubtipo.setSelectedIndex(0);
-        //btnSalvarSubtipo.setEnabled(true);
-        //cbxSubtipo.setEnabled(true);
+        
 
     }//GEN-LAST:event_btnNovoSubtipoActionPerformed
 
@@ -881,7 +824,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             bi = null;
         }
 
-        //cbxSubtipo.setEnabled(false);
+        
 
     }//GEN-LAST:event_tbeSubTipoMouseClicked
 
@@ -898,7 +841,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg"));
         fileChooser.setAcceptAllFileFilterUsed(false);
-        // int a = fileChooser.showOpenDialog(null);  
+       
         if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File arquivo = fileChooser.getSelectedFile();//arquivo  
 
