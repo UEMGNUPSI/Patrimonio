@@ -74,7 +74,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     PatrimonioM auxPatrimonio;
     PatrimonioCompostoM patrimonioComposto;
     PatrimonioCompostoDAO patrimonioCompostoDAO;
-    List<PatrimonioCompostoM> listaComposto;
+    List<PatrimonioCompostoM> lsComposto;
     
     BlocoM bloc;
     UnidadeM unid;
@@ -111,6 +111,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         initComponents();
         
         this.setVisible(true);
+        pnlPatrimonioComposto.setVisible(false);
         atualizaBoxUnidade();
         atualizaBoxTipo();
         atualizaBoxGrauConservacao();
@@ -121,6 +122,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdDescricaoPatrimonio.setDocument(new LimiteDigitos(45));
         tfdNotaFiscalPatrimonio.setDocument(new LimiteDigitos(45));
        
+        
     }
 
     /**
@@ -167,7 +169,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         lblSelecSubtipo = new javax.swing.JLabel();
         cbxSuptipo = new javax.swing.JComboBox<>();
         btnCancelarPatrimonio = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
+        pnlPatrimonioComposto = new javax.swing.JPanel();
         btnCancelarPatrimonioComposto = new javax.swing.JButton();
         btnExcluirPatrimonioComposto = new javax.swing.JButton();
         btnSalvarPatrimonioComposto = new javax.swing.JButton();
@@ -386,7 +388,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             }
         });
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Itens Cadastrados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
+        pnlPatrimonioComposto.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Itens Cadastrados", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         btnCancelarPatrimonioComposto.setText("Cancelar");
         btnCancelarPatrimonioComposto.setEnabled(false);
@@ -471,6 +473,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePatrimonioComposto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbePatrimonioCompostoMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbePatrimonioComposto);
 
         jLabel3.setText("Patrimônio Composto");
@@ -484,17 +491,17 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlPatrimonioCompostoLayout = new javax.swing.GroupLayout(pnlPatrimonioComposto);
+        pnlPatrimonioComposto.setLayout(pnlPatrimonioCompostoLayout);
+        pnlPatrimonioCompostoLayout.setHorizontalGroup(
+            pnlPatrimonioCompostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPatrimonioCompostoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlPatrimonioCompostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbxStatusPatrimonioComposto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(tfdDescricaoPatrimonioComposto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cbxConservacaoPatrimonioComposto, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(pnlPatrimonioCompostoLayout.createSequentialGroup()
                         .addComponent(btnNovoPatrimonioComposto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalvarPatrimonioComposto)
@@ -504,12 +511,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                         .addComponent(btnAlterarPatrimonioComposto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnExcluirPatrimonioComposto))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPatrimonioCompostoLayout.createSequentialGroup()
+                        .addGroup(pnlPatrimonioCompostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblGrauConservacao1)
                             .addComponent(lblStatus1)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPatrimonioCompostoLayout.createSequentialGroup()
+                                .addGroup(pnlPatrimonioCompostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -519,19 +526,19 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+        pnlPatrimonioCompostoLayout.setVerticalGroup(
+            pnlPatrimonioCompostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPatrimonioCompostoLayout.createSequentialGroup()
+                .addGroup(pnlPatrimonioCompostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlPatrimonioCompostoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                    .addGroup(pnlPatrimonioCompostoLayout.createSequentialGroup()
+                        .addGroup(pnlPatrimonioCompostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPatrimonioCompostoLayout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPatrimonioCompostoLayout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -549,7 +556,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cbxStatusPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(pnlPatrimonioCompostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnExcluirPatrimonioComposto)
                             .addComponent(btnNovoPatrimonioComposto)
                             .addComponent(btnSalvarPatrimonioComposto)
@@ -622,7 +629,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             .addGroup(pnlPatrimonioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlPatrimonioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(pnlPatrimonioLayout.createSequentialGroup()
                         .addGroup(pnlPatrimonioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -723,7 +730,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(13, 13, 13))
         );
 
@@ -741,6 +748,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void iniciaComposto(){
+        atualizaStatusComposto();
+        atualizaGrauComposto();
+        atualizaTabelaComposto();
+    }
+    
+    
     public void atualizaTabelaPatrimonio() {
 
         try {
@@ -1022,10 +1036,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
             patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
             patrimonio.setEntidade(pegaEntidade());
-            patrimonio.setGrau_conservacao(pegaGrau());
+            patrimonio.setGrau_conservacao(pegaGrau(cbxConservacao.getSelectedItem().toString()));
             patrimonio.setNotaFiscal(tfdNotaFiscalPatrimonio.getText());
             patrimonio.setSala(pegaSala());
-            patrimonio.setStatus(pegaStatus());
+            patrimonio.setStatus(pegaStatus(cbxStatus.getSelectedItem().toString()));
             patrimonio.setSubTipo(pegaSubtipo());
             patrimonio.setKit(ckxPatrimonioComposto.isSelected());
             try {
@@ -1033,12 +1047,18 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 ultimoID = patrimonioDAO.salvar(patrimonio);
                 auxPatrimonio = new PatrimonioM();
                 auxPatrimonio = patrimonioDAO.busca(ultimoID);
-                
+                // a partir daqui tem que liberar a tela do composto
+                if (ckxPatrimonioComposto.isSelected())
+                {
+                    pnlPatrimonioComposto.setVisible(true);
+                    iniciaComposto();
+                    
+                }
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
                 desativaCampos();
-                limpaCamposPatrimonio();
+                //limpaCamposPatrimonio();
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -1120,22 +1140,50 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     private void btnCancelarPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarPatrimonioCompostoActionPerformed
         // TODO add your handling code here:
+        limpaCamposComposto();
+        preparaSalvarCancelarComposto();
+        desativaCamposComposto();
     }//GEN-LAST:event_btnCancelarPatrimonioCompostoActionPerformed
 
     private void btnExcluirPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPatrimonioCompostoActionPerformed
         // TODO add your handling code here:
+        if (tfdIDComposto.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecione um Item.", "Erro", JOptionPane.WARNING_MESSAGE);
+        } else {
+            patrimonioComposto = new PatrimonioCompostoM();
+            patrimonioComposto.setId(Integer.parseInt(tfdIDComposto.getText()));
+            int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoPatrimonioComposto.getText() + " ?");
+            if (confirma == 0) {
+                try {
+                    patrimonioCompostoDAO.excluir(patrimonioComposto);
+                    atualizaTabelaComposto();
+                    limpaCamposComposto();
+                    preparaExcluir();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                }
+
+            }
+        }
+        
+        
     }//GEN-LAST:event_btnExcluirPatrimonioCompostoActionPerformed
 
     private void btnSalvarPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPatrimonioCompostoActionPerformed
         // TODO add your handling code here:
+        String status, conservacao;
         if (tfdDescricaoPatrimonioComposto.getText().isEmpty() || cbxConservacaoPatrimonioComposto.getSelectedIndex() == 0 || cbxStatusPatrimonioComposto.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoPatrimonioComposto.requestFocusInWindow();
-        } else if (tfdIDComposto.getText().isEmpty()){
+        } else if (tfdIDComposto.getText().isEmpty()){           
+            status = cbxStatusPatrimonioComposto.getSelectedItem().toString();
+            conservacao = cbxConservacaoPatrimonioComposto.getSelectedItem().toString();
+           
             patrimonioComposto = new PatrimonioCompostoM();
             patrimonioComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
-            patrimonioComposto.setId_grau_conservacao(patrimonio.getGrau_conservacao().getId());
-            patrimonioComposto.setId_status(patrimonio.getStatus().getId());
+            patrimonioComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
+            patrimonioComposto.setId_status(pegaIDStatus(status));
             try {
                 patrimonioCompostoDAO.salvar(patrimonioComposto);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -1145,12 +1193,34 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             preparaSalvarCancelarComposto();
             desativaCamposComposto();
             atualizaTabelaComposto();
+            limpaCamposComposto();
+                        
+        } else {
+            status = cbxStatusPatrimonioComposto.getSelectedItem().toString();
+            conservacao = cbxConservacaoPatrimonioComposto.getSelectedItem().toString();
             
+            patrimonioComposto = new PatrimonioCompostoM();
+            patrimonioComposto.setId(Integer.parseInt(tfdIDComposto.getText()));
+            patrimonioComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
+            patrimonioComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
+            patrimonioComposto.setId_status(pegaIDStatus(status));
+            try{
+                patrimonioCompostoDAO.alterar(patrimonioComposto);
+                JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            preparaSalvarCancelarComposto();
+            desativaCamposComposto();
+            atualizaTabelaComposto();
+            limpaCamposComposto();
         }
     }//GEN-LAST:event_btnSalvarPatrimonioCompostoActionPerformed
 
     private void btnAlterarPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarPatrimonioCompostoActionPerformed
         // TODO add your handling code here:
+        preparaAlterarComposto();
+        ativaCamposComposto();
     }//GEN-LAST:event_btnAlterarPatrimonioCompostoActionPerformed
 
     private void btnNovoPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPatrimonioCompostoActionPerformed
@@ -1174,6 +1244,16 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdIDCompostoActionPerformed
 
+    private void tbePatrimonioCompostoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePatrimonioCompostoMouseClicked
+        // TODO add your handling code here:
+        int id = pegaIDComposto(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 0).toString());
+        tfdIDComposto.setText(String.valueOf(id));
+        tfdDescricaoPatrimonioComposto.setText(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 0).toString());
+        cbxConservacaoPatrimonioComposto.setSelectedItem(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 1).toString());
+        cbxStatusPatrimonioComposto.setSelectedItem(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 2).toString());
+        preparaSelecaoComposto();
+    }//GEN-LAST:event_tbePatrimonioCompostoMouseClicked
+
     public OrgaoM pegaEntidade() {
         try {
             return entidadeDAO.buscaNome(cbxOrgao.getSelectedItem().toString());
@@ -1182,10 +1262,20 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         return null;
     }
-
-    public GrauConservacaoM pegaGrau() {
+      public int pegaIDGrau(String grau) {
         try {
-            return grauDAO.buscaNome(cbxConservacao.getSelectedItem().toString());
+            GrauConservacaoM aux = new GrauConservacaoM();
+            aux = grauDAO.buscaNome(grau);
+            return aux.getId();
+        } catch (SQLException ex) {
+            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 1;
+    }
+
+    public GrauConservacaoM pegaGrau(String grau) {
+        try {
+            return grauDAO.buscaNome(grau);
         } catch (SQLException ex) {
             Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1200,7 +1290,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         return null;
     }
-
+    
     public SubTipoM pegaSubtipo() {
         try {
             return subtipoDAO.buscaNome(cbxSuptipo.getSelectedItem().toString());
@@ -1209,10 +1299,22 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         return null;
     }
-
-    public StatusM pegaStatus() {
+    
+    public int pegaIDStatus(String status) {
         try {
-            return statusDAO.buscaNome(cbxStatus.getSelectedItem().toString());
+            StatusM aux = new StatusM();
+            aux = statusDAO.buscaNome(status);
+            
+            return aux.getId();
+        } catch (SQLException ex) {
+            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 1;
+    }
+    
+    public StatusM pegaStatus(String status) {
+        try {
+            return statusDAO.buscaNome(status);
         } catch (SQLException ex) {
             Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1413,17 +1515,81 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
        btnExcluirPatrimonioComposto.setEnabled(false);
     }
     
-    public void atualizaTabelaComposto(){
+    public void preparaAlterarComposto(){
+        btnNovoPatrimonioComposto.setEnabled(false);
+        btnExcluirPatrimonioComposto.setEnabled(false);
+        btnAlterarPatrimonioComposto.setEnabled(false);
+        btnSalvarPatrimonioComposto.setEnabled(true);
+        btnCancelarPatrimonioComposto.setEnabled(true);
+        tbePatrimonioComposto.setEnabled(false);
+        tbePatrimonioComposto.clearSelection();
+    }
+    
+    public void preparaSelecaoComposto(){
+        btnNovoPatrimonioComposto.setEnabled(true);
+        btnExcluirPatrimonioComposto.setEnabled(true);
+        btnAlterarPatrimonioComposto.setEnabled(true);
+    }
+    public PatrimonioCompostoM pegaComposto(String descricao){
+        try {
+            return patrimonioCompostoDAO.buscaDescricao(descricao);
+        } catch (SQLException ex) {
+            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public int pegaIDComposto(String composto) {
+        try {
+            PatrimonioCompostoM aux = new PatrimonioCompostoM();
+            aux = patrimonioCompostoDAO.buscaDescricao(composto);
+            return aux.getId();
+        } catch (SQLException ex) {
+            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 1;
+    }
+    public void atualizaGrauComposto(){
+        cbxConservacaoPatrimonioComposto.removeAllItems();
+        cbxConservacaoPatrimonioComposto.addItem("--Selecione--");
+        try {
+            listaGrau = grauDAO.listaTodos();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String dados[][] = new String[listaGrau.size()][5];
+        int i = 0;
+        for (GrauConservacaoM gra : listaGrau) {
+            cbxConservacaoPatrimonioComposto.addItem(gra.getDescricao());
+        }
+    }
+    
+    public void atualizaStatusComposto(){
+        cbxStatusPatrimonioComposto.removeAllItems();
+        cbxStatusPatrimonioComposto.addItem("--Selecione--");
+        try {
+            listaStatus = statusDAO.listaTodos();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String dados[][] = new String[listaStatus.size()][5];
+        int i = 0;
+        for (StatusM stat : listaStatus) {
+            cbxStatusPatrimonioComposto.addItem(stat.getNome());
+        }
         
+    }
+    
+    public void atualizaTabelaComposto(){
         try {
             //compoe a lista de patrimonio composto a partir do ID do patrimonio que está sendo salvo.
-            listaComposto = patrimonioCompostoDAO.listaComposto(auxPatrimonio);
+            lsComposto = patrimonioCompostoDAO.listaComposto(auxPatrimonio);
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String dados[][] = new String[listaComposto.size()][3];
+        String dados[][] = new String[lsComposto.size()][4];
         int i = 0;
-        for (PatrimonioCompostoM patComposto : listaComposto){
+        for (PatrimonioCompostoM patComposto : lsComposto){
             dados[i][0] = patComposto.getDescricao();
             dados[i][1] = patComposto.getPatrimonio().getGrau_conservacao().getDescricao();
             dados[i][2] = patComposto.getPatrimonio().getStatus().getNome();
@@ -1481,7 +1647,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -1502,6 +1667,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblStatus1;
     private javax.swing.JPanel pnlPatrimonio;
+    private javax.swing.JPanel pnlPatrimonioComposto;
     private javax.swing.JTable tbePatrimonio;
     private javax.swing.JTable tbePatrimonioComposto;
     private javax.swing.JTextField tfdCodigoPatrimonio;

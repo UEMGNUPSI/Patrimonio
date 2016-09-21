@@ -78,7 +78,7 @@ public class PatrimonioCompostoDAO {
         PatrimonioCompostoM patrimonioComposto = null;
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-            patrimonioComposto = new PatrimonioCompostoM();
+            patrimonioComposto = new PatrimonioCompostoM(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_grau_conservacao"), rs.getInt("id_status"), rs.getInt("id_patrimonio") );
         }
         pst.close();
         return patrimonioComposto;
