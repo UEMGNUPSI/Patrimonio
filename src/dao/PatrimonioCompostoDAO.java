@@ -23,7 +23,7 @@ public class PatrimonioCompostoDAO {
     
     //lista os itens de um patrimonio especificado 
     //usado para alterar o KIT
-    public List<PatrimonioCompostoM> listaComposto(PatrimonioM pat) throws SQLException{
+    public List<PatrimonioCompostoM> listaTodosExistentes(PatrimonioM pat) throws SQLException{
         List<PatrimonioCompostoM> listaComposto = new ArrayList<PatrimonioCompostoM>();
         sql = "select * from Patrimonio_composto where id_patrimonio = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
@@ -32,9 +32,9 @@ public class PatrimonioCompostoDAO {
         while(rs.next()){
            listaComposto.add(new PatrimonioCompostoM(rs.getInt("id"), 
            rs.getString("descricao"),
-           pat.getGrau_conservacao().getId(),
-           pat.getStatus().getId(),
-           pat.getId()));
+           rs.getInt("id_grau_conservacao"),
+           rs.getInt("id_status"),
+           rs.getInt("id_patrimonio")));
         }
         pst.close();
         return listaComposto;

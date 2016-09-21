@@ -28,6 +28,7 @@ public class PatrimonioCompostoM {
         this.id_grau_conservacao = patrimonio.getGrau_conservacao().getId();
         this.id_status = patrimonio.getStatus().getId();
         this.id_patrimonio = patrimonio.getId();
+        this.patrimonio = patrimonio;
     }
     
      public PatrimonioCompostoM(int id, String descricao, int id_grau_conservacao, int id_status, int id_patrimonio) {

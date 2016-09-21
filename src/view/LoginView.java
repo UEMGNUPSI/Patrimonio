@@ -190,7 +190,7 @@ public class LoginView extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "A senha deve ser preenchida", "Alerta", JOptionPane.INFORMATION_MESSAGE);
                 jtSenha.requestFocus();
             } else {
-                usuario = usuarioDAO.valida(jtUsuario.getText(), jtSenha.getText());
+                usuario = usuarioDAO.valida(jtUsuario.getText(), jtSenha.getPassword().toString());
                 if(usuario == null){
                     JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
                     jtUsuario.setText("");

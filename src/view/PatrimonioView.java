@@ -74,7 +74,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     PatrimonioM auxPatrimonio;
     PatrimonioCompostoM patComposto;
     PatrimonioCompostoDAO patrimonioCompostoDAO;
-    List<PatrimonioCompostoM> lsComposto;
+    List<PatrimonioCompostoM> listaComposto;
     
     BlocoM bloc;
     UnidadeM unid;
@@ -104,6 +104,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         listaPatrimonio = new ArrayList<>();
         patrimonioDAO = new PatrimonioDAO();
         
+        listaComposto = new ArrayList<>();
+        patrimonioCompostoDAO = new PatrimonioCompostoDAO();
+        
         bloc = new BlocoM();
         unid = new UnidadeM();
         pis = new PisoM();
@@ -112,16 +115,18 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         
         this.setVisible(true);
         pnlPatrimonioComposto.setVisible(false);
+       
         atualizaBoxUnidade();
         atualizaBoxTipo();
         atualizaBoxGrauConservacao();
         atualizaBoxStatus();
         atualizaBoxEntidade();
         atualizaTabelaPatrimonio();
-        tfdCodigoPatrimonio.setDocument(new LimiteDigitos(45));
-        tfdDescricaoPatrimonio.setDocument(new LimiteDigitos(45));
+        tfdCodigoPatrimonio.setDocument(new LimiteDigitos(60));
+        tfdDescricaoPatrimonio.setDocument(new LimiteDigitos(90));
         tfdNotaFiscalPatrimonio.setDocument(new LimiteDigitos(45));
-       
+        
+        auxPatrimonio = new PatrimonioM();
         
     }
 
@@ -751,7 +756,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     public void iniciaComposto(){
         atualizaStatusComposto();
         atualizaGrauComposto();
-        atualizaTabelaComposto();
+        atualizaTabelaCompostoExistente();
+        ativaCamposComposto();
+        
     }
     
     
@@ -1045,12 +1052,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             try {
                 //Recebe o ultimo ID gerado
                 ultimoID = patrimonioDAO.salvar(patrimonio);
-                auxPatrimonio = new PatrimonioM();
                 auxPatrimonio = patrimonioDAO.busca(ultimoID);
-                
+                JOptionPane.showMessageDialog(null, auxPatrimonio.getDescricao());
                 // a partir daqui tem que liberar a tela do composto
                 if (ckxPatrimonioComposto.isSelected())
                 {
+                    desativaCampos();
                     pnlPatrimonioComposto.setVisible(true);
                     iniciaComposto();
                     
@@ -1058,7 +1065,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
-                desativaCampos();
                 //limpaCamposPatrimonio();
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
@@ -1157,7 +1163,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             if (confirma == 0) {
                 try {
                     patrimonioCompostoDAO.excluir(patComposto);
-                    atualizaTabelaComposto();
+                    atualizaTabelaCompostoExistente();
                     limpaCamposComposto();
                     preparaExcluir();
                 } catch (SQLException ex) {
@@ -1184,6 +1190,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
             patComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
             patComposto.setId_status(pegaIDStatus(status));
+            patComposto.setId_patrimonio(ultimoID);
             try {
                 patrimonioCompostoDAO.salvar(patComposto);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -1192,7 +1199,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             }
             preparaSalvarCancelarComposto();
             desativaCamposComposto();
-            atualizaTabelaComposto();
+            atualizaTabelaCompostoExistente();
             limpaCamposComposto();
                         
         } else {
@@ -1212,7 +1219,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             } 
             preparaSalvarCancelarComposto();
             desativaCamposComposto();
-            atualizaTabelaComposto();
+            atualizaTabelaCompostoExistente();
             limpaCamposComposto();
         }
     }//GEN-LAST:event_btnSalvarPatrimonioCompostoActionPerformed
@@ -1577,16 +1584,16 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         
     }
     
-    public void atualizaTabelaComposto(){
+    public void atualizaTabelaCompostoExistente(){
         try {
             //compoe a lista de patrimonio composto a partir do ID do patrimonio que está sendo salvo.
-            lsComposto = patrimonioCompostoDAO.listaComposto(auxPatrimonio);
+            listaComposto = patrimonioCompostoDAO.listaTodosExistentes(auxPatrimonio);
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String dados[][] = new String[lsComposto.size()][4];
+        String dados[][] = new String[listaComposto.size()][4];
         int i = 0;
-        for (PatrimonioCompostoM patComposto : lsComposto){
+        for (PatrimonioCompostoM patComposto : listaComposto){
             dados[i][0] = patComposto.getDescricao();
             dados[i][1] = patComposto.getPatrimonio().getGrau_conservacao().getDescricao();
             dados[i][2] = patComposto.getPatrimonio().getStatus().getNome();
@@ -1596,7 +1603,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         DefaultTableModel tabelaComposto = new DefaultTableModel();
         tabelaComposto.setDataVector(dados, tituloColuna);
         tbePatrimonioComposto.setModel(new DefaultTableModel(dados, tituloColuna){
-            boolean[] canEdit = new boolean[]{ false, false, false, false 
+            boolean[] canEdit = new boolean[]{ false, false, false 
             };
             @Override
             public boolean isCellEditable(int rowIndex, int columnIndex){
@@ -1607,7 +1614,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tbePatrimonioComposto.getColumnModel().getColumn(0).setPreferredWidth(50);
         tbePatrimonioComposto.getColumnModel().getColumn(1).setPreferredWidth(300);
         tbePatrimonioComposto.getColumnModel().getColumn(2).setPreferredWidth(300);
-        tbePatrimonioComposto.getColumnModel().getColumn(3).setPreferredWidth(300);
+        //tbePatrimonioComposto.getColumnModel().getColumn(3).setPreferredWidth(300);
         
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
