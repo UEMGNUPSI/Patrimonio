@@ -102,7 +102,7 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.setName("NUPSI"); // NOI18N
 
         foto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/LOGO2.png"))); // NOI18N
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/LOGO.png"))); // NOI18N
         foto.setAlignmentY(0.0F);
         foto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 

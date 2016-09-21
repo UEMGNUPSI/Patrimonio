@@ -1245,8 +1245,14 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfdIDCompostoActionPerformed
 
     private void tbePatrimonioCompostoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePatrimonioCompostoMouseClicked
-        // TODO add your handling code here:
-        int id = pegaIDComposto(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 0).toString());
+        // TODO add your handling code here:    
+        PatrimonioCompostoM auxIDComposto = new PatrimonioCompostoM();
+        try {
+            auxIDComposto = patrimonioCompostoDAO.buscaDescricao(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 0).toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int id = auxIDComposto.getId();
         tfdIDComposto.setText(String.valueOf(id));
         tfdDescricaoPatrimonioComposto.setText(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 0).toString());
         cbxConservacaoPatrimonioComposto.setSelectedItem(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 1).toString());
@@ -1539,16 +1545,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         return null;
     }
     
-    public int pegaIDComposto(String composto) {
-        try {
-            PatrimonioCompostoM aux = new PatrimonioCompostoM();
-            aux = patrimonioCompostoDAO.buscaDescricao(composto);
-            return aux.getId();
-        } catch (SQLException ex) {
-            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 1;
-    }
+    
     public void atualizaGrauComposto(){
         cbxConservacaoPatrimonioComposto.removeAllItems();
         cbxConservacaoPatrimonioComposto.addItem("--Selecione--");
