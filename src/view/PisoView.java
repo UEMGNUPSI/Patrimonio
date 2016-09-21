@@ -385,10 +385,10 @@ public class PisoView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
             }
-        preparaSalvareCancelar();
-        desativaCampos();
-        atualizaTabelaPiso();
-        limpaCamposPiso();
+            preparaSalvareCancelar();
+            desativaCampos();
+            atualizaTabelaPiso();
+            limpaCamposPiso();
         } else{
 
             piso = new PisoM();
@@ -529,10 +529,11 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnCancelarPiso.setEnabled(true);
         btnAlterarPiso.setEnabled(false);
         btnExcluirPiso.setEnabled(false);
+        
         cbxBloco1.setEnabled(true);
         cbxUnidade1.setEnabled(true);
         tbePiso.setEnabled(false);
-        tbePiso.clearSelection();
+        tbePiso.clearSelection(); 
     }
     public void preparaSalvareCancelar() {
         btnNovoPiso.setEnabled(true);

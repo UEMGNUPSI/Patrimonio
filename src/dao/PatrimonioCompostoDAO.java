@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.PatrimonioCompostoM;
+import model.PatrimonioM;
 
 /**
  *
@@ -22,14 +23,18 @@ public class PatrimonioCompostoDAO {
     
     //lista os itens de um patrimonio especificado 
     //usado para alterar o KIT
-    public List<PatrimonioCompostoM> listaComposto(int idPatrimonio) throws SQLException{
+    public List<PatrimonioCompostoM> listaComposto(PatrimonioM pat) throws SQLException{
         List<PatrimonioCompostoM> listaComposto = new ArrayList<PatrimonioCompostoM>();
         sql = "select * from Patrimonio_composto where id_patrimonio = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setInt(1, idPatrimonio);
+        pst.setInt(1, pat.getId());
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-           listaComposto.add(new PatrimonioCompostoM(rs.getInt("id"),rs.getString("descricao"),rs.getInt("id_grau_conservacao"),rs.getInt("id_status"), rs.getInt("id_patrimonio")));
+           listaComposto.add(new PatrimonioCompostoM(rs.getInt("id"), 
+           rs.getString("descricao"),
+           pat.getGrau_conservacao().getId(),
+           pat.getStatus().getId(),
+           pat.getId()));
         }
         pst.close();
         return listaComposto;
@@ -58,7 +63,7 @@ public class PatrimonioCompostoDAO {
          pst.close();
      }
     
-      public void excluir(PatrimonioCompostoM patrimonioComposto) throws SQLException{
+    public void excluir(PatrimonioCompostoM patrimonioComposto) throws SQLException{
         sql = "delete from Patrimonio_composto where id = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, patrimonioComposto.getId());
@@ -66,17 +71,19 @@ public class PatrimonioCompostoDAO {
         pst.close();
     }
     
-      public PatrimonioCompostoM buscaDescricao(String descricao) throws SQLException{
-           sql = "select * from Patrimonio_composto where descricao = ?";
-           pst = Conexao.getInstance().prepareStatement(sql);
-           pst.setString(1, descricao);
-           PatrimonioCompostoM patrimonioComposto = null;
-           ResultSet rs = pst.executeQuery();
-           while(rs.next()){
-               patrimonioComposto = new PatrimonioCompostoM(rs.getInt("id"),rs.getString("descric"),rs.getInt("id_grau_conserrcao"),rs.getInt("id_status"), rs.getInt("id_patrimonio"));
-            }
-            pst.close();
-            return patrimonioComposto;
+    public PatrimonioCompostoM buscaDescricao(String descricao) throws SQLException{
+        sql = "select * from Patrimonio_composto where descricao = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, descricao);
+        PatrimonioCompostoM patrimonioComposto = null;
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+            patrimonioComposto = new PatrimonioCompostoM();
+        }
+        pst.close();
+        return patrimonioComposto;
      }
+    
+    
     
 }
