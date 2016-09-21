@@ -16,7 +16,28 @@ public class PatrimonioCompostoM {
     int id_grau_conservacao;
     int id_status;
     int id_patrimonio;
+    PatrimonioM patrimonio;
 
+    public PatrimonioCompostoM(){
+        
+    }
+    
+    public PatrimonioCompostoM(int id, String descricao, PatrimonioM patrimonio) {
+        this.id = id;
+        this.descricao = descricao;
+        this.id_grau_conservacao = patrimonio.getGrau_conservacao().getId();
+        this.id_status = patrimonio.getStatus().getId();
+        this.id_patrimonio = patrimonio.getId();
+    }
+    
+     public PatrimonioCompostoM(int id, String descricao, int id_grau_conservacao, int id_status, int id_patrimonio) {
+        this.id = id;
+        this.descricao = descricao;
+        this.id_grau_conservacao = id_grau_conservacao;
+        this.id_status = id_status;
+        this.id_patrimonio = id_patrimonio;
+    }
+      
     public int getId() {
         return id;
     }
@@ -56,15 +77,13 @@ public class PatrimonioCompostoM {
     public void setId_patrimonio(int id_patrimonio) {
         this.id_patrimonio = id_patrimonio;
     }
-
-    public PatrimonioCompostoM(int id, String descricao, int id_grau_conservacao, int id_status, int id_patrimonio) {
-        this.id = id;
-        this.descricao = descricao;
-        this.id_grau_conservacao = id_grau_conservacao;
-        this.id_status = id_status;
-        this.id_patrimonio = id_patrimonio;
+    
+    public PatrimonioM getPatrimonio() {
+        return patrimonio;
     }
-    
-    
+
+    public void setPatrimonio(PatrimonioM patrimonio) {
+        this.patrimonio = patrimonio;
+    }
     
 }

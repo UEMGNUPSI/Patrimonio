@@ -116,7 +116,6 @@ public class PisoView extends javax.swing.JInternalFrame {
 
         lblSelecBloco1.setText("Selecione o bloco:");
 
-        cbxUnidade1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UEMG", "Cadastrar Unidade" }));
         cbxUnidade1.setEnabled(false);
         cbxUnidade1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -153,7 +152,6 @@ public class PisoView extends javax.swing.JInternalFrame {
             }
         });
 
-        cbxBloco1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bloco A", "Cadastrar Bloco" }));
         cbxBloco1.setEnabled(false);
         cbxBloco1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -385,10 +383,10 @@ public class PisoView extends javax.swing.JInternalFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
             }
-        preparaSalvareCancelar();
-        desativaCampos();
-        atualizaTabelaPiso();
-        limpaCamposPiso();
+            preparaSalvareCancelar();
+            desativaCampos();
+            atualizaTabelaPiso();
+            limpaCamposPiso();
         } else{
 
             piso = new PisoM();
@@ -404,9 +402,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         desativaCampos();
         atualizaTabelaPiso();
         limpaCamposPiso();
-        }
-        
-                
+        }                
     }//GEN-LAST:event_btnSalvarPisoActionPerformed
 
     private void btnExcluirPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPisoActionPerformed
@@ -440,9 +436,7 @@ public class PisoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirPisoActionPerformed
 
     private void tbePisoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePisoMouseClicked
-          //falta preencher os combobox!!  //falta preencher os combobox!!
-            //falta preencher os combobox!!   //falta preencher os combobox!!
-        
+
         tfdIDPiso.setText(tbePiso.getValueAt(tbePiso.getSelectedRow(), 0).toString());
         tfdDescricaoPiso.setText(tbePiso.getValueAt(tbePiso.getSelectedRow(), 1).toString());
         cbxBloco1.setEnabled(false);
@@ -455,26 +449,6 @@ public class PisoView extends javax.swing.JInternalFrame {
     private void btnAlterarPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarPisoActionPerformed
         preparaAlterar();
         ativaCampos();
-        /* if (tfdIDPiso.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Selecione um Piso", "Erro", JOptionPane.WARNING_MESSAGE);
-        } else {
-            piso = new PisoM();
-            piso.setId(Integer.parseInt(tfdIDPiso.getText()));
-            piso.setDescricao(tfdDescricaoPiso.getText());
-            try {
-                pisoDAO.alterar(piso);
-                JOptionPane.showMessageDialog(null, "Piso atualizado com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                atualizaTabelaPiso();
-                limpaCamposPiso();
-                btnAlterarPiso.setEnabled(false);
-                btnSalvarPiso.setEnabled(true);
-                btnExcluirPiso.setEnabled(false);
-            } catch (SQLException ex) {
-                Logger.getLogger(EntidadeView.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
-            }
-
-        }*/
     }//GEN-LAST:event_btnAlterarPisoActionPerformed
 
     private void cbxUnidade1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxUnidade1ItemStateChanged
@@ -529,10 +503,11 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnCancelarPiso.setEnabled(true);
         btnAlterarPiso.setEnabled(false);
         btnExcluirPiso.setEnabled(false);
+        
         cbxBloco1.setEnabled(true);
         cbxUnidade1.setEnabled(true);
         tbePiso.setEnabled(false);
-        tbePiso.clearSelection();
+        tbePiso.clearSelection(); 
     }
     public void preparaSalvareCancelar() {
         btnNovoPiso.setEnabled(true);
