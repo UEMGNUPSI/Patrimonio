@@ -72,7 +72,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     PatrimonioM patrimonio;
     
     PatrimonioM auxPatrimonio;
-    PatrimonioCompostoM patrimonioComposto;
+    PatrimonioCompostoM patComposto;
     PatrimonioCompostoDAO patrimonioCompostoDAO;
     List<PatrimonioCompostoM> lsComposto;
     
@@ -1047,6 +1047,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 ultimoID = patrimonioDAO.salvar(patrimonio);
                 auxPatrimonio = new PatrimonioM();
                 auxPatrimonio = patrimonioDAO.busca(ultimoID);
+                
                 // a partir daqui tem que liberar a tela do composto
                 if (ckxPatrimonioComposto.isSelected())
                 {
@@ -1150,12 +1151,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         if (tfdIDComposto.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Selecione um Item.", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
-            patrimonioComposto = new PatrimonioCompostoM();
-            patrimonioComposto.setId(Integer.parseInt(tfdIDComposto.getText()));
+            patComposto = new PatrimonioCompostoM();
+            patComposto.setId(Integer.parseInt(tfdIDComposto.getText()));
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoPatrimonioComposto.getText() + " ?");
             if (confirma == 0) {
                 try {
-                    patrimonioCompostoDAO.excluir(patrimonioComposto);
+                    patrimonioCompostoDAO.excluir(patComposto);
                     atualizaTabelaComposto();
                     limpaCamposComposto();
                     preparaExcluir();
@@ -1179,13 +1180,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         } else if (tfdIDComposto.getText().isEmpty()){           
             status = cbxStatusPatrimonioComposto.getSelectedItem().toString();
             conservacao = cbxConservacaoPatrimonioComposto.getSelectedItem().toString();
-           
-            patrimonioComposto = new PatrimonioCompostoM();
-            patrimonioComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
-            patrimonioComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
-            patrimonioComposto.setId_status(pegaIDStatus(status));
+            patComposto = new PatrimonioCompostoM();
+            patComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
+            patComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
+            patComposto.setId_status(pegaIDStatus(status));
             try {
-                patrimonioCompostoDAO.salvar(patrimonioComposto);
+                patrimonioCompostoDAO.salvar(patComposto);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex){
                 JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -1199,13 +1199,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             status = cbxStatusPatrimonioComposto.getSelectedItem().toString();
             conservacao = cbxConservacaoPatrimonioComposto.getSelectedItem().toString();
             
-            patrimonioComposto = new PatrimonioCompostoM();
-            patrimonioComposto.setId(Integer.parseInt(tfdIDComposto.getText()));
-            patrimonioComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
-            patrimonioComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
-            patrimonioComposto.setId_status(pegaIDStatus(status));
+            patComposto = new PatrimonioCompostoM();
+            patComposto.setId(Integer.parseInt(tfdIDComposto.getText()));
+            patComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
+            patComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
+            patComposto.setId_status(pegaIDStatus(status));
             try{
-                patrimonioCompostoDAO.alterar(patrimonioComposto);
+                patrimonioCompostoDAO.alterar(patComposto);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
