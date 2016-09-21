@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.UsuarioM;
+import util.LimiteDigitos;
 
 /**
  *
@@ -31,6 +32,11 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         initComponents();      
         this.setVisible(true);
         atualizaTabelaUsuario();
+        tfdUsuario.setDocument(new LimiteDigitos(20));
+        tfdSenha.setDocument(new LimiteDigitos(20));
+        tfdNome.setDocument(new LimiteDigitos(45));
+        tfdMasp.setDocument(new LimiteDigitos(45));
+        tfdContato.setDocument(new LimiteDigitos(45));
     }
     UsuarioM usuario;
     UsuarioDAO usuarioDAO = new UsuarioDAO();
