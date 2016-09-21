@@ -15,6 +15,7 @@ import java.net.URL;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import model.UsuarioM;
@@ -96,29 +97,24 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenuItem3.setText("jMenuItem3");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Patrimônio - UEMG");
 
         pnlPrincipal.setName("NUPSI"); // NOI18N
 
-        foto.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/logo (1).png"))); // NOI18N
-        foto.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        foto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/LOGO2.png"))); // NOI18N
         foto.setAlignmentY(0.0F);
         foto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        foto.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
         pnlPrincipalLayout.setHorizontalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPrincipalLayout.createSequentialGroup()
-                .addGap(0, 1058, Short.MAX_VALUE)
-                .addComponent(foto))
+            .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, 1117, Short.MAX_VALUE)
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pnlPrincipalLayout.createSequentialGroup()
-                .addComponent(foto)
-                .addGap(0, 976, Short.MAX_VALUE))
+            .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
         );
 
         mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
@@ -263,6 +259,8 @@ public class PrincipalView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
+
+        getAccessibleContext().setAccessibleName("Patrimônio - UEMG");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
