@@ -754,10 +754,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void iniciaComposto(){
+        
         atualizaStatusComposto();
         atualizaGrauComposto();
         atualizaTabelaCompostoExistente();
         ativaCamposComposto();
+        //tfdDescricaoPatrimonioComposto.setEnabled(false);
         
     }
     
@@ -1059,13 +1061,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 {
                     desativaCampos();
                     pnlPatrimonioComposto.setVisible(true);
-                    iniciaComposto();
-                    
+                    iniciaComposto();   
                 }
-                JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Cadastre os itens do kit", "Cadastro de Kit", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
-                //limpaCamposPatrimonio();
+                limpaCamposPatrimonio();
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -1075,6 +1076,14 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 }
             }
         } else {
+            int auxID = Integer.parseInt(tfdIDPatrimonio.getText());
+            //Se for uma situação de alteração ele vai pegar o ID do patrimonio direto do textfield
+            try {
+                //cria o auxiliar a partir do ID
+                auxPatrimonio = patrimonioDAO.busca(auxID);
+            } catch (SQLException ex) {
+                Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             //Se o campo ID não estiver vazio trata-se de uma alteração
             patrimonio = new PatrimonioM();
             patrimonio.setId(Integer.parseInt(tfdIDPatrimonio.getText()));
@@ -1085,11 +1094,19 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             
             try{
                 patrimonioDAO.alterar(patrimonio);
+                
+                if (ckxPatrimonioComposto.isSelected())
+                {
+                    desativaCampos();
+                    pnlPatrimonioComposto.setVisible(true);
+                    iniciaComposto();
+                    desativaCampos();
+                }
                 JOptionPane.showMessageDialog(null, "Patrimônio atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaPatrimonio();
                 preparaSalvareCancelar();
                 limpaCamposPatrimonio();
-                desativaCampos();
+                
             }catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                  if (ex.getErrorCode() == 1062) {
@@ -1188,9 +1205,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             conservacao = cbxConservacaoPatrimonioComposto.getSelectedItem().toString();
             patComposto = new PatrimonioCompostoM();
             patComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
-            patComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
-            patComposto.setId_status(pegaIDStatus(status));
-            patComposto.setId_patrimonio(ultimoID);
+            patComposto.setGrau(pegaGrau(conservacao));  
+            patComposto.setStatus(pegaStatus(status));
+            patComposto.setPatrimonio(auxPatrimonio);
             try {
                 patrimonioCompostoDAO.salvar(patComposto);
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -1209,8 +1226,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patComposto = new PatrimonioCompostoM();
             patComposto.setId(Integer.parseInt(tfdIDComposto.getText()));
             patComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
-            patComposto.setId_grau_conservacao(pegaIDGrau(conservacao));
-            patComposto.setId_status(pegaIDStatus(status));
+            patComposto.setGrau(pegaGrau(conservacao));  
+            patComposto.setStatus(pegaStatus(status));
+            patComposto.setPatrimonio(auxPatrimonio);
             try{
                 patrimonioCompostoDAO.alterar(patComposto);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -1275,16 +1293,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         return null;
     }
-      public int pegaIDGrau(String grau) {
-        try {
-            GrauConservacaoM aux = new GrauConservacaoM();
-            aux = grauDAO.buscaNome(grau);
-            return aux.getId();
-        } catch (SQLException ex) {
-            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return 1;
-    }
+    
 
     public GrauConservacaoM pegaGrau(String grau) {
         try {
@@ -1595,7 +1604,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         int i = 0;
         for (PatrimonioCompostoM patComposto : listaComposto){
             dados[i][0] = patComposto.getDescricao();
-            dados[i][1] = patComposto.getPatrimonio().getGrau_conservacao().getDescricao();
+            dados[i][1] = patComposto.getGrau().getDescricao();
             dados[i][2] = patComposto.getPatrimonio().getStatus().getNome();
             i++;
         }

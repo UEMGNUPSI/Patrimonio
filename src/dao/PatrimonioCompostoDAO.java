@@ -23,18 +23,17 @@ public class PatrimonioCompostoDAO {
     
     //lista os itens de um patrimonio especificado 
     //usado para alterar o KIT
-    public List<PatrimonioCompostoM> listaTodosExistentes(PatrimonioM pat) throws SQLException{
+    public List<PatrimonioCompostoM> listaTodosExistentes(PatrimonioM patrimonio) throws SQLException{
         List<PatrimonioCompostoM> listaComposto = new ArrayList<PatrimonioCompostoM>();
         sql = "select * from Patrimonio_composto where id_patrimonio = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setInt(1, pat.getId());
+        pst.setInt(1, patrimonio.getId());
         ResultSet rs = pst.executeQuery();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
         while(rs.next()){
-           listaComposto.add(new PatrimonioCompostoM(rs.getInt("id"), 
-           rs.getString("descricao"),
-           rs.getInt("id_grau_conservacao"),
-           rs.getInt("id_status"),
-           rs.getInt("id_patrimonio")));
+           
+           listaComposto.add(new PatrimonioCompostoM(rs.getInt("id"), rs.getString("descricao"), grau.busca(rs.getInt("id_grau_conservacao")), status.busca(rs.getInt("id_status")), patrimonio ));
         }
         pst.close();
         return listaComposto;
@@ -45,9 +44,9 @@ public class PatrimonioCompostoDAO {
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
         pst.setString(2, patrimonioComposto.getDescricao());
-        pst.setInt(3, patrimonioComposto.getId_grau_conservacao());
-        pst.setInt(4, patrimonioComposto.getId_status());
-        pst.setInt(5, patrimonioComposto.getId_patrimonio());
+        pst.setInt(3, patrimonioComposto.getGrau().getId());
+        pst.setInt(4, patrimonioComposto.getStatus().getId());
+        pst.setInt(5, patrimonioComposto.getPatrimonio().getId());
         pst.execute();
         pst.close();
     }
@@ -56,8 +55,8 @@ public class PatrimonioCompostoDAO {
          sql = "update Patrimonio_composto set descricao = ?, id_grau_conservacao = ?, id_status = ? where id = ?";
          pst = Conexao.getInstance().prepareStatement(sql);
          pst.setString(1, patrimonioComposto.getDescricao());
-         pst.setInt(2, patrimonioComposto.getId_grau_conservacao());
-         pst.setInt(3, patrimonioComposto.getId_status());
+         pst.setInt(2, patrimonioComposto.getGrau().getId());
+         pst.setInt(3, patrimonioComposto.getStatus().getId());
          pst.setInt(4, patrimonioComposto.getId());
          pst.execute();
          pst.close();
@@ -77,8 +76,11 @@ public class PatrimonioCompostoDAO {
         pst.setString(1, descricao);
         PatrimonioCompostoM patrimonioComposto = null;
         ResultSet rs = pst.executeQuery();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        PatrimonioDAO pat = new PatrimonioDAO();
         while(rs.next()){
-            patrimonioComposto = new PatrimonioCompostoM(rs.getInt("id"), rs.getString("descricao"), rs.getInt("id_grau_conservacao"), rs.getInt("id_status"), rs.getInt("id_patrimonio") );
+            patrimonioComposto = new PatrimonioCompostoM(rs.getInt("id"), rs.getString("descricao"), grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")), pat.busca(rs.getInt("id_patrimonio")) );
         }
         pst.close();
         return patrimonioComposto;
