@@ -370,62 +370,59 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         pnlTipoSubtipoLayout.setHorizontalGroup(
             pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                        .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(tfdDescricaoTipo))
-                            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblDescricaoTipo)
-                                    .addComponent(lblDescricaoSubtipo)
-                                    .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                        .addGap(102, 102, 102)
-                                        .addComponent(lblSubtipo))
-                                    .addComponent(btnAdicionarImagem)
-                                    .addComponent(lblIDTipo)
-                                    .addComponent(tfdIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                            .addComponent(btnNovoTipo)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnSalvarTipo)
-                                            .addGap(3, 3, 3)
-                                            .addComponent(btnCancelarTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnAlterarTipo)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnExcluirTipo)
-                                            .addGap(23, 23, 23))
-                                        .addComponent(lblIDTipo1)
-                                        .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                            .addComponent(tfdIDSubTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(88, 88, 88)
-                                            .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                .addGap(105, 105, 105)
-                                .addComponent(lblTipo)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(tfdDescricaoTipo))
                     .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTipoSubtipoLayout.createSequentialGroup()
-                                .addComponent(btnNovoSubtipo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSalvarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAlterarSubtipo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluirSubtipo)
-                                .addGap(12, 12, 12))
-                            .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfdDescricaoSubTipo)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap())
+                            .addComponent(lblDescricaoTipo)
+                            .addComponent(lblDescricaoSubtipo)
+                            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                .addGap(102, 102, 102)
+                                .addComponent(lblSubtipo))
+                            .addComponent(btnAdicionarImagem)
+                            .addComponent(lblIDTipo)
+                            .addComponent(tfdIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                    .addComponent(btnNovoTipo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnSalvarTipo)
+                                    .addGap(3, 3, 3)
+                                    .addComponent(btnCancelarTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnAlterarTipo)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnExcluirTipo)
+                                    .addGap(23, 23, 23))
+                                .addComponent(lblIDTipo1)
+                                .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                    .addComponent(tfdIDSubTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(88, 88, 88)
+                                    .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                        .addGap(105, 105, 105)
+                        .addComponent(lblTipo)))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTipoSubtipoLayout.createSequentialGroup()
+                        .addComponent(btnNovoSubtipo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlterarSubtipo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluirSubtipo)
+                        .addGap(12, 12, 12))
+                    .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfdDescricaoSubTipo)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         pnlTipoSubtipoLayout.setVerticalGroup(
             pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -472,7 +469,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                     .addComponent(btnSalvarSubtipo)
                     .addComponent(btnCancelarSubtipo)
                     .addComponent(btnExcluirSubtipo))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         tbeTipo.setModel(new javax.swing.table.DefaultTableModel(
@@ -532,14 +529,15 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -549,15 +547,14 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         pack();
@@ -670,14 +667,6 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         preparaNovoTipo();
         
     }//GEN-LAST:event_btnNovoTipoActionPerformed
-
-    private void tbeTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeTipoMouseClicked
-        tfdIDTipo.setText(tbeTipo.getValueAt(tbeTipo.getSelectedRow(), 0).toString());
-        tfdDescricaoTipo.setText(tbeTipo.getValueAt(tbeTipo.getSelectedRow(), 1).toString());
-        btnSalvarTipo.setEnabled(false);
-        btnExcluirTipo.setEnabled(true);
-        btnAlterarTipo.setEnabled(true);
-    }//GEN-LAST:event_tbeTipoMouseClicked
 
 
     private void tfdIDTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdIDTipoActionPerformed
@@ -797,39 +786,6 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnNovoSubtipoActionPerformed
 
-    private void tbeSubTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSubTipoMouseClicked
-        tfdIDSubTipo.setText(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 0).toString());
-        tfdDescricaoSubTipo.setText(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString());
-        btnExcluirSubtipo.setEnabled(true);
-        btnAlterarSubtipo.setEnabled(true);
-        cbxSubtipo.setSelectedItem(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString());
-        
-        String nome = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString();
-        String descricao = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString();
-        
-        File arq = new File(caminho + descricao + ".jpg");
-        if (arq.exists() == true) {
-            try {
-                bi = ImageIO.read(arq); //carrega a imagem real num buffer
-            } catch (IOException ex) {
-                Logger.getLogger(TipoSubtipoView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            BufferedImage aux = new BufferedImage(150, 120, bi.getType());//cria um buffer auxiliar com o tamanho desejado  
-            Graphics2D g = aux.createGraphics();//pega a classe graphics do aux para edicao  
-            AffineTransform at = AffineTransform.getScaleInstance((double) 150 / bi.getWidth(), (double) 120 / bi.getHeight());//cria a transformacao  
-            g.drawRenderedImage(bi, at);
-            jLabel1.setText("");
-            jLabel1.setIcon(new ImageIcon(aux));
-        } else {
-            jLabel1.setIcon(null);
-            jLabel1.setText("Sem Imagem");
-            bi = null;
-        }
-
-        
-
-    }//GEN-LAST:event_tbeSubTipoMouseClicked
-
     private void cbxSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSubtipoActionPerformed
         //TODO add your handling code here:
     }//GEN-LAST:event_cbxSubtipoActionPerformed
@@ -877,6 +833,45 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         preparaSalvareCancelarTipo();
         desativaCamposTipo();
     }//GEN-LAST:event_btnCancelarTipoActionPerformed
+
+    private void tbeSubTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSubTipoMouseClicked
+        tfdIDSubTipo.setText(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 0).toString());
+        tfdDescricaoSubTipo.setText(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString());
+        btnExcluirSubtipo.setEnabled(true);
+        btnAlterarSubtipo.setEnabled(true);
+        cbxSubtipo.setSelectedItem(tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString());
+
+        String nome = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 2).toString();
+        String descricao = tbeSubTipo.getValueAt(tbeSubTipo.getSelectedRow(), 1).toString();
+
+        File arq = new File(caminho + descricao + ".jpg");
+        if (arq.exists() == true) {
+            try {
+                bi = ImageIO.read(arq); //carrega a imagem real num buffer
+            } catch (IOException ex) {
+                Logger.getLogger(TipoSubtipoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            BufferedImage aux = new BufferedImage(150, 120, bi.getType());//cria um buffer auxiliar com o tamanho desejado
+            Graphics2D g = aux.createGraphics();//pega a classe graphics do aux para edicao
+            AffineTransform at = AffineTransform.getScaleInstance((double) 150 / bi.getWidth(), (double) 120 / bi.getHeight());//cria a transformacao
+            g.drawRenderedImage(bi, at);
+            jLabel1.setText("");
+            jLabel1.setIcon(new ImageIcon(aux));
+        } else {
+            jLabel1.setIcon(null);
+            jLabel1.setText("Sem Imagem");
+            bi = null;
+        }
+
+    }//GEN-LAST:event_tbeSubTipoMouseClicked
+
+    private void tbeTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeTipoMouseClicked
+        tfdIDTipo.setText(tbeTipo.getValueAt(tbeTipo.getSelectedRow(), 0).toString());
+        tfdDescricaoTipo.setText(tbeTipo.getValueAt(tbeTipo.getSelectedRow(), 1).toString());
+        btnSalvarTipo.setEnabled(false);
+        btnExcluirTipo.setEnabled(true);
+        btnAlterarTipo.setEnabled(true);
+    }//GEN-LAST:event_tbeTipoMouseClicked
 
     public void salvarImagen() {
 

@@ -107,7 +107,7 @@
                 </MenuItem>
                 <MenuItem class="javax.swing.JMenuItem" name="mniConservacaoStatus">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Incluir Grau de Conservacao ou Status"/>
+                    <Property name="text" type="java.lang.String" value="Incluir Grau de Conserva&#xe7;&#xe3;o ou Status"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConservacaoStatusActionPerformed"/>
@@ -152,7 +152,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniAdicionarUsuario">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Adicionar Usuario"/>
+                <Property name="text" type="java.lang.String" value="Adicionar Usu&#xe1;rio"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mniAdicionarUsuarioMouseClicked"/>
@@ -179,9 +179,6 @@
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Patrim&#xf4;nio - UEMG"/>
   </Properties>
-  <AccessibilityProperties>
-    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Patrim&#xf4;nio - UEMG"/>
-  </AccessibilityProperties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="mnbPrincipal"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>

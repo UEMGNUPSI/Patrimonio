@@ -56,63 +56,25 @@ public class BlocoView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblIDBloco = new javax.swing.JLabel();
-        tfdIDBloco = new javax.swing.JTextField();
-        tfdDescricaoBloco = new javax.swing.JTextField();
-        lblDescricaoBloco = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbeBloco = new javax.swing.JTable();
+        pnlBloco = new javax.swing.JPanel();
         btnAlterarBloco = new javax.swing.JButton();
         btnExcluirBloco = new javax.swing.JButton();
         btnSalvarBloco = new javax.swing.JButton();
         btnNovoBloco = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbeBloco = new javax.swing.JTable();
         cbxUnidade = new javax.swing.JComboBox<>();
+        lblIDBloco = new javax.swing.JLabel();
         lblSelecUnidade1 = new javax.swing.JLabel();
+        tfdIDBloco = new javax.swing.JTextField();
         btnCancelarBloco = new javax.swing.JButton();
+        tfdDescricaoBloco = new javax.swing.JTextField();
+        lblDescricaoBloco = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Cadastrar Bloco");
-
-        lblIDBloco.setText("ID");
-
-        tfdIDBloco.setEditable(false);
-
-        tfdDescricaoBloco.setEnabled(false);
-
-        lblDescricaoBloco.setText("Descrição");
-
-        btnAlterarBloco.setText("Alterar");
-        btnAlterarBloco.setEnabled(false);
-        btnAlterarBloco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarBlocoActionPerformed(evt);
-            }
-        });
-
-        btnExcluirBloco.setText("Excluir");
-        btnExcluirBloco.setEnabled(false);
-        btnExcluirBloco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirBlocoActionPerformed(evt);
-            }
-        });
-
-        btnSalvarBloco.setText("Salvar");
-        btnSalvarBloco.setEnabled(false);
-        btnSalvarBloco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarBlocoActionPerformed(evt);
-            }
-        });
-
-        btnNovoBloco.setText("Novo");
-        btnNovoBloco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoBlocoActionPerformed(evt);
-            }
-        });
 
         tbeBloco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -147,6 +109,37 @@ public class BlocoView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbeBloco);
 
+        btnAlterarBloco.setText("Alterar");
+        btnAlterarBloco.setEnabled(false);
+        btnAlterarBloco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarBlocoActionPerformed(evt);
+            }
+        });
+
+        btnExcluirBloco.setText("Excluir");
+        btnExcluirBloco.setEnabled(false);
+        btnExcluirBloco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirBlocoActionPerformed(evt);
+            }
+        });
+
+        btnSalvarBloco.setText("Salvar");
+        btnSalvarBloco.setEnabled(false);
+        btnSalvarBloco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarBlocoActionPerformed(evt);
+            }
+        });
+
+        btnNovoBloco.setText("Novo");
+        btnNovoBloco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoBlocoActionPerformed(evt);
+            }
+        });
+
         cbxUnidade.setEnabled(false);
         cbxUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +147,11 @@ public class BlocoView extends javax.swing.JInternalFrame {
             }
         });
 
+        lblIDBloco.setText("ID");
+
         lblSelecUnidade1.setText("Selecione a unidade:");
+
+        tfdIDBloco.setEditable(false);
 
         btnCancelarBloco.setText("Cancelar");
         btnCancelarBloco.setEnabled(false);
@@ -164,55 +161,53 @@ public class BlocoView extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        tfdDescricaoBloco.setEnabled(false);
+
+        lblDescricaoBloco.setText("Descrição");
+
+        javax.swing.GroupLayout pnlBlocoLayout = new javax.swing.GroupLayout(pnlBloco);
+        pnlBloco.setLayout(pnlBlocoLayout);
+        pnlBlocoLayout.setHorizontalGroup(
+            pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBlocoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlBlocoLayout.createSequentialGroup()
+                        .addGroup(pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDescricaoBloco)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createSequentialGroup()
+                            .addGroup(pnlBlocoLayout.createSequentialGroup()
+                                .addGroup(pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(pnlBlocoLayout.createSequentialGroup()
                                         .addComponent(lblIDBloco)
                                         .addGap(152, 152, 152))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBlocoLayout.createSequentialGroup()
                                         .addComponent(tfdIDBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblSelecUnidade1)
                                     .addComponent(cbxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfdDescricaoBloco, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnNovoBloco, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSalvarBloco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCancelarBloco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAlterarBloco)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluirBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(15, 15, 15)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addContainerGap(25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfdDescricaoBloco)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBlocoLayout.createSequentialGroup()
+                        .addComponent(btnNovoBloco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvarBloco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelarBloco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlterarBloco)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluirBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
+        pnlBlocoLayout.setVerticalGroup(
+            pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBlocoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIDBloco)
                     .addComponent(lblSelecUnidade1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfdIDBloco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -220,13 +215,30 @@ public class BlocoView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdDescricaoBloco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlBlocoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluirBloco)
                     .addComponent(btnAlterarBloco)
                     .addComponent(btnCancelarBloco)
                     .addComponent(btnSalvarBloco)
                     .addComponent(btnNovoBloco))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(pnlBloco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 544, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlBloco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 277, Short.MAX_VALUE))
         );
 
         pack();
@@ -482,6 +494,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblDescricaoBloco;
     private javax.swing.JLabel lblIDBloco;
     private javax.swing.JLabel lblSelecUnidade1;
+    private javax.swing.JPanel pnlBloco;
     private javax.swing.JTable tbeBloco;
     private javax.swing.JTextField tfdDescricaoBloco;
     private javax.swing.JTextField tfdIDBloco;

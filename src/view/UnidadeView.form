@@ -26,20 +26,19 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="pnlUnidade" max="32767" attributes="0"/>
+              <Component id="pnlUnidade" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="690" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="782" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane1" alignment="0" pref="530" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Component id="pnlUnidade" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
+          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -120,8 +119,8 @@
                               <Component id="tfdEndereco" alignment="0" max="32767" attributes="0"/>
                               <Component id="tfdTelefone" alignment="0" max="32767" attributes="0"/>
                               <Component id="tfdEmail" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="lblEnderecoUnidade" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                                       <Component id="tfdID" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
@@ -137,9 +136,9 @@
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnCancelar" min="-2" pref="87" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnAlterarUnidade" min="-2" pref="90" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="btnExcluirUnidade" pref="87" max="32767" attributes="0"/>
+                                  <Component id="btnAlterarUnidade" min="-2" pref="78" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="btnExcluirUnidade" pref="71" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>

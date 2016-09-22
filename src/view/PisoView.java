@@ -67,19 +67,20 @@ public class PisoView extends javax.swing.JInternalFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tbePiso = new javax.swing.JTable();
-        lblSelecUnidade1 = new javax.swing.JLabel();
-        lblSelecBloco1 = new javax.swing.JLabel();
-        cbxUnidade1 = new javax.swing.JComboBox<>();
-        cbxBloco1 = new javax.swing.JComboBox<>();
-        lblIDPiso = new javax.swing.JLabel();
-        tfdIDPiso = new javax.swing.JTextField();
-        lblDescricaoPiso = new javax.swing.JLabel();
+        pnlPiso = new javax.swing.JPanel();
         tfdDescricaoPiso = new javax.swing.JTextField();
         btnSalvarPiso = new javax.swing.JButton();
         btnExcluirPiso = new javax.swing.JButton();
         btnAlterarPiso = new javax.swing.JButton();
+        lblSelecUnidade1 = new javax.swing.JLabel();
         btnNovoPiso = new javax.swing.JButton();
+        lblSelecBloco1 = new javax.swing.JLabel();
         btnCancelarPiso = new javax.swing.JButton();
+        cbxUnidade1 = new javax.swing.JComboBox<>();
+        cbxBloco1 = new javax.swing.JComboBox<>();
+        tfdIDPiso = new javax.swing.JTextField();
+        lblDescricaoPiso = new javax.swing.JLabel();
+        lblIDPiso = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
@@ -112,9 +113,50 @@ public class PisoView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbePiso);
 
+        tfdDescricaoPiso.setEnabled(false);
+
+        btnSalvarPiso.setText("Salvar");
+        btnSalvarPiso.setEnabled(false);
+        btnSalvarPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarPisoActionPerformed(evt);
+            }
+        });
+
+        btnExcluirPiso.setText("Excluir");
+        btnExcluirPiso.setEnabled(false);
+        btnExcluirPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirPisoActionPerformed(evt);
+            }
+        });
+
+        btnAlterarPiso.setText("Alterar");
+        btnAlterarPiso.setEnabled(false);
+        btnAlterarPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarPisoActionPerformed(evt);
+            }
+        });
+
         lblSelecUnidade1.setText("Selecione a unidade:");
 
+        btnNovoPiso.setText("Novo");
+        btnNovoPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoPisoActionPerformed(evt);
+            }
+        });
+
         lblSelecBloco1.setText("Selecione o bloco:");
+
+        btnCancelarPiso.setText("Cancelar");
+        btnCancelarPiso.setEnabled(false);
+        btnCancelarPiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarPisoActionPerformed(evt);
+            }
+        });
 
         cbxUnidade1.setEnabled(false);
         cbxUnidade1.addItemListener(new java.awt.event.ItemListener() {
@@ -159,79 +201,37 @@ public class PisoView extends javax.swing.JInternalFrame {
             }
         });
 
-        lblIDPiso.setText("ID");
-
         tfdIDPiso.setEditable(false);
         tfdIDPiso.setEnabled(false);
 
         lblDescricaoPiso.setText("Descrição");
 
-        tfdDescricaoPiso.setEnabled(false);
+        lblIDPiso.setText("ID");
 
-        btnSalvarPiso.setText("Salvar");
-        btnSalvarPiso.setEnabled(false);
-        btnSalvarPiso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarPisoActionPerformed(evt);
-            }
-        });
-
-        btnExcluirPiso.setText("Excluir");
-        btnExcluirPiso.setEnabled(false);
-        btnExcluirPiso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirPisoActionPerformed(evt);
-            }
-        });
-
-        btnAlterarPiso.setText("Alterar");
-        btnAlterarPiso.setEnabled(false);
-        btnAlterarPiso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarPisoActionPerformed(evt);
-            }
-        });
-
-        btnNovoPiso.setText("Novo");
-        btnNovoPiso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNovoPisoActionPerformed(evt);
-            }
-        });
-
-        btnCancelarPiso.setText("Cancelar");
-        btnCancelarPiso.setEnabled(false);
-        btnCancelarPiso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarPisoActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlPisoLayout = new javax.swing.GroupLayout(pnlPiso);
+        pnlPiso.setLayout(pnlPisoLayout);
+        pnlPisoLayout.setHorizontalGroup(
+            pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPisoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbxUnidade1, 0, 1, Short.MAX_VALUE)
+                .addGroup(pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPisoLayout.createSequentialGroup()
+                        .addGroup(pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlPisoLayout.createSequentialGroup()
+                                .addComponent(cbxUnidade1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(24, 24, 24))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(pnlPisoLayout.createSequentialGroup()
                                 .addComponent(lblSelecUnidade1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbxBloco1, 0, 1, Short.MAX_VALUE)
+                        .addGroup(pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbxBloco1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblSelecBloco1)))
                     .addComponent(tfdDescricaoPiso)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlPisoLayout.createSequentialGroup()
+                        .addGroup(pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tfdIDPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblIDPiso)
                             .addComponent(lblDescricaoPiso)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(pnlPisoLayout.createSequentialGroup()
                                 .addComponent(btnNovoPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnSalvarPiso)
@@ -240,24 +240,23 @@ public class PisoView extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAlterarPiso)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnExcluirPiso)))
-                        .addGap(0, 2, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE))
+                                .addComponent(btnExcluirPiso))
+                            .addComponent(lblIDPiso))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        pnlPisoLayout.setVerticalGroup(
+            pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPisoLayout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSelecBloco1)
                     .addComponent(lblSelecUnidade1))
                 .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxUnidade1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxBloco1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(11, 11, 11)
                 .addComponent(lblIDPiso)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdIDPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -266,13 +265,30 @@ public class PisoView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfdDescricaoPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlPisoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAlterarPiso)
                     .addComponent(btnNovoPiso)
                     .addComponent(btnSalvarPiso)
                     .addComponent(btnCancelarPiso)
                     .addComponent(btnExcluirPiso))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 210, Short.MAX_VALUE))
         );
 
         pack();
@@ -571,6 +587,7 @@ public class PisoView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblIDPiso;
     private javax.swing.JLabel lblSelecBloco1;
     private javax.swing.JLabel lblSelecUnidade1;
+    private javax.swing.JPanel pnlPiso;
     private javax.swing.JTable tbePiso;
     private javax.swing.JTextField tfdDescricaoPiso;
     private javax.swing.JTextField tfdIDPiso;

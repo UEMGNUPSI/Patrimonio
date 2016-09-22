@@ -187,7 +187,7 @@ public class PrincipalView extends javax.swing.JFrame {
         mnuPatrimonio.add(mniTipoSubtipo);
         mnuPatrimonio.add(jSeparator2);
 
-        mniConservacaoStatus.setText("Incluir Grau de Conservacao ou Status");
+        mniConservacaoStatus.setText("Incluir Grau de Conservação ou Status");
         mniConservacaoStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mniConservacaoStatusActionPerformed(evt);
@@ -223,7 +223,7 @@ public class PrincipalView extends javax.swing.JFrame {
         mniMinhaConta.setText("Minha Conta");
         mnuUsuario.add(mniMinhaConta);
 
-        mniAdicionarUsuario.setText("Adicionar Usuario");
+        mniAdicionarUsuario.setText("Adicionar Usuário");
         mniAdicionarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mniAdicionarUsuarioMouseClicked(evt);
@@ -259,8 +259,6 @@ public class PrincipalView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-
-        getAccessibleContext().setAccessibleName("Patrimônio - UEMG");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
