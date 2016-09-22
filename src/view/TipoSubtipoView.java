@@ -638,6 +638,9 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                     limpaCamposTipo();
                     atualizaTabelaTipo();
                     preencheComboBox();
+                    desativaCamposTipo();
+                    preparaSalvareCancelarTipo();
+                    
                 } catch (SQLException ex) {
                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                     if (ex.getErrorCode() == 1451) {
@@ -649,8 +652,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
 
             }
         }
-        desativaCamposTipo();
-        preparaSalvareCancelarTipo();
+        
     }//GEN-LAST:event_btnExcluirTipoActionPerformed
 
     private void btnAlterarTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarTipoActionPerformed
@@ -932,6 +934,8 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     } 
     public void desativaCamposTipo(){
         tfdDescricaoTipo.setEnabled(false);
+        btnExcluirTipo.setEnabled(false);
+        btnAlterarTipo.setEnabled(false);
     }
     public void ativaCamposTipo(){
         tfdDescricaoTipo.setEnabled(true);

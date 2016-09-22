@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.UsuarioM;
+import util.LimiteDigitos;
 
 /**
  *
@@ -31,6 +32,11 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         initComponents();      
         this.setVisible(true);
         atualizaTabelaUsuario();
+        tfdUsuario.setDocument(new LimiteDigitos(20));
+        tfdSenha.setDocument(new LimiteDigitos(20));
+        tfdNome.setDocument(new LimiteDigitos(45));
+        tfdMasp.setDocument(new LimiteDigitos(45));
+        tfdContato.setDocument(new LimiteDigitos(45));
     }
     UsuarioM usuario;
     UsuarioDAO usuarioDAO = new UsuarioDAO();
@@ -262,10 +268,8 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 559, Short.MAX_VALUE)
+            .addComponent(pnlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         pack();

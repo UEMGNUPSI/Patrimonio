@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import model.UsuarioM;
+import util.LimiteDigitos;
 
 public class LoginView extends javax.swing.JFrame {
 
@@ -25,9 +26,11 @@ public class LoginView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
         //erro.setVisible(false);
-        this.jtUsuario.requestFocus();
+        this.tfdUsuario.requestFocus();
         usuario = new UsuarioM();
         usuarioDAO = new UsuarioDAO();
+        tfdUsuario.setDocument(new LimiteDigitos(20));
+        tfdSenha.setDocument(new LimiteDigitos(20));
         
         URL url = this.getClass().getResource("/view/icones/icon.png");
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
@@ -44,9 +47,9 @@ public class LoginView extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jtUsuario = new javax.swing.JTextField();
+        tfdUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jtSenha = new javax.swing.JPasswordField();
+        tfdSenha = new javax.swing.JPasswordField();
         erro = new javax.swing.JLabel();
         jBuLogin = new javax.swing.JButton();
 
@@ -57,20 +60,20 @@ public class LoginView extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Usuário");
 
-        jtUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfdUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtUsuarioKeyPressed(evt);
+                tfdUsuarioKeyPressed(evt);
             }
         });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Senha");
 
-        jtSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfdSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfdSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jtSenhaKeyPressed(evt);
+                tfdSenhaKeyPressed(evt);
             }
         });
 
@@ -100,9 +103,9 @@ public class LoginView extends javax.swing.JFrame {
                 .addContainerGap(12, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(jtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jBuLogin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
@@ -116,11 +119,11 @@ public class LoginView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -130,34 +133,34 @@ public class LoginView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtUsuarioKeyPressed
+    private void tfdUsuarioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdUsuarioKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            jtSenha.requestFocusInWindow();
+            tfdSenha.requestFocusInWindow();
         }
-    }//GEN-LAST:event_jtUsuarioKeyPressed
+    }//GEN-LAST:event_tfdUsuarioKeyPressed
 
-    private void jtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtSenhaKeyPressed
+    private void tfdSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdSenhaKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             usuario = null;
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             try {
-                if (jtUsuario.getText().isEmpty()) {
+                if (tfdUsuario.getText().isEmpty()) {
                    // erro.setText("O nome do usuario deve ser preechido");
                    // erro.setVisible(true);
                    JOptionPane.showMessageDialog(null, "O usuário deve ser preenchido", "Alerta", JOptionPane.INFORMATION_MESSAGE);
-                    jtUsuario.requestFocus();
-                } else if (jtSenha.getText().isEmpty()) {
+                    tfdUsuario.requestFocus();
+                } else if (tfdSenha.getText().isEmpty()) {
                    // erro.setText("A senha deve ser preechida");
                    // erro.setVisible(true);
                    JOptionPane.showMessageDialog(null, "A senha deve ser preenchida", "Alerta", JOptionPane.INFORMATION_MESSAGE);
-                    jtSenha.requestFocus();
+                    tfdSenha.requestFocus();
                 } else {
-                    usuario = usuarioDAO.valida(jtUsuario.getText(), jtSenha.getText());
+                    usuario = usuarioDAO.valida(tfdUsuario.getText(), tfdSenha.getText());
                     if(usuario == null){
                         JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
-                        jtUsuario.setText("");
-                        jtSenha.setText("");
-                        jtUsuario.requestFocus();
+                        tfdUsuario.setText("");
+                        tfdSenha.setText("");
+                        tfdUsuario.requestFocus();
                     }else{
                         PrincipalView pv = new PrincipalView(usuario);
                         this.dispose();
@@ -167,35 +170,35 @@ public class LoginView extends javax.swing.JFrame {
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha incorreto", "Erro", JOptionPane.ERROR_MESSAGE);
-                jtUsuario.setText("");
-                jtSenha.setText("");
-                jtUsuario.requestFocus();
+                tfdUsuario.setText("");
+                tfdSenha.setText("");
+                tfdUsuario.requestFocus();
 
             }
         }
         }
-    }//GEN-LAST:event_jtSenhaKeyPressed
+    }//GEN-LAST:event_tfdSenhaKeyPressed
 
     private void jBuLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBuLoginActionPerformed
         usuario = null;
         try {
-            if (jtUsuario.getText().isEmpty()) {
+            if (tfdUsuario.getText().isEmpty()) {
                 //erro.setText("O nome do usuario deve ser preechido");
                 JOptionPane.showMessageDialog(null, "O usuário deve ser preenchido", "Alerta", JOptionPane.INFORMATION_MESSAGE);
-                jtUsuario.requestFocus();
+                tfdUsuario.requestFocus();
 
-            } else if (jtSenha.getText().isEmpty()) {
+            } else if (tfdSenha.getText().isEmpty()) {
                 //erro.setText("A senha deve ser preechido");
                 //erro.setVisible(true);
                 JOptionPane.showMessageDialog(null, "A senha deve ser preenchida", "Alerta", JOptionPane.INFORMATION_MESSAGE);
-                jtSenha.requestFocus();
+                tfdSenha.requestFocus();
             } else {
-                usuario = usuarioDAO.valida(jtUsuario.getText(), jtSenha.getPassword().toString());
+                usuario = usuarioDAO.valida(tfdUsuario.getText(), tfdSenha.getText());
                 if(usuario == null){
                     JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
-                    jtUsuario.setText("");
-                    jtSenha.setText("");
-                    jtUsuario.requestFocus();
+                    tfdUsuario.setText("");
+                    tfdSenha.setText("");
+                    tfdUsuario.requestFocus();
                 }else{
                     PrincipalView pv = new PrincipalView(usuario);
                     this.dispose();
@@ -206,9 +209,9 @@ public class LoginView extends javax.swing.JFrame {
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Usuário não encontrado", "Erro", JOptionPane.ERROR_MESSAGE);
-            jtUsuario.setText("");
-            jtSenha.setText("");
-            jtUsuario.requestFocus();
+            tfdUsuario.setText("");
+            tfdSenha.setText("");
+            tfdUsuario.requestFocus();
             ex.printStackTrace();
             
         }
@@ -222,7 +225,7 @@ public class LoginView extends javax.swing.JFrame {
     private javax.swing.JButton jBuLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPasswordField jtSenha;
-    private javax.swing.JTextField jtUsuario;
+    private javax.swing.JPasswordField tfdSenha;
+    private javax.swing.JTextField tfdUsuario;
     // End of variables declaration//GEN-END:variables
 }
