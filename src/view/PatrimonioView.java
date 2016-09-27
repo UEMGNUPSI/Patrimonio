@@ -147,12 +147,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         lblCodigo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         tfdCodigoPatrimonio = new javax.swing.JTextField();
-        cbxOrgao = new javax.swing.JComboBox<String>();
+        cbxOrgao = new javax.swing.JComboBox<>();
         lblDescricao = new javax.swing.JLabel();
         tfdDescricaoPatrimonio = new javax.swing.JTextField();
         lblGrauConservacao = new javax.swing.JLabel();
-        cbxConservacao = new javax.swing.JComboBox<String>();
-        cbxStatus = new javax.swing.JComboBox<String>();
+        cbxConservacao = new javax.swing.JComboBox<>();
+        cbxStatus = new javax.swing.JComboBox<>();
         btnExcluirPatrimonio = new javax.swing.JButton();
         btnSalvarPatrimonio = new javax.swing.JButton();
         btnAlterarPatrimonio = new javax.swing.JButton();
@@ -161,18 +161,18 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdIDPatrimonio = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblSelecUnidade = new javax.swing.JLabel();
-        cbxUnidade = new javax.swing.JComboBox<String>();
+        cbxUnidade = new javax.swing.JComboBox<>();
         lblSelecBloco = new javax.swing.JLabel();
-        cbxBloco = new javax.swing.JComboBox<String>();
+        cbxBloco = new javax.swing.JComboBox<>();
         lblSelecPiso = new javax.swing.JLabel();
-        cbxPiso = new javax.swing.JComboBox<String>();
+        cbxPiso = new javax.swing.JComboBox<>();
         lblSelecSala = new javax.swing.JLabel();
-        cbxSala = new javax.swing.JComboBox<String>();
+        cbxSala = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         lblSelecTipo = new javax.swing.JLabel();
-        cbxTipo = new javax.swing.JComboBox<String>();
+        cbxTipo = new javax.swing.JComboBox<>();
         lblSelecSubtipo = new javax.swing.JLabel();
-        cbxSuptipo = new javax.swing.JComboBox<String>();
+        cbxSuptipo = new javax.swing.JComboBox<>();
         btnCancelarPatrimonio = new javax.swing.JButton();
         pnlPatrimonioComposto = new javax.swing.JPanel();
         btnCancelarPatrimonioComposto = new javax.swing.JButton();
@@ -181,11 +181,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         btnAlterarPatrimonioComposto = new javax.swing.JButton();
         btnNovoPatrimonioComposto = new javax.swing.JButton();
         tfdDescricaoPatrimonioComposto = new javax.swing.JTextField();
-        cbxStatusPatrimonioComposto = new javax.swing.JComboBox<String>();
+        cbxStatusPatrimonioComposto = new javax.swing.JComboBox<>();
         lblGrauConservacao1 = new javax.swing.JLabel();
         lblDescricao1 = new javax.swing.JLabel();
         lblStatus1 = new javax.swing.JLabel();
-        cbxConservacaoPatrimonioComposto = new javax.swing.JComboBox<String>();
+        cbxConservacaoPatrimonioComposto = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbePatrimonioComposto = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -429,6 +429,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         });
 
         btnNovoPatrimonioComposto.setText("Novo");
+        btnNovoPatrimonioComposto.setEnabled(false);
         btnNovoPatrimonioComposto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoPatrimonioCompostoActionPerformed(evt);
@@ -479,6 +480,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePatrimonioComposto.setEnabled(false);
         tbePatrimonioComposto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbePatrimonioCompostoMouseClicked(evt);
@@ -498,6 +500,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         });
 
         btnCancelaComposto.setText("Cancelar");
+        btnCancelaComposto.setEnabled(false);
         btnCancelaComposto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelaCompostoActionPerformed(evt);
@@ -1027,7 +1030,17 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxOrgao.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 7).toString());
         tfdNotaFiscalPatrimonio.setText(patri.getNotaFiscal());
         ckxPatrimonioComposto.setSelected(patri.getKit());
-       
+        
+        auxPatrimonio = patri;
+        
+        
+        if(patri.getKit())
+            
+        {
+            iniciaComposto();
+            pnlPatrimonioComposto.setVisible(true);
+        }
+        
         preparaSelecaoTabelaPatrimonio();
     }//GEN-LAST:event_tbePatrimonioMouseClicked
 
@@ -1112,6 +1125,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     iniciaComposto();
                     desativaCampos();
                     JOptionPane.showMessageDialog(null, "Cadastre os itens do kit", "Cadastro de Kit", JOptionPane.INFORMATION_MESSAGE);
+                    ativaComposto();
                 }
                 else{
                     JOptionPane.showMessageDialog(null, "Patrimônio atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -1427,7 +1441,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxStatus.setEnabled(true);
         cbxConservacao.setEnabled(true);
         cbxOrgao.setEnabled(true);
-        ckxPatrimonioComposto.setEnabled(true);
+        //ckxPatrimonioComposto.setEnabled(true);
         
     }
     
@@ -1572,6 +1586,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         btnExcluirPatrimonioComposto.setEnabled(true);
         btnAlterarPatrimonioComposto.setEnabled(true);
     }
+    
+    public void ativaComposto(){
+        tbePatrimonioComposto.setEnabled(true);
+        btnNovoPatrimonioComposto.setEnabled(true);
+        btnCancelaComposto.setEnabled(true);
+    }
+    
     public PatrimonioCompostoM pegaComposto(String descricao){
         try {
             return patrimonioCompostoDAO.buscaDescricao(descricao);
@@ -1612,7 +1633,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         
     }
-    
+        
     public void atualizaTabelaCompostoExistente(){
         try {
             //compoe a lista de patrimonio composto a partir do ID do patrimonio que está sendo salvo.
