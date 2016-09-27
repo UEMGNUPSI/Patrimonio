@@ -429,7 +429,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         });
 
         btnNovoPatrimonioComposto.setText("Novo");
-        btnNovoPatrimonioComposto.setEnabled(false);
         btnNovoPatrimonioComposto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoPatrimonioCompostoActionPerformed(evt);
