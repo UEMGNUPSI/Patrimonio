@@ -1057,11 +1057,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         if(patri.getKit())   
         {
             iniciaComposto();
-
             pnlPatrimonioComposto.setVisible(true);
         }else
         {
-            pnlPatrimonioComposto.setVisible(false);
+        pnlPatrimonioComposto.setVisible(false);
+        limpaCamposComposto();
+        preparaSalvarCancelarComposto();
+        desativaCamposComposto();
         }
         
         preparaSelecaoTabelaPatrimonio();
