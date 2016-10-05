@@ -353,7 +353,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
                
                 try {
                     orgaoDAO.alterar(orgao);
-                    JOptionPane.showMessageDialog(null, "Orgao atualizada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Alterado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
                     desativaCampos();
                     atualizaTabelaOrgao();
@@ -408,9 +408,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        //Antigo
-        /**/
-        
+
         preparaAlterar();
         ativaCampos();
     }//GEN-LAST:event_btnAlterarActionPerformed
