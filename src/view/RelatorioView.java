@@ -33,12 +33,14 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import dao.PatrimonioCompostoDAO;
 import java.awt.Desktop;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import static javafx.scene.text.Font.font;
+import model.PatrimonioCompostoM;
 
 /**
  *
@@ -50,6 +52,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     SalaDAO salaDAO;
     List<SalaM> listaSala;
     List<SalaM> listaSalaSelecionados;
+    List<PatrimonioCompostoM> listaComposto;
     PisoDAO pisoDAO;
     BlocoDAO blocoDAO;
     UnidadeDAO unidadeDAO;
@@ -62,6 +65,8 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     UnidadeM unidadeM;
     PatrimonioDAO patrimonioDAO;
     Document doc;
+    PatrimonioCompostoDAO patri;
+
     public RelatorioView() {
         salaDAO = new SalaDAO();
         listaSala = new ArrayList<>();
@@ -71,12 +76,14 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         listaUnidade = new ArrayList<>();
         listaBloco = new ArrayList<>();
         listaPiso = new ArrayList<>();
+        listaComposto = new ArrayList<>();
         unidadeM = new UnidadeM();
         blocoM = new BlocoM();
         pisoM = new PisoM();
         listaSalaSelecionados = new ArrayList<>();
         listaPatrimonio = new ArrayList<>();
         patrimonioDAO = new PatrimonioDAO();
+        patri =  new PatrimonioCompostoDAO();
         initComponents();
         this.setVisible(true);
         atualizaTabelaSala();
@@ -553,30 +560,62 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             tabela.addCell(cabecalho4);
 
             for (PatrimonioM patrimonio : listaPatrimonio) {
-                Paragraph p1 = new Paragraph(patrimonio.getCodigo(),f5);
-                p1.setAlignment(Element.ALIGN_JUSTIFIED);
-                PdfPCell col1 = new PdfPCell(p1);
-                col1.setBorder(0);
                 
-                Paragraph p2 = new Paragraph(patrimonio.getDescricao(),f5);
-                p2.setAlignment(Element.ALIGN_JUSTIFIED);
-                PdfPCell col2 = new PdfPCell(p2);
-                col2.setBorder(0);
                 
-                Paragraph p3 = new Paragraph(patrimonio.getGrau_conservacao().getDescricao(),f5);
-                p3.setAlignment(Element.ALIGN_JUSTIFIED);
-                PdfPCell col3 = new PdfPCell(p3);
-                col3.setBorder(0);
-                
-                Paragraph p4 = new Paragraph(patrimonio.getEntidade().getNome(),f5);
-                p4.setAlignment(Element.ALIGN_JUSTIFIED);
-                PdfPCell col4 = new PdfPCell(p4);
-                col4.setBorder(0);
-                
-                tabela.addCell(col1);
-                tabela.addCell(col2);
-                tabela.addCell(col3);
-                tabela.addCell(col4);
+                if(patrimonio.getKit()){
+                    listaComposto = patri.listaTodosExistentes(patrimonio);
+                    for(PatrimonioCompostoM composto : listaComposto){
+                        Paragraph p1 = new Paragraph(patrimonio.getCodigo(),f5);
+                        p1.setAlignment(Element.ALIGN_JUSTIFIED);
+                        PdfPCell col1 = new PdfPCell(p1);
+                        col1.setBorder(0);
+
+                        Paragraph p2 = new Paragraph(composto.getDescricao(),f5);
+                        p2.setAlignment(Element.ALIGN_JUSTIFIED);
+                        PdfPCell col2 = new PdfPCell(p2);
+                        col2.setBorder(0);
+
+                        Paragraph p3 = new Paragraph(composto.getGrau().getDescricao(),f5);
+                        p3.setAlignment(Element.ALIGN_JUSTIFIED);
+                        PdfPCell col3 = new PdfPCell(p3);
+                        col3.setBorder(0);
+
+                        Paragraph p4 = new Paragraph(patrimonio.getEntidade().getNome(),f5);
+                        p4.setAlignment(Element.ALIGN_JUSTIFIED);
+                        PdfPCell col4 = new PdfPCell(p4);
+                        col4.setBorder(0);
+
+                        tabela.addCell(col1);
+                        tabela.addCell(col2);
+                        tabela.addCell(col3);
+                        tabela.addCell(col4);
+                    }
+                }else{
+                    Paragraph p1 = new Paragraph(patrimonio.getCodigo(),f5);
+                    p1.setAlignment(Element.ALIGN_JUSTIFIED);
+                    PdfPCell col1 = new PdfPCell(p1);
+                    col1.setBorder(0);
+
+                    Paragraph p2 = new Paragraph(patrimonio.getDescricao(),f5);
+                    p2.setAlignment(Element.ALIGN_JUSTIFIED);
+                    PdfPCell col2 = new PdfPCell(p2);
+                    col2.setBorder(0);
+
+                    Paragraph p3 = new Paragraph(patrimonio.getGrau_conservacao().getDescricao(),f5);
+                    p3.setAlignment(Element.ALIGN_JUSTIFIED);
+                    PdfPCell col3 = new PdfPCell(p3);
+                    col3.setBorder(0);
+
+                    Paragraph p4 = new Paragraph(patrimonio.getEntidade().getNome(),f5);
+                    p4.setAlignment(Element.ALIGN_JUSTIFIED);
+                    PdfPCell col4 = new PdfPCell(p4);
+                    col4.setBorder(0);
+                    
+                    tabela.addCell(col1);
+                    tabela.addCell(col2);
+                    tabela.addCell(col3);
+                    tabela.addCell(col4);
+                }
             }
 
             doc.add(tabela);
