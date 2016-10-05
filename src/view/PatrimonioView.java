@@ -1237,11 +1237,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        int id = auxIDComposto.getId();
-        tfdIDComposto.setText(String.valueOf(id));
-        tfdDescricaoPatrimonioComposto.setText(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 0).toString());
-        cbxConservacaoPatrimonioComposto.setSelectedItem(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 1).toString());
-        cbxStatusPatrimonioComposto.setSelectedItem(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 2).toString());
+        tfdIDComposto.setText(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 0).toString());
+        tfdDescricaoPatrimonioComposto.setText(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 1).toString());
+        cbxConservacaoPatrimonioComposto.setSelectedItem(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 2).toString());
+        cbxStatusPatrimonioComposto.setSelectedItem(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 3).toString());
         preparaSelecaoComposto();
     }//GEN-LAST:event_tbePatrimonioCompostoMouseClicked
 
@@ -1648,12 +1647,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         String dados[][] = new String[listaComposto.size()][4];
         int i = 0;
         for (PatrimonioCompostoM patComposto : listaComposto){
-            dados[i][0] = patComposto.getDescricao();
-            dados[i][1] = patComposto.getGrau().getDescricao();
-            dados[i][2] = patComposto.getPatrimonio().getStatus().getNome();
+            dados[i][0] = String.valueOf(patComposto.getId());
+            dados[i][1] = patComposto.getDescricao();
+            dados[i][2] = patComposto.getGrau().getDescricao();
+            dados[i][3] = patComposto.getStatus().getNome();
             i++;
         }
-        String tituloColuna[] = {"Descrição", "Grau de Conservação", "Status"};
+        String tituloColuna[] = {"ID","Descrição", "Grau de Conservação", "Status"};
         DefaultTableModel tabelaComposto = new DefaultTableModel();
         tabelaComposto.setDataVector(dados, tituloColuna);
         tbePatrimonioComposto.setModel(new DefaultTableModel(dados, tituloColuna){
@@ -1668,7 +1668,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tbePatrimonioComposto.getColumnModel().getColumn(0).setPreferredWidth(50);
         tbePatrimonioComposto.getColumnModel().getColumn(1).setPreferredWidth(300);
         tbePatrimonioComposto.getColumnModel().getColumn(2).setPreferredWidth(300);
-        //tbePatrimonioComposto.getColumnModel().getColumn(3).setPreferredWidth(300);
+        tbePatrimonioComposto.getColumnModel().getColumn(3).setPreferredWidth(300);
         
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
