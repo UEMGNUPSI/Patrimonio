@@ -38,6 +38,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
         initComponents();
         this.setVisible(true);
         atualizaBoxUnidade();
+        atualizaTabelaBloco();
         tfdDescricaoBloco.setDocument(new LimiteDigitos(45));
     }
 
@@ -301,8 +302,6 @@ public class BlocoView extends javax.swing.JInternalFrame {
 
     private void cbxUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidadeActionPerformed
         // TODO add your handling code here:
-        atualizaTabelaBloco();
-        tfdDescricaoBloco.requestFocusInWindow();
     }//GEN-LAST:event_cbxUnidadeActionPerformed
 
     private void tbeBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBlocoMouseClicked
@@ -310,7 +309,6 @@ public class BlocoView extends javax.swing.JInternalFrame {
         tfdDescricaoBloco.setText(tbeBloco.getValueAt(tbeBloco.getSelectedRow(), 1).toString());
         cbxUnidade.setSelectedItem(tbeBloco.getValueAt(tbeBloco.getSelectedRow(), 2).toString());
         preparaSelecaoTabela();
-       
     }//GEN-LAST:event_tbeBlocoMouseClicked
 
     private void btnSalvarBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarBlocoActionPerformed
