@@ -78,6 +78,8 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblStatus = new javax.swing.JLabel();
         lblUnidade = new javax.swing.JLabel();
 
+        setClosable(true);
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel1.setText("Digite o Codigo de Patrimonio");
 
@@ -88,98 +90,94 @@ public class ConsultaView extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("ID:");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Descrição:");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Codigo:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Subtipo:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("Conservação:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("Status:");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Unidade:");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Bloco:");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("Piso:");
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("Sala:");
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel12.setText("Orgão:");
 
-        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText(" Composto:");
 
-        lblBloco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblBloco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblBloco.setText("Bloco:");
 
-        lblPiso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblPiso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblPiso.setText("Piso:");
 
-        lblSala.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblSala.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblSala.setText("Sala:");
 
-        lblOrgao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblOrgao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblOrgao.setText("Orgão:");
 
-        lblId.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblId.setText("ID:");
 
-        lblComposto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblComposto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblComposto.setText("Composto:");
 
-        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblDescricao.setText("Descrição:");
 
-        lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblCodigo.setText("Codigo:");
 
-        lblSubtipo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblSubtipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblSubtipo.setText("Subtipo:");
 
-        lblConservacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblConservacao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblConservacao.setText("Conservação:");
 
-        lblStatus.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblStatus.setText("Status:");
 
-        lblUnidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblUnidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblUnidade.setText("Unidade:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(250, 250, 250))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(290, 290, 290))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 144, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(141, 141, 141))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(224, 224, 224))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(261, 261, 261))))
-                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
@@ -206,19 +204,22 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                             .addComponent(lblPiso)
                             .addComponent(lblSala)
                             .addComponent(lblOrgao)
-                            .addComponent(lblId))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(lblId)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(jLabel1)))
+                .addGap(0, 172, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addGap(27, 27, 27)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
