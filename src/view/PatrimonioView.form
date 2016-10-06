@@ -67,7 +67,7 @@
                       <Component id="lblSelecTipo" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="cbxTipo" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                       <Component id="lblSelecSubtipo" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbxSuptipo" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
+                      <Component id="cbxSubtipo" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                       <Component id="cbxPiso" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                       <Component id="lblSelecSala" min="-2" max="-2" attributes="0"/>
                       <Component id="cbxSala" min="-2" pref="139" max="-2" attributes="0"/>
@@ -186,7 +186,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblSelecSubtipo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="cbxSuptipo" min="-2" pref="27" max="-2" attributes="0"/>
+                  <Component id="cbxSubtipo" min="-2" pref="27" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -383,7 +383,7 @@
             <Property name="text" type="java.lang.String" value="Selecione a Subtipo:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbxSuptipo">
+        <Component class="javax.swing.JComboBox" name="cbxSubtipo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>

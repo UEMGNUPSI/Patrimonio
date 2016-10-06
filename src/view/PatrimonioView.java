@@ -162,7 +162,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         lblSelecTipo = new javax.swing.JLabel();
         cbxTipo = new javax.swing.JComboBox<>();
         lblSelecSubtipo = new javax.swing.JLabel();
-        cbxSuptipo = new javax.swing.JComboBox<>();
+        cbxSubtipo = new javax.swing.JComboBox<>();
         lblStatus = new javax.swing.JLabel();
         btnCancelarPatrimonio = new javax.swing.JButton();
         lblSelecUnidade = new javax.swing.JLabel();
@@ -303,7 +303,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
         lblSelecSubtipo.setText("Selecione a Subtipo:");
 
-        cbxSuptipo.setEnabled(false);
+        cbxSubtipo.setEnabled(false);
 
         lblStatus.setText("Status");
 
@@ -350,7 +350,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     .addComponent(lblSelecTipo)
                     .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSelecSubtipo)
-                    .addComponent(cbxSuptipo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbxPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSelecSala)
                     .addComponent(cbxSala, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -454,7 +454,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblSelecSubtipo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxSuptipo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         btnSalvarPatrimonioComposto.setText("Salvar");
@@ -844,29 +844,31 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     private void cbxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxTipoActionPerformed
         if (cbxTipo.getSelectedIndex() < 1) {
-            cbxSuptipo.removeAllItems();
-            cbxSuptipo.addItem("--Selecione--");
+            cbxSubtipo.removeAllItems();
+            cbxSubtipo.addItem("--Selecione--");
         } else {
-            cbxSuptipo.removeAllItems();
-            cbxSuptipo.addItem("--Selecione--");
+            cbxSubtipo.removeAllItems();
+            cbxSubtipo.addItem("--Selecione--");
             TipoM tip = new TipoM();
             try {
                 tip = tipoDAO.buscaNome(cbxTipo.getSelectedItem().toString());
                 listaSub = subtipoDAO.buscaTipo(tip.getId());
                 for (SubTipoM subt : listaSub) {
-                    cbxSuptipo.addItem(subt.getDescricao());
+                    cbxSubtipo.addItem(subt.getDescricao());
                 }
             } catch (SQLException ex) {
-                cbxSuptipo.removeAllItems();
-                cbxSuptipo.addItem("--Selecione--");
+                cbxSubtipo.removeAllItems();
+                cbxSubtipo.addItem("--Selecione--");
             }
         }
     }//GEN-LAST:event_cbxTipoActionPerformed
 
     private void btnNovoPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPatrimonioActionPerformed
-        limpaCamposPatrimonio();
+        //limpaCamposPatrimonio();
         preparaNovo();
         ativaCamposNovo();
+        tfdCodigoPatrimonio.setText("");
+        tfdIDPatrimonio.setText("");
         tfdCodigoPatrimonio.requestFocusInWindow();  
     }//GEN-LAST:event_btnNovoPatrimonioActionPerformed
 
@@ -883,7 +885,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     
     private void btnSalvarPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarPatrimonioActionPerformed
      
-        if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSuptipo.getSelectedIndex() == 0) {
+        if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSubtipo.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
             tfdDescricaoPatrimonio.requestFocusInWindow();
         } else  if (tfdIDPatrimonio.getText().isEmpty()){
@@ -914,7 +916,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 {
                     JOptionPane.showMessageDialog(null, "Patrimônio cadastrado com sucesso..", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
-                    limpaCamposPatrimonio();
+                    //limpaCamposPatrimonio();
+                    //desativaCampos();
+                    salvarMantendoInformacoes();
+                    
+ 
                 }         
                 atualizaTabelaPatrimonio();
                 
@@ -1107,7 +1113,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         PatrimonioM patri = pegaPatrimonio();
 
         cbxTipo.setSelectedItem(patri.getSubTipo().getTipo().getDescricao());
-        cbxSuptipo.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 3).toString());
+        cbxSubtipo.setSelectedItem(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 3).toString());
 
         cbxUnidade.setSelectedItem(patri.getSala().getPiso().getBloco().getUnidadeM().getNome());
         cbxBloco.setSelectedItem(patri.getSala().getPiso().getBloco().getDescricao());
@@ -1287,7 +1293,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     
     public SubTipoM pegaSubtipo() {
         try {
-            return subtipoDAO.buscaNome(cbxSuptipo.getSelectedItem().toString());
+            return subtipoDAO.buscaNome(cbxSubtipo.getSelectedItem().toString());
         } catch (SQLException ex) {
             Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1316,6 +1322,21 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES 
     
+    public void salvarMantendoInformacoes(){
+        cbxUnidade.setEnabled(false);
+        cbxBloco.setEnabled(false);
+        cbxPiso.setEnabled(false);
+        cbxSala.setEnabled(false);
+        cbxTipo.setEnabled(false);
+        cbxSubtipo.setEnabled(false);
+        tfdCodigoPatrimonio.setEnabled(false);
+        tfdDescricaoPatrimonio.setEnabled(false);
+        cbxConservacao.setEnabled(false);
+        cbxStatus.setEnabled(false);
+        tfdNotaFiscalPatrimonio.setEnabled(false);        
+        cbxOrgao.setEnabled(false);
+        ckxPatrimonioComposto.setEnabled(false);                      
+}
     public void limpaCamposPatrimonio() {
         
         cbxUnidade.setSelectedIndex(0);
@@ -1368,7 +1389,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxPiso.setEnabled(true);
         cbxSala.setEnabled(true);
         cbxTipo.setEnabled(true);
-        cbxSuptipo.setEnabled(true);
+        cbxSubtipo.setEnabled(true);
         ckxPatrimonioComposto.setEnabled(true);
      
         
@@ -1406,8 +1427,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxSala.setSelectedIndex(0);
         cbxTipo.setEnabled(false);
         cbxTipo.setSelectedIndex(0);
-        cbxSuptipo.setEnabled(false);
-        cbxSuptipo.setSelectedIndex(0);
+        cbxSubtipo.setEnabled(false);
+        cbxSubtipo.setSelectedIndex(0);
        
         //tfdIDPatrimonio.setText("");
         tfdIDPatrimonio.setEnabled(false);
@@ -1635,7 +1656,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxSala;
     private javax.swing.JComboBox<String> cbxStatus;
     private javax.swing.JComboBox<String> cbxStatusPatrimonioComposto;
-    private javax.swing.JComboBox<String> cbxSuptipo;
+    private javax.swing.JComboBox<String> cbxSubtipo;
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JComboBox<String> cbxUnidade;
     private javax.swing.JCheckBox ckxPatrimonioComposto;

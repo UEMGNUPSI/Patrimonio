@@ -92,7 +92,7 @@ public class SubTipoDAO {
          
          public List<SubTipoM> buscaTipo(int id) throws SQLException{
          List<SubTipoM> listaSub = new ArrayList<>();
-         sql = "select * from Subtipo where id_tipo = ?";
+         sql = "select * from Subtipo where id_tipo = ? order by descricao";
          pst = Conexao.getInstance().prepareStatement(sql);
          pst.setInt(1, id);
          ResultSet rs = pst.executeQuery();
