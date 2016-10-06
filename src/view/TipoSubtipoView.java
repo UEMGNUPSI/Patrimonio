@@ -225,9 +225,16 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         setResizable(true);
         setTitle("Cadastro de Tipos e Subtipos");
 
+        pnlTipoSubtipo.setPreferredSize(new java.awt.Dimension(377, 500));
+
         lblDescricaoTipo.setText("Descrição");
 
         tfdDescricaoTipo.setEnabled(false);
+        tfdDescricaoTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfdDescricaoTipoActionPerformed(evt);
+            }
+        });
 
         lblSubtipo.setText("Subtipo");
 
@@ -370,13 +377,38 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         pnlTipoSubtipoLayout.setHorizontalGroup(
             pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(105, 105, 105)
+                .addComponent(lblTipo)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTipoSubtipoLayout.createSequentialGroup()
+                        .addComponent(btnNovoSubtipo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSalvarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCancelarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnAlterarSubtipo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnExcluirSubtipo)
+                        .addGap(12, 12, 12))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTipoSubtipoLayout.createSequentialGroup()
+                        .addComponent(spdTipoSubtipo)
+                        .addContainerGap())
                     .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(tfdDescricaoTipo))
-                    .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                .addComponent(btnNovoTipo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSalvarTipo)
+                                .addGap(3, 3, 3)
+                                .addComponent(btnCancelarTipo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAlterarTipo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnExcluirTipo))
                             .addComponent(lblDescricaoTipo)
                             .addComponent(lblDescricaoSubtipo)
                             .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
@@ -385,44 +417,21 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                             .addComponent(btnAdicionarImagem)
                             .addComponent(lblIDTipo)
                             .addComponent(tfdIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                    .addComponent(btnNovoTipo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnSalvarTipo)
-                                    .addGap(3, 3, 3)
-                                    .addComponent(btnCancelarTipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnAlterarTipo)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(btnExcluirTipo)
-                                    .addGap(23, 23, 23))
-                                .addComponent(lblIDTipo1)
-                                .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                                    .addComponent(tfdIDSubTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(88, 88, 88)
-                                    .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                    .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
-                        .addGap(105, 105, 105)
-                        .addComponent(lblTipo)))
-                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(lblIDTipo1)
+                            .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
+                                .addComponent(tfdIDSubTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(88, 88, 88)
+                                .addComponent(cbxSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTipoSubtipoLayout.createSequentialGroup()
+                        .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfdDescricaoSubTipo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())))
             .addGroup(pnlTipoSubtipoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlTipoSubtipoLayout.createSequentialGroup()
-                        .addComponent(btnNovoSubtipo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSalvarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCancelarSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAlterarSubtipo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluirSubtipo)
-                        .addGap(12, 12, 12))
-                    .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfdDescricaoSubTipo)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addComponent(tfdDescricaoTipo)
+                .addContainerGap())
         );
         pnlTipoSubtipoLayout.setVerticalGroup(
             pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -435,9 +444,9 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 .addComponent(tfdIDTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDescricaoTipo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(6, 6, 6)
                 .addComponent(tfdDescricaoTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(6, 6, 6)
                 .addGroup(pnlTipoSubtipoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvarTipo)
                     .addComponent(btnExcluirTipo)
@@ -445,8 +454,8 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                     .addComponent(btnNovoTipo)
                     .addComponent(btnCancelarTipo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spdTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSubtipo)
                 .addGap(1, 1, 1)
                 .addComponent(lblIDTipo1)
@@ -469,7 +478,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                     .addComponent(btnSalvarSubtipo)
                     .addComponent(btnCancelarSubtipo)
                     .addComponent(btnExcluirSubtipo))
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         tbeTipo.setModel(new javax.swing.table.DefaultTableModel(
@@ -530,14 +539,13 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
             .addComponent(jScrollPane2)
+            .addComponent(jScrollPane1)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -545,16 +553,16 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2)
+                .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 14, Short.MAX_VALUE))
+            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -872,6 +880,10 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         btnExcluirTipo.setEnabled(true);
         btnAlterarTipo.setEnabled(true);
     }//GEN-LAST:event_tbeTipoMouseClicked
+
+    private void tfdDescricaoTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdDescricaoTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdDescricaoTipoActionPerformed
 
     public void salvarImagen() {
 
