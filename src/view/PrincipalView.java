@@ -84,6 +84,7 @@ public class PrincipalView extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         mniConservacaoStatus = new javax.swing.JMenuItem();
         mnuMovimentacoes = new javax.swing.JMenu();
+        mniConsulta = new javax.swing.JMenu();
         mnuRelatorios = new javax.swing.JMenu();
         mnuUsuario = new javax.swing.JMenu();
         mniMinhaConta = new javax.swing.JMenuItem();
@@ -114,7 +115,7 @@ public class PrincipalView extends javax.swing.JFrame {
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, 1021, Short.MAX_VALUE)
+            .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, 941, Short.MAX_VALUE)
         );
 
         mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
@@ -202,6 +203,15 @@ public class PrincipalView extends javax.swing.JFrame {
         mnuMovimentacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/movimentacao.fw.png"))); // NOI18N
         mnuMovimentacoes.setText("Movimentações");
         mnbPrincipal.add(mnuMovimentacoes);
+
+        mniConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/lupa.png"))); // NOI18N
+        mniConsulta.setText("Consulta");
+        mniConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniConsultaMouseClicked(evt);
+            }
+        });
+        mnbPrincipal.add(mniConsulta);
 
         mnuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/relatorio48.fw.png"))); // NOI18N
         mnuRelatorios.setText("Relatórios");
@@ -355,6 +365,13 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mnuRelatoriosMouseClicked
 
+    private void mniConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniConsultaMouseClicked
+        ConsultaView consulta = new ConsultaView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(consulta);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mniConsultaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel foto;
@@ -370,6 +387,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAdicionarUsuario;
     private javax.swing.JMenuItem mniBloco;
     private javax.swing.JMenuItem mniConservacaoStatus;
+    private javax.swing.JMenu mniConsulta;
     private javax.swing.JMenuItem mniIncluirPatrimonio;
     private javax.swing.JMenuItem mniMinhaConta;
     private javax.swing.JMenuItem mniOrgao;

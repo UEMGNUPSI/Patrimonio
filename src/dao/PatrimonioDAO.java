@@ -133,4 +133,25 @@ public class PatrimonioDAO {
         pst.close();
         return listaPat;
     }
+     
+     public PatrimonioM buscaPatrimonio(String codigo) throws SQLException{
+        PatrimonioM patri = new PatrimonioM();
+        sql = "select * from Patrimonio where codigo = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, codigo);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
+           patri = new PatrimonioM(rs.getInt("id"),
+                   rs.getString("descricao"),
+                   rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit")));
+        }
+        pst.close();
+        return patri;
+     }
 }
