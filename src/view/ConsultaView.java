@@ -81,7 +81,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         setClosable(true);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Digite o Codigo de Patrimonio");
+        jLabel1.setText("Digite o Código de Patrimonio");
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
