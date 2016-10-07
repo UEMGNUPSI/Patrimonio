@@ -901,6 +901,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 {
                     //desativaCampos();
                     preparaSalvareCancelar();
+                    salvarMantendoInformacoes();
                     pnlPatrimonioComposto.setVisible(true);
                     tfdIDPatrimonio.setText("" + ultimoID);
                     iniciaComposto();
