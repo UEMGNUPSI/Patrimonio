@@ -1100,6 +1100,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private void tbePatrimonioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePatrimonioMouseClicked
         tfdDescricaoPatrimonioComposto.setText("");
         tfdIDComposto.setText("");
+        
 
         tfdIDPatrimonio.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 0).toString());
         tfdCodigoPatrimonio.setText(tbePatrimonio.getValueAt(tbePatrimonio.getSelectedRow(), 1).toString());
@@ -1120,7 +1121,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         ckxPatrimonioComposto.setSelected(patri.getKit());
 
         auxPatrimonio = patri;
-
+        
+        preparaSelecaoTabelaPatrimonio();
         if(patri.getKit())
         {
             iniciaComposto();
@@ -1133,7 +1135,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             desativaCamposComposto();
         }
 
-        preparaSelecaoTabelaPatrimonio();
+        
     }//GEN-LAST:event_tbePatrimonioMouseClicked
 
     private void btnExcluirPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirPatrimonioCompostoActionPerformed

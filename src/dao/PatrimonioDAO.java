@@ -134,8 +134,8 @@ public class PatrimonioDAO {
         return listaPat;
     }
      
-     public PatrimonioM buscaPatrimonio(String codigo) throws SQLException{
-        PatrimonioM patri = new PatrimonioM();
+     public List<PatrimonioM> buscaPatrimonio(String codigo) throws SQLException{
+        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
         sql = "select * from Patrimonio where codigo = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setString(1, codigo);
@@ -146,12 +146,34 @@ public class PatrimonioDAO {
         SalaDAO sala = new SalaDAO();
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
-           patri = new PatrimonioM(rs.getInt("id"),
+           listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
                    rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit")));
+                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
         }
         pst.close();
-        return patri;
+        return listaPat;
+     }
+     
+     public List<PatrimonioM> buscaDescricao(String comparador) throws SQLException{
+        comparador = "%"+comparador+"%";
+        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
+        sql = "select * from patrimonio where descricao like ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, comparador);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
+           listaPat.add(new PatrimonioM(rs.getInt("id"),
+                   rs.getString("descricao"),
+                   rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
+        }
+        pst.close();
+        return listaPat;
      }
 }

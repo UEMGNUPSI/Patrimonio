@@ -5,12 +5,24 @@
  */
 package view;
 
+import dao.BlocoDAO;
 import dao.PatrimonioDAO;
+import dao.PisoDAO;
+import dao.UnidadeDAO;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import model.BlocoM;
 import model.PatrimonioM;
+import model.PisoM;
+import model.SalaM;
+import model.UnidadeM;
 
 /**
  *
@@ -21,6 +33,18 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConsultaView
      */
+
+    List<PatrimonioM> listaPatrimonio;
+    List<UnidadeM> listaUnidade;
+    UnidadeDAO unidadeDAO;
+    List<BlocoM> listaBloco;
+    BlocoDAO blocoDAO;
+    List<PisoM> listaPiso;
+    PisoDAO pisoDAO;
+    UnidadeM unidadeM;
+    BlocoM blocoM;
+    PisoM pisoM;
+    
     
     PatrimonioDAO patrimonioDAO;
     public ConsultaView() {
@@ -39,6 +63,23 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblSubtipo.setText("");
         lblUnidade.setText("");
         patrimonioDAO = new PatrimonioDAO();
+        preencheFiltro();
+        listaPatrimonio = new ArrayList<>();
+        listaUnidade = new ArrayList<>();
+        unidadeDAO = new UnidadeDAO();
+        listaBloco = new ArrayList<>();
+        blocoDAO = new BlocoDAO();
+        listaPiso = new ArrayList<>();
+        pisoDAO = new PisoDAO();
+        
+    }
+    
+    public void preencheFiltro(){
+        cbxFiltro.removeAllItems();
+        cbxFiltro.addItem("--Selecione--");
+        cbxFiltro.addItem("ID Sala");
+        cbxFiltro.addItem("Codigo");
+        cbxFiltro.addItem("Descrição");
     }
 
     /**
@@ -51,7 +92,6 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         txtCodigo = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -77,11 +117,15 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblConservacao = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         lblUnidade = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbxBusca = new javax.swing.JTable();
+        cbxFiltro = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setClosable(true);
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel1.setText("Digite o Código de Patrimonio");
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Consulta");
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -162,22 +206,48 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblUnidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblUnidade.setText("Unidade:");
 
+        tbxBusca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbxBusca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbxBuscaMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbxBusca);
+
+        cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxFiltroActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Filtro");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(250, 250, 250))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(290, 290, 290))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
@@ -205,21 +275,23 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                             .addComponent(lblSala)
                             .addComponent(lblOrgao)
                             .addComponent(lblId)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel1)))
-                .addGap(0, 172, Short.MAX_VALUE))
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(7, 7, 7)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addGap(32, 32, 32)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -269,68 +341,140 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                         .addComponent(lblOrgao)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblComposto)))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void atualizaTabelaBusca(){
+         String dados[][] = new String[listaPatrimonio.size()][8];
+        int i = 0;
+        for (PatrimonioM pat : listaPatrimonio) {
+            dados[i][0] = String.valueOf(pat.getId());
+            dados[i][1] = pat.getCodigo();
+            dados[i][2] = pat.getDescricao();
+            dados[i][3] = pat.getSubTipo().getDescricao();
+            dados[i][4] = pat.getSala().getDescricao();
+            dados[i][5] = pat.getGrau_conservacao().getDescricao();
+            dados[i][6] = pat.getStatus().getNome();
+            dados[i][7] = pat.getEntidade().getNome();
+            i++;
+        }
+        String tituloColuna[] = {"ID", "Codigo", "Descrição", "Subtipo", "Sala", "Grau de Conservação", "Status", "Entidade"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbxBusca.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        
+        
+
+        tbxBusca.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tbxBusca.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tbxBusca.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tbxBusca.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tbxBusca.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tbxBusca.getColumnModel().getColumn(5).setPreferredWidth(100);
+        tbxBusca.getColumnModel().getColumn(6).setPreferredWidth(100);
+        tbxBusca.getColumnModel().getColumn(7).setPreferredWidth(100);
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbxBusca.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbxBusca.setRowHeight(25);
+        tbxBusca.updateUI();
+    
+    } 
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        if(!txtCodigo.getText().equals("")){
-                PatrimonioM patri = null;
+        if(txtCodigo.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
+        }else{
+        
             try {
-                patri = patrimonioDAO.buscaPatrimonio(txtCodigo.getText());
-                if(patri.getId() != null){
-                    JOptionPane.showMessageDialog(null, "Busca realizada com Sucesso!");
-                     lblId.setText(""+patri.getId());
-                    lblBloco.setText(""+patri.getSala().getPiso().getBloco().getDescricao());
-                    lblCodigo.setText(""+patri.getCodigo());
-                    
-                    if(patri.getKit()){
-                        lblComposto.setText("Sim");
-                    }else{
-                        lblComposto.setText("Não");
+                if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){
+                    try{
+                        listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(txtCodigo.getText()));
+                    }catch(java.lang.NumberFormatException ex){
+                        JOptionPane.showMessageDialog(null, "Digite caracteres válidos!\n(Somente Numeros)");
                     }
                     
-                    lblConservacao.setText(""+patri.getGrau_conservacao().getDescricao());
-                    lblDescricao.setText(""+patri.getDescricao());
-                    lblOrgao.setText(""+patri.getEntidade().getNome());
-                    lblPiso.setText(""+patri.getSala().getPiso().getDescricao());
-                    lblSala.setText(""+patri.getSala().getDescricao());
-                    lblStatus.setText(""+patri.getStatus().getNome());
-                    lblSubtipo.setText(""+patri.getSubTipo().getDescricao());
-                    lblUnidade.setText(""+patri.getSala().getPiso().getBloco().getUnidadeM().getNome());
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
+                    listaPatrimonio = patrimonioDAO.buscaPatrimonio(txtCodigo.getText());
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
+                    listaPatrimonio = patrimonioDAO.buscaDescricao(txtCodigo.getText());
+                }            
+                
+                if(listaPatrimonio.size() > 0){
+                    atualizaTabelaBusca();
                 }else{
-                    JOptionPane.showMessageDialog(null, "Código de Patrimonio não encontrado");
-                    lblId.setText("");
-                    lblBloco.setText("");
-                    lblCodigo.setText("");
-                    lblComposto.setText("");
-                    lblConservacao.setText("");
-                    lblDescricao.setText("");
-                    lblOrgao.setText("");
-                    lblPiso.setText("");
-                    lblSala.setText("");
-                    lblStatus.setText("");
-                    lblSubtipo.setText("");
-                    lblUnidade.setText("");
+                    JOptionPane.showMessageDialog(null, "Busca não encontrou resultados");
+                    
                 }
 
             } catch (SQLException ex) {
                 Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ""+ex.getMessage());
             }
-        }else{
-            JOptionPane.showMessageDialog(null, "Digite um código de patrimonio");
         }
         
        
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void tbxBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbxBuscaMouseClicked
+
+        PatrimonioM patri = pegaPatrimonio();
+        
+        lblId.setText(patri.getId().toString());
+        lblBloco.setText(patri.getSala().getPiso().getBloco().getDescricao());
+        lblCodigo.setText(patri.getCodigo());
+                    
+        if(patri.getKit()){
+            lblComposto.setText("Sim");
+        }else{
+            lblComposto.setText("Não");
+        }
+
+        lblConservacao.setText(patri.getGrau_conservacao().getDescricao());
+        lblDescricao.setText(patri.getDescricao());
+        lblOrgao.setText(patri.getEntidade().getNome());
+        lblPiso.setText(patri.getSala().getPiso().getDescricao());
+        lblSala.setText(patri.getSala().getDescricao());
+        lblStatus.setText(patri.getStatus().getNome());
+        lblSubtipo.setText(patri.getSubTipo().getDescricao());
+        lblUnidade.setText(patri.getSala().getPiso().getBloco().getUnidadeM().getNome());
+    }//GEN-LAST:event_tbxBuscaMouseClicked
+
+    private void cbxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFiltroActionPerformed
+
+    }//GEN-LAST:event_cbxFiltroActionPerformed
+
+    public PatrimonioM pegaPatrimonio(){
+        try {
+            PatrimonioM patrimo = patrimonioDAO.busca(Integer.parseInt(tbxBusca.getValueAt(tbxBusca.getSelectedRow(), 0).toString()));
+            return patrimo;
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbxFiltro;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -345,6 +489,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBloco;
     private javax.swing.JLabel lblCodigo;
     private javax.swing.JLabel lblComposto;
@@ -357,6 +502,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblSubtipo;
     private javax.swing.JLabel lblUnidade;
+    private javax.swing.JTable tbxBusca;
     private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }
