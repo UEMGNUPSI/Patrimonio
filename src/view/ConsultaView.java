@@ -6,6 +6,8 @@
 package view;
 
 import dao.BlocoDAO;
+import dao.GrauConservacaoDAO;
+import dao.OrgaoDAO;
 import dao.PatrimonioDAO;
 import dao.PisoDAO;
 import dao.UnidadeDAO;
@@ -19,6 +21,8 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
+import model.GrauConservacaoM;
+import model.OrgaoM;
 import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
@@ -44,6 +48,10 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     UnidadeM unidadeM;
     BlocoM blocoM;
     PisoM pisoM;
+    OrgaoM orgao;
+    OrgaoDAO orgaoDAO;
+    GrauConservacaoM conservacao;
+    GrauConservacaoDAO conservacaoDAO;
     
     
     PatrimonioDAO patrimonioDAO;
@@ -71,6 +79,8 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         blocoDAO = new BlocoDAO();
         listaPiso = new ArrayList<>();
         pisoDAO = new PisoDAO();
+        orgaoDAO = new OrgaoDAO();
+        conservacaoDAO = new GrauConservacaoDAO();
         
     }
     
@@ -80,6 +90,8 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         cbxFiltro.addItem("ID Sala");
         cbxFiltro.addItem("Codigo");
         cbxFiltro.addItem("Descrição");
+        cbxFiltro.addItem("Orgão");
+        cbxFiltro.addItem("Conservação");
     }
 
     /**
@@ -415,7 +427,15 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
                     listaPatrimonio = patrimonioDAO.buscaDescricao(txtCodigo.getText());
-                }            
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
+                    orgao = orgaoDAO.buscaNome(txtCodigo.getText());
+                    listaPatrimonio = patrimonioDAO.buscaOrgao(orgao.getId());
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
+                    conservacao = conservacaoDAO.buscaNome(txtCodigo.getText());
+                    listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());
+                }
                 
                 if(listaPatrimonio.size() > 0){
                     atualizaTabelaBusca();
