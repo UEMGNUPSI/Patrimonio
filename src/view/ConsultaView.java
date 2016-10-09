@@ -103,48 +103,66 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtCodigo = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbeBusca = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        lblCodigo = new javax.swing.JLabel();
+        lblSubtipo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        lblId = new javax.swing.JLabel();
+        lblDescricao = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         lblBloco = new javax.swing.JLabel();
-        lblPiso = new javax.swing.JLabel();
-        lblSala = new javax.swing.JLabel();
-        lblOrgao = new javax.swing.JLabel();
-        lblId = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         lblComposto = new javax.swing.JLabel();
-        lblDescricao = new javax.swing.JLabel();
-        lblCodigo = new javax.swing.JLabel();
-        lblSubtipo = new javax.swing.JLabel();
         lblConservacao = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        lblOrgao = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        lblSala = new javax.swing.JLabel();
         lblStatus = new javax.swing.JLabel();
         lblUnidade = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tbxBusca = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        lblPiso = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         cbxFiltro = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        txtCodigo = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
         setTitle("Consulta");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        tbeBusca.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tbeBusca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbeBuscaMouseClicked(evt);
             }
         });
+        jScrollPane1.setViewportView(tbeBusca);
+
+        lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblCodigo.setText("Codigo:");
+
+        lblSubtipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSubtipo.setText("Subtipo:");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("ID:");
@@ -158,26 +176,20 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Subtipo:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Conservação:");
+        lblId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblId.setText("ID:");
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Status:");
+        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblDescricao.setText("Descrição:");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setText("Unidade:");
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel12.setText("Orgão:");
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("Bloco:");
 
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel10.setText("Piso:");
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel11.setText("Sala:");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel12.setText("Orgão:");
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setText("Unidade:");
 
         jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel13.setText(" Composto:");
@@ -185,32 +197,26 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblBloco.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblBloco.setText("Bloco:");
 
-        lblPiso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblPiso.setText("Piso:");
-
-        lblSala.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblSala.setText("Sala:");
-
-        lblOrgao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblOrgao.setText("Orgão:");
-
-        lblId.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblId.setText("ID:");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel6.setText("Conservação:");
 
         lblComposto.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblComposto.setText("Composto:");
 
-        lblDescricao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblDescricao.setText("Descrição:");
-
-        lblCodigo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblCodigo.setText("Codigo:");
-
-        lblSubtipo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblSubtipo.setText("Subtipo:");
-
         lblConservacao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblConservacao.setText("Conservação:");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel10.setText("Piso:");
+
+        lblOrgao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblOrgao.setText("Orgão:");
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setText("Sala:");
+
+        lblSala.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSala.setText("Sala:");
 
         lblStatus.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblStatus.setText("Status:");
@@ -218,23 +224,18 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblUnidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblUnidade.setText("Unidade:");
 
-        tbxBusca.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {},
-                {},
-                {},
-                {}
-            },
-            new String [] {
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel7.setText("Status:");
 
-            }
-        ));
-        tbxBusca.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbxBuscaMouseClicked(evt);
+        lblPiso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblPiso.setText("Piso:");
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
-        jScrollPane1.setViewportView(tbxBusca);
 
         cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxFiltro.addActionListener(new java.awt.event.ActionListener() {
@@ -245,115 +246,124 @@ public class ConsultaView extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Filtro");
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, 0)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblOrgao)
+                            .addComponent(lblComposto)
+                            .addComponent(lblSala)
+                            .addComponent(lblPiso)
+                            .addComponent(lblBloco)
+                            .addComponent(lblUnidade)
+                            .addComponent(lblStatus)
+                            .addComponent(lblConservacao)
+                            .addComponent(lblSubtipo)
+                            .addComponent(lblCodigo)
+                            .addComponent(lblDescricao)
+                            .addComponent(lblId))))
+                .addGap(10, 10, 10))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jLabel1)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtCodigo)
+                    .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblId)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDescricao)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblCodigo)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSubtipo)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblConservacao)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUnidade)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBloco)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPiso)
+                    .addComponent(jLabel10))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSala)
+                    .addComponent(jLabel11))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblOrgao)
+                    .addComponent(jLabel12))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblComposto)
+                    .addComponent(jLabel13)))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblComposto)
-                            .addComponent(lblDescricao)
-                            .addComponent(lblCodigo)
-                            .addComponent(lblSubtipo)
-                            .addComponent(lblConservacao)
-                            .addComponent(lblStatus)
-                            .addComponent(lblUnidade)
-                            .addComponent(lblBloco)
-                            .addComponent(lblPiso)
-                            .addComponent(lblSala)
-                            .addComponent(lblOrgao)
-                            .addComponent(lblId)))
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 640, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1029, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblId)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDescricao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCodigo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSubtipo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblConservacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblStatus)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblUnidade)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblBloco)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPiso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblSala)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblOrgao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblComposto)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -377,7 +387,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         String tituloColuna[] = {"ID", "Codigo", "Descrição", "Subtipo", "Sala", "Grau de Conservação", "Status", "Entidade"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
-        tbxBusca.setModel(new DefaultTableModel(dados, tituloColuna) {
+        tbeBusca.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false, false, false, false, false, false
             };
@@ -390,71 +400,24 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         
         
 
-        tbxBusca.getColumnModel().getColumn(0).setPreferredWidth(80);
-        tbxBusca.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tbxBusca.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tbxBusca.getColumnModel().getColumn(3).setPreferredWidth(150);
-        tbxBusca.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tbxBusca.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tbxBusca.getColumnModel().getColumn(6).setPreferredWidth(100);
-        tbxBusca.getColumnModel().getColumn(7).setPreferredWidth(100);
+        tbeBusca.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tbeBusca.getColumnModel().getColumn(1).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(2).setPreferredWidth(215);
+        tbeBusca.getColumnModel().getColumn(3).setPreferredWidth(215);
+        tbeBusca.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tbeBusca.getColumnModel().getColumn(5).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(6).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(7).setPreferredWidth(90);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbxBusca.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tbxBusca.setRowHeight(25);
-        tbxBusca.updateUI();
+        tbeBusca.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeBusca.setRowHeight(25);
+        tbeBusca.updateUI();
     
     } 
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        if(txtCodigo.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
-        }else{
-        
-            try {
-                if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){
-                    try{
-                        listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(txtCodigo.getText()));
-                    }catch(java.lang.NumberFormatException ex){
-                        JOptionPane.showMessageDialog(null, "Digite caracteres válidos!\n(Somente Numeros)");
-                    }
-                    
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
-                    listaPatrimonio = patrimonioDAO.buscaPatrimonio(txtCodigo.getText());
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
-                    listaPatrimonio = patrimonioDAO.buscaDescricao(txtCodigo.getText());
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
-                    orgao = orgaoDAO.buscaNome(txtCodigo.getText());
-                    listaPatrimonio = patrimonioDAO.buscaOrgao(orgao.getId());
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
-                    conservacao = conservacaoDAO.buscaNome(txtCodigo.getText());
-                    listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());
-                }
-                
-                if(listaPatrimonio.size() > 0){
-                    atualizaTabelaBusca();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Busca não encontrou resultados");
-                    
-                }
-
-            } catch (SQLException ex) {
-                Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ""+ex.getMessage());
-            }
-        }
-        
-       
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void tbxBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbxBuscaMouseClicked
+    private void tbeBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBuscaMouseClicked
 
         PatrimonioM patri = pegaPatrimonio();
         
@@ -476,15 +439,60 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblStatus.setText(patri.getStatus().getNome());
         lblSubtipo.setText(patri.getSubTipo().getDescricao());
         lblUnidade.setText(patri.getSala().getPiso().getBloco().getUnidadeM().getNome());
-    }//GEN-LAST:event_tbxBuscaMouseClicked
+    }//GEN-LAST:event_tbeBuscaMouseClicked
 
     private void cbxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFiltroActionPerformed
 
     }//GEN-LAST:event_cbxFiltroActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        if(txtCodigo.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
+        }else{
+
+            try {
+                if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){
+                    try{
+                        listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(txtCodigo.getText()));
+                    }catch(java.lang.NumberFormatException ex){
+                        JOptionPane.showMessageDialog(null, "Digite caracteres válidos!\n(Somente Numeros)");
+                    }
+
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
+                    listaPatrimonio = patrimonioDAO.buscaPatrimonio(txtCodigo.getText());
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
+                    listaPatrimonio = patrimonioDAO.buscaDescricao(txtCodigo.getText());
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
+                    orgao = orgaoDAO.buscaNome(txtCodigo.getText());
+                    listaPatrimonio = patrimonioDAO.buscaOrgao(orgao.getId());
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
+                    conservacao = conservacaoDAO.buscaNome(txtCodigo.getText());
+                    listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());
+                }
+
+                if(listaPatrimonio.size() > 0){
+                    atualizaTabelaBusca();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Busca não encontrou resultados");
+
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ""+ex.getMessage());
+            }
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public PatrimonioM pegaPatrimonio(){
         try {
-            PatrimonioM patrimo = patrimonioDAO.busca(Integer.parseInt(tbxBusca.getValueAt(tbxBusca.getSelectedRow(), 0).toString()));
+            PatrimonioM patrimo = patrimonioDAO.busca(Integer.parseInt(tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString()));
             return patrimo;
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
@@ -509,6 +517,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBloco;
     private javax.swing.JLabel lblCodigo;
@@ -522,7 +531,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblSubtipo;
     private javax.swing.JLabel lblUnidade;
-    private javax.swing.JTable tbxBusca;
+    private javax.swing.JTable tbeBusca;
     private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

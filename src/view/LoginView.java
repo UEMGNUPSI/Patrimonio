@@ -57,20 +57,25 @@ public class LoginView extends javax.swing.JFrame {
         setTitle("Login");
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Usuário");
 
-        tfdUsuario.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfdUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tfdUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tfdUsuarioKeyPressed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Senha");
 
-        tfdSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfdSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfdSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfdSenhaActionPerformed(evt);
+            }
+        });
         tfdSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 tfdSenhaKeyPressed(evt);
@@ -81,7 +86,8 @@ public class LoginView extends javax.swing.JFrame {
         erro.setMaximumSize(new java.awt.Dimension(110, 39));
         erro.setMinimumSize(new java.awt.Dimension(110, 39));
 
-        jBuLogin.setText("Login");
+        jBuLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jBuLogin.setText("Entrar");
         jBuLogin.setMaximumSize(new java.awt.Dimension(110, 39));
         jBuLogin.setMinimumSize(new java.awt.Dimension(110, 39));
         jBuLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -124,7 +130,7 @@ public class LoginView extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tfdSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jBuLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(erro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -220,6 +226,11 @@ public class LoginView extends javax.swing.JFrame {
     private void jBuLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBuLoginKeyPressed
         
     }//GEN-LAST:event_jBuLoginKeyPressed
+
+    private void tfdSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdSenhaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel erro;
     private javax.swing.JButton jBuLogin;

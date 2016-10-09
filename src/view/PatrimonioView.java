@@ -592,7 +592,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExcluirPatrimonioComposto)
                         .addGap(29, 29, 29)))
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 664, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 892, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlPatrimonioCompostoLayout.setVerticalGroup(
@@ -673,11 +673,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1079, Short.MAX_VALUE)
+                    .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -736,14 +736,14 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             }
         });
 
-        tbePatrimonio.getColumnModel().getColumn(0).setPreferredWidth(80);
-        tbePatrimonio.getColumnModel().getColumn(1).setPreferredWidth(100);
-        tbePatrimonio.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tbePatrimonio.getColumnModel().getColumn(3).setPreferredWidth(150);
+        tbePatrimonio.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tbePatrimonio.getColumnModel().getColumn(1).setPreferredWidth(90);
+        tbePatrimonio.getColumnModel().getColumn(2).setPreferredWidth(215);
+        tbePatrimonio.getColumnModel().getColumn(3).setPreferredWidth(215);
         tbePatrimonio.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tbePatrimonio.getColumnModel().getColumn(5).setPreferredWidth(100);
-        tbePatrimonio.getColumnModel().getColumn(6).setPreferredWidth(100);
-        tbePatrimonio.getColumnModel().getColumn(7).setPreferredWidth(100);
+        tbePatrimonio.getColumnModel().getColumn(5).setPreferredWidth(90);
+        tbePatrimonio.getColumnModel().getColumn(6).setPreferredWidth(90);
+        tbePatrimonio.getColumnModel().getColumn(7).setPreferredWidth(90);
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
