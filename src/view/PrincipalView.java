@@ -86,6 +86,8 @@ public class PrincipalView extends javax.swing.JFrame {
         mnuMovimentacoes = new javax.swing.JMenu();
         mniConsulta = new javax.swing.JMenu();
         mnuRelatorios = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
         mnuUsuario = new javax.swing.JMenu();
         mniMinhaConta = new javax.swing.JMenuItem();
         mniAdicionarUsuario = new javax.swing.JMenuItem();
@@ -225,6 +227,33 @@ public class PrincipalView extends javax.swing.JFrame {
                 mnuRelatoriosActionPerformed(evt);
             }
         });
+
+        jMenuItem4.setText("Salas");
+        jMenuItem4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem4MouseClicked(evt);
+            }
+        });
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnuRelatorios.add(jMenuItem4);
+
+        jMenuItem5.setText("Descrição");
+        jMenuItem5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenuItem5MouseClicked(evt);
+            }
+        });
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        mnuRelatorios.add(jMenuItem5);
+
         mnbPrincipal.add(mnuRelatorios);
 
         mnuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/user.png"))); // NOI18N
@@ -359,10 +388,7 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuRelatoriosActionPerformed
 
     private void mnuRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuRelatoriosMouseClicked
-        RelatorioView relatorio = new RelatorioView();
-        pnlPrincipal.removeAll();
-        pnlPrincipal.add(relatorio);
-        pnlPrincipal.updateUI();
+        
     }//GEN-LAST:event_mnuRelatoriosMouseClicked
 
     private void mniConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniConsultaMouseClicked
@@ -372,12 +398,36 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniConsultaMouseClicked
 
+    private void jMenuItem4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem4MouseClicked
+        
+    }//GEN-LAST:event_jMenuItem4MouseClicked
+
+    private void jMenuItem5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseClicked
+        
+    }//GEN-LAST:event_jMenuItem5MouseClicked
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        RelatorioSalaView relatorio = new RelatorioSalaView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(relatorio);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        RelatorioDescricaoView relatorio = new RelatorioDescricaoView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(relatorio);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel foto;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;

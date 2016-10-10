@@ -41,12 +41,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import static javafx.scene.text.Font.font;
 import model.PatrimonioCompostoM;
+import static javafx.scene.text.Font.font;
 
 /**
  *
  * @author NUPSI-01
  */
-public class RelatorioView extends javax.swing.JInternalFrame {
+public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
     
     SalaM sala;
     SalaDAO salaDAO;
@@ -67,7 +68,7 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     Document doc;
     PatrimonioCompostoDAO patri;
 
-    public RelatorioView() {
+    public RelatorioDescricaoView() {
         salaDAO = new SalaDAO();
         listaSala = new ArrayList<>();
         pisoDAO = new PisoDAO();
@@ -86,27 +87,22 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         patri =  new PatrimonioCompostoDAO();
         initComponents();
         this.setVisible(true);
-        atualizaTabelaSala();
-        atualizaBoxUnidade();
+        atualizaTabela();
     }
     
-    public void atualizaTabelaSala() {
+    public void atualizaTabela() {
         try {
-            listaSala = salaDAO.listaTodos();
+            listaPatrimonio = patrimonioDAO.listaTodosDescricao();
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String dados[][] = new String[listaSala.size()][5];
+        String dados[][] = new String[listaPatrimonio.size()][1];
         int i = 0;
-        for (SalaM sal : listaSala) {
-            dados[i][0] = String.valueOf(sal.getId());
-            dados[i][1] = sal.getDescricao();
-            dados[i][2] = sal.getPiso().getDescricao();
-            dados[i][3] = sal.getPiso().getBloco().getDescricao();
-            dados[i][4] = sal.getPiso().getBloco().getUnidadeM().getNome();
+        for (PatrimonioM patri : listaPatrimonio) {
+            dados[i][0] = patri.getDescricao();
             i++;
         }
-        String tituloColuna[] = {"ID", "Nome", "Piso Pertencente", "Bloco Pertencente", "Unidade"};
+        String tituloColuna[] = {"Descrição"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
         tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
@@ -119,79 +115,45 @@ public class RelatorioView extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
-        tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(250);
-        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
-        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
-        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(100);
-
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tbeSala.setRowHeight(25);
-        tbeSala.updateUI();
-    }
-    
-    public void atualizaTabelaSelecionados(int id_piso, int id_bloco, int id_unidade) {
-        try {
-            listaSalaSelecionados = salaDAO.listaSelecionados(id_piso, id_bloco, id_unidade);
-        } catch (SQLException ex) {
-            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String dados[][] = new String[listaSalaSelecionados.size()][5];
-        int i = 0;
-        for (SalaM sal : listaSalaSelecionados) {
-            dados[i][0] = String.valueOf(sal.getId());
-            dados[i][1] = sal.getDescricao();
-            dados[i][2] = sal.getPiso().getDescricao();
-            dados[i][3] = sal.getPiso().getBloco().getDescricao();
-            dados[i][4] = sal.getPiso().getBloco().getUnidadeM().getNome();
-            i++;
-        }
-        String tituloColuna[] = {"ID", "Nome", "Piso Pertencente", "Bloco Pertencente", "Unidade"};
-        DefaultTableModel tabelaCliente = new DefaultTableModel();
-        tabelaCliente.setDataVector(dados, tituloColuna);
-        tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
-            };
-
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
-        tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
-        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
-        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(100);
         
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         tbeSala.setRowHeight(25);
         tbeSala.updateUI();
     }
+    
+     public void atualizaTabelaBusca() {
+        
+        String dados[][] = new String[listaPatrimonio.size()][1];
+        int i = 0;
+        for (PatrimonioM patri : listaPatrimonio) {
+            dados[i][0] = patri.getDescricao();
+            i++;
+        }
+        String tituloColuna[] = {"Descrição"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbeSala.setRowHeight(25);
+        tbeSala.updateUI();
+    }
+    
     
     
     
     //Atualiza o comboBox das unidades
-    public void atualizaBoxUnidade() {
-        cbxRelatorioUnidade.removeAllItems();
-        cbxRelatorioUnidade.addItem("--Selecione--");
-        try {
-            listaUnidade = unidadeDAO.listaTodos();
-        } catch (SQLException ex) {
-            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        String dados[][] = new String[listaUnidade.size()][5];
-        int i = 0;
-        for (UnidadeM uni : listaUnidade) {
-            cbxRelatorioUnidade.addItem(uni.getNome());
-        }
-
-    }
     
     
     
@@ -208,17 +170,9 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         tbeSala = new javax.swing.JTable();
         pnlRelatorio = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        cbxRelatorioUnidade = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        cbxRelatorioBloco = new javax.swing.JComboBox<>();
-        jLabel3 = new javax.swing.JLabel();
-        cbxRelatorioPiso = new javax.swing.JComboBox<>();
-        tfdIDSala = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        tfdDescricaoSala = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
         btnGerarPDF = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        txtDescricao = new javax.swing.JTextField();
 
         setClosable(true);
         setResizable(true);
@@ -256,53 +210,6 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Selecione a Unidade:");
-
-        cbxRelatorioUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxRelatorioUnidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxRelatorioUnidadeActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Selecione o Bloco:");
-
-        cbxRelatorioBloco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxRelatorioBloco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxRelatorioBlocoActionPerformed(evt);
-            }
-        });
-
-        jLabel3.setText("Selecione o Piso:");
-
-        cbxRelatorioPiso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxRelatorioPiso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxRelatorioPisoActionPerformed(evt);
-            }
-        });
-
-        tfdIDSala.setEditable(false);
-        tfdIDSala.setEnabled(false);
-        tfdIDSala.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdIDSalaActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("ID:");
-
-        tfdDescricaoSala.setEditable(false);
-        tfdDescricaoSala.setEnabled(false);
-        tfdDescricaoSala.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdDescricaoSalaActionPerformed(evt);
-            }
-        });
-
-        jLabel5.setText("Descrição:");
-
         btnGerarPDF.setText("Gerar PDF");
         btnGerarPDF.setEnabled(false);
         btnGerarPDF.addActionListener(new java.awt.event.ActionListener() {
@@ -311,59 +218,33 @@ public class RelatorioView extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel6.setText("Descrição:");
+
         javax.swing.GroupLayout pnlRelatorioLayout = new javax.swing.GroupLayout(pnlRelatorio);
         pnlRelatorio.setLayout(pnlRelatorioLayout);
         pnlRelatorioLayout.setHorizontalGroup(
             pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRelatorioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(cbxRelatorioUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(tfdIDSala, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(tfdDescricaoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlRelatorioLayout.createSequentialGroup()
-                            .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbxRelatorioBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel2))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(cbxRelatorioPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlRelatorioLayout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtDescricao)))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         pnlRelatorioLayout.setVerticalGroup(
             pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbxRelatorioUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(64, 64, 64)
                 .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxRelatorioBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbxRelatorioPiso, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel6)
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(39, 39, 39)
                 .addComponent(btnBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfdIDSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfdDescricaoSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(103, 103, 103)
                 .addComponent(btnGerarPDF)
                 .addContainerGap(43, Short.MAX_VALUE))
         );
@@ -388,106 +269,21 @@ public class RelatorioView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbxRelatorioUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRelatorioUnidadeActionPerformed
-        if (cbxRelatorioUnidade.getSelectedIndex() < 1) {
-            cbxRelatorioBloco.removeAllItems();
-            cbxRelatorioBloco.addItem("--Selecione--");
-
-        } else {
-            cbxRelatorioBloco.removeAllItems();
-            cbxRelatorioBloco.addItem("--Selecione--");
-            UnidadeM unid = new UnidadeM();
-            try {
-                unid = unidadeDAO.buscaNome(cbxRelatorioUnidade.getSelectedItem().toString());
-                listaBloco = blocoDAO.buscaUni(unid.getId());
-                for (BlocoM bloc : listaBloco) {
-                    cbxRelatorioBloco.addItem(bloc.getDescricao());
-                }
-                cbxRelatorioBloco.requestFocusInWindow();
-            } catch (SQLException ex) {
-                cbxRelatorioBloco.removeAllItems();
-                cbxRelatorioBloco.addItem("--Selecione--");
-            }
-        }
-    }//GEN-LAST:event_cbxRelatorioUnidadeActionPerformed
-
-    private void cbxRelatorioBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRelatorioBlocoActionPerformed
-       if (cbxRelatorioBloco.getSelectedIndex() < 1) {
-            cbxRelatorioPiso.removeAllItems();
-            cbxRelatorioPiso.addItem("--Selecione--");
-        } else {
-            cbxRelatorioPiso.removeAllItems();
-            cbxRelatorioPiso.addItem("--Selecione--");
-            BlocoM bloc = new BlocoM();
-
-            try {
-                bloc = blocoDAO.buscaNome(cbxRelatorioBloco.getSelectedItem().toString());
-                listaPiso = pisoDAO.buscaBloc(bloc.getId());
-                for (PisoM pis : listaPiso) {
-                    cbxRelatorioPiso.addItem(pis.getDescricao());
-                }
-                cbxRelatorioPiso.requestFocusInWindow();
-            } catch (SQLException ex) {
-                cbxRelatorioPiso.removeAllItems();
-                cbxRelatorioPiso.addItem("--Selecione--");
-            }
-        }
-    }//GEN-LAST:event_cbxRelatorioBlocoActionPerformed
-
     private void tbeSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSalaMouseClicked
         //limpaCamposSala();
         
-        tfdIDSala.setText(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
-        tfdDescricaoSala.setText(tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString());
-        cbxRelatorioUnidade.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 4).toString());
-        cbxRelatorioBloco.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 3).toString());
-        cbxRelatorioPiso.setSelectedItem(tbeSala.getValueAt(tbeSala.getSelectedRow(), 2).toString());
-        preparaSelecaoTabelaSala();
-        
     }//GEN-LAST:event_tbeSalaMouseClicked
 
-       public PisoM pegaSala() {
-        try {
-            return pisoDAO.buscaNome(cbxRelatorioPiso.getSelectedItem().toString());
-        } catch (SQLException ex) {
-            Logger.getLogger(BlocoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-        public void preparaSelecaoTabelaSala(){
-        btnGerarPDF.setEnabled(true);   
-    }
-       
     
     
     
-    //2 metodos sem importancia.
-    private void tfdIDSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdIDSalaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdIDSalaActionPerformed
-
-    private void tfdDescricaoSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdDescricaoSalaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdDescricaoSalaActionPerformed
-
-    private void cbxRelatorioPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxRelatorioPisoActionPerformed
-        // TODO add your handling code here:
-        tfdDescricaoSala.requestFocusInWindow();
-    }//GEN-LAST:event_cbxRelatorioPisoActionPerformed
-
+    
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if (cbxRelatorioUnidade.getSelectedIndex() == 0 || cbxRelatorioBloco.getSelectedIndex() == 0 || cbxRelatorioPiso.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);       
-        }else{
         try {
-            unidadeM = unidadeDAO.buscaNome(cbxRelatorioUnidade.getSelectedItem().toString());//pega a unidade selecionada
-            blocoM = blocoDAO.busca_id_unidade(unidadeM.getId(), cbxRelatorioBloco.getSelectedItem().toString());// todos os blocos da unidade de cima
-            pisoM = pisoDAO.busca_id_bloco(blocoM.getId(), cbxRelatorioPiso.getSelectedItem().toString());//todos os pisos da unidade de cima
+            listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
+            atualizaTabelaBusca();
         } catch (SQLException ex) {
-            Logger.getLogger(RelatorioView.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Selecione um piso para a busca.", "Erro", JOptionPane.WARNING_MESSAGE);
-        }
-        atualizaTabelaSelecionados(pisoM.getId(),blocoM.getId(),unidadeM.getId());
+            Logger.getLogger(RelatorioDescricaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -636,19 +432,11 @@ public class RelatorioView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGerarPDF;
-    private javax.swing.JComboBox<String> cbxRelatorioBloco;
-    private javax.swing.JComboBox<String> cbxRelatorioPiso;
-    private javax.swing.JComboBox<String> cbxRelatorioUnidade;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlRelatorio;
     private javax.swing.JTable tbeSala;
-    private javax.swing.JTextField tfdDescricaoSala;
-    private javax.swing.JTextField tfdIDSala;
+    private javax.swing.JTextField txtDescricao;
     // End of variables declaration//GEN-END:variables
 }
 
