@@ -212,6 +212,7 @@ public class LoginView extends javax.swing.JFrame {
                     tfdUsuario.requestFocus();
                 }else{
                     PrincipalView pv = new PrincipalView(usuario);
+                    
                     this.dispose();
                     
                 }

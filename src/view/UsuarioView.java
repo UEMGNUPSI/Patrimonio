@@ -370,7 +370,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
                 try {
                     usuarioDAO.alterar(usuario);
-                    JOptionPane.showMessageDialog(null, "Usuario atualizada com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Usuario atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
                     desativaCampos();
                     atualizaTabelaUsuario();

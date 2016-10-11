@@ -43,7 +43,7 @@ public class PrincipalView extends javax.swing.JFrame {
         URL url = this.getClass().getResource("/view/icones/icon.png");
         Image imagemTitulo = Toolkit.getDefaultToolkit().getImage(url);
         this.setIconImage(imagemTitulo);
-        mniMinhaConta.setEnabled(false);
+      //  mniMinhaConta.setEnabled(false);
         
         
     }
@@ -86,8 +86,8 @@ public class PrincipalView extends javax.swing.JFrame {
         mnuMovimentacoes = new javax.swing.JMenu();
         mniConsulta = new javax.swing.JMenu();
         mnuRelatorios = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        mniRelatorioSala = new javax.swing.JMenuItem();
+        mniRelatorioDescricao = new javax.swing.JMenuItem();
         mnuUsuario = new javax.swing.JMenu();
         mniMinhaConta = new javax.swing.JMenuItem();
         mniAdicionarUsuario = new javax.swing.JMenuItem();
@@ -228,31 +228,31 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         });
 
-        jMenuItem4.setText("Salas");
-        jMenuItem4.addMouseListener(new java.awt.event.MouseAdapter() {
+        mniRelatorioSala.setText("Salas");
+        mniRelatorioSala.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem4MouseClicked(evt);
+                mniRelatorioSalaMouseClicked(evt);
             }
         });
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+        mniRelatorioSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
+                mniRelatorioSalaActionPerformed(evt);
             }
         });
-        mnuRelatorios.add(jMenuItem4);
+        mnuRelatorios.add(mniRelatorioSala);
 
-        jMenuItem5.setText("Descrição");
-        jMenuItem5.addMouseListener(new java.awt.event.MouseAdapter() {
+        mniRelatorioDescricao.setText("Descrição");
+        mniRelatorioDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jMenuItem5MouseClicked(evt);
+                mniRelatorioDescricaoMouseClicked(evt);
             }
         });
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        mniRelatorioDescricao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                mniRelatorioDescricaoActionPerformed(evt);
             }
         });
-        mnuRelatorios.add(jMenuItem5);
+        mnuRelatorios.add(mniRelatorioDescricao);
 
         mnbPrincipal.add(mnuRelatorios);
 
@@ -260,6 +260,16 @@ public class PrincipalView extends javax.swing.JFrame {
         mnuUsuario.setText("Usuário");
 
         mniMinhaConta.setText("Minha Conta");
+        mniMinhaConta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniMinhaContaMouseClicked(evt);
+            }
+        });
+        mniMinhaConta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniMinhaContaActionPerformed(evt);
+            }
+        });
         mnuUsuario.add(mniMinhaConta);
 
         mniAdicionarUsuario.setText("Adicionar Usuário");
@@ -398,27 +408,38 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniConsultaMouseClicked
 
-    private void jMenuItem4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem4MouseClicked
+    private void mniRelatorioSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniRelatorioSalaMouseClicked
         
-    }//GEN-LAST:event_jMenuItem4MouseClicked
+    }//GEN-LAST:event_mniRelatorioSalaMouseClicked
 
-    private void jMenuItem5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem5MouseClicked
+    private void mniRelatorioDescricaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniRelatorioDescricaoMouseClicked
         
-    }//GEN-LAST:event_jMenuItem5MouseClicked
+    }//GEN-LAST:event_mniRelatorioDescricaoMouseClicked
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+    private void mniRelatorioSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRelatorioSalaActionPerformed
         RelatorioSalaView relatorio = new RelatorioSalaView();
         pnlPrincipal.removeAll();
         pnlPrincipal.add(relatorio);
         pnlPrincipal.updateUI();
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
+    }//GEN-LAST:event_mniRelatorioSalaActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void mniRelatorioDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRelatorioDescricaoActionPerformed
         RelatorioDescricaoView relatorio = new RelatorioDescricaoView();
         pnlPrincipal.removeAll();
         pnlPrincipal.add(relatorio);
         pnlPrincipal.updateUI();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_mniRelatorioDescricaoActionPerformed
+
+    private void mniMinhaContaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniMinhaContaMouseClicked
+        
+    }//GEN-LAST:event_mniMinhaContaMouseClicked
+
+    private void mniMinhaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMinhaContaActionPerformed
+        MinhaContaView minhaConta = new MinhaContaView(usuarioAtivo);
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(minhaConta);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mniMinhaContaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -426,8 +447,6 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
@@ -442,6 +461,8 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniMinhaConta;
     private javax.swing.JMenuItem mniOrgao;
     private javax.swing.JMenuItem mniPiso;
+    private javax.swing.JMenuItem mniRelatorioDescricao;
+    private javax.swing.JMenuItem mniRelatorioSala;
     private javax.swing.JMenuItem mniSala;
     private javax.swing.JMenuItem mniTipoSubtipo;
     private javax.swing.JMenuItem mniUnidade;
