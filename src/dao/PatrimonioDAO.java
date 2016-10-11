@@ -221,7 +221,7 @@ public class PatrimonioDAO {
      
       public List<PatrimonioM> listaTodosDescricao() throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select * from patrimonio group by descricao";
+        sql = "select count(*) quantidade, descricao from patrimonio group by descricao";
         pst = Conexao.getInstance().prepareStatement(sql);
         ResultSet rs = pst.executeQuery();
         SubTipoDAO subtipo = new SubTipoDAO();
@@ -230,10 +230,18 @@ public class PatrimonioDAO {
         SalaDAO sala = new SalaDAO();
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
-           listaPat.add(new PatrimonioM(rs.getInt("id"),
+           listaPat.add(new PatrimonioM(/*rs.getInt("id"),*/
                    rs.getString("descricao"),
-                   rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
+                   /*rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),
+                   rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")),
+                   rs.getBoolean(("kit")),*/
+                   rs.getInt("quantidade")
+           ));
         }
         pst.close();
         return listaPat;
@@ -242,7 +250,7 @@ public class PatrimonioDAO {
       public List<PatrimonioM> buscaDescricaoGroup(String comparador) throws SQLException{
         String aux = "%"+comparador+"%";
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select * from patrimonio where descricao like ? group by descricao";
+        sql = "select count(*) quantidade, descricao from patrimonio where descricao like ? group by descricao";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setString(1, aux);
         ResultSet rs = pst.executeQuery();
@@ -252,6 +260,34 @@ public class PatrimonioDAO {
         SalaDAO sala = new SalaDAO();
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
+           listaPat.add(new PatrimonioM(/*rs.getInt("id"),*/
+                   rs.getString("descricao"),
+                   /*rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),
+                   rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")),
+                   rs.getBoolean(("kit")),*/
+                   rs.getInt("quantidade")
+           ));
+        }
+        pst.close();
+        return listaPat;
+     }
+     public List<PatrimonioM> listaTodosPorDescricao(String comparador) throws SQLException{
+        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
+        sql = "select * from patrimonio where descricao = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+         pst.setString(1, comparador);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
                    rs.getString("codigo"),
@@ -259,7 +295,7 @@ public class PatrimonioDAO {
         }
         pst.close();
         return listaPat;
-     }
+     } 
      
      
 }

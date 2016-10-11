@@ -35,6 +35,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import dao.PatrimonioCompostoDAO;
 import java.awt.Desktop;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -88,6 +89,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
         initComponents();
         this.setVisible(true);
         atualizaTabela();
+        lblDescricao.setText("");
     }
     
     public void atualizaTabela() {
@@ -96,16 +98,18 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String dados[][] = new String[listaPatrimonio.size()][1];
+        
+        String dados[][] = new String[listaPatrimonio.size()][2];
         int i = 0;
         for (PatrimonioM patri : listaPatrimonio) {
             dados[i][0] = patri.getDescricao();
+            dados[i][1] = ""+patri.getQuantidade();
             i++;
         }
-        String tituloColuna[] = {"Descrição"};
+        String tituloColuna[] = {"Descricao","Quantidade"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
-        tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
+        tbeDescricao.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false
             };
@@ -115,39 +119,54 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
+        tbeDescricao.getColumnModel().getColumn(0).setPreferredWidth(400);
+        tbeDescricao.getColumnModel().getColumn(1).setPreferredWidth(40);
         
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.setRowHeight(25);
-        tbeSala.updateUI();
+        tbeDescricao.setRowHeight(25);
+        tbeDescricao.updateUI();
     }
     
      public void atualizaTabelaBusca() {
-        
-        String dados[][] = new String[listaPatrimonio.size()][1];
-        int i = 0;
-        for (PatrimonioM patri : listaPatrimonio) {
-            dados[i][0] = patri.getDescricao();
-            i++;
+        try {
+            listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioDescricaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String tituloColuna[] = {"Descrição"};
-        DefaultTableModel tabelaCliente = new DefaultTableModel();
-        tabelaCliente.setDataVector(dados, tituloColuna);
-        tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false
-            };
-
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
         
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.setRowHeight(25);
-        tbeSala.updateUI();
+        String dados[][] = new String[listaPatrimonio.size()][2];
+        int i = 0;
+        if(listaPatrimonio.size() == 0){
+            JOptionPane.showMessageDialog(null, "Nenhum valor encontrado");
+        }else{
+            for (PatrimonioM patri : listaPatrimonio) {
+                dados[i][0] = patri.getDescricao();
+                dados[i][1] = ""+patri.getQuantidade();
+                i++;
+            }
+            String tituloColuna[] = {"Descrição","Quantidade"};
+            DefaultTableModel tabelaCliente = new DefaultTableModel();
+            tabelaCliente.setDataVector(dados, tituloColuna);
+            tbeDescricao.setModel(new DefaultTableModel(dados, tituloColuna) {
+                boolean[] canEdit = new boolean[]{
+                    false, false, false, false, false
+                };
+
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex) {
+                    return canEdit[columnIndex];
+                }
+            });
+            
+            tbeDescricao.getColumnModel().getColumn(0).setPreferredWidth(400);
+            tbeDescricao.getColumnModel().getColumn(1).setPreferredWidth(40);
+            
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            tbeDescricao.setRowHeight(25);
+            tbeDescricao.updateUI();
+        }
     }
     
     
@@ -167,17 +186,21 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbeSala = new javax.swing.JTable();
+        tbeDescricao = new javax.swing.JTable();
         pnlRelatorio = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
-        btnGerarPDF = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        lblDescricao = new javax.swing.JLabel();
+        btnGerarPDF = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        lblQuant = new javax.swing.JLabel();
 
         setClosable(true);
         setResizable(true);
 
-        tbeSala.setModel(new javax.swing.table.DefaultTableModel(
+        tbeDescricao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -185,23 +208,30 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                 {null, null}
             },
             new String [] {
-                "Descrição", "ID da Sala"
+                "Descrição", "Quantidade"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tbeSala.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbeDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbeSalaMouseClicked(evt);
+                tbeDescricaoMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tbeSala);
+        jScrollPane1.setViewportView(tbeDescricao);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +239,24 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
+        btnBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnBuscarKeyPressed(evt);
+            }
+        });
+
+        jLabel6.setText("Descrição:");
+
+        txtDescricao.setNextFocusableComponent(btnBuscar);
+        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDescricaoKeyPressed(evt);
+            }
+        });
+
+        jLabel1.setText("Selecionado:");
+
+        lblDescricao.setText("jLabel2");
 
         btnGerarPDF.setText("Gerar PDF");
         btnGerarPDF.setEnabled(false);
@@ -218,7 +266,9 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Descrição:");
+        jLabel2.setText("Quantidade:");
+
+        lblQuant.setText("jLabel2");
 
         javax.swing.GroupLayout pnlRelatorioLayout = new javax.swing.GroupLayout(pnlRelatorio);
         pnlRelatorio.setLayout(pnlRelatorioLayout);
@@ -226,27 +276,48 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRelatorioLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtDescricao)))
-                .addContainerGap(23, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlRelatorioLayout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtDescricao))))
+                    .addGroup(pnlRelatorioLayout.createSequentialGroup()
+                        .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlRelatorioLayout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblDescricao))
+                            .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlRelatorioLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblQuant)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         pnlRelatorioLayout.setVerticalGroup(
             pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addContainerGap()
                 .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
+                .addGap(27, 27, 27)
                 .addComponent(btnBuscar)
-                .addGap(103, 103, 103)
+                .addGap(27, 27, 27)
+                .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lblDescricao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lblQuant))
+                .addGap(28, 28, 28)
                 .addComponent(btnGerarPDF)
-                .addContainerGap(43, Short.MAX_VALUE))
+                .addContainerGap(375, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -255,35 +326,36 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(138, 317, Short.MAX_VALUE))
+                .addGap(0, 63, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tbeSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSalaMouseClicked
-        //limpaCamposSala();
+    private void tbeDescricaoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeDescricaoMouseClicked
+        btnGerarPDF.setEnabled(true);
+        lblDescricao.setText(tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString());
+        lblQuant.setText(tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 1).toString());
         
-    }//GEN-LAST:event_tbeSalaMouseClicked
+    }//GEN-LAST:event_tbeDescricaoMouseClicked
 
     
     
     
     
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        try {
-            listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
-            atualizaTabelaBusca();
-        } catch (SQLException ex) {
-            Logger.getLogger(RelatorioDescricaoView.class.getName()).log(Level.SEVERE, null, ex);
+        if(txtDescricao.getText().equals("")){
+            JOptionPane.showMessageDialog(null, "Digite uma chave para a busca!");
+        }else{
+        atualizaTabelaBusca();
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -300,14 +372,42 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        btnGerarPDF.setEnabled(false);
     }//GEN-LAST:event_btnGerarPDFActionPerformed
+
+    private void btnBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarKeyPressed
+    if (evt.getKeyCode() == KeyEvent.VK_ENTER){  
+         try {
+            listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
+            atualizaTabelaBusca();
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioDescricaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    }//GEN-LAST:event_btnBuscarKeyPressed
+
+    private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){  
+         try {
+            listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
+            atualizaTabelaBusca();
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioDescricaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    }//GEN-LAST:event_txtDescricaoKeyPressed
 
     public void gerarDocumento() throws FileNotFoundException{
         try {
-            int numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
-            listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
+            //int numeroSala = Integer.parseInt(tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString());
+            //listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
+            
+            String descricao = tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString();
+            
+            listaPatrimonio = patrimonioDAO.listaTodosPorDescricao(descricao);
+            
             doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
-            String caminho = "C:/Relatorios/Relatorio" + tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString() +  ".pdf";
+            String caminho = "C:/Relatorios/Relatorio" + tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString() +  ".pdf";
             PdfWriter.getInstance(doc, new FileOutputStream(caminho));
             doc.open();
             
@@ -322,9 +422,10 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             titulo1.setAlignment(Element.ALIGN_CENTER);
             titulo1.setSpacingAfter(10);
 
-            Paragraph titulo2 = new Paragraph("" + tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString() ,f2);
+            Paragraph titulo2 = new Paragraph("" + tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString() ,f2);
             titulo2.setAlignment(Element.ALIGN_CENTER);
             titulo2.setSpacingAfter(10);
+            
             
             
             doc.add(titulo1);
@@ -357,7 +458,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
 
             for (PatrimonioM patrimonio : listaPatrimonio) {
                 
-                
+               
                 if(patrimonio.getKit()){
                     listaComposto = patri.listaTodosExistentes(patrimonio);
                     for(PatrimonioCompostoM composto : listaComposto){
@@ -387,6 +488,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                         tabela.addCell(col4);
                     }
                 }else{
+
                     Paragraph p1 = new Paragraph(patrimonio.getCodigo(),f5);
                     p1.setAlignment(Element.ALIGN_JUSTIFIED);
                     PdfPCell col1 = new PdfPCell(p1);
@@ -432,10 +534,14 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGerarPDF;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblDescricao;
+    private javax.swing.JLabel lblQuant;
     private javax.swing.JPanel pnlRelatorio;
-    private javax.swing.JTable tbeSala;
+    private javax.swing.JTable tbeDescricao;
     private javax.swing.JTextField txtDescricao;
     // End of variables declaration//GEN-END:variables
 }

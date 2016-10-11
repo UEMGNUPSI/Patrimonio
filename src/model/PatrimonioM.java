@@ -20,6 +20,7 @@ public class PatrimonioM {
     private String notaFiscal;
     private OrgaoM entidade;
     private Boolean kit;
+    private Integer quantidade;
 
     public PatrimonioM() {
         
@@ -36,6 +37,23 @@ public class PatrimonioM {
         this.notaFiscal = notaFiscal;
         this.entidade = entidade;
         this.kit = kit;
+    }
+    public PatrimonioM(Integer id, String descricao,String codigo,SubTipoM subTipo, GrauConservacaoM grau_conservacao, StatusM status, SalaM sala, String notaFiscal, OrgaoM entidade, Boolean kit, Integer quantidade) {        
+        this.id = id;
+        this.codigo = codigo;
+        this.subTipo = subTipo;
+        this.descricao = descricao;
+        this.grau_conservacao = grau_conservacao;
+        this.status = status;
+        this.sala = sala;
+        this.notaFiscal = notaFiscal;
+        this.entidade = entidade;
+        this.kit = kit;
+        this.quantidade = quantidade;
+    }
+    public PatrimonioM(String descricao, Integer quantidade){
+        this.descricao = descricao;
+        this.quantidade = quantidade;
     }
 
     public Integer getId() {
@@ -116,5 +134,12 @@ public class PatrimonioM {
 
     public void setKit(Boolean kit) {
         this.kit = kit;
+    }
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 }
