@@ -90,6 +90,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
         this.setVisible(true);
         atualizaTabela();
         lblDescricao.setText("");
+        lblQuant.setText("");
     }
     
     public void atualizaTabela() {
