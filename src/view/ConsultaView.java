@@ -454,32 +454,48 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){
                     try{
                         listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(txtCodigo.getText()));
+                            
+                        if(listaPatrimonio.size() < 1)
+                            JOptionPane.showMessageDialog(null, "Sala não Encontrada");
+                        
                     }catch(java.lang.NumberFormatException ex){
                         JOptionPane.showMessageDialog(null, "Digite caracteres válidos!\n(Somente Numeros)");
                     }
+                    
 
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
                     listaPatrimonio = patrimonioDAO.buscaPatrimonio(txtCodigo.getText());
+                    
+                    if(listaPatrimonio.size() < 1)
+                           JOptionPane.showMessageDialog(null, "Código não Encontrado");
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
                     listaPatrimonio = patrimonioDAO.buscaDescricao(txtCodigo.getText());
+                    
+                    if(listaPatrimonio.size() < 1)
+                           JOptionPane.showMessageDialog(null, "Descrição não Encontrada");
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
-                    orgao = orgaoDAO.buscaNome(txtCodigo.getText());
-                    listaPatrimonio = patrimonioDAO.buscaOrgao(orgao.getId());
+                    try{
+                        orgao = orgaoDAO.buscaNome(txtCodigo.getText());   
+                    
+                        listaPatrimonio = patrimonioDAO.buscaOrgao(orgao.getId());
+                    }catch(java.lang.NullPointerException ex){
+                        JOptionPane.showMessageDialog(null, "Digite um orgão valido!" );
+                    }
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
                     conservacao = conservacaoDAO.buscaNome(txtCodigo.getText());
                     listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());
+                    
+                    if(listaPatrimonio.size() < 1)
+                           JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
                 }
 
-                if(listaPatrimonio.size() > 0){
+                
                     atualizaTabelaBusca();
-                }else{
-                    JOptionPane.showMessageDialog(null, "Busca não encontrou resultados");
-
-                }
+                
 
             } catch (SQLException ex) {
                 Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);

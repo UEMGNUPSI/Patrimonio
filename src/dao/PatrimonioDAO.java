@@ -192,7 +192,13 @@ public class PatrimonioDAO {
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
                    rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),
+                   rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")), 
+                   rs.getBoolean(("kit"))));
         }
         pst.close();
         return listaPat;
