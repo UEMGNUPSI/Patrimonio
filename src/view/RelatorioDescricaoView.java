@@ -362,7 +362,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
 
     private void btnGerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarPDFActionPerformed
         String nomediretorio = null;
-        String nomepasta = "Relatorios"; // Informe o nome da pasta que armazenará o relatório
+        String nomepasta = "Relatorios Descricao"; // Informe o nome da pasta que armazenará o relatório
         String separador = java.io.File.separator;
         try {
             nomediretorio = "C:" + separador + nomepasta;
@@ -400,22 +400,20 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
 
     public void gerarDocumento() throws FileNotFoundException{
         try {
-            //int numeroSala = Integer.parseInt(tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString());
-            //listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
             
             String descricao = tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString();
             
             listaPatrimonio = patrimonioDAO.listaTodosPorDescricao(descricao);
             
             doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
-            String caminho = "C:/Relatorios/Relatorio" + tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString() +  ".pdf";
+            String caminho = "C:/Relatorios/Relatorio " + tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString() +  ".pdf";
             PdfWriter.getInstance(doc, new FileOutputStream(caminho));
             doc.open();
             
             
             Font f1 = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
             Font f2 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-            Font f3 = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+            Font f3 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
             Font f4 = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
             Font f5 = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 
@@ -440,7 +438,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             cabecalho1.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
             cabecalho1.setBorder(0);
 
-            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Descrição",f3));
+            PdfPCell cabecalho2 = new PdfPCell(new Paragraph("Sala",f3));
             cabecalho2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
             cabecalho2.setBorder(0);
             
@@ -468,7 +466,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                         PdfPCell col1 = new PdfPCell(p1);
                         col1.setBorder(0);
 
-                        Paragraph p2 = new Paragraph(composto.getDescricao(),f5);
+                        Paragraph p2 = new Paragraph(composto.getPatrimonio().getSala().getDescricao(),f5);
                         p2.setAlignment(Element.ALIGN_JUSTIFIED);
                         PdfPCell col2 = new PdfPCell(p2);
                         col2.setBorder(0);
@@ -495,7 +493,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                     PdfPCell col1 = new PdfPCell(p1);
                     col1.setBorder(0);
 
-                    Paragraph p2 = new Paragraph(patrimonio.getDescricao(),f5);
+                    Paragraph p2 = new Paragraph(patrimonio.getSala().getDescricao(),f5);
                     p2.setAlignment(Element.ALIGN_JUSTIFIED);
                     PdfPCell col2 = new PdfPCell(p2);
                     col2.setBorder(0);
@@ -520,7 +518,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             doc.add(tabela);
 
             doc.close();
-            JOptionPane.showMessageDialog(null, "Relatório salvo com sucesso em C:/Relatorios/Relatorio");
+            JOptionPane.showMessageDialog(null, "Relatório salvo com sucesso em C:/Relatorios Decricao/");
             Desktop.getDesktop().open(new File(caminho));
         } catch (DocumentException e) {
             e.printStackTrace();
