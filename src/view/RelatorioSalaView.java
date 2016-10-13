@@ -494,7 +494,7 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
 
     private void btnGerarPDFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarPDFActionPerformed
         String nomediretorio = null;
-        String nomepasta = "Relatorios"; // Informe o nome da pasta que armazenará o relatório
+        String nomepasta = "Relatorios Sala"; // Informe o nome da pasta que armazenará o relatório
         String separador = java.io.File.separator;
         try {
             nomediretorio = "C:" + separador + nomepasta;
@@ -512,14 +512,14 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
             int numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
             listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
             doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
-            String caminho = "C:/Relatorios/Relatorio" + tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString() +  ".pdf";
+            String caminho = "C:/Relatorios/Relatorio " + tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString() +  ".pdf";
             PdfWriter.getInstance(doc, new FileOutputStream(caminho));
             doc.open();
             
             
             Font f1 = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
             Font f2 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-            Font f3 = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+            Font f3 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
             Font f4 = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
             Font f5 = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 
@@ -622,7 +622,7 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
             doc.add(tabela);
 
             doc.close();
-            JOptionPane.showMessageDialog(null, "Relatório salvo com sucesso em C:/Relatorios/Relatorio");
+            JOptionPane.showMessageDialog(null, "Relatório salvo com sucesso em C:/Relatorios Sala/");
             Desktop.getDesktop().open(new File(caminho));
         } catch (DocumentException e) {
             e.printStackTrace();
