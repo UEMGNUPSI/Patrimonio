@@ -519,7 +519,7 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
             
             Font f1 = new Font(Font.FontFamily.HELVETICA, 14, Font.BOLD);
             Font f2 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
-            Font f3 = new Font(Font.FontFamily.HELVETICA, 12, Font.NORMAL);
+            Font f3 = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
             Font f4 = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
             Font f5 = new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL);
 
