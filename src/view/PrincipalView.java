@@ -204,6 +204,11 @@ public class PrincipalView extends javax.swing.JFrame {
 
         mnuMovimentacoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/movimentacao.fw.png"))); // NOI18N
         mnuMovimentacoes.setText("Movimentações");
+        mnuMovimentacoes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuMovimentacoesMouseClicked(evt);
+            }
+        });
         mnbPrincipal.add(mnuMovimentacoes);
 
         mniConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/lupa.png"))); // NOI18N
@@ -440,6 +445,13 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.add(minhaConta);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniMinhaContaActionPerformed
+
+    private void mnuMovimentacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuMovimentacoesMouseClicked
+        MovimentacaoView movimentacao = new MovimentacaoView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(movimentacao);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mnuMovimentacoesMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

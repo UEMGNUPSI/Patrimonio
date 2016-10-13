@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.PatrimonioM;
+import model.SalaM;
 
 public class PatrimonioDAO {
     PreparedStatement pst;
@@ -297,11 +298,50 @@ public class PatrimonioDAO {
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
                    rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),
+                   rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")),
+                   rs.getBoolean(("kit"))));
         }
         pst.close();
         return listaPat;
      } 
+     public List<PatrimonioM> listaSelecionados(int id_sala) throws SQLException{
+       
+         List<PatrimonioM> listaPatri = new ArrayList<PatrimonioM>();
+        
+        sql = "select * from patrimonio where id_sala = ? order by id_sala";
+       
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id_sala);
+        //pst.setInt(2, id_bloco);
+        //pst.setInt(3, id_unidade);
+        ResultSet rs = pst.executeQuery();
+        //PisoDAO piso = new PisoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        while(rs.next()){
+           listaPatri.add(new PatrimonioM(rs.getInt("id"),
+                   rs.getString("codigo"),
+                   rs.getNString("descricao"),
+                   grau.busca(rs.getInt("id_grau_conservacao"))));
+        }
+        pst.close();
+        return listaPatri;
+     }
      
+     public void movimentar( List<PatrimonioM> lista, int id_sala) throws SQLException{
+         for(int i = 0; i < lista.size(); i++){
+             sql = "update Patrimonio set id_sala = ? where id = ?";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setInt(1, id_sala);
+            pst.setInt(2, lista.get(i).getId());
+            pst.execute();
+            pst.close();
+         }
+         
+     }
      
 }

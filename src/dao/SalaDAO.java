@@ -87,6 +87,20 @@ public class SalaDAO {
             pst.close();
             return sala;
      }
+         public SalaM buscaID(int id_piso, String nome) throws SQLException{
+           sql = "select * from Sala where id_piso = ? and nome = ?";
+           pst = Conexao.getInstance().prepareStatement(sql);
+           pst.setInt(1, id_piso);
+           pst.setString(2, nome);
+           SalaM sala = null;
+           PisoDAO piso = new PisoDAO();
+           ResultSet rs = pst.executeQuery();
+           while(rs.next()){
+               sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")));
+            }
+            pst.close();
+            return sala;
+     }
         
         public List<SalaM> buscaPis(int id) throws SQLException{
          List<SalaM> listaSala = new ArrayList<>();
