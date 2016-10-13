@@ -452,6 +452,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
 
             try {
                 if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){
+                    listaPatrimonio = null;
                     try{
                         listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(txtCodigo.getText()));
                             
@@ -465,18 +466,21 @@ public class ConsultaView extends javax.swing.JInternalFrame {
 
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
+                    listaPatrimonio = null;
                     listaPatrimonio = patrimonioDAO.buscaPatrimonio(txtCodigo.getText());
                     
                     if(listaPatrimonio.size() < 1)
                            JOptionPane.showMessageDialog(null, "Código não Encontrado");
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
+                    listaPatrimonio = null;
                     listaPatrimonio = patrimonioDAO.buscaDescricao(txtCodigo.getText());
                     
                     if(listaPatrimonio.size() < 1)
                            JOptionPane.showMessageDialog(null, "Descrição não Encontrada");
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
+                    listaPatrimonio = null;
                     try{
                         orgao = orgaoDAO.buscaNome(txtCodigo.getText());   
                     
@@ -486,8 +490,13 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                     }
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
-                    conservacao = conservacaoDAO.buscaNome(txtCodigo.getText());
-                    listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());
+                    listaPatrimonio = null;
+                    try{
+                            conservacao = conservacaoDAO.buscaNome(txtCodigo.getText());
+                            listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());  
+                     }catch(java.lang.NullPointerException ex){
+                        JOptionPane.showMessageDialog(null, "Digite uma Conservação valida!" );
+                    }
                     
                     if(listaPatrimonio.size() < 1)
                            JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
