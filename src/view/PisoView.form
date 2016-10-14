@@ -37,7 +37,7 @@
           <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Component id="pnlPiso" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="210" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="142" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,25 +91,10 @@
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="cbxUnidade1" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="lblSelecUnidade1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="cbxBloco1" max="32767" attributes="0"/>
-                              <Component id="lblSelecBloco1" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
                       <Component id="tfdDescricaoPiso" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblSelecUnidade1" min="-2" max="-2" attributes="0"/>
                               <Component id="tfdIDPiso" alignment="0" min="-2" pref="50" max="-2" attributes="0"/>
                               <Component id="lblDescricaoPiso" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
@@ -124,6 +109,11 @@
                                   <Component id="btnExcluirPiso" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="lblIDPiso" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblSelecBloco1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="cbxBloco1" alignment="0" pref="230" max="32767" attributes="0"/>
+                                  <Component id="cbxUnidade1" alignment="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -136,16 +126,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lblSelecBloco1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblSelecUnidade1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="lblSelecUnidade1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="cbxUnidade1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                      <Component id="cbxBloco1" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <Component id="cbxUnidade1" min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="lblSelecBloco1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                  <Component id="cbxBloco1" min="-2" pref="27" max="-2" attributes="0"/>
+                  <EmptySpace pref="11" max="32767" attributes="0"/>
                   <Component id="lblIDPiso" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="tfdIDPiso" min="-2" max="-2" attributes="0"/>
@@ -161,7 +149,7 @@
                       <Component id="btnCancelarPiso" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnExcluirPiso" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
