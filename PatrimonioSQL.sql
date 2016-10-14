@@ -133,9 +133,7 @@ CREATE TABLE IF NOT EXISTS `Usuario`(
   PRIMARY KEY (`id`)
 );
 
-insert into Usuario values (0,'root','root',true,'alguem','10-11111','email');
-insert into Usuario values (0,'user','user',false,'alguem','10-11111','email');
-
+insert into Usuario values (0,'root','root',true,'Administrador','adm','adm');
 
 CREATE TABLE IF NOT EXISTS `Patrimonio_composto`(
  `id` INT NOT NULL AUTO_INCREMENT,
