@@ -121,10 +121,10 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setPreferredSize(new java.awt.Dimension(1280, 680));
+        setPreferredSize(new java.awt.Dimension(1130, 645));
         setRequestFocusEnabled(false);
 
-        jPanel1.setPreferredSize(new java.awt.Dimension(1280, 680));
+        jPanel1.setPreferredSize(new java.awt.Dimension(1130, 645));
         jPanel1.setRequestFocusEnabled(false);
 
         tbeDireita.setModel(new javax.swing.table.DefaultTableModel(
@@ -309,7 +309,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                             .addComponent(cbxBlocoDestino, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbxUnidadeDestino, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -368,7 +368,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                         .addComponent(btnCancelarMovimentacao))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 81, Short.MAX_VALUE))
+                .addGap(0, 46, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
