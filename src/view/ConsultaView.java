@@ -104,7 +104,6 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         cbxFiltro.addItem("Descrição");
         cbxFiltro.addItem("Orgão");
         cbxFiltro.addItem("Conservação");
-        cbxFiltro.addItem("Tipo");
         cbxFiltro.addItem("Subtipo");
     }
 
@@ -514,14 +513,6 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                     
                     if(listaPatrimonio.size() < 1)
                            JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Tipo")){
-                    try{
-                        tipo = tipoDAO.buscaNome(txtCodigo.getText());
-                        listaPatrimonio = patrimonioDAO.buscaTipo(tipo.getId());  
-                     }catch(java.lang.NullPointerException ex){
-                        JOptionPane.showMessageDialog(null, "Digite um Tipo valido!" );
-                    }
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Subtipo")){
                     try{

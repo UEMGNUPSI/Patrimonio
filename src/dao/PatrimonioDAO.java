@@ -344,35 +344,6 @@ public class PatrimonioDAO {
          
      }
      
-     public List<PatrimonioM> buscaTipo(int comparador) throws SQLException{
-        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select * from patrimonio where id_tipo = ?";
-        pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setInt(1, comparador);
-        ResultSet rs = pst.executeQuery();
-        SubTipoDAO subtipo = new SubTipoDAO();
-        GrauConservacaoDAO grau = new GrauConservacaoDAO();
-        StatusDAO status = new StatusDAO();
-        SalaDAO sala = new SalaDAO();
-        OrgaoDAO entidade = new OrgaoDAO();
-        while(rs.next()){
-           listaPat.add(new PatrimonioM(
-                   rs.getInt("id"),
-                   rs.getString("descricao"),
-                   rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),
-                   grau.busca(rs.getInt("id_grau_conservacao")),
-                   status.busca(rs.getInt("id_status")),
-                   sala.busca(rs.getInt("id_sala")),
-                   rs.getString("nota_fiscal"),
-                   entidade.busca(rs.getInt("id_entidade")),
-                   rs.getBoolean(("kit"))
-           ));
-        }
-        pst.close();
-        return listaPat;
-     }
-     
      public List<PatrimonioM> buscaSubtipo(int comparador) throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
         sql = "select * from patrimonio where id_subtipo = ?";
