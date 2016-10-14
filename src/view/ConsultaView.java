@@ -10,6 +10,8 @@ import dao.GrauConservacaoDAO;
 import dao.OrgaoDAO;
 import dao.PatrimonioDAO;
 import dao.PisoDAO;
+import dao.SubTipoDAO;
+import dao.TipoDAO;
 import dao.UnidadeDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ import model.OrgaoM;
 import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
+import model.SubTipoM;
+import model.TipoM;
 import model.UnidadeM;
 
 /**
@@ -52,6 +56,10 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     OrgaoDAO orgaoDAO;
     GrauConservacaoM conservacao;
     GrauConservacaoDAO conservacaoDAO;
+    TipoM tipo;
+    TipoDAO tipoDAO;
+    SubTipoM subtipo;
+    SubTipoDAO subtipoDAO;
     
     
     PatrimonioDAO patrimonioDAO;
@@ -81,6 +89,10 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         pisoDAO = new PisoDAO();
         orgaoDAO = new OrgaoDAO();
         conservacaoDAO = new GrauConservacaoDAO();
+        tipoDAO = new TipoDAO();
+        tipo = new TipoM();
+        subtipo = new SubTipoM();
+        subtipoDAO = new SubTipoDAO();
         
     }
     
@@ -92,6 +104,8 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         cbxFiltro.addItem("Descrição");
         cbxFiltro.addItem("Orgão");
         cbxFiltro.addItem("Conservação");
+        cbxFiltro.addItem("Tipo");
+        cbxFiltro.addItem("Subtipo");
     }
 
     /**
@@ -500,6 +514,22 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                     
                     if(listaPatrimonio.size() < 1)
                            JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Tipo")){
+                    try{
+                        tipo = tipoDAO.buscaNome(txtCodigo.getText());
+                        listaPatrimonio = patrimonioDAO.buscaConservacao(tipo.getId());  
+                     }catch(java.lang.NullPointerException ex){
+                        JOptionPane.showMessageDialog(null, "Digite um Tipo valido!" );
+                    }
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Subtipo")){
+                    try{
+                        subtipo = subtipoDAO.buscaNome(txtCodigo.getText());
+                        listaPatrimonio = patrimonioDAO.buscaSubtipo(subtipo.getId());  
+                     }catch(java.lang.NullPointerException ex){
+                        JOptionPane.showMessageDialog(null, "Digite um SubTipo valido!" );
+                    }
                 }
 
                 
