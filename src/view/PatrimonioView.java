@@ -942,6 +942,16 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
             patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
             patrimonio.setNotaFiscal(tfdNotaFiscalPatrimonio.getText());
+            try {
+                patrimonio.setGrau_conservacao(grauDAO.buscaNome(cbxConservacao.getSelectedItem().toString()));
+            } catch (SQLException ex) {
+                Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                patrimonio.setStatus(statusDAO.buscaNome(cbxStatus.getSelectedItem().toString()));
+            } catch (SQLException ex) {
+                Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+            }
             patrimonio.setKit(ckxPatrimonioComposto.isSelected());
             
             try{

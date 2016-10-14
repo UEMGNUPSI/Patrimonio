@@ -478,6 +478,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         try {
             patrimonio = patrimonioDAO.busca(Integer.parseInt(tbeEsquerda.getValueAt(tbeEsquerda.getSelectedRow(), 0).toString()));
             listaMovimentacao.add(patrimonio);
+            
             for(int i = 0; i < listaPatrimonioSelecionados.size(); i++)
             {
                 PatrimonioM p = listaPatrimonioSelecionados.get(i);
@@ -743,7 +744,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
     }
     
     public void atualizaTabelaSelecionados() {
-        
         String dados[][] = new String[listaPatrimonioSelecionados.size()][4];
         int i = 0;
         for (PatrimonioM patri : listaPatrimonioSelecionados) {
