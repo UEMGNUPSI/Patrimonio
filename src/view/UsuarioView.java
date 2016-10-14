@@ -279,19 +279,30 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
         try {
             listaUsuario = usuarioDAO.listaTodos();
+            
+            for(int i = 0; i < listaUsuario.size(); i++)
+            {
+                UsuarioM usuario = listaUsuario.get(i);
+
+                if(usuario.getUsuario().equals("root"));
+                {
+                    listaUsuario.remove(usuario);
+                    break;
+                }
+            }
         } catch (SQLException ex){
             Logger.getLogger(UsuarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String dados[][] = new String[listaUsuario.size()][7];
+        String dados[][] = new String[listaUsuario.size()][6];
         int i = 0;
         for (UsuarioM usuario1 : listaUsuario) {
-            dados[i][0] = String.valueOf(usuario1.getId());
-            dados[i][1] = usuario1.getUsuario();
-            dados[i][2] = ""+usuario1.isAdmin();
-            dados[i][3] = usuario1.getNome();
-            dados[i][4] = usuario1.getMasp();
-            dados[i][5] = usuario1.getContato();
-            i++;
+                    dados[i][0] = String.valueOf(usuario1.getId());
+                    dados[i][1] = usuario1.getUsuario();
+                    dados[i][2] = ""+usuario1.isAdmin();
+                    dados[i][3] = usuario1.getNome();
+                    dados[i][4] = usuario1.getMasp();
+                    dados[i][5] = usuario1.getContato();
+                    i++;
         }
         String tituloColuna[] = {"ID", "Usuario", "Admin", "Nome", "MASP", "Contato"};
         
