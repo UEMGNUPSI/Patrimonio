@@ -456,6 +456,9 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             cbxSala.addItem("--Selecione--");
             //UnidadeM unid = new UnidadeM();
             try {
+                
+                unidM = unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());//pega a unidade selecionada
+                blocoM = blocoDAO.busca_id_unidade(unidM.getId(), cbxBloco.getSelectedItem().toString());// todos os blocos da unidade de cima
                 pisoM = pisoDAO.buscaNome(cbxPiso.getSelectedItem().toString());
                 listaSala = salaDAO.buscaPis(pisoM.getId());
                 for (SalaM sala : listaSala) {
@@ -556,6 +559,9 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             cbxSalaDestino.addItem("--Selecione--");
             //UnidadeM unid = new UnidadeM();
             try {
+                
+                unidM = unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());//pega a unidade selecionada
+                blocoM = blocoDAO.busca_id_unidade(unidM.getId(), cbxBloco.getSelectedItem().toString());// todos os blocos da unidade de cima  
                 pisoM = pisoDAO.buscaNome(cbxPisoDestino.getSelectedItem().toString());
                 listaSala = salaDAO.buscaPis(pisoM.getId());
                 for (SalaM sala : listaSala) {
