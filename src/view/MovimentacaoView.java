@@ -473,6 +473,11 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
 
     private void btnEsquerdaDireitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEsquerdaDireitaActionPerformed
        
+        if(cbxUnidadeDestino.getSelectedIndex()<1 || cbxBlocoDestino.getSelectedIndex()<1 || cbxPisoDestino.getSelectedIndex()<1 || cbxSalaDestino.getSelectedIndex()<1){
+            JOptionPane.showMessageDialog(null, "Selecione a sala destino!");
+        }else{
+        
+        
         try {
             patrimonio = patrimonioDAO.busca(Integer.parseInt(tbeEsquerda.getValueAt(tbeEsquerda.getSelectedRow(), 0).toString()));
             listaMovimentacao.add(patrimonio);
@@ -487,6 +492,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                     break;
                 }
             }
+             btnEfetuarMovimentacao.setEnabled(true);
             desativaCbxSaida();
             atualizaTabelaSelecionados();
             atualizaTabelaDireita();
@@ -494,6 +500,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(MovimentacaoView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
         }
     }//GEN-LAST:event_btnEsquerdaDireitaActionPerformed
 
@@ -515,7 +522,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                  ativaCbxSaida();
                  btnEfetuarMovimentacao.setEnabled(false);
                  //zera os cbx destino
-                cbxUnidadeDestino.setSelectedIndex(0);
+                //cbxUnidadeDestino.setSelectedIndex(0);
              }
              atualizaTabelaSelecionados();
              atualizaTabelaDireita();
@@ -620,8 +627,9 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
 
     
     private void cbxSalaDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSalaDestinoActionPerformed
-        if(cbxSalaDestino.getSelectedIndex() >= 1)
-        btnEfetuarMovimentacao.setEnabled(true);
+        
+        /*if(cbxSalaDestino.getSelectedIndex() >= 1)    
+        btnEfetuarMovimentacao.setEnabled(true);*/
         
     }//GEN-LAST:event_cbxSalaDestinoActionPerformed
 
