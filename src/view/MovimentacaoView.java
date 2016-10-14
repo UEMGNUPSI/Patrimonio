@@ -76,9 +76,12 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         listaMovimentacao = new ArrayList<>();
         
         atualizaTabelaEsquerda();
+        
         consertaTamanhoTabelaDireita();
         
         atualizaBoxUnidade();
+        
+        btnEfetuarMovimentacao.setEnabled(false);
     }
 
     /**
@@ -248,6 +251,11 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         jLabel8.setText("Sala: ");
 
         btnCancelarMovimentacao.setText("Cancelar Movimentação");
+        btnCancelarMovimentacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarMovimentacaoActionPerformed(evt);
+            }
+        });
 
         cbxSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxSala.setPreferredSize(new java.awt.Dimension(253, 20));
@@ -324,7 +332,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbxUnidadeDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -356,16 +363,16 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                             .addComponent(cbxSala, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(133, 133, 133)
                         .addComponent(btnEsquerdaDireita)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDireitaEsquerda)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnEfetuarMovimentacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancelarMovimentacao))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCancelarMovimentacao)
+                        .addGap(11, 11, 11)
+                        .addComponent(btnEfetuarMovimentacao))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 46, Short.MAX_VALUE))
@@ -476,8 +483,10 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                     break;
                 }
             }
-             atualizaTabelaSelecionados();
-             atualizaTabelaDireita();
+            desativaCbxSaida();
+            atualizaTabelaSelecionados();
+            atualizaTabelaDireita();
+             
         } catch (SQLException ex) {
             Logger.getLogger(MovimentacaoView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -498,12 +507,19 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                     break;
                 }
             }
+            if(listaMovimentacao.size() < 1){
+                 ativaCbxSaida();
+                 btnEfetuarMovimentacao.setEnabled(false);
+                 //zera os cbx destino
+                cbxUnidadeDestino.setSelectedIndex(0);
+             }
              atualizaTabelaSelecionados();
              atualizaTabelaDireita();
         } catch (SQLException ex) {
             Logger.getLogger(MovimentacaoView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+        
     }//GEN-LAST:event_btnDireitaEsquerdaActionPerformed
 
     private void cbxBlocoDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBlocoDestinoActionPerformed
@@ -588,6 +604,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             listaMovimentacao = new ArrayList<>();
             atualizaTabelaEsquerda();
             atualizaTabelaDireita();
+            preparaEfetuarMovimentacao();
         } catch (SQLException ex) {
             Logger.getLogger(MovimentacaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -595,12 +612,44 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
 
     
     private void cbxSalaDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSalaDestinoActionPerformed
-        // TODO add your handling code here:
+        if(cbxSalaDestino.getSelectedIndex() >= 1)
+        btnEfetuarMovimentacao.setEnabled(true);
+        
     }//GEN-LAST:event_cbxSalaDestinoActionPerformed
 
     private void cbxSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSalaActionPerformed
-        // TODO add your handling code here:
+        if (cbxSala.getSelectedIndex() < 1){
+            atualizaTabelaEsquerda();
+        }else{
+            try {
+                unidM = unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());//pega a unidade selecionada
+                blocoM = blocoDAO.busca_id_unidade(unidM.getId(), cbxBloco.getSelectedItem().toString());// todos os blocos da unidade de cima
+                pisoM = pisoDAO.busca_id_bloco(blocoM.getId(), cbxPiso.getSelectedItem().toString());//todos os pisos da unidade de cima
+                salaM = salaDAO.buscaID(pisoM.getId(), cbxSala.getSelectedItem().toString());
+                
+                try {
+                    listaPatrimonioSelecionados = patrimonioDAO.listaSelecionados(salaM.getId());
+                    atualizaTabelaSelecionados();
+                    
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(RelatorioSalaView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ""+ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_cbxSalaActionPerformed
+
+    private void btnCancelarMovimentacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarMovimentacaoActionPerformed
+        
+        preparaBtnCancelar();
+        listaMovimentacao = new ArrayList<>();
+        atualizaTabelaEsquerda();
+        atualizaTabelaDireita();
+        
+    }//GEN-LAST:event_btnCancelarMovimentacaoActionPerformed
     
    
 
@@ -777,5 +826,57 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         }
 
     }
+    
+     private void preparaEfetuarMovimentacao(){
+        //zera os cbx
+        cbxUnidade.setSelectedIndex(0);
+        cbxUnidadeDestino.setSelectedIndex(0);
+        //ativa tudo
+        cbxUnidade.setEnabled(true);
+        cbxUnidadeDestino.setEnabled(true);
+        cbxBloco.setEnabled(true);
+        cbxBlocoDestino.setEnabled(true);
+        cbxPiso.setEnabled(true);
+        cbxPisoDestino.setEnabled(true);
+        cbxSala.setEnabled(true);
+        cbxSalaDestino.setEnabled(true);
+        btnEsquerdaDireita.setEnabled(true);
+        btnDireitaEsquerda.setEnabled(true);
+        btnCancelarMovimentacao.setEnabled(true);
+        //desativa o botao efetuar movimentacao
+        btnEfetuarMovimentacao.setEnabled(false);
+        
+    }
+     private void desativaCbxSaida(){
+         cbxUnidade.setEnabled(false);
+         cbxBloco.setEnabled(false);
+         cbxPiso.setEnabled(false);
+         cbxSala.setEnabled(false);
+     }
+     
+     private void preparaBtnCancelar(){
+        //zera os cbx
+        cbxUnidade.setSelectedIndex(0);
+        cbxUnidadeDestino.setSelectedIndex(0);
+        //ativa tudo
+        cbxUnidade.setEnabled(true);
+        cbxUnidadeDestino.setEnabled(true);
+        cbxBloco.setEnabled(true);
+        cbxBlocoDestino.setEnabled(true);
+        cbxPiso.setEnabled(true);
+        cbxPisoDestino.setEnabled(true);
+        cbxSala.setEnabled(true);
+        cbxSalaDestino.setEnabled(true);
+        //desatovando botao movimentacao
+        btnEfetuarMovimentacao.setEnabled(false);
+     }
+     private void ativaCbxSaida(){
+         cbxUnidade.setEnabled(true);
+         cbxBloco.setEnabled(true);
+         cbxPiso.setEnabled(true);
+         cbxSala.setEnabled(true);
+     }
+
 
 }
+
