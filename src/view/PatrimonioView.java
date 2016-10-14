@@ -739,8 +739,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tbePatrimonio.getColumnModel().getColumn(0).setPreferredWidth(60);
         tbePatrimonio.getColumnModel().getColumn(1).setPreferredWidth(90);
         tbePatrimonio.getColumnModel().getColumn(2).setPreferredWidth(215);
-        tbePatrimonio.getColumnModel().getColumn(3).setPreferredWidth(215);
-        tbePatrimonio.getColumnModel().getColumn(4).setPreferredWidth(100);
+        tbePatrimonio.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tbePatrimonio.getColumnModel().getColumn(4).setPreferredWidth(215);
         tbePatrimonio.getColumnModel().getColumn(5).setPreferredWidth(90);
         tbePatrimonio.getColumnModel().getColumn(6).setPreferredWidth(90);
         tbePatrimonio.getColumnModel().getColumn(7).setPreferredWidth(90);
