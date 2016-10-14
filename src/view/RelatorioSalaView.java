@@ -535,7 +535,7 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
             doc.add(titulo1);
             doc.add(titulo2);
 
-            PdfPTable tabela = new PdfPTable(new float[]{0.25f, 0.90f, 0.25f,0.20f});
+            PdfPTable tabela = new PdfPTable(new float[]{0.20f, 0.80f, 0.18f,0.42f});
             tabela.setHorizontalAlignment(Element.ALIGN_CENTER);
             tabela.setWidthPercentage(100f);
 
@@ -547,7 +547,7 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
             cabecalho2.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
             cabecalho2.setBorder(0);
             
-            PdfPCell cabecalho3 = new PdfPCell(new Paragraph("Conservação",f3));
+            PdfPCell cabecalho3 = new PdfPCell(new Paragraph("Estado",f3));
             cabecalho3.setHorizontalAlignment(Element.ALIGN_JUSTIFIED);
             cabecalho3.setBorder(0);
             
