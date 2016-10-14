@@ -518,7 +518,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 if(cbxFiltro.getSelectedItem().toString().equals("Tipo")){
                     try{
                         tipo = tipoDAO.buscaNome(txtCodigo.getText());
-                        listaPatrimonio = patrimonioDAO.buscaConservacao(tipo.getId());  
+                        listaPatrimonio = patrimonioDAO.buscaTipo(tipo.getId());  
                      }catch(java.lang.NullPointerException ex){
                         JOptionPane.showMessageDialog(null, "Digite um Tipo valido!" );
                     }
