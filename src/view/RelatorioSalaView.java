@@ -512,7 +512,7 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
             int numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
             listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
             doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
-            String caminho = "C:/Relatorios/Relatorio " + tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString() +  ".pdf";
+            String caminho = "C:/Relatorios Sala/Relatorio " + tbeSala.getValueAt(tbeSala.getSelectedRow(), 1).toString() +  ".pdf";
             PdfWriter.getInstance(doc, new FileOutputStream(caminho));
             doc.open();
             

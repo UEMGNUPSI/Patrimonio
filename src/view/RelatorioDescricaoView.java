@@ -406,7 +406,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             listaPatrimonio = patrimonioDAO.listaTodosPorDescricao(descricao);
             
             doc = new Document(PageSize.A4, 41.5f, 41.5f, 55.2f, 55.2f);
-            String caminho = "C:/Relatorios/Relatorio " + tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString() +  ".pdf";
+            String caminho = "C:/Relatorios Descricao/Relatorio " + tbeDescricao.getValueAt(tbeDescricao.getSelectedRow(), 0).toString() +  ".pdf";
             PdfWriter.getInstance(doc, new FileOutputStream(caminho));
             doc.open();
             
