@@ -136,10 +136,11 @@ public class PatrimonioDAO {
     }
      
      public List<PatrimonioM> buscaPatrimonio(String codigo) throws SQLException{
+        String aux = "%"+codigo+"%";
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select * from Patrimonio where codigo = ?";
+        sql = "select * from Patrimonio where codigo like ?";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setString(1, codigo);
+        pst.setString(1, aux);
         ResultSet rs = pst.executeQuery();
         SubTipoDAO subtipo = new SubTipoDAO();
         GrauConservacaoDAO grau = new GrauConservacaoDAO();
