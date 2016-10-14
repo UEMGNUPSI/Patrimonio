@@ -564,7 +564,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 
                 unidM = unidadeDAO.buscaNome(cbxUnidadeDestino.getSelectedItem().toString());//pega a unidade selecionada
                 blocoM = blocoDAO.busca_id_unidade(unidM.getId(), cbxBlocoDestino.getSelectedItem().toString());// todos os blocos da unidade de cima  
-                pisoM = pisoDAO.busca_id_bloco(blocoM.getId(), cbxPiso.getSelectedItem().toString());
+                pisoM = pisoDAO.busca_id_bloco(blocoM.getId(), cbxPisoDestino.getSelectedItem().toString());
                 
                 listaSala = salaDAO.buscaPis(pisoM.getId());
                 for (SalaM sala : listaSala) {
