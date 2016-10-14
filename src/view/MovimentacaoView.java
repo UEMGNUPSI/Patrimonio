@@ -459,7 +459,8 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 
                 unidM = unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());//pega a unidade selecionada
                 blocoM = blocoDAO.busca_id_unidade(unidM.getId(), cbxBloco.getSelectedItem().toString());// todos os blocos da unidade de cima
-                pisoM = pisoDAO.buscaNome(cbxPiso.getSelectedItem().toString());
+                pisoM = pisoDAO.busca_id_bloco(blocoM.getId(), cbxPiso.getSelectedItem().toString());
+                
                 listaSala = salaDAO.buscaPis(pisoM.getId());
                 for (SalaM sala : listaSala) {
                     cbxSala.addItem(sala.getDescricao());
@@ -560,9 +561,10 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             //UnidadeM unid = new UnidadeM();
             try {
                 
-                unidM = unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());//pega a unidade selecionada
-                blocoM = blocoDAO.busca_id_unidade(unidM.getId(), cbxBloco.getSelectedItem().toString());// todos os blocos da unidade de cima  
-                pisoM = pisoDAO.buscaNome(cbxPisoDestino.getSelectedItem().toString());
+                unidM = unidadeDAO.buscaNome(cbxUnidadeDestino.getSelectedItem().toString());//pega a unidade selecionada
+                blocoM = blocoDAO.busca_id_unidade(unidM.getId(), cbxBlocoDestino.getSelectedItem().toString());// todos os blocos da unidade de cima  
+                pisoM = pisoDAO.busca_id_bloco(blocoM.getId(), cbxPiso.getSelectedItem().toString());
+                
                 listaSala = salaDAO.buscaPis(pisoM.getId());
                 for (SalaM sala : listaSala) {
                     cbxSalaDestino.addItem(sala.getDescricao());
@@ -629,6 +631,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             atualizaTabelaEsquerda();
         }else{
             try {
+                
                 unidM = unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());//pega a unidade selecionada
                 blocoM = blocoDAO.busca_id_unidade(unidM.getId(), cbxBloco.getSelectedItem().toString());// todos os blocos da unidade de cima
                 pisoM = pisoDAO.busca_id_bloco(blocoM.getId(), cbxPiso.getSelectedItem().toString());//todos os pisos da unidade de cima
