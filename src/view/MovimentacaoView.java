@@ -494,6 +494,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             }
              btnEfetuarMovimentacao.setEnabled(true);
             desativaCbxSaida();
+            desativaCbxDestino();
             atualizaTabelaSelecionados();
             atualizaTabelaDireita();
              
@@ -520,6 +521,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             }
             if(listaMovimentacao.size() < 1){
                  ativaCbxSaida();
+                 ativaCbxDestino();
                  btnEfetuarMovimentacao.setEnabled(false);
                  //zera os cbx destino
                 //cbxUnidadeDestino.setSelectedIndex(0);
@@ -869,6 +871,12 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
          cbxPiso.setEnabled(false);
          cbxSala.setEnabled(false);
      }
+     private void desativaCbxDestino(){
+         cbxUnidadeDestino.setEnabled(false);
+         cbxBlocoDestino.setEnabled(false);
+         cbxPisoDestino.setEnabled(false);
+         cbxSalaDestino.setEnabled(false);
+     }
      
      private void preparaBtnCancelar(){
         //zera os cbx
@@ -891,6 +899,12 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
          cbxBloco.setEnabled(true);
          cbxPiso.setEnabled(true);
          cbxSala.setEnabled(true);
+     }
+     private void ativaCbxDestino(){
+         cbxUnidadeDestino.setEnabled(true);
+         cbxBlocoDestino.setEnabled(true);
+         cbxPisoDestino.setEnabled(true);
+         cbxSalaDestino.setEnabled(true);
      }
 
 

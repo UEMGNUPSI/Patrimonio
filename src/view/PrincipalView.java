@@ -246,7 +246,7 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         mnuRelatorios.add(mniRelatorioSala);
 
-        mniRelatorioDescricao.setText("Descrição");
+        mniRelatorioDescricao.setText("Patrimônio");
         mniRelatorioDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mniRelatorioDescricaoMouseClicked(evt);

@@ -162,7 +162,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniRelatorioDescricao">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Descri&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="Patrim&#xf4;nio"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mniRelatorioDescricaoMouseClicked"/>
