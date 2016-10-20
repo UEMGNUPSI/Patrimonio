@@ -190,7 +190,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniAdicionarUsuario">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Adicionar Usu&#xe1;rio"/>
+                <Property name="text" type="java.lang.String" value="Gerenciar Usuarios"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mniAdicionarUsuarioMouseClicked"/>

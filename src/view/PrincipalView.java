@@ -277,7 +277,7 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         mnuUsuario.add(mniMinhaConta);
 
-        mniAdicionarUsuario.setText("Adicionar Usuário");
+        mniAdicionarUsuario.setText("Gerenciar Usuarios");
         mniAdicionarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mniAdicionarUsuarioMouseClicked(evt);
