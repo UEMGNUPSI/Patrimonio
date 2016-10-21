@@ -16,6 +16,7 @@ import dao.StatusDAO;
 import dao.SubTipoDAO;
 import dao.TipoDAO;
 import dao.UnidadeDAO;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -218,6 +219,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         txtCodigo = new javax.swing.JTextField();
         cbxFiltro = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        txtNavegacao = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -725,6 +728,14 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel3.setText("Ir para:");
+
+        txtNavegacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtNavegacaoKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -744,7 +755,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                                 .addComponent(lblQuantPaginas)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnProximo)
-                                .addGap(361, 361, 361))
+                                .addGap(230, 230, 230)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(63, 63, 63))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -761,18 +776,21 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2)
-                            .addComponent(txtCodigo)
-                            .addComponent(cbxFiltro))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                            .addComponent(cbxFiltro)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jButton1)
+                                .addComponent(jButton2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblQuantPaginas)
                             .addComponent(btnAnterior)
-                            .addComponent(btnProximo))))
+                            .addComponent(btnProximo)
+                            .addComponent(jLabel3)
+                            .addComponent(txtNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1571,6 +1589,32 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void txtNavegacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNavegacaoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){  
+            if(Integer.parseInt(txtNavegacao.getText().toString()) > pagUltima || Integer.parseInt(txtNavegacao.getText().toString()) < 1){
+                JOptionPane.showMessageDialog(null, "Página Invalida!");
+                txtNavegacao.setText("");
+            }else{
+                inicio = (Integer.parseInt(txtNavegacao.getText().toString()) -1) * 100;
+                atualizaTabelaPatrimonio(inicio);
+                pagAtual = Integer.parseInt(txtNavegacao.getText().toString());
+                lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+                if(inicio == 0){
+                    btnAnterior.setEnabled(false);
+                }else{
+                    btnAnterior.setEnabled(true);
+                }
+                if(pagAtual == pagUltima){
+                    btnProximo.setEnabled(false);
+                }else{
+                    btnProximo.setEnabled(true);
+                }
+                
+                
+            }
+        }
+    }//GEN-LAST:event_txtNavegacaoKeyPressed
+
     public OrgaoM pegaEntidade() {
         try {
             return entidadeDAO.buscaNome(cbxOrgao.getSelectedItem().toString());
@@ -2026,6 +2070,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -2056,5 +2101,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfdIDPatrimonio;
     private javax.swing.JTextField tfdNotaFiscalPatrimonio;
     private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField txtNavegacao;
     // End of variables declaration//GEN-END:variables
 }
