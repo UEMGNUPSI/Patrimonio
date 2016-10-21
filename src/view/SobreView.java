@@ -48,7 +48,7 @@ public class SobreView extends javax.swing.JInternalFrame {
         jLabel3.setText("Software de Patrimônio - UEMG");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
-        jLabel4.setText("Versão 0.2.1");
+        jLabel4.setText("Versão 0.3.1");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
         jLabel5.setText("Docentes: Leonardo Barcelos    Ivan José dos Reis Filho");
