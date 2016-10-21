@@ -729,6 +729,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 tfdFiltroBuscaActionPerformed(evt);
             }
         });
+        tfdFiltroBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdFiltroBuscaKeyPressed(evt);
+            }
+        });
 
         cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -1697,6 +1702,55 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_tfdNavegacaoKeyPressed
+
+    private void tfdFiltroBuscaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdFiltroBuscaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){ 
+            inicio = 0;
+        btnProximo.setEnabled(true);
+        btnAnterior.setEnabled(false);
+        
+        if(tfdFiltroBusca.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
+        }else{
+
+            try {
+                
+                if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
+                    listaPatrimonio = null;
+                    listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
+                    validaQuantidadeBuscaCodigo();
+                    cont = 1;
+                    if(listaPatrimonio.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Código não Encontrado");
+                           btnAnterior.setEnabled(false);
+                           btnProximo.setEnabled(false);
+                           lblQuantPaginas.setText("0/0");
+                    }
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
+                    listaPatrimonio = null;
+                    listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
+                    validaQuantidadeBuscaDescricao();
+                    cont = 2;
+                    if(listaPatrimonio.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Descrição não Encontrada");
+                           btnAnterior.setEnabled(false);
+                           btnProximo.setEnabled(false);
+                           lblQuantPaginas.setText("0/0");
+                    }
+                }
+
+                
+                    atualizaTabelaBusca();
+                
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ""+ex.getMessage());
+            }
+        }
+        }
+    }//GEN-LAST:event_tfdFiltroBuscaKeyPressed
 
     public OrgaoM pegaEntidade() {
         try {
