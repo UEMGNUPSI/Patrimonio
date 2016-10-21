@@ -656,7 +656,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     .addGroup(pnlPatrimonioCompostoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         tbePatrimonio.setModel(new javax.swing.table.DefaultTableModel(
@@ -792,8 +792,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(txtNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -1077,6 +1076,21 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 }                         
                 atualizaTabelaPatrimonio(inicio);
                 
+                //limpa a busca
+                inicio = 0;
+                atualizaTabelaPatrimonio(inicio);
+                cbxFiltro.setSelectedIndex(0);
+                txtCodigo.setText("");
+                btnAnterior.setEnabled(false);
+                btnProximo.setEnabled(true);
+
+                try {
+                    validaQuantidade();
+                } catch (SQLException ex) {
+                    Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {
@@ -1118,7 +1132,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 desativaCampos();
                 preparaSalvareCancelar();
                 limpaCamposPatrimonio();
-                if(cont == 0){
+               if(cont == 0){
                     atualizaTabelaPatrimonio(inicio);
                 }else if(cont ==1 ){
                     listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
@@ -1126,7 +1140,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 }else if(cont == 2){
                     listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
                     atualizaTabelaBusca();
-        }
+                }
                 //atualizaTabelaPatrimonio(inicio);
                 
                 
@@ -1153,7 +1167,16 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     patrimonioDAO.excluir(patrimonio);
                     limpaCamposPatrimonio();
                     //atualizaTabelaPatrimonio();
-                    atualizaTabelaPatrimonio(inicio);
+                    //atualizaTabelaPatrimonio(inicio);
+                    if(cont == 0){
+                        atualizaTabelaPatrimonio(inicio);
+                    }else if(cont ==1 ){
+                        listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+                        atualizaTabelaBusca();
+                    }else if(cont == 2){
+                        listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+                        atualizaTabelaBusca();
+                    }
                     preparaExcluir();
                     desativaCampos();
                     JOptionPane.showMessageDialog(null, "Patrimônio excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
