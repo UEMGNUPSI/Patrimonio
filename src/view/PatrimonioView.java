@@ -1184,14 +1184,20 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     limpaCamposPatrimonio();
                     //atualizaTabelaPatrimonio();
                     //atualizaTabelaPatrimonio(inicio);
-                    if(cont == 0){
-                        atualizaTabelaPatrimonio(inicio);
-                    }else if(cont ==1 ){
-                        listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
-                        atualizaTabelaBusca();
-                    }else if(cont == 2){
-                        listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
-                        atualizaTabelaBusca();
+                    switch (cont) {
+                        case 0:
+                            atualizaTabelaPatrimonio(inicio);
+                            break;
+                        case 1:
+                            listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdNavegacao.getText(), inicio);
+                            atualizaTabelaBusca();
+                            break;
+                        case 2:
+                            listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdNavegacao.getText(), inicio);
+                            atualizaTabelaBusca();
+                            break;
+                        default:
+                            break;
                     }
                     preparaExcluir();
                     desativaCampos();
@@ -1461,15 +1467,21 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbePatrimonioCompostoMouseClicked
 
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
-        if(cont == 0){
-            proximoNormal();
-            atualizaTabelaBusca();
-        }else if(cont ==1 ){
-            proximoBuscaPatrimonio();
-            atualizaTabelaBusca();
-        }else if(cont == 2){
-            proximoBuscaDescricao();      
-            atualizaTabelaBusca();
+        switch (cont) {
+            case 0:
+                proximoNormal();
+                atualizaTabelaBusca();
+                break;
+            case 1:
+                proximoBuscaPatrimonio();
+                atualizaTabelaBusca();
+                break;
+            case 2:
+                proximoBuscaDescricao();
+                atualizaTabelaBusca();
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_btnProximoActionPerformed
    
@@ -1514,15 +1526,21 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
     
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
-        if(cont == 0){
-        anteriorNormal();
-        atualizaTabelaBusca();
-        }else if(cont == 1){
-        anteriorBuscaPatrimonio();
-        atualizaTabelaBusca();
-        }else if(cont ==2){
-        anteriorBuscaDescricao();
-        atualizaTabelaBusca();
+        switch (cont) {
+            case 0:
+                anteriorNormal();
+                atualizaTabelaBusca();
+                break;
+            case 1:
+                anteriorBuscaPatrimonio();
+                atualizaTabelaBusca();
+                break;
+            case 2:
+                anteriorBuscaDescricao();
+                atualizaTabelaBusca();
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_btnAnteriorActionPerformed
    
@@ -1634,23 +1652,35 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     private void tfdNavegacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNavegacaoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER){  
-            if(Integer.parseInt(tfdNavegacao.getText().toString()) > pagUltima || Integer.parseInt(tfdNavegacao.getText().toString()) < 1){
+            if(Integer.parseInt(tfdNavegacao.getText()) > pagUltima || Integer.parseInt(tfdNavegacao.getText()) < 1){
                 JOptionPane.showMessageDialog(null, "Página Invalida!");
                 tfdNavegacao.setText("");
             }else{
-                inicio = (Integer.parseInt(tfdNavegacao.getText().toString()) -1) * 100;
+                inicio = (Integer.parseInt(tfdNavegacao.getText()) -1) * 100;
                 //atualizaTabelaPatrimonio(inicio);
-                if(cont == 0){
-                anteriorNormal();
-                atualizaTabelaBusca();
-                }else if(cont == 1){
-                anteriorBuscaPatrimonio();
-                atualizaTabelaBusca();
-                }else if(cont ==2){
-                anteriorBuscaDescricao();
-                atualizaTabelaBusca();
-                }                
-                pagAtual = Integer.parseInt(tfdNavegacao.getText().toString());
+                switch (cont) {
+                    case 0:
+                        atualizaTabelaPatrimonio(inicio);
+                        break;
+                    case 1:
+                        try {
+                            listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdNavegacao.getText(), inicio);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                        }   atualizaTabelaBusca();
+                        break;
+                    case 2:
+                        try {
+                            listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdNavegacao.getText(), inicio);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                        }   atualizaTabelaBusca();
+                        break;                
+                    default:
+                        break;
+                }
+                
+                pagAtual = Integer.parseInt(tfdNavegacao.getText());
                 lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
                 if(inicio == 0){
                     btnAnterior.setEnabled(false);
