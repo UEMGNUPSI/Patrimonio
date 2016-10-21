@@ -145,6 +145,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdCodigoPatrimonio.setDocument(new LimiteDigitos(60));
         tfdDescricaoPatrimonio.setDocument(new LimiteDigitos(90));
         tfdNotaFiscalPatrimonio.setDocument(new LimiteDigitos(45));
+        txtCodigo.setDocument(new LimiteDigitos(90));
         
         auxPatrimonio = new PatrimonioM();
         preencheFiltro();
