@@ -12,6 +12,9 @@ import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -327,7 +330,12 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void mniIncluirPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniIncluirPatrimonioActionPerformed
         // TODO add your handling code here:
-        PatrimonioView patrimonio = new PatrimonioView();
+        PatrimonioView patrimonio = null;
+        try {
+            patrimonio = new PatrimonioView();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pnlPrincipal.removeAll();
         pnlPrincipal.add(patrimonio);
         pnlPrincipal.updateUI();

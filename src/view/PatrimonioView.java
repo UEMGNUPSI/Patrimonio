@@ -71,10 +71,19 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     PatrimonioDAO patrimonioDAO;
     PatrimonioM patrimonio;
     
+    OrgaoM orgao;
+    OrgaoDAO orgaoDAO;
+    GrauConservacaoM conservacao;
+    GrauConservacaoDAO conservacaoDAO;
+    SubTipoM subtipo;
+    
     PatrimonioM auxPatrimonio;
     PatrimonioCompostoM patComposto;
     PatrimonioCompostoDAO patrimonioCompostoDAO;
     List<PatrimonioCompostoM> listaComposto;
+    
+    int inicio = 0, quantMax, pagAtual, pagUltima;
+    int cont = 0;
     
     BlocoM bloc;
     UnidadeM unid;
@@ -82,7 +91,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     int ultimoID;
     
-    public PatrimonioView() {
+    public PatrimonioView() throws SQLException {
+        orgao = new OrgaoM();
+        orgaoDAO = new OrgaoDAO();
+        conservacao = new GrauConservacaoM();
+        conservacaoDAO = new GrauConservacaoDAO();
+        subtipo = new SubTipoM();
         pisoDAO = new PisoDAO();
         listaPiso = new ArrayList<>();
         listaBloco = new ArrayList<>();
@@ -121,13 +135,18 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         atualizaBoxGrauConservacao();
         atualizaBoxStatus();
         atualizaBoxEntidade();
-        atualizaTabelaPatrimonio();
+        
+        atualizaTabelaPatrimonio(inicio);
+        
+        validaQuantidade();
+        
+        
         tfdCodigoPatrimonio.setDocument(new LimiteDigitos(60));
         tfdDescricaoPatrimonio.setDocument(new LimiteDigitos(90));
         tfdNotaFiscalPatrimonio.setDocument(new LimiteDigitos(45));
         
         auxPatrimonio = new PatrimonioM();
-        
+        preencheFiltro();
 
     }
 
@@ -192,6 +211,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tbePatrimonioComposto = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbePatrimonio = new javax.swing.JTable();
+        btnProximo = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
+        lblQuantPaginas = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        txtCodigo = new javax.swing.JTextField();
+        cbxFiltro = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -666,6 +692,39 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             tbePatrimonio.getColumnModel().getColumn(0).setPreferredWidth(20);
         }
 
+        btnProximo.setText(">>");
+        btnProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProximoActionPerformed(evt);
+            }
+        });
+
+        btnAnterior.setText("<<");
+        btnAnterior.setEnabled(false);
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
+
+        lblQuantPaginas.setText("quant de paginas");
+
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jButton2.setText("Limpa");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -676,15 +735,44 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 909, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(btnAnterior)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblQuantPaginas)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnProximo)
+                                .addGap(361, 361, 361))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton2))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2)
+                            .addComponent(txtCodigo)
+                            .addComponent(cbxFiltro))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lblQuantPaginas)
+                            .addComponent(btnAnterior)
+                            .addComponent(btnProximo))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -702,10 +790,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
     
     
-    public void atualizaTabelaPatrimonio() {
+    public void atualizaTabelaPatrimonio(int inicio) {
 
         try {
-            listaPatrimonio = patrimonioDAO.listaTodos();
+           //listaPatrimonio = patrimonioDAO.listaTodos();
+            listaPatrimonio = patrimonioDAO.lista100(inicio);
+            
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -722,6 +812,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             dados[i][7] = pat.getEntidade().getNome();
             i++;
         }
+        
         String tituloColuna[] = {"ID", "Codigo", "Descrição", "Subtipo", "Sala", "Grau de Conservação", "Status", "Entidade"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
@@ -750,6 +841,60 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tbePatrimonio.getColumnModel().getColumn(0).setCellRenderer(centralizado);
         tbePatrimonio.setRowHeight(25);
         tbePatrimonio.updateUI();
+    }
+    
+    public void atualizaTabelaBusca(){
+         String dados[][] = new String[listaPatrimonio.size()][8];
+        int i = 0;
+        for (PatrimonioM pat : listaPatrimonio) {
+            dados[i][0] = String.valueOf(pat.getId());
+            dados[i][1] = pat.getCodigo();
+            dados[i][2] = pat.getDescricao();
+            dados[i][3] = pat.getSubTipo().getDescricao();
+            dados[i][4] = pat.getSala().getDescricao();
+            dados[i][5] = pat.getGrau_conservacao().getDescricao();
+            dados[i][6] = pat.getStatus().getNome();
+            dados[i][7] = pat.getEntidade().getNome();
+            i++;
+        }
+        String tituloColuna[] = {"ID", "Codigo", "Descrição", "Subtipo", "Sala", "Grau de Conservação", "Status", "Entidade"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbePatrimonio.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        
+        
+
+        tbePatrimonio.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tbePatrimonio.getColumnModel().getColumn(1).setPreferredWidth(90);
+        tbePatrimonio.getColumnModel().getColumn(2).setPreferredWidth(215);
+        tbePatrimonio.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tbePatrimonio.getColumnModel().getColumn(4).setPreferredWidth(215);
+        tbePatrimonio.getColumnModel().getColumn(5).setPreferredWidth(90);
+        tbePatrimonio.getColumnModel().getColumn(6).setPreferredWidth(90);
+        tbePatrimonio.getColumnModel().getColumn(7).setPreferredWidth(90);
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbePatrimonio.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbePatrimonio.setRowHeight(25);
+        tbePatrimonio.updateUI();
+    
+    } 
+    
+    public void preencheFiltro(){
+        cbxFiltro.removeAllItems();
+        cbxFiltro.addItem("--Selecione--");
+        cbxFiltro.addItem("Codigo");
+        cbxFiltro.addItem("Descrição");
     }
     
     public void atualizaBoxTipo() {
@@ -898,8 +1043,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 auxPatrimonio = patrimonioDAO.busca(ultimoID);
                 // a partir daqui tem que liberar a tela do composto
                 if (ckxPatrimonioComposto.isSelected())
-                {
-                    //desativaCampos();
+                {                    
                     preparaSalvareCancelar();
                     salvarMantendoInformacoes();
                     pnlPatrimonioComposto.setVisible(true);
@@ -910,14 +1054,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 else
                 {
                     JOptionPane.showMessageDialog(null, "Patrimônio cadastrado com sucesso..", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                    preparaSalvareCancelar();
-                    //limpaCamposPatrimonio();
-                    //desativaCampos();
-                    salvarMantendoInformacoes();
-                    
- 
-                }         
-                atualizaTabelaPatrimonio();
+                    preparaSalvareCancelar();                    
+                    salvarMantendoInformacoes(); 
+                }                         
+                atualizaTabelaPatrimonio(inicio);
                 
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
@@ -955,25 +1095,23 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patrimonio.setKit(ckxPatrimonioComposto.isSelected());
             
             try{
-                patrimonioDAO.alterar(patrimonio);
-                
-                /*if (ckxPatrimonioComposto.isSelected()){
-                    pnlPatrimonioComposto.setVisible(true);
-                    iniciaComposto();
-                    desativaCampos();
-                    JOptionPane.showMessageDialog(null, "Cadastre os itens do kit", "Cadastro de Kit", JOptionPane.INFORMATION_MESSAGE);
-                    ativaComposto();
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "Patrimônio atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                    preparaSalvareCancelar();
-                    limpaCamposPatrimonio();
-                }*/
+                patrimonioDAO.alterar(patrimonio);               
                 JOptionPane.showMessageDialog(null, "Patrimônio atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 desativaCampos();
                 preparaSalvareCancelar();
                 limpaCamposPatrimonio();
-                atualizaTabelaPatrimonio();    
+                if(cont == 0){
+                    atualizaTabelaPatrimonio(inicio);
+                }else if(cont ==1 ){
+                    listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+                    atualizaTabelaBusca();
+                }else if(cont == 2){
+                    listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+                    atualizaTabelaBusca();
+        }
+                //atualizaTabelaPatrimonio(inicio);
+                
+                
             }catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
                  if (ex.getErrorCode() == 1062) {
@@ -996,7 +1134,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 try {
                     patrimonioDAO.excluir(patrimonio);
                     limpaCamposPatrimonio();
-                    atualizaTabelaPatrimonio();
+                    //atualizaTabelaPatrimonio();
+                    atualizaTabelaPatrimonio(inicio);
                     preparaExcluir();
                     desativaCampos();
                     JOptionPane.showMessageDialog(null, "Patrimônio excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -1263,6 +1402,174 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxStatusPatrimonioComposto.setSelectedItem(tbePatrimonioComposto.getValueAt(tbePatrimonioComposto.getSelectedRow(), 3).toString());
         preparaSelecaoComposto();
     }//GEN-LAST:event_tbePatrimonioCompostoMouseClicked
+
+    private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
+        if(cont == 0){
+            proximoNormal();
+            atualizaTabelaBusca();
+        }else if(cont ==1 ){
+            proximoBuscaPatrimonio();
+            atualizaTabelaBusca();
+        }else if(cont == 2){
+            proximoBuscaDescricao();      
+            atualizaTabelaBusca();
+        }
+    }//GEN-LAST:event_btnProximoActionPerformed
+   
+    
+    public void proximoNormal(){
+        inicio+=100;
+        atualizaTabelaPatrimonio(inicio);
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaPatrimonio(){
+        inicio+=100;
+        try {
+            listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaDescricao(){
+        inicio+=100;
+        try {
+            listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        if(cont == 0){
+        anteriorNormal();
+        atualizaTabelaBusca();
+        }else if(cont == 1){
+        anteriorBuscaPatrimonio();
+        atualizaTabelaBusca();
+        }else if(cont ==2){
+        anteriorBuscaDescricao();
+        atualizaTabelaBusca();
+        }
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+   
+    
+    public void anteriorNormal(){
+        inicio -=100;
+        atualizaTabelaPatrimonio(inicio);
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    public void anteriorBuscaPatrimonio(){
+        inicio -=100;
+        try {
+            listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    public void anteriorBuscaDescricao(){
+        inicio -=100;
+        try {
+            listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        inicio = 0;
+        btnProximo.setEnabled(true);
+        btnAnterior.setEnabled(false);
+        
+        if(txtCodigo.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
+        }else{
+
+            try {
+                
+                if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
+                    listaPatrimonio = null;
+                    listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+                    validaQuantidadeBuscaCodigo();
+                    cont = 1;
+                    if(listaPatrimonio.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Código não Encontrado");
+                           btnAnterior.setEnabled(false);
+                           btnProximo.setEnabled(false);
+                           lblQuantPaginas.setText("0/0");
+                    }
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
+                    listaPatrimonio = null;
+                    listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+                    validaQuantidadeBuscaDescricao();
+                    cont = 2;
+                    if(listaPatrimonio.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Descrição não Encontrada");
+                           btnAnterior.setEnabled(false);
+                           btnProximo.setEnabled(false);
+                           lblQuantPaginas.setText("0/0");
+                    }
+                }
+
+                
+                    atualizaTabelaBusca();
+                
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ""+ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        inicio = 0;
+        atualizaTabelaPatrimonio(inicio);
+        cbxFiltro.setSelectedIndex(0);
+        txtCodigo.setText("");
+        btnAnterior.setEnabled(false);
+        btnProximo.setEnabled(true);
+        
+        try {
+            validaQuantidade();
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public OrgaoM pegaEntidade() {
         try {
@@ -1637,21 +1944,75 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tbePatrimonioComposto.setRowHeight(25);
         tbePatrimonioComposto.updateUI();
     }
+    public void validaQuantidade() throws SQLException{
+        this.quantMax = patrimonioDAO.quantidade();
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+    public void validaQuantidadeBuscaDescricao() throws SQLException{
+        this.quantMax = patrimonioDAO.quantidadeDescricao(txtCodigo.getText());
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+     public void validaQuantidadeBuscaCodigo() throws SQLException{
+        this.quantMax = patrimonioDAO.quantidadeCodigo(txtCodigo.getText());
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterarPatrimonio;
     private javax.swing.JButton btnAlterarPatrimonioComposto;
+    private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnCancelarPatrimonio;
     private javax.swing.JButton btnCancelarPatrimonioComposto;
     private javax.swing.JButton btnExcluirPatrimonio;
     private javax.swing.JButton btnExcluirPatrimonioComposto;
     private javax.swing.JButton btnNovoPatrimonio;
     private javax.swing.JButton btnNovoPatrimonioComposto;
+    private javax.swing.JButton btnProximo;
     private javax.swing.JButton btnSalvarPatrimonio;
     private javax.swing.JButton btnSalvarPatrimonioComposto;
     private javax.swing.JComboBox<String> cbxBloco;
     private javax.swing.JComboBox<String> cbxConservacao;
     private javax.swing.JComboBox<String> cbxConservacaoPatrimonioComposto;
+    private javax.swing.JComboBox<String> cbxFiltro;
     private javax.swing.JComboBox<String> cbxOrgao;
     private javax.swing.JComboBox<String> cbxPiso;
     private javax.swing.JComboBox<String> cbxSala;
@@ -1661,6 +2022,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JComboBox<String> cbxUnidade;
     private javax.swing.JCheckBox ckxPatrimonioComposto;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -1674,6 +2037,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblGrauConservacao1;
     private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblNotaFiscal;
+    private javax.swing.JLabel lblQuantPaginas;
     private javax.swing.JLabel lblSelecBloco;
     private javax.swing.JLabel lblSelecPiso;
     private javax.swing.JLabel lblSelecSala;
@@ -1691,5 +2055,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfdIDComposto;
     private javax.swing.JTextField tfdIDPatrimonio;
     private javax.swing.JTextField tfdNotaFiscalPatrimonio;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }
