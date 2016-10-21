@@ -1620,7 +1620,17 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 txtNavegacao.setText("");
             }else{
                 inicio = (Integer.parseInt(txtNavegacao.getText().toString()) -1) * 100;
-                atualizaTabelaPatrimonio(inicio);
+                //atualizaTabelaPatrimonio(inicio);
+                if(cont == 0){
+                anteriorNormal();
+                atualizaTabelaBusca();
+                }else if(cont == 1){
+                anteriorBuscaPatrimonio();
+                atualizaTabelaBusca();
+                }else if(cont ==2){
+                anteriorBuscaDescricao();
+                atualizaTabelaBusca();
+                }                
                 pagAtual = Integer.parseInt(txtNavegacao.getText().toString());
                 lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
                 if(inicio == 0){
