@@ -143,10 +143,10 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblUnidade = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         lblPiso = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         cbxFiltro = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        txtCodigo = new javax.swing.JTextField();
+        tfdFiltroBusca = new javax.swing.JTextField();
 
         setClosable(true);
         setMaximizable(true);
@@ -243,10 +243,10 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblPiso.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         lblPiso.setText("Piso:");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -270,8 +270,8 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -308,10 +308,10 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 .addComponent(jLabel1)
                 .addGap(6, 6, 6)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCodigo)
+                    .addComponent(tfdFiltroBusca)
                     .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblId)
@@ -457,9 +457,9 @@ public class ConsultaView extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_cbxFiltroActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        if(txtCodigo.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
+        if(tfdFiltroBusca.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
         }else{
 
@@ -467,7 +467,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){
                     listaPatrimonio = null;
                     try{
-                        listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(txtCodigo.getText()));
+                        listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(tfdFiltroBusca.getText()));
                             
                         if(listaPatrimonio.size() < 1)
                             JOptionPane.showMessageDialog(null, "Sala não Encontrada");
@@ -480,14 +480,14 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
                     listaPatrimonio = null;
-                    listaPatrimonio = patrimonioDAO.buscaPatrimonio(txtCodigo.getText());
+                    listaPatrimonio = patrimonioDAO.buscaPatrimonio(tfdFiltroBusca.getText());
                     
                     if(listaPatrimonio.size() < 1)
                            JOptionPane.showMessageDialog(null, "Código não Encontrado");
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
                     listaPatrimonio = null;
-                    listaPatrimonio = patrimonioDAO.buscaDescricao(txtCodigo.getText());
+                    listaPatrimonio = patrimonioDAO.buscaDescricao(tfdFiltroBusca.getText());
                     
                     if(listaPatrimonio.size() < 1)
                            JOptionPane.showMessageDialog(null, "Descrição não Encontrada");
@@ -495,7 +495,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
                     listaPatrimonio = null;
                     try{
-                        orgao = orgaoDAO.buscaNome(txtCodigo.getText());   
+                        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());   
                     
                         listaPatrimonio = patrimonioDAO.buscaOrgao(orgao.getId());
                     }catch(java.lang.NullPointerException ex){
@@ -505,7 +505,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
                     listaPatrimonio = null;
                     try{
-                            conservacao = conservacaoDAO.buscaNome(txtCodigo.getText());
+                            conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
                             listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());  
                      }catch(java.lang.NullPointerException ex){
                         JOptionPane.showMessageDialog(null, "Digite uma Conservação valida!" );
@@ -516,7 +516,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Subtipo")){
                     try{
-                        subtipo = subtipoDAO.buscaNome(txtCodigo.getText());
+                        subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
                         listaPatrimonio = patrimonioDAO.buscaSubtipo(subtipo.getId());  
                      }catch(java.lang.NullPointerException ex){
                         JOptionPane.showMessageDialog(null, "Digite um SubTipo valido!" );
@@ -533,7 +533,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
             }
         }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     public PatrimonioM pegaPatrimonio(){
         try {
@@ -547,8 +547,8 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cbxFiltro;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -577,6 +577,6 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblSubtipo;
     private javax.swing.JLabel lblUnidade;
     private javax.swing.JTable tbeBusca;
-    private javax.swing.JTextField txtCodigo;
+    private javax.swing.JTextField tfdFiltroBusca;
     // End of variables declaration//GEN-END:variables
 }

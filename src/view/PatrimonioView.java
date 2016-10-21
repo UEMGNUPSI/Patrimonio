@@ -144,6 +144,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdCodigoPatrimonio.setDocument(new LimiteDigitos(60));
         tfdDescricaoPatrimonio.setDocument(new LimiteDigitos(90));
         tfdNotaFiscalPatrimonio.setDocument(new LimiteDigitos(45));
+        tfdFiltroBusca.setDocument(new LimiteDigitos(45));
         
         auxPatrimonio = new PatrimonioM();
         preencheFiltro();
@@ -214,10 +215,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         btnProximo = new javax.swing.JButton();
         btnAnterior = new javax.swing.JButton();
         lblQuantPaginas = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        txtCodigo = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+        tfdFiltroBusca = new javax.swing.JTextField();
         cbxFiltro = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -653,7 +654,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     .addGroup(pnlPatrimonioCompostoLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tbePatrimonio.setModel(new javax.swing.table.DefaultTableModel(
@@ -709,19 +710,28 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
         lblQuantPaginas.setText("quant de paginas");
 
-        jButton1.setText("Buscar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setText("Buscar");
+        btnBuscar.setPreferredSize(new java.awt.Dimension(65, 26));
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        tfdFiltroBusca.setPreferredSize(new java.awt.Dimension(566, 26));
+        tfdFiltroBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfdFiltroBuscaActionPerformed(evt);
             }
         });
 
         cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jButton2.setText("Limpa");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnLimpar.setText("Limpar");
+        btnLimpar.setPreferredSize(new java.awt.Dimension(65, 26));
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnLimparActionPerformed(evt);
             }
         });
 
@@ -732,10 +742,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 909, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -745,14 +757,14 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnProximo)
                                 .addGap(361, 361, 361))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 578, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2))))))
+                                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -760,13 +772,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(cbxFiltro)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jButton1)
-                                .addComponent(jButton2)))
+                                .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -775,7 +787,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                             .addComponent(btnAnterior)
                             .addComponent(btnProximo))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnlPatrimonioComposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -1063,7 +1076,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 inicio = 0;
                 atualizaTabelaPatrimonio(inicio);
                 cbxFiltro.setSelectedIndex(0);
-                txtCodigo.setText("");
+                tfdFiltroBusca.setText("");
                 btnAnterior.setEnabled(false);
                 btnProximo.setEnabled(true);
 
@@ -1118,10 +1131,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                if(cont == 0){
                     atualizaTabelaPatrimonio(inicio);
                 }else if(cont ==1 ){
-                    listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+                    listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
                     atualizaTabelaBusca();
                 }else if(cont == 2){
-                    listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+                    listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
                     atualizaTabelaBusca();
                 }
                 //atualizaTabelaPatrimonio(inicio);
@@ -1154,10 +1167,10 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     if(cont == 0){
                         atualizaTabelaPatrimonio(inicio);
                     }else if(cont ==1 ){
-                        listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+                        listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
                         atualizaTabelaBusca();
                     }else if(cont == 2){
-                        listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+                        listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
                         atualizaTabelaBusca();
                     }
                     preparaExcluir();
@@ -1454,7 +1467,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     public void proximoBuscaPatrimonio(){
         inicio+=100;
         try {
-            listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+            listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1468,7 +1481,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     public void proximoBuscaDescricao(){
         inicio+=100;
         try {
-            listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+            listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1507,7 +1520,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     public void anteriorBuscaPatrimonio(){
         inicio -=100;
         try {
-            listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+            listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1521,7 +1534,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     public void anteriorBuscaDescricao(){
         inicio -=100;
         try {
-            listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+            listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1533,12 +1546,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
     }
     
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         inicio = 0;
         btnProximo.setEnabled(true);
         btnAnterior.setEnabled(false);
         
-        if(txtCodigo.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
+        if(tfdFiltroBusca.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
         }else{
 
@@ -1546,7 +1559,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 
                 if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
                     listaPatrimonio = null;
-                    listaPatrimonio = patrimonioDAO.buscaPatrimonio100(txtCodigo.getText(), inicio);
+                    listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
                     validaQuantidadeBuscaCodigo();
                     cont = 1;
                     if(listaPatrimonio.size() < 1){
@@ -1558,7 +1571,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 }else
                 if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
                     listaPatrimonio = null;
-                    listaPatrimonio = patrimonioDAO.buscaDescricao100(txtCodigo.getText(), inicio);
+                    listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
                     validaQuantidadeBuscaDescricao();
                     cont = 2;
                     if(listaPatrimonio.size() < 1){
@@ -1578,13 +1591,13 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, ""+ex.getMessage());
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         inicio = 0;
         atualizaTabelaPatrimonio(inicio);
         cbxFiltro.setSelectedIndex(0);
-        txtCodigo.setText("");
+        tfdFiltroBusca.setText("");
         btnAnterior.setEnabled(false);
         btnProximo.setEnabled(true);
         
@@ -1593,7 +1606,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void tfdFiltroBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdFiltroBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfdFiltroBuscaActionPerformed
 
     public OrgaoM pegaEntidade() {
         try {
@@ -1986,7 +2003,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         
     }
     public void validaQuantidadeBuscaDescricao() throws SQLException{
-        this.quantMax = patrimonioDAO.quantidadeDescricao(txtCodigo.getText());
+        this.quantMax = patrimonioDAO.quantidadeDescricao(tfdFiltroBusca.getText());
         
         pagAtual = 1;
         
@@ -2003,7 +2020,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         
     }
      public void validaQuantidadeBuscaCodigo() throws SQLException{
-        this.quantMax = patrimonioDAO.quantidadeCodigo(txtCodigo.getText());
+        this.quantMax = patrimonioDAO.quantidadeCodigo(tfdFiltroBusca.getText());
         
         pagAtual = 1;
         
@@ -2024,10 +2041,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAlterarPatrimonio;
     private javax.swing.JButton btnAlterarPatrimonioComposto;
     private javax.swing.JButton btnAnterior;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelarPatrimonio;
     private javax.swing.JButton btnCancelarPatrimonioComposto;
     private javax.swing.JButton btnExcluirPatrimonio;
     private javax.swing.JButton btnExcluirPatrimonioComposto;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNovoPatrimonio;
     private javax.swing.JButton btnNovoPatrimonioComposto;
     private javax.swing.JButton btnProximo;
@@ -2046,8 +2065,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxTipo;
     private javax.swing.JComboBox<String> cbxUnidade;
     private javax.swing.JCheckBox ckxPatrimonioComposto;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -2076,9 +2093,9 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     private javax.swing.JTextField tfdCodigoPatrimonio;
     private javax.swing.JTextField tfdDescricaoPatrimonio;
     private javax.swing.JTextField tfdDescricaoPatrimonioComposto;
+    private javax.swing.JTextField tfdFiltroBusca;
     private javax.swing.JTextField tfdIDComposto;
     private javax.swing.JTextField tfdIDPatrimonio;
     private javax.swing.JTextField tfdNotaFiscalPatrimonio;
-    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }
