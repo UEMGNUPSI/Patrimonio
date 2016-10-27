@@ -133,6 +133,7 @@ CREATE TABLE IF NOT EXISTS `Usuario`(
   PRIMARY KEY (`id`)
 );
 
+
 insert into Usuario values (0,'root','root',true,'Administrador','adm','adm');
 
 CREATE TABLE IF NOT EXISTS `Patrimonio_composto`(
@@ -146,4 +147,15 @@ CREATE TABLE IF NOT EXISTS `Patrimonio_composto`(
  FOREIGN KEY(id_status) references `Status`(id),
  FOREIGN KEY(id_patrimonio) references Patrimonio(id)
 );
+
+CREATE TABLE IF NOT EXISTS `HistoricoAcoes` (
+  `idAcao` INT NOT NULL,
+  `idObjeto` INT NOT NULL,
+  `tipoObjeto` VARCHAR(45) NOT NULL,
+  `acao` VARCHAR(45) NOT NULL,
+  `dataAcao` VARCHAR(45) NOT NULL,
+  `usuario` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idAcao`)
+  );
+
 
