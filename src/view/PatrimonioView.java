@@ -47,85 +47,92 @@ import util.LimiteDigitos;
  */
 public class PatrimonioView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Patrimonio
-     */
-    PisoM piso;
-    PisoDAO pisoDAO;
-    List<PisoM> listaPiso;
-    List<BlocoM> listaBloco;
-    BlocoDAO blocoDAO;
-    List<UnidadeM> listaUnidade;
+//DAOS
     UnidadeDAO unidadeDAO;
+    BlocoDAO blocoDAO;
+    PisoDAO pisoDAO;
     SalaDAO salaDAO;
+    TipoDAO tipoDAO;
+    SubTipoDAO subtipoDAO;
+    GrauConservacaoDAO grauDAO;
+    GrauConservacaoDAO conservacaoDAO; //DUPLICADO 
+    StatusDAO statusDAO;
+    OrgaoDAO entidadeDAO;
+    OrgaoDAO orgaoDAO; //DUPLICADO 
+    PatrimonioDAO patrimonioDAO;  
+    PatrimonioCompostoDAO patrimonioCompostoDAO;
+    
+//MODELS
+    UnidadeM unid;
+    BlocoM bloc;
+    PisoM pis;
+    PisoM piso; //DUPLICADO
+    //SALA
+    //TIPO
+    SubTipoM subtipo;
+    GrauConservacaoM conservacao;
+    //STATUS
+    OrgaoM orgao;
+    PatrimonioM patrimonio;
+    PatrimonioM auxPatrimonio; //PORQUE DUPLICADO?
+    PatrimonioCompostoM patComposto;
+    
+//ARRAYS
+    List<UnidadeM> listaUnidade;
+    List<BlocoM> listaBloco;
+    List<PisoM> listaPiso;
     List<SalaM> listaSala;
+    List<TipoM> listaTipo;
+    List<SubTipoM> listaSub;
     List<GrauConservacaoM> listaGrau;
     List<StatusM> listaStatus;
-    GrauConservacaoDAO grauDAO;
-    StatusDAO statusDAO;
     List<OrgaoM> listaEntidade;
-    OrgaoDAO entidadeDAO;
-    List<TipoM> listaTipo;
-    TipoDAO tipoDAO;
-    List<SubTipoM> listaSub;
-    SubTipoDAO subtipoDAO;
     List<PatrimonioM> listaPatrimonio;
-    PatrimonioDAO patrimonioDAO;
-    PatrimonioM patrimonio;
-    
-    OrgaoM orgao;
-    OrgaoDAO orgaoDAO;
-    GrauConservacaoM conservacao;
-    GrauConservacaoDAO conservacaoDAO;
-    SubTipoM subtipo;
-    
-    PatrimonioM auxPatrimonio;
-    PatrimonioCompostoM patComposto;
-    PatrimonioCompostoDAO patrimonioCompostoDAO;
     List<PatrimonioCompostoM> listaComposto;
     
+    
+//AUXILIARES
     int inicio = 0, quantMax, pagAtual, pagUltima;
     int cont = 0;
-    
-    BlocoM bloc;
-    UnidadeM unid;
-    PisoM pis;
-
     int ultimoID;
     
     public PatrimonioView() throws SQLException {
-        orgao = new OrgaoM();
+        //DAOS
         orgaoDAO = new OrgaoDAO();
-        conservacao = new GrauConservacaoM();
         conservacaoDAO = new GrauConservacaoDAO();
-        subtipo = new SubTipoM();
+        patrimonioCompostoDAO = new PatrimonioCompostoDAO();
         pisoDAO = new PisoDAO();
-        listaPiso = new ArrayList<>();
-        listaBloco = new ArrayList<>();
-        blocoDAO = new BlocoDAO();
-        listaUnidade = new ArrayList<>();
+        blocoDAO = new BlocoDAO();       
         unidadeDAO = new UnidadeDAO();
-        salaDAO = new SalaDAO();
-        listaSala = new ArrayList<>();
-        listaGrau = new ArrayList<>();
-        listaStatus = new ArrayList<>();
+        salaDAO = new SalaDAO();    
         grauDAO = new GrauConservacaoDAO();
         statusDAO = new StatusDAO();
-        listaEntidade = new ArrayList<>();
-        entidadeDAO = new OrgaoDAO();
-        listaTipo = new ArrayList<>();
+        entidadeDAO = new OrgaoDAO();   
         tipoDAO = new TipoDAO();
-        listaSub = new ArrayList<>();
         subtipoDAO = new SubTipoDAO();
-        listaPatrimonio = new ArrayList<>();
         patrimonioDAO = new PatrimonioDAO();
         
-        listaComposto = new ArrayList<>();
-        patrimonioCompostoDAO = new PatrimonioCompostoDAO();
-        
+        //MODELS
+        orgao = new OrgaoM();
+        conservacao = new GrauConservacaoM();
+        subtipo = new SubTipoM();
         bloc = new BlocoM();
         unid = new UnidadeM();
         pis = new PisoM();
+        auxPatrimonio = new PatrimonioM();
+        
+        //ARRAYS
+        listaComposto = new ArrayList<>();
+        listaPiso = new ArrayList<>();
+        listaBloco = new ArrayList<>();
+        listaUnidade = new ArrayList<>();
+        listaSala = new ArrayList<>();
+        listaGrau = new ArrayList<>();
+        listaStatus = new ArrayList<>();
+        listaEntidade = new ArrayList<>();
+        listaTipo = new ArrayList<>();
+        listaSub = new ArrayList<>();
+        listaPatrimonio = new ArrayList<>();
         
         initComponents();
         
@@ -149,7 +156,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdFiltroBusca.setDocument(new LimiteDigitos(45));
         tfdNavegacao.setDocument(new LimitaDigitosNum(3));
         
-        auxPatrimonio = new PatrimonioM();
+        
         preencheFiltro();
 
     }

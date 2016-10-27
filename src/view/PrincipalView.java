@@ -95,6 +95,8 @@ public class PrincipalView extends javax.swing.JFrame {
         mniMinhaConta = new javax.swing.JMenuItem();
         mniAdicionarUsuario = new javax.swing.JMenuItem();
         mnuSobre = new javax.swing.JMenu();
+        mnuHistorico = new javax.swing.JMenu();
+        mnuInventario = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -215,7 +217,7 @@ public class PrincipalView extends javax.swing.JFrame {
         mnbPrincipal.add(mnuMovimentacoes);
 
         mniConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/lupa.png"))); // NOI18N
-        mniConsulta.setText("Consulta");
+        mniConsulta.setText("Consultas");
         mniConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mniConsultaMouseClicked(evt);
@@ -303,6 +305,22 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         });
         mnbPrincipal.add(mnuSobre);
+
+        mnuHistorico.setText("historicoTeste");
+        mnuHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuHistoricoMouseClicked(evt);
+            }
+        });
+        mnbPrincipal.add(mnuHistorico);
+
+        mnuInventario.setText("inventárioTeste");
+        mnuInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuInventarioMouseClicked(evt);
+            }
+        });
+        mnbPrincipal.add(mnuInventario);
 
         setJMenuBar(mnbPrincipal);
 
@@ -461,6 +479,20 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mnuMovimentacoesMouseClicked
 
+    private void mnuHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuHistoricoMouseClicked
+        HistoricoView historico = new HistoricoView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(historico);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mnuHistoricoMouseClicked
+
+    private void mnuInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuInventarioMouseClicked
+        InventarioView inventario = new InventarioView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(inventario);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mnuInventarioMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel foto;
@@ -487,6 +519,8 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniTipoSubtipo;
     private javax.swing.JMenuItem mniUnidade;
     private javax.swing.JMenu mnuCadastrar;
+    private javax.swing.JMenu mnuHistorico;
+    private javax.swing.JMenu mnuInventario;
     private javax.swing.JMenu mnuLocalizacao;
     private javax.swing.JMenu mnuMovimentacoes;
     private javax.swing.JMenu mnuPatrimonio;
