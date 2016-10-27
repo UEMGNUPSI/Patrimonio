@@ -62,7 +62,7 @@ public class PisoDAO {
     }
  
       public List<PisoM> listaTodos() throws SQLException{
-        List<PisoM> listaPiso = new ArrayList<PisoM>();
+        List<PisoM> listaPiso = new ArrayList<>();
         sql = "select * from Piso order by id_bloco";
         pst = Conexao.getInstance().prepareStatement(sql);
         ResultSet rs = pst.executeQuery();

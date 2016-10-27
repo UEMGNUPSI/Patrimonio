@@ -166,6 +166,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             
             DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
             centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            tbeDescricao.getColumnModel().getColumn(1).setCellRenderer(centralizado);
             tbeDescricao.setRowHeight(25);
             tbeDescricao.updateUI();
         }
