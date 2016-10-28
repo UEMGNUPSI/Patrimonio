@@ -36,7 +36,7 @@ public class UsuarioDAO {
     }
     
     public UsuarioM buscaNome(String nome) throws SQLException{
-        sql = "select * from Usuario where nome = ?";
+        sql = "select * from Usuario where descricao = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setString(1, nome);
         UsuarioM user = null;

@@ -21,12 +21,12 @@ public class HistoricoAcaoDAO {
     
     public List<HistoricoAcaoM> listaTodos() throws SQLException{
         List<HistoricoAcaoM> listaHistorico = new ArrayList<HistoricoAcaoM>();
-        String sql = "select * from HistoricoAcoes order by acao";
+        String sql = "select * from HistoricoAcoes";
         PreparedStatement pst = Conexao.getInstance().prepareStatement(sql);
         UsuarioDAO user = new UsuarioDAO();
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-           listaHistorico.add(new HistoricoAcaoM(rs.getInt("idAcao"), rs.getString("tipoObjeto"), rs.getString("acao"), rs.getString("dataAcao"), user.buscaNome(rs.getString(("usuario"))) ));
+           listaHistorico.add(new HistoricoAcaoM(rs.getString("tipoObjeto"), rs.getString("dataAcao"), user.buscaNome(rs.getString(("usuario"))), rs.getString("acao") ));
         }
         pst.close();
         return listaHistorico;
