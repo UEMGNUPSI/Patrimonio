@@ -16,24 +16,40 @@ public class HistoricoAcaoM {
    private String tipoObjeto;
    private String acao;
    private String dataAcao;
-   private UsuarioM usario;
+   private UsuarioM usuario;
    
    public HistoricoAcaoM(){
        
    }
    
-   public HistoricoAcaoM(Integer idObjeto, String tipoObjeto, String acao, String dataAcao, UsuarioM usario) {
+   public HistoricoAcaoM(Integer idObjeto, String tipoObjeto, String acao, String dataAcao, UsuarioM usuario) {
         this.idObjeto = idObjeto;
         this.tipoObjeto = tipoObjeto;
         this.acao = acao;
         this.dataAcao = dataAcao;
-        this.usario = usario;
-    }
+        this.usuario = usuario;
+   }
    
-    public HistoricoAcaoM(String tipoObjeto, String dataAcao, UsuarioM usario) { 
+   public HistoricoAcaoM(String tipoObjeto, String dataAcao, UsuarioM usuario, String acao) { 
         this.tipoObjeto = tipoObjeto;
         this.dataAcao = dataAcao;
-        this.usario = usario;
+        this.usuario = usuario;
+        this.acao = acao;
+   }
+    
+   public HistoricoAcaoM(String tipoObjeto, String dataAcao, UsuarioM usuario) { 
+        this.tipoObjeto = tipoObjeto;
+        this.dataAcao = dataAcao;
+        this.usuario = usuario;
+    }
+    
+    public HistoricoAcaoM(String tipoObjeto, String dataAcao) { 
+        this.tipoObjeto = tipoObjeto;
+        this.dataAcao = dataAcao;
+    }
+    
+    public HistoricoAcaoM(String tipoObjeto) { 
+        this.tipoObjeto = tipoObjeto;
     }
    
    public Integer getId() {
@@ -77,11 +93,11 @@ public class HistoricoAcaoM {
     }
 
     public UsuarioM getUsario() {
-        return usario;
+        return usuario;
     }
 
     public void setUsario(UsuarioM usario) {
-        this.usario = usario;
+        this.usuario = usario;
     }
 
     

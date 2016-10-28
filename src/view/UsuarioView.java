@@ -143,7 +143,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
         jLabel11.setText("Nome");
 
-        jLabel12.setText("MASP");
+        jLabel12.setText("MASP/RA");
 
         tfdSenha.setEnabled(false);
 

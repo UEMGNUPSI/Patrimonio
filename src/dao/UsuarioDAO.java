@@ -33,9 +33,25 @@ public class UsuarioDAO {
             }
             pst.close();
             return usuario;
-     }
+    }
     
-      public List<UsuarioM> listaTodos() throws SQLException{
+    public UsuarioM buscaNome(String nome) throws SQLException{
+        sql = "select * from Usuario where nome = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, nome);
+        UsuarioM user = null;
+        BlocoDAO bloco = new BlocoDAO();
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+            user = new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("admin"),
+                       rs.getString("nome"), rs.getString("masp"), rs.getString("contato"));
+           
+        }
+        pst.close();
+        return user;
+    }
+    
+    public List<UsuarioM> listaTodos() throws SQLException{
         List<UsuarioM> listaUser = new ArrayList<UsuarioM>();
         sql = "select * from Usuario";
         pst = Conexao.getInstance().prepareStatement(sql);
@@ -90,8 +106,8 @@ public class UsuarioDAO {
         while(rs.next()){
                usuario = new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("admin"),
                        rs.getString("nome"), rs.getString("masp"), rs.getString("contato"));
-            }
-            pst.close();
-            return usuario;
+        }
+        pst.close();
+        return usuario;
     }
 }
