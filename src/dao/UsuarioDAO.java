@@ -40,10 +40,9 @@ public class UsuarioDAO {
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setString(1, nome);
         UsuarioM user = null;
-        BlocoDAO bloco = new BlocoDAO();
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-            user = new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("admin"),
+            user = new UsuarioM(rs.getInt("id"), rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("admin"),
                        rs.getString("nome"), rs.getString("masp"), rs.getString("contato"));
            
         }

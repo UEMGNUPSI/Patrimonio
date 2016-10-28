@@ -56,7 +56,7 @@ public class HistoricoAcaoDAO {
         sql = "select * from HistoricoAcoes where ";
         //Qnt é para verificar quantos campos foram preenchidos nos filtros.
         //combCampos é uma combinação matematica para saber quais campos foram preenchidos
-        //campo1 = 2, campo2 = 3, campo3 = 5
+        //campo1 = 2, campo2 = 3, campo3 = 5, campo4 = 7
         if (qnt == 1){
             //se somente 1 campo tiver sido preenchido no filtro
             if (combCampos == 2){

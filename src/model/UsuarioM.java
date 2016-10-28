@@ -23,7 +23,7 @@ public class UsuarioM {
     public UsuarioM(){
         
     }
-    public UsuarioM(Integer id, String usuario, String senha,boolean admin,String nome,String masp, String contato){
+    public UsuarioM(Integer id, String usuario, String senha, boolean admin, String nome, String masp, String contato){
         this.id = id;
         this.usuario = usuario;
         this.senha = senha;
@@ -32,7 +32,7 @@ public class UsuarioM {
         this.masp = masp;
         this.contato = contato;
     }
-     public UsuarioM(Integer id, String usuario,boolean admin,String nome,String masp, String contato){
+     public UsuarioM(Integer id, String usuario, boolean admin, String nome, String masp, String contato){
         this.id = id;
         this.usuario = usuario;
         this.admin = admin;
