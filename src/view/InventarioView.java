@@ -6,14 +6,26 @@
 package view;
 
 import dao.BlocoDAO;
+import dao.PatrimonioDAO;
 import dao.PisoDAO;
+import dao.SalaDAO;
 import dao.UnidadeDAO;
+import java.awt.Color;
+import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 import model.BlocoM;
+import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
@@ -26,22 +38,31 @@ public class InventarioView extends javax.swing.JInternalFrame {
     UnidadeDAO unidadeDAO;
     BlocoDAO blocoDAO;
     PisoDAO pisoDAO;
+    SalaDAO salaDAO;
+    PatrimonioDAO patrimonioDAO;
 
     List<UnidadeM> listaUnidade;
     List<BlocoM> listaBloco;
     List<PisoM> listaPiso;
+    List<SalaM> listaSala;
+    List<PatrimonioM> listaPatrimonio;
     
     UnidadeM unidade;
     BlocoM bloco;
     PisoM piso;
-    public InventarioView() {       
+    
+    public InventarioView() {   
+        salaDAO = new SalaDAO();
         pisoDAO = new PisoDAO();
         blocoDAO = new BlocoDAO();
         unidadeDAO = new UnidadeDAO();
+        patrimonioDAO = new PatrimonioDAO();
         
         listaUnidade = new ArrayList<>();
         listaBloco = new ArrayList<>();
         listaPiso = new ArrayList<>();
+        listaSala = new ArrayList<>();
+        listaPatrimonio = new ArrayList<>();
         
         unidade = new UnidadeM();
         bloco = new BlocoM();
@@ -49,6 +70,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
         
         initComponents();
         this.setVisible(true); 
+        atualizaBoxUnidade();
+        atualizaTabelaSala();
     }
 
     /**
@@ -71,6 +94,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbeSala = new javax.swing.JTable();
         lblFiltros = new javax.swing.JLabel();
+        btnBuscar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbeEsperados = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -122,9 +146,21 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 "Nome"
             }
         ));
+        tbeSala.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbeSalaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbeSala);
 
         lblFiltros.setText("Filtros");
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,11 +180,16 @@ public class InventarioView extends javax.swing.JInternalFrame {
                             .addComponent(cbxUnidade, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbxPiso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(168, Short.MAX_VALUE)
-                .addComponent(lblFiltros)
-                .addGap(146, 146, 146))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 158, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblFiltros)
+                                .addGap(146, 146, 146))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnBuscar)
+                                .addContainerGap())))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,8 +209,10 @@ public class InventarioView extends javax.swing.JInternalFrame {
                     .addComponent(lblPiso)
                     .addComponent(cbxPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 535, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(btnBuscar)
+                .addGap(24, 24, 24)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         tbeEsperados.setModel(new javax.swing.table.DefaultTableModel(
@@ -243,6 +286,66 @@ public class InventarioView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void atualizaTabelaSala() {
+        try {
+            listaSala = salaDAO.listaTodos();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       String dados[][] = new String[listaSala.size()][4];
+        int i = 0;
+        for (SalaM sal : listaSala) {
+            dados[i][0] = String.valueOf(sal.getId());
+            dados[i][1] = sal.getDescricao();
+            dados[i][2] = sal.getPiso().getDescricao();
+            dados[i][3] = sal.getPiso().getBloco().getDescricao();
+            i++;          
+        }
+        
+        String tituloColuna[] = {"ID","Nome", "Piso Pertencente", "Bloco Pertencente"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
+        
+        TableCellRenderer renderer = new EvenOddRenderer();
+        tbeSala.setDefaultRenderer(Object.class, renderer);
+        
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeSala.setRowHeight(25);
+        tbeSala.updateUI();
+    }
+    
+    public void atualizaBoxUnidade() {
+        cbxUnidade.removeAllItems();
+        cbxUnidade.addItem("--Selecione--");
+        try {
+            listaUnidade = unidadeDAO.listaTodos();
+        } catch (SQLException ex) {
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String dados[][] = new String[listaUnidade.size()][5];
+        int i = 0;
+        for (UnidadeM uni : listaUnidade) {
+            cbxUnidade.addItem(uni.getNome());
+        }
+
+    }
+    
     private void cbxUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidadeActionPerformed
 
         if (cbxUnidade.getSelectedIndex() < 1) {
@@ -293,8 +396,114 @@ public class InventarioView extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_cbxPisoActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if (cbxUnidade.getSelectedIndex() == 0 || cbxBloco.getSelectedIndex() == 0 || cbxPiso.getSelectedIndex() == 0){
+             JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);       
+         }else{
+         try {
+             unidade = unidadeDAO.buscaNome(cbxUnidade.getSelectedItem().toString());//pega a unidade selecionada
+             bloco = blocoDAO.busca_id_unidade(unidade.getId(), cbxBloco.getSelectedItem().toString());// todos os blocos da unidade de cima
+             piso = pisoDAO.busca_id_bloco(bloco.getId(), cbxPiso.getSelectedItem().toString());//todos os pisos da unidade de cima
+         } catch (SQLException ex) {
+             Logger.getLogger(RelatorioSalaView.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(null, "Selecione um piso para a busca.", "Erro", JOptionPane.WARNING_MESSAGE);
+         }
+         atualizaTabelaSala(piso.getId(),bloco.getId(),unidade.getId());
+         }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tbeSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSalaMouseClicked
+        int numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
+        try {
+            listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
+            
+            atualizaTabelaPatrimoniosEsperados();
+        } catch (SQLException ex) {
+            Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_tbeSalaMouseClicked
+
+    public void atualizaTabelaPatrimoniosEsperados(){
+         String dados[][] = new String[listaPatrimonio.size()][2];
+        int i = 0;
+        for (PatrimonioM pat : listaPatrimonio) {
+            dados[i][0] = pat.getCodigo();
+            dados[i][1] = pat.getDescricao();
+            i++;
+        }
+        String tituloColuna[] = {"Codigo", "Descrição"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbeEsperados.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        
+        
+        tbeEsperados.getColumnModel().getColumn(0).setPreferredWidth(80);
+        tbeEsperados.getColumnModel().getColumn(1).setPreferredWidth(250);
+        
+        tbeEsperados.setRowHeight(25);
+        tbeEsperados.updateUI();
+    
+    }
+    
+    public void atualizaTabelaSala(int id_piso, int id_bloco, int id_unidade) {
+        try {
+            listaSala = salaDAO.listaSelecionados(id_piso, id_bloco, id_unidade);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String dados[][] = new String[listaSala.size()][4];
+        int i = 0;
+        for (SalaM sal : listaSala) {
+            dados[i][0] = String.valueOf(sal.getId());
+            dados[i][1] = sal.getDescricao();
+            dados[i][2] = sal.getPiso().getDescricao();
+            dados[i][3] = sal.getPiso().getBloco().getDescricao();
+            i++;           
+        }
+        
+        String tituloColuna[] = {"ID","Nome", "Piso Pertencente", "Bloco Pertencente"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
+        tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
+        
+        TableCellRenderer renderer = new EvenOddRenderer();
+        tbeSala.setDefaultRenderer(Object.class, renderer);
+        
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeSala.setRowHeight(25);
+        tbeSala.updateUI();
+        
+        
+        
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cbxBloco;
     private javax.swing.JComboBox<String> cbxPiso;
     private javax.swing.JComboBox<String> cbxUnidade;
@@ -311,4 +520,38 @@ public class InventarioView extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbeReais;
     private javax.swing.JTable tbeSala;
     // End of variables declaration//GEN-END:variables
+}
+class EvenOddRenderer implements TableCellRenderer {
+
+  public static final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
+
+  public Component getTableCellRendererComponent(JTable table, Object value,
+      boolean isSelected, boolean hasFocus, int row, int column) {
+    Component renderer = DEFAULT_RENDERER.getTableCellRendererComponent(
+        table, value, isSelected, hasFocus, row, column);
+    ((JLabel) renderer).setOpaque(true);
+    Color foreground, background;
+    
+    if (isSelected) {
+      foreground = Color.BLACK;
+      background = Color.LIGHT_GRAY;
+    }else if (row <= 5) {
+        foreground = Color.BLACK;
+        Color c = new Color(0,255, 0);
+        background = c;
+      } else if(row <= 10){
+        foreground = Color.white;
+        Color c = new Color(255, 250, 0);
+        foreground = Color.BLACK;
+        background = c;
+        
+      }else{
+          background = Color.white;
+          foreground = Color.black;
+      }
+    
+    renderer.setForeground(foreground);
+    renderer.setBackground(background);
+    return renderer;
+  }
 }
