@@ -62,6 +62,15 @@ public class PatrimonioM {
         this.descricao = descricao;
         this.grau_conservacao = grau_consevacao;
     }
+
+    public PatrimonioM(Integer id, String codigo, String descricao) {
+        this.id = id;
+        this.codigo = codigo;
+        this.descricao = descricao;
+    }
+    
+    
+    
     public PatrimonioM(int quantidade){
         this.quantidade=quantidade;
     }
