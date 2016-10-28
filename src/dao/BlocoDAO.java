@@ -96,7 +96,7 @@ public class BlocoDAO {
            UnidadeDAO unidade = new UnidadeDAO();
            ResultSet rs = pst.executeQuery();
            while(rs.next()){
-               bloco = new BlocoM(rs.getInt("id"),rs.getString("nome"), unidade.busca(rs.getInt("id_unidade")));
+               bloco = new BlocoM(rs.getInt("id"), rs.getString("nome"), unidade.busca(rs.getInt("id_unidade")));
             }
             pst.close();
             return bloco;
