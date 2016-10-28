@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS `Sala` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `id_piso` INT NOT NULL,
+  `inventario` INT NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (id_piso) references Piso(id))
 ;
@@ -113,6 +114,7 @@ CREATE TABLE IF NOT EXISTS `Patrimonio` (
   `nota_fiscal` VARCHAR(45) NOT NULL,
   `id_entidade` INT NOT NULL,
   `kit` boolean NOT NULL,
+  `iventario` INT NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (id_subtipo) references Subtipo(id),
   FOREIGN KEY (id_status) references `Status`(id),
@@ -157,5 +159,6 @@ CREATE TABLE IF NOT EXISTS `HistoricoAcoes` (
   `usuario` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idAcao`)
   );
+  
 
 

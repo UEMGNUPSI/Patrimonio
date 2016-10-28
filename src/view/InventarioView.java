@@ -45,7 +45,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
     List<BlocoM> listaBloco;
     List<PisoM> listaPiso;
     List<SalaM> listaSala;
-    List<PatrimonioM> listaPatrimonio;
+    List<PatrimonioM> listaPatrimonioEsperados;
+    List<PatrimonioM> listaPatrimonioReais;
     
     UnidadeM unidade;
     BlocoM bloco;
@@ -62,7 +63,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
         listaBloco = new ArrayList<>();
         listaPiso = new ArrayList<>();
         listaSala = new ArrayList<>();
-        listaPatrimonio = new ArrayList<>();
+        listaPatrimonioEsperados = new ArrayList<>();
+        listaPatrimonioReais = new ArrayList<>();
         
         unidade = new UnidadeM();
         bloco = new BlocoM();
@@ -415,23 +417,56 @@ public class InventarioView extends javax.swing.JInternalFrame {
     private void tbeSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSalaMouseClicked
         int numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
         try {
-            listaPatrimonio = patrimonioDAO.listaTodosSala(numeroSala);
-            
+            listaPatrimonioEsperados = patrimonioDAO.listaPatrimonioEsperados(numeroSala);
             atualizaTabelaPatrimoniosEsperados();
+            listaPatrimonioReais = patrimonioDAO.listaPatrimonioReais(numeroSala);
+            atualizaTabelaPatrimonioReais();
         } catch (SQLException ex) {
             Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_tbeSalaMouseClicked
 
-    public void atualizaTabelaPatrimoniosEsperados(){
-         String dados[][] = new String[listaPatrimonio.size()][2];
+    public void atualizaTabelaPatrimonioReais(){
+        String dados[][] = new String[listaPatrimonioReais.size()][3];
         int i = 0;
-        for (PatrimonioM pat : listaPatrimonio) {
-            dados[i][0] = pat.getCodigo();
-            dados[i][1] = pat.getDescricao();
+        for (PatrimonioM pat : listaPatrimonioReais) {
+            dados[i][0] = ""+pat.getId();
+            dados[i][1] = pat.getCodigo();
+            dados[i][2] = pat.getDescricao();
             i++;
         }
-        String tituloColuna[] = {"Codigo", "Descrição"};
+        String tituloColuna[] = {"ID","Codigo", "Descrição"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbeReais.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        
+        tbeReais.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeReais.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tbeReais.getColumnModel().getColumn(2).setPreferredWidth(250);
+        
+        tbeReais.setRowHeight(25);
+        tbeReais.updateUI();
+    }
+    
+    public void atualizaTabelaPatrimoniosEsperados(){
+         String dados[][] = new String[listaPatrimonioEsperados.size()][3];
+        int i = 0;
+        for (PatrimonioM pat : listaPatrimonioEsperados) {
+            dados[i][0] = ""+pat.getId();
+            dados[i][1] = pat.getCodigo();
+            dados[i][2] = pat.getDescricao();
+            i++;
+        }
+        String tituloColuna[] = {"ID","Codigo", "Descrição"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
         tbeEsperados.setModel(new DefaultTableModel(dados, tituloColuna) {
@@ -445,9 +480,9 @@ public class InventarioView extends javax.swing.JInternalFrame {
             }
         });
         
-        
-        tbeEsperados.getColumnModel().getColumn(0).setPreferredWidth(80);
-        tbeEsperados.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tbeEsperados.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeEsperados.getColumnModel().getColumn(1).setPreferredWidth(80);
+        tbeEsperados.getColumnModel().getColumn(2).setPreferredWidth(250);
         
         tbeEsperados.setRowHeight(25);
         tbeEsperados.updateUI();
