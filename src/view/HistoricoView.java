@@ -50,6 +50,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             dados[i][0] = hist.getDataAcao();
             dados[i][1] = hist.getTipoObjeto();
             dados[i][2] = hist.getAcao();
+            //Aqui ta bugado, tem que arrumar o busca usuario
             dados[i][3] = "teste";
             
             i++;
