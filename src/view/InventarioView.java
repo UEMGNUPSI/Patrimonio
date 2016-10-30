@@ -10,18 +10,12 @@ import dao.PatrimonioDAO;
 import dao.PisoDAO;
 import dao.SalaDAO;
 import dao.UnidadeDAO;
-import java.awt.Color;
-import java.awt.Component;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import model.BlocoM;
@@ -29,6 +23,7 @@ import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
+import util.Colorir;
 
 /**
  *
@@ -322,12 +317,14 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
         
-        TableCellRenderer renderer = new EvenOddRenderer();
+        /*DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);*/
+        
+        TableCellRenderer renderer = new Colorir();
         tbeSala.setDefaultRenderer(Object.class, renderer);
         
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        
         tbeSala.setRowHeight(25);
         tbeSala.updateUI();
     }
@@ -523,12 +520,12 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
         
-        TableCellRenderer renderer = new EvenOddRenderer();
+        TableCellRenderer renderer = new Colorir();
         tbeSala.setDefaultRenderer(Object.class, renderer);
         
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        /*DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);*/
         tbeSala.setRowHeight(25);
         tbeSala.updateUI();
         
@@ -556,37 +553,4 @@ public class InventarioView extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbeSala;
     // End of variables declaration//GEN-END:variables
 }
-class EvenOddRenderer implements TableCellRenderer {
 
-  public static final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
-
-  public Component getTableCellRendererComponent(JTable table, Object value,
-      boolean isSelected, boolean hasFocus, int row, int column) {
-    Component renderer = DEFAULT_RENDERER.getTableCellRendererComponent(
-        table, value, isSelected, hasFocus, row, column);
-    ((JLabel) renderer).setOpaque(true);
-    Color foreground, background;
-    
-    if (isSelected) {
-      foreground = Color.BLACK;
-      background = Color.LIGHT_GRAY;
-    }else if (row <= 5) {
-        foreground = Color.BLACK;
-        Color c = new Color(0,255, 0);
-        background = c;
-      } else if(row <= 10){
-        foreground = Color.white;
-        Color c = new Color(255, 250, 0);
-        foreground = Color.BLACK;
-        background = c;
-        
-      }else{
-          background = Color.white;
-          foreground = Color.black;
-      }
-    
-    renderer.setForeground(foreground);
-    renderer.setBackground(background);
-    return renderer;
-  }
-}
