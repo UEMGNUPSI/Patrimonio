@@ -22,7 +22,7 @@ public class SalaDAO {
     String sql;
     
     public void salvar(SalaM sala) throws SQLException{
-        sql = "insert into Sala values(?,?,?)";
+        sql = "insert into Sala values(?,?,?,1)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
         pst.setString(2, sala.getDescricao());
@@ -39,7 +39,7 @@ public class SalaDAO {
         PisoDAO piso = new PisoDAO();
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-           sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")));
+           sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")), rs.getInt("inventario"));
         }
         pst.close();
         return sala;
@@ -52,7 +52,7 @@ public class SalaDAO {
         ResultSet rs = pst.executeQuery();
         PisoDAO piso = new PisoDAO();
         while(rs.next()){
-           listaSala.add(new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso"))));
+           listaSala.add(new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")), rs.getInt("inventario")));
         }
         pst.close();
         return listaSala;
@@ -82,7 +82,7 @@ public class SalaDAO {
            PisoDAO piso = new PisoDAO();
            ResultSet rs = pst.executeQuery();
            while(rs.next()){
-               sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")));
+               sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")), rs.getInt("inventario"));
             }
             pst.close();
             return sala;
@@ -96,7 +96,7 @@ public class SalaDAO {
            PisoDAO piso = new PisoDAO();
            ResultSet rs = pst.executeQuery();
            while(rs.next()){
-               sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")));
+               sala = new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")), rs.getInt("inventario"));
             }
             pst.close();
             return sala;
@@ -110,7 +110,7 @@ public class SalaDAO {
          ResultSet rs = pst.executeQuery();
          PisoDAO piso = new PisoDAO();
          while(rs.next()){
-            listaSala.add(new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso"))));
+            listaSala.add(new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")), rs.getInt("inventario")));
           }
          pst.close();
          return listaSala;
@@ -134,7 +134,7 @@ public class SalaDAO {
         ResultSet rs = pst.executeQuery();
         PisoDAO piso = new PisoDAO();
         while(rs.next()){
-           listaSala.add(new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso"))));
+           listaSala.add(new SalaM(rs.getInt("id"),rs.getString("nome"), piso.busca(rs.getInt("id_piso")), rs.getInt("inventario")));
         }
         pst.close();
         return listaSala;

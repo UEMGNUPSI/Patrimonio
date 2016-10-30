@@ -16,7 +16,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author gusta
  */
-public class Colorir implements TableCellRenderer {
+public class ColorirGreen implements TableCellRenderer {
 
   public static final DefaultTableCellRenderer DEFAULT_RENDERER = new DefaultTableCellRenderer();
 
@@ -25,30 +25,12 @@ public class Colorir implements TableCellRenderer {
     ((JLabel) renderer).setOpaque(true);
     Color foreground, background;
     
-    
-    /*if (isSelected) {
-      foreground = Color.BLACK;
-      background = Color.LIGHT_GRAY;
-    }else if (row <= 5) {
-        foreground = Color.BLACK;
-        Color c = new Color(0,255, 0);
-        background = c;
-      } else if(row <= 10){
-        foreground = Color.white;
-        Color c = new Color(255, 250, 0);
-        foreground = Color.BLACK;
-        background = c;
-        
-      }else{
-          background = Color.white;
-          foreground = Color.black;
-      }*/
-    
-    background = Color.RED;
     foreground = Color.BLACK;
+    background = Color.GREEN;
     
     renderer.setForeground(foreground);
     renderer.setBackground(background);
     return renderer;
   }
 }
+

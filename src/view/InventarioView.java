@@ -23,7 +23,8 @@ import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
-import util.Colorir;
+import util.ColorirRed;
+import util.ColorirGreen;
 
 /**
  *
@@ -46,6 +47,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
     UnidadeM unidade;
     BlocoM bloco;
     PisoM piso;
+    int numeroSala = -1;
     
     public InventarioView() {   
         salaDAO = new SalaDAO();
@@ -96,6 +98,9 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tbeEsperados = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbeReais = new javax.swing.JTable();
+        tfdCodigo = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        btnAchei = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -209,7 +214,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 .addComponent(btnBuscar)
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         tbeEsperados.setModel(new javax.swing.table.DefaultTableModel(
@@ -254,6 +259,21 @@ public class InventarioView extends javax.swing.JInternalFrame {
         });
         jScrollPane3.setViewportView(tbeReais);
 
+        jButton1.setText("Encontrei!");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        btnAchei.setText("Ta Aqui!!");
+        btnAchei.setEnabled(false);
+        btnAchei.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcheiActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -262,10 +282,20 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(sprSala, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(309, 309, 309)
+                        .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(btnAchei)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -273,7 +303,13 @@ public class InventarioView extends javax.swing.JInternalFrame {
             .addComponent(sprSala)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(116, 116, 116)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(12, 12, 12)
+                .addComponent(btnAchei)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addComponent(jScrollPane3))
@@ -321,8 +357,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);*/
         
-        TableCellRenderer renderer = new Colorir();
-        tbeSala.setDefaultRenderer(Object.class, renderer);
+        //TableCellRenderer renderer = new ColorirRed();
+        //tbeSala.setDefaultRenderer(Object.class, renderer);
         
         
         tbeSala.setRowHeight(25);
@@ -412,18 +448,54 @@ public class InventarioView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tbeSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeSalaMouseClicked
-        int numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
+        numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
+        atualizaTabelaPatrimoniosEsperados();
+        atualizaTabelaPatrimonioReais();
+        btnAchei.setEnabled(true);
+    }//GEN-LAST:event_tbeSalaMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if(numeroSala != -1 ){
+            try { 
+
+                if(!tfdCodigo.getText().equals("S/P.")){
+                    PatrimonioDAO.patrimonioInventariado(tfdCodigo.getText(),numeroSala);
+                    atualizaTabelaPatrimonioReais();
+                    atualizaTabelaPatrimoniosEsperados();
+                }else{
+                    JOptionPane.showMessageDialog(null, "Por Favor, informe um codigo que nao seja 'S/P.'!");
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Por favor, Selecione uma sala!");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAcheiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcheiActionPerformed
+        if(tbeEsperados.getSelectedRowCount() > 0){
+            try {
+                PatrimonioDAO.inventarioTaAqui(Integer.parseInt(tbeEsperados.getValueAt(tbeEsperados.getSelectedRow(), 0).toString()));
+                atualizaTabelaPatrimonioReais();
+                atualizaTabelaPatrimoniosEsperados();
+            } catch (SQLException ex) {
+                Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione um Patrimonio por favor!");
+        }
+        
+    }//GEN-LAST:event_btnAcheiActionPerformed
+
+    public void atualizaTabelaPatrimonioReais(){
         try {
-            listaPatrimonioEsperados = patrimonioDAO.listaPatrimonioEsperados(numeroSala);
-            atualizaTabelaPatrimoniosEsperados();
             listaPatrimonioReais = patrimonioDAO.listaPatrimonioReais(numeroSala);
-            atualizaTabelaPatrimonioReais();
         } catch (SQLException ex) {
             Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_tbeSalaMouseClicked
-
-    public void atualizaTabelaPatrimonioReais(){
+        
         String dados[][] = new String[listaPatrimonioReais.size()][3];
         int i = 0;
         for (PatrimonioM pat : listaPatrimonioReais) {
@@ -455,6 +527,11 @@ public class InventarioView extends javax.swing.JInternalFrame {
     }
     
     public void atualizaTabelaPatrimoniosEsperados(){
+        try {
+            listaPatrimonioEsperados = patrimonioDAO.listaPatrimonioEsperados(numeroSala);
+        } catch (SQLException ex) {
+            Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
          String dados[][] = new String[listaPatrimonioEsperados.size()][3];
         int i = 0;
         for (PatrimonioM pat : listaPatrimonioEsperados) {
@@ -520,8 +597,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
         
-        TableCellRenderer renderer = new Colorir();
-        tbeSala.setDefaultRenderer(Object.class, renderer);
+        //TableCellRenderer renderer = new Colorir();
+        //tbeSala.setDefaultRenderer(Object.class, renderer);
         
         /*DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -535,10 +612,12 @@ public class InventarioView extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAchei;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JComboBox<String> cbxBloco;
     private javax.swing.JComboBox<String> cbxPiso;
     private javax.swing.JComboBox<String> cbxUnidade;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -551,6 +630,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
     private javax.swing.JTable tbeEsperados;
     private javax.swing.JTable tbeReais;
     private javax.swing.JTable tbeSala;
+    private javax.swing.JTextField tfdCodigo;
     // End of variables declaration//GEN-END:variables
 }
 

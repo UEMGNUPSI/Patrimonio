@@ -21,6 +21,7 @@ public class PatrimonioM {
     private OrgaoM entidade;
     private Boolean kit;
     private Integer quantidade;
+    private Integer inventario;
 
     public PatrimonioM() {
         
@@ -68,6 +69,15 @@ public class PatrimonioM {
         this.codigo = codigo;
         this.descricao = descricao;
     }
+
+    public PatrimonioM(Integer id, String codigo, String descricao, Integer inventario) {
+        this.id = id;
+        this.codigo = codigo;
+        this.descricao = descricao;
+        this.inventario = inventario;
+    }
+    
+    
     
     
     

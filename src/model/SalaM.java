@@ -13,6 +13,7 @@ public class SalaM {
     private Integer id;
     private String descricao;
     private PisoM piso;
+    private Integer inventario;
     
     public SalaM(){
         
@@ -23,6 +24,15 @@ public class SalaM {
         this.descricao = descricao;
         this.piso = piso;
     }
+
+    public SalaM(Integer id, String descricao, PisoM piso, Integer inventario) {
+        this.id = id;
+        this.descricao = descricao;
+        this.piso = piso;
+        this.inventario = inventario;
+    }
+    
+    
 
     public Integer getId() {
         return id;
@@ -47,6 +57,16 @@ public class SalaM {
     public void setPiso(PisoM piso) {
         this.piso = piso;
     }
+
+    public Integer getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Integer inventario) {
+        this.inventario = inventario;
+    }
+    
+    
     
     
     

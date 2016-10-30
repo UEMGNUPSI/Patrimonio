@@ -26,7 +26,7 @@ public class PatrimonioDAO {
     public int salvar(PatrimonioM patrimonio) throws SQLException{
         int auxID = 0;
         
-        sql = "insert into Patrimonio values(?,?,?,?,?,?,?,?,?,?)";
+        sql = "insert into Patrimonio values(?,?,?,?,?,?,?,?,?,?,1)";
         //acrescentei o PreparedStatement.RETURN_GENERATED_KEYS
         pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
@@ -525,8 +525,8 @@ public class PatrimonioDAO {
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
            listaPat.add(new PatrimonioM(rs.getInt("id"),
-                   rs.getString("descricao"),
-                   rs.getString("codigo") ));
+                   rs.getString("codigo"),
+                   rs.getString("descricao") ));
         }
         pst.close();
         return listaPat;
@@ -545,12 +545,34 @@ public class PatrimonioDAO {
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
            listaPat.add(new PatrimonioM(rs.getInt("id"),
-                   rs.getString("descricao"),
-                   rs.getString("codigo") ));
+                   rs.getString("codigo"),
+                   rs.getString("descricao") ));
         }
         pst.close();
         return listaPat;
     }
+      
+      public static void patrimonioInventariado(String codigo,int numeroSala) throws SQLException{
+        PreparedStatement pst;
+        String sql;
+        sql = "update Patrimonio set inventario = 1, id_sala = ? where codigo = ? and inventario != 1" ;
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, numeroSala);
+        pst.setString(2, codigo);     
+        pst.execute();
+        pst.close();
+      }
+      
+      public static void inventarioTaAqui(int id) throws SQLException{
+        PreparedStatement pst;
+        String sql;
+        sql = "update Patrimonio set inventario = 1 where id = ?" ;
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id);     
+        pst.execute();
+        pst.close();
+      }
+      
       
       
 }
