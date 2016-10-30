@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `Grau_conservacao`(
 CREATE TABLE IF NOT EXISTS `Patrimonio` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(90) NOT NULL,
-  `codigo` VARCHAR(60) NOT NULL UNIQUE,
+  `codigo` VARCHAR(60) NOT NULL,
   `id_subtipo` INT NOT NULL,
   `id_grau_conservacao` INT NOT NULL,
   `id_status` INT NOT NULL,
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `Patrimonio` (
   `nota_fiscal` VARCHAR(45) NOT NULL,
   `id_entidade` INT NOT NULL,
   `kit` boolean NOT NULL,
-  `iventario` INT NOT NULL,
+  `inventario` INT NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (id_subtipo) references Subtipo(id),
   FOREIGN KEY (id_status) references `Status`(id),
@@ -160,5 +160,5 @@ CREATE TABLE IF NOT EXISTS `HistoricoAcoes` (
   PRIMARY KEY (`idAcao`)
   );
   
-
+  
 

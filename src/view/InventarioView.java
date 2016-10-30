@@ -23,7 +23,7 @@ import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
-import util.ColorirRed;
+import util.ColorRenderer;
 import util.ColorirGreen;
 
 /**
@@ -357,8 +357,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);*/
         
-        //TableCellRenderer renderer = new ColorirRed();
-        //tbeSala.setDefaultRenderer(Object.class, renderer);
+       // TableCellRenderer renderer = new ColorRenderer(true);
+       // tbeSala.setDefaultRenderer(Object.class, renderer);
         
         
         tbeSala.setRowHeight(25);
