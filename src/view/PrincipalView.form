@@ -128,7 +128,7 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuMovimentacoesMouseClicked"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mniConsulta">
+        <Menu class="javax.swing.JMenu" name="mnuConsulta">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/view/icones/lupa.png"/>
@@ -136,8 +136,37 @@
             <Property name="text" type="java.lang.String" value="Consultas"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mniConsultaMouseClicked"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuConsultaMouseClicked"/>
           </Events>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mniConsultaPatrimonio">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Patrim&#xf4;nio"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mniConsultaPatrimonioMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConsultaPatrimonioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mniConsultaHist&#xf3;rico">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Hist&#xf3;rico"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mniConsultaHist&#xf3;ricoMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConsultaHist&#xf3;ricoActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mniConsultaBaixados">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Baixado"/>
+              </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mniConsultaBaixadosMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mniConsultaBaixadosActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuRelatorios">
           <Properties>
@@ -210,17 +239,9 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuSobreMouseClicked"/>
           </Events>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="mnuHistorico">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="historicoTeste"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuHistoricoMouseClicked"/>
-          </Events>
-        </Menu>
         <Menu class="javax.swing.JMenu" name="mnuInventario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="invent&#xe1;rioTeste"/>
+            <Property name="text" type="java.lang.String" value="Inventario"/>
           </Properties>
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mnuInventarioMouseClicked"/>

@@ -87,7 +87,10 @@ public class PrincipalView extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         mniConservacaoStatus = new javax.swing.JMenuItem();
         mnuMovimentacoes = new javax.swing.JMenu();
-        mniConsulta = new javax.swing.JMenu();
+        mnuConsulta = new javax.swing.JMenu();
+        mniConsultaPatrimonio = new javax.swing.JMenuItem();
+        mniConsultaHistórico = new javax.swing.JMenuItem();
+        mniConsultaBaixados = new javax.swing.JMenuItem();
         mnuRelatorios = new javax.swing.JMenu();
         mniRelatorioSala = new javax.swing.JMenuItem();
         mniRelatorioDescricao = new javax.swing.JMenuItem();
@@ -95,7 +98,6 @@ public class PrincipalView extends javax.swing.JFrame {
         mniMinhaConta = new javax.swing.JMenuItem();
         mniAdicionarUsuario = new javax.swing.JMenuItem();
         mnuSobre = new javax.swing.JMenu();
-        mnuHistorico = new javax.swing.JMenu();
         mnuInventario = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
@@ -216,14 +218,54 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         mnbPrincipal.add(mnuMovimentacoes);
 
-        mniConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/lupa.png"))); // NOI18N
-        mniConsulta.setText("Consultas");
-        mniConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
+        mnuConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/lupa.png"))); // NOI18N
+        mnuConsulta.setText("Consultas");
+        mnuConsulta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mniConsultaMouseClicked(evt);
+                mnuConsultaMouseClicked(evt);
             }
         });
-        mnbPrincipal.add(mniConsulta);
+
+        mniConsultaPatrimonio.setText("Patrimônio");
+        mniConsultaPatrimonio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniConsultaPatrimonioMouseClicked(evt);
+            }
+        });
+        mniConsultaPatrimonio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConsultaPatrimonioActionPerformed(evt);
+            }
+        });
+        mnuConsulta.add(mniConsultaPatrimonio);
+
+        mniConsultaHistórico.setText("Histórico");
+        mniConsultaHistórico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniConsultaHistóricoMouseClicked(evt);
+            }
+        });
+        mniConsultaHistórico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConsultaHistóricoActionPerformed(evt);
+            }
+        });
+        mnuConsulta.add(mniConsultaHistórico);
+
+        mniConsultaBaixados.setText("Baixado");
+        mniConsultaBaixados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mniConsultaBaixadosMouseClicked(evt);
+            }
+        });
+        mniConsultaBaixados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniConsultaBaixadosActionPerformed(evt);
+            }
+        });
+        mnuConsulta.add(mniConsultaBaixados);
+
+        mnbPrincipal.add(mnuConsulta);
 
         mnuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/relatorio48.fw.png"))); // NOI18N
         mnuRelatorios.setText("Relatórios");
@@ -306,15 +348,7 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         mnbPrincipal.add(mnuSobre);
 
-        mnuHistorico.setText("historicoTeste");
-        mnuHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnuHistoricoMouseClicked(evt);
-            }
-        });
-        mnbPrincipal.add(mnuHistorico);
-
-        mnuInventario.setText("inventárioTeste");
+        mnuInventario.setText("Inventario");
         mnuInventario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mnuInventarioMouseClicked(evt);
@@ -432,12 +466,9 @@ public class PrincipalView extends javax.swing.JFrame {
         
     }//GEN-LAST:event_mnuRelatoriosMouseClicked
 
-    private void mniConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniConsultaMouseClicked
-        ConsultaView consulta = new ConsultaView();
-        pnlPrincipal.removeAll();
-        pnlPrincipal.add(consulta);
-        pnlPrincipal.updateUI();
-    }//GEN-LAST:event_mniConsultaMouseClicked
+    private void mnuConsultaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuConsultaMouseClicked
+       
+    }//GEN-LAST:event_mnuConsultaMouseClicked
 
     private void mniRelatorioSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniRelatorioSalaMouseClicked
         
@@ -479,19 +510,45 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mnuMovimentacoesMouseClicked
 
-    private void mnuHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuHistoricoMouseClicked
-        HistoricoView historico = new HistoricoView();
-        pnlPrincipal.removeAll();
-        pnlPrincipal.add(historico);
-        pnlPrincipal.updateUI();
-    }//GEN-LAST:event_mnuHistoricoMouseClicked
-
     private void mnuInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuInventarioMouseClicked
         InventarioView inventario = new InventarioView();
         pnlPrincipal.removeAll();
         pnlPrincipal.add(inventario);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mnuInventarioMouseClicked
+
+    private void mniConsultaPatrimonioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniConsultaPatrimonioMouseClicked
+       
+    }//GEN-LAST:event_mniConsultaPatrimonioMouseClicked
+
+    private void mniConsultaHistóricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniConsultaHistóricoMouseClicked
+        
+    }//GEN-LAST:event_mniConsultaHistóricoMouseClicked
+
+    private void mniConsultaBaixadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mniConsultaBaixadosMouseClicked
+        
+    }//GEN-LAST:event_mniConsultaBaixadosMouseClicked
+
+    private void mniConsultaPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultaPatrimonioActionPerformed
+        ConsultaView consulta = new ConsultaView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(consulta);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mniConsultaPatrimonioActionPerformed
+
+    private void mniConsultaHistóricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultaHistóricoActionPerformed
+       HistoricoView historico = new HistoricoView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(historico);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mniConsultaHistóricoActionPerformed
+
+    private void mniConsultaBaixadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultaBaixadosActionPerformed
+       BaixadoView baixado = new BaixadoView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(baixado);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mniConsultaBaixadosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -508,7 +565,9 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniAdicionarUsuario;
     private javax.swing.JMenuItem mniBloco;
     private javax.swing.JMenuItem mniConservacaoStatus;
-    private javax.swing.JMenu mniConsulta;
+    private javax.swing.JMenuItem mniConsultaBaixados;
+    private javax.swing.JMenuItem mniConsultaHistórico;
+    private javax.swing.JMenuItem mniConsultaPatrimonio;
     private javax.swing.JMenuItem mniIncluirPatrimonio;
     private javax.swing.JMenuItem mniMinhaConta;
     private javax.swing.JMenuItem mniOrgao;
@@ -519,7 +578,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniTipoSubtipo;
     private javax.swing.JMenuItem mniUnidade;
     private javax.swing.JMenu mnuCadastrar;
-    private javax.swing.JMenu mnuHistorico;
+    private javax.swing.JMenu mnuConsulta;
     private javax.swing.JMenu mnuInventario;
     private javax.swing.JMenu mnuLocalizacao;
     private javax.swing.JMenu mnuMovimentacoes;
