@@ -96,6 +96,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tbeSala = new javax.swing.JTable();
         lblFiltros = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbeEsperados = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -103,6 +104,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tfdCodigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btnAchei = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -166,6 +168,13 @@ public class InventarioView extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton2.setText("Iniciar Inventario");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -186,20 +195,24 @@ public class InventarioView extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 158, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblFiltros)
-                                .addGap(146, 146, 146))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnBuscar)
-                                .addContainerGap())))))
+                        .addGap(0, 258, Short.MAX_VALUE)
+                        .addComponent(btnBuscar)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblFiltros)
+                .addGap(146, 146, 146))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblFiltros)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lblFiltros))
+                    .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblUnidade)
@@ -276,6 +289,13 @@ public class InventarioView extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton3.setText("Finalizar Sala");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -286,30 +306,40 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 .addComponent(sprSala, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(28, 28, 28)
+                                .addComponent(btnAchei)))
+                        .addContainerGap(27, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(309, 309, 309)
                         .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnAchei)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton3)
+                        .addGap(68, 68, 68))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(sprSala)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jButton3)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAchei)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,7 +353,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
 
     public void atualizaTabelaSala() {
         try {
-            listaSala = salaDAO.listaTodos();
+            listaSala = salaDAO.listaTodosInventario();
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -495,6 +525,53 @@ public class InventarioView extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnAcheiActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        if(JOptionPane.showConfirmDialog(null, "Você deseja iniciar o Inventario?") == 0){
+            if(JOptionPane.showConfirmDialog(null, "Todas as informações de inventario serão perdidas. Deseja continuar?") == 0){
+                try {
+                    SalaDAO.iniciaInventario();
+                    PatrimonioDAO.iniciaInventario();
+                    atualizaTabelaSala();
+                } catch (SQLException ex) {
+                    Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "Probelma ao iniciar Inventario:\n"+ex.getMessage());
+                }
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    
+    
+    
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        SalaDAO sala = new SalaDAO();
+        try {
+            if(JOptionPane.showConfirmDialog(null, "Deseja finalizar Sala:\n"
+                    +"\nUnidade: "+sala.busca(numeroSala).getPiso().getBloco().getUnidadeM().getNome()
+                    + "\nBloco: "+sala.busca(numeroSala).getPiso().getBloco().getDescricao()
+                    + "\nPiso: "+sala.busca(numeroSala).getPiso().getDescricao()
+                    + "\nSala: "+sala.busca(numeroSala).getDescricao()) == 0){
+                if(listaPatrimonioEsperados.size() == 0 ){
+                    try {
+                        SalaDAO.finalizaSala(numeroSala, 1);
+                        atualizaTabelaSala();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    try {
+                        SalaDAO.finalizaSala(numeroSala, -1);
+                        atualizaTabelaSala();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     public void atualizaTabelaPatrimonioReais(){
         try {
             listaPatrimonioReais = patrimonioDAO.listaPatrimonioReais(numeroSala);
@@ -571,7 +648,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
     
     public void atualizaTabelaSala(int id_piso, int id_bloco, int id_unidade) {
         try {
-            listaSala = salaDAO.listaSelecionados(id_piso, id_bloco, id_unidade);
+            listaSala = salaDAO.listaBuscaInventario(id_piso, id_bloco, id_unidade);
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -624,6 +701,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxPiso;
     private javax.swing.JComboBox<String> cbxUnidade;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

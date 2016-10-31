@@ -594,6 +594,15 @@ public class PatrimonioDAO {
         pst.close();
       }
       
+      public static void iniciaInventario() throws SQLException{
+            String sql;
+            PreparedStatement pst;
+            
+            sql = "update Patrimonio set inventario = 0";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.execute();
+            pst.close();
+        }
       
       
 }
