@@ -538,11 +538,6 @@ public class PatrimonioDAO {
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, id_sala);
         ResultSet rs = pst.executeQuery();
-        SubTipoDAO subtipo = new SubTipoDAO();
-        GrauConservacaoDAO grau = new GrauConservacaoDAO();
-        StatusDAO status = new StatusDAO();
-        SalaDAO sala = new SalaDAO();
-        OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("codigo"),
@@ -555,12 +550,38 @@ public class PatrimonioDAO {
       public static void patrimonioInventariado(String codigo,int numeroSala) throws SQLException{
         PreparedStatement pst;
         String sql;
-        sql = "update Patrimonio set inventario = 1, id_sala = ? where codigo = ? and inventario != 1" ;
+        sql = "select id_sala, inventario from patrimonio where codigo = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setInt(1, numeroSala);
-        pst.setString(2, codigo);     
-        pst.execute();
-        pst.close();
+        pst.setString(1, codigo);
+        ResultSet rs = pst.executeQuery();
+        int salaAtual = 0;
+        int inventario = 0;
+        while(rs.next()){
+           salaAtual = rs.getInt("id_sala");
+           inventario = rs.getInt("inventario");
+        }
+        if(numeroSala != salaAtual && inventario != 1){
+            SalaDAO sala = new SalaDAO();
+            if(JOptionPane.showConfirmDialog(null, "Patrimonio localizado em:"
+                    + "\nUnidade: "+sala.busca(salaAtual).getPiso().getBloco().getUnidadeM().getNome()
+                    + "\nBloco: "+sala.busca(salaAtual).getPiso().getBloco().getDescricao()
+                    + "\nPiso: "+sala.busca(salaAtual).getPiso().getDescricao()
+                    + "\nSala: "+sala.busca(salaAtual).getDescricao()+"\nDeseja Movimenta-lo?") == 0 ){
+                sql = "update Patrimonio set inventario = 1, id_sala = ? where codigo = ? and inventario != 1" ;
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, numeroSala);
+                pst.setString(2, codigo);     
+                pst.execute();
+                pst.close();
+            }
+        }else {
+            sql = "update Patrimonio set inventario = 1 where codigo = ? and inventario != 1" ;
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setString(1, codigo);     
+            pst.execute();
+            pst.close();
+        }
+        
       }
       
       public static void inventarioTaAqui(int id) throws SQLException{

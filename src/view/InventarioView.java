@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import model.BlocoM;
@@ -353,12 +355,16 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
         
-        /*DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        /*DefaultTableCellRenderer centralizado = new ColorirGreen();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);*/
         
-       // TableCellRenderer renderer = new ColorRenderer(true);
-       // tbeSala.setDefaultRenderer(Object.class, renderer);
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        
+        TableCellRenderer renderer = new ColorirGreen();
+        tbeSala.setDefaultRenderer(Object.class, renderer);
         
         
         tbeSala.setRowHeight(25);
@@ -458,7 +464,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
         if(numeroSala != -1 ){
             try { 
 
-                if(!tfdCodigo.getText().equals("S/P.")){
+                if(!tfdCodigo.getText().equals("S/P.") && !tfdCodigo.getText().equals("S/P") &&!tfdCodigo.getText().equals("s/p") && !tfdCodigo.getText().equals("s/p.") && !tfdCodigo.getText().equals("S/ P.") ){
                     PatrimonioDAO.patrimonioInventariado(tfdCodigo.getText(),numeroSala);
                     atualizaTabelaPatrimonioReais();
                     atualizaTabelaPatrimoniosEsperados();

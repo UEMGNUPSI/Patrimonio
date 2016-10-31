@@ -24,9 +24,12 @@ public class ColorirGreen implements TableCellRenderer {
     Component renderer = DEFAULT_RENDERER.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
     ((JLabel) renderer).setOpaque(true);
     Color foreground, background;
-    
-    foreground = Color.BLACK;
-    background = Color.GREEN;
+    foreground = Color.black;
+    if(isSelected){
+        background = Color.LIGHT_GRAY;
+    }else{
+        background = Color.GREEN;
+    }
     
     renderer.setForeground(foreground);
     renderer.setBackground(background);
