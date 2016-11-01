@@ -294,7 +294,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
         cbxStatus.setEnabled(false);
 
-        btnExcluirPatrimonio.setText("Excluir");
+        btnExcluirPatrimonio.setText("Dar Baixa");
         btnExcluirPatrimonio.setEnabled(false);
         btnExcluirPatrimonio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1191,12 +1191,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         if (tfdIDPatrimonio.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Selecione um Patrimônio.", "Erro", JOptionPane.WARNING_MESSAGE);
         } else {
-            patrimonio = new PatrimonioM();
-            patrimonio.setId(Integer.parseInt(tfdIDPatrimonio.getText()));
-            int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoPatrimonio.getText() + " ?");
-            if (confirma == 0) {
+            if (JOptionPane.showConfirmDialog(null, "Deseja dar Baixa em: " + tfdDescricaoPatrimonio.getText() + "\nCodigo: "+tfdCodigoPatrimonio.getText()+" ?") == 0) {
+                if(JOptionPane.showConfirmDialog(null, "O Processo de baixa é algo irreversível. Deseja realmente baixar?") == 0){
                 try {
-                    patrimonioDAO.excluir(patrimonio);
+                    PatrimonioM patrimonioBaixar = patrimonioDAO.busca(Integer.parseInt(tfdIDPatrimonio.getText()));
+                    PatrimonioDAO.baixar(patrimonioBaixar);
                     limpaCamposPatrimonio();
                     //atualizaTabelaPatrimonio();
                     //atualizaTabelaPatrimonio(inicio);
@@ -1217,17 +1216,15 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     }
                     preparaExcluir();
                     desativaCampos();
-                    JOptionPane.showMessageDialog(null, "Patrimônio excluído com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Patrimônio Baixado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     pnlPatrimonioComposto.setVisible(false);
                 } catch (SQLException ex) {
                     //Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
-                    if (ex.getErrorCode() == 1451)
-                    {
-                       JOptionPane.showMessageDialog(null, "Exclua todos os itens do kit antes de excluir o patrimônio."); 
-                    }
+                    JOptionPane.showMessageDialog(null, "Erro: "+ex.getMessage());
                     
                 }
 
+            }
             }
         
         }
@@ -1377,7 +1374,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoPatrimonioComposto.getText() + " ?");
             if (confirma == 0) {
                 try {
-                    patrimonioCompostoDAO.excluir(patComposto);
+                    PatrimonioCompostoDAO.excluir(patComposto);
                     atualizaTabelaCompostoExistente();
                     limpaCamposComposto();
                     preparaExcluir();
@@ -2100,7 +2097,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     public void atualizaTabelaCompostoExistente(){
         try {
             //compoe a lista de patrimonio composto a partir do ID do patrimonio que está sendo salvo.
-            listaComposto = patrimonioCompostoDAO.listaTodosExistentes(auxPatrimonio);
+            listaComposto = PatrimonioCompostoDAO.listaTodosExistentes(auxPatrimonio);
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
         }

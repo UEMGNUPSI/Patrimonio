@@ -160,5 +160,31 @@ CREATE TABLE IF NOT EXISTS `HistoricoAcoes` (
   PRIMARY KEY (`idAcao`)
   );
   
+  CREATE TABLE IF NOT EXISTS `Patrimonio_baixado`(
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `descricao` VARCHAR(90) NOT NULL,
+  `codigo` VARCHAR(60) NOT NULL UNIQUE,
+  `id_subtipo` INT NOT NULL,
+  `id_grau_conservacao` INT NOT NULL,
+  `nota_fiscal` VARCHAR(45) NOT NULL,
+  `id_entidade` INT NOT NULL,
+  `kit` boolean NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (id_subtipo) references Subtipo(id),
+  FOREIGN KEY (id_entidade) references Entidade(id),
+  FOREIGN KEY (id_grau_conservacao) references Grau_conservacao(id)
+
+);
+
+CREATE TABLE IF NOT EXISTS `Patrimonio_composto_baixado`(
+ `id` INT NOT NULL AUTO_INCREMENT,
+ `descricao` VARCHAR(45) NOT NULL,
+ `id_grau_conservacao` INT NOT NULL,
+ `id_patrimonio` INT NOT NULL,
+ PRIMARY KEY(`id`),
+ FOREIGN KEY (id_grau_conservacao) references Grau_conservacao(id),
+ FOREIGN KEY(id_patrimonio) references Patrimonio_baixado(id)
+);
+  
   
 

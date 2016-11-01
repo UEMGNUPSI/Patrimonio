@@ -367,7 +367,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnExcluirPatrimonio">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Excluir"/>
+            <Property name="text" type="java.lang.String" value="Dar Baixa"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>

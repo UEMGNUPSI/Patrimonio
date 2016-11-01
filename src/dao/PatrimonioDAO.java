@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.PatrimonioCompostoM;
 import model.PatrimonioM;
 import model.SalaM;
 
@@ -100,14 +101,6 @@ public class PatrimonioDAO {
         
         pst.close();
         return listaPat;
-    }
-    
-    public void excluir(PatrimonioM patrimonio) throws SQLException{
-        sql = "delete from Patrimonio where id = ?";
-        pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setInt(1, patrimonio.getId());
-        pst.execute();
-        pst.close();
     }
     
      public void alterar(PatrimonioM patrimonio) throws SQLException{
@@ -603,6 +596,59 @@ public class PatrimonioDAO {
             pst.execute();
             pst.close();
         }
+      
+      public static void baixar(PatrimonioM patrimonio) throws SQLException{
+        String sql;
+        PreparedStatement pst;
+        
+        if(patrimonio.getKit()){
+            List<PatrimonioCompostoM> listaComposto =  PatrimonioCompostoDAO.listaTodosExistentes(patrimonio);
+            for(PatrimonioCompostoM composto : listaComposto){
+                PatrimonioCompostoDAO.excluir(composto);
+            }
+            sql = "delete from Patrimonio where id = ?";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setInt(1, patrimonio.getId());
+            pst.execute();
+            pst.close();
+            
+            sql = "insert into Patrimonio_baixado values(0,?,?,?,?,?,?,?)";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setString(1, patrimonio.getDescricao());
+            pst.setString(2, patrimonio.getCodigo());
+            pst.setInt(3, patrimonio.getSubTipo().getId());
+            pst.setInt(4, patrimonio.getGrau_conservacao().getId());
+            pst.setString(5, patrimonio.getNotaFiscal());
+            pst.setInt(6, patrimonio.getEntidade().getId());
+            pst.setBoolean(7, patrimonio.getKit());
+            pst.execute();
+            pst.close();
+            
+            for(PatrimonioCompostoM composto : listaComposto){
+                PatrimonioCompostoDAO.salvarBaixado(composto);
+            }
+        }else{
+            sql = "delete from Patrimonio where id = ?";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setInt(1, patrimonio.getId());
+            pst.execute();
+            pst.close();
+            
+            sql = "insert into Patrimonio_baixado values(0,?,?,?,?,?,?,?)";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setString(1, patrimonio.getDescricao());
+            pst.setString(2, patrimonio.getCodigo());
+            pst.setInt(3, patrimonio.getSubTipo().getId());
+            pst.setInt(4, patrimonio.getGrau_conservacao().getId());
+            pst.setString(5, patrimonio.getNotaFiscal());
+            pst.setInt(6, patrimonio.getEntidade().getId());
+            pst.setBoolean(7, patrimonio.getKit());
+            pst.execute();
+            pst.close();
+        }
+        
+        
+      }
       
       
 }

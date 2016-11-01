@@ -23,7 +23,9 @@ public class PatrimonioCompostoDAO {
     
     //lista os itens de um patrimonio especificado 
     //usado para alterar o KIT
-    public List<PatrimonioCompostoM> listaTodosExistentes(PatrimonioM patrimonio) throws SQLException{
+    public static List<PatrimonioCompostoM> listaTodosExistentes(PatrimonioM patrimonio) throws SQLException{
+        PreparedStatement pst;
+        String sql;
         List<PatrimonioCompostoM> listaComposto = new ArrayList<PatrimonioCompostoM>();
         sql = "select * from Patrimonio_composto where id_patrimonio = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
@@ -62,7 +64,9 @@ public class PatrimonioCompostoDAO {
          pst.close();
      }
     
-    public void excluir(PatrimonioCompostoM patrimonioComposto) throws SQLException{
+    public static void excluir(PatrimonioCompostoM patrimonioComposto) throws SQLException{
+        PreparedStatement pst;
+        String sql;
         sql = "delete from Patrimonio_composto where id = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, patrimonioComposto.getId());
@@ -85,6 +89,19 @@ public class PatrimonioCompostoDAO {
         pst.close();
         return patrimonioComposto;
      }
+    
+    public static void salvarBaixado(PatrimonioCompostoM patrimonioComposto) throws SQLException{
+        PreparedStatement pst;
+        String sql;
+        sql = "insert into Patrimonio_composto_baixado values(?, ?, ?, ?, ?)";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, 0);
+        pst.setString(2, patrimonioComposto.getDescricao());
+        pst.setInt(3, patrimonioComposto.getGrau().getId());
+        pst.setInt(4, patrimonioComposto.getPatrimonio().getId());
+        pst.execute();
+        pst.close();
+    }
     
     
     
