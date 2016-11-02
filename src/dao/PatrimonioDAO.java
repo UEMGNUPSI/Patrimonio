@@ -119,7 +119,7 @@ public class PatrimonioDAO {
      
      public List<PatrimonioM> listaTodosSala(int id_sala) throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select * from Patrimonio where id_sala = ?";
+        sql = "select * from Patrimonio where id_sala = ?  ";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, id_sala);
         ResultSet rs = pst.executeQuery();
