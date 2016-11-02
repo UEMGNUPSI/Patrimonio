@@ -138,6 +138,7 @@ CREATE TABLE IF NOT EXISTS `Usuario`(
 
 insert into Usuario values (0,'root','root',true,'Administrador','adm','adm');
 
+
 CREATE TABLE IF NOT EXISTS `Patrimonio_composto`(
  `id` INT NOT NULL AUTO_INCREMENT,
  `descricao` VARCHAR(45) NOT NULL,
@@ -151,15 +152,17 @@ CREATE TABLE IF NOT EXISTS `Patrimonio_composto`(
 );
 
 CREATE TABLE IF NOT EXISTS `HistoricoAcoes` (
-  `idAcao` INT NOT NULL,
+  `idAcao` INT NOT NULL auto_increment,
   `idObjeto` INT NOT NULL,
   `tipoObjeto` VARCHAR(45) NOT NULL,
   `acao` VARCHAR(45) NOT NULL,
   `dataAcao` VARCHAR(45) NOT NULL,
-  `usuario` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`idAcao`)
+  `id_usuario` int  NOT NULL,
+  PRIMARY KEY (`idAcao`),
+  foreign key (id_usuario) references Usuario(id)
   );
-  
+
+
   CREATE TABLE IF NOT EXISTS `Patrimonio_baixado`(
   `id` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(90) NOT NULL,
@@ -185,6 +188,5 @@ CREATE TABLE IF NOT EXISTS `Patrimonio_composto_baixado`(
  FOREIGN KEY (id_grau_conservacao) references Grau_conservacao(id),
  FOREIGN KEY(id_patrimonio) references Patrimonio_baixado(id)
 );
-  
   
 
