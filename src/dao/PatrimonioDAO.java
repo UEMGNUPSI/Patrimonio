@@ -506,27 +506,23 @@ public class PatrimonioDAO {
      }
       
       public List<PatrimonioM> listaPatrimonioEsperados(int id_sala) throws SQLException{
-        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select * from Patrimonio where id_sala = ? and inventario = 0";
+        List<PatrimonioM> listaPat = new ArrayList<>();
+        sql = "select * from Patrimonio where id_sala = ? and (inventario = 0 or inventario = -1)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, id_sala);
         ResultSet rs = pst.executeQuery();
-        SubTipoDAO subtipo = new SubTipoDAO();
-        GrauConservacaoDAO grau = new GrauConservacaoDAO();
-        StatusDAO status = new StatusDAO();
-        SalaDAO sala = new SalaDAO();
-        OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("codigo"),
-                   rs.getString("descricao") ));
+                   rs.getString("descricao"), 
+                    rs.getInt("inventario")));
         }
         pst.close();
         return listaPat;
     }
       
       public List<PatrimonioM> listaPatrimonioReais(int id_sala) throws SQLException{
-        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
+        List<PatrimonioM> listaPat = new ArrayList<>();
         sql = "select * from Patrimonio where id_sala = ? and inventario = 1";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, id_sala);
@@ -534,7 +530,8 @@ public class PatrimonioDAO {
         while(rs.next()){
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("codigo"),
-                   rs.getString("descricao") ));
+                   rs.getString("descricao"),
+           rs.getInt("inventario")));
         }
         pst.close();
         return listaPat;
@@ -596,6 +593,20 @@ public class PatrimonioDAO {
             pst.execute();
             pst.close();
         }
+      
+      public static void inventarioNaoEncontrados( List<PatrimonioM> lista) throws SQLException{
+          String sql;
+          PreparedStatement pst;
+          
+          for(PatrimonioM pat : lista){
+            sql = "update Patrimonio set inventario = -1 where id = ?";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setInt(1, pat.getId());
+            pst.execute();
+            pst.close();
+          }
+          
+      }
       
       public static void baixar(PatrimonioM patrimonio) throws SQLException{
         String sql;

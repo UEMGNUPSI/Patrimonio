@@ -10,13 +10,20 @@ import dao.PatrimonioDAO;
 import dao.PisoDAO;
 import dao.SalaDAO;
 import dao.UnidadeDAO;
+import java.awt.BorderLayout;
+import java.awt.Container;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -25,8 +32,9 @@ import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
-import util.ColorRenderer;
-import util.ColorirGreen;
+import util.ColorirEsperados;
+import util.ColorirReais;
+import util.ColorirSala;
 
 /**
  *
@@ -97,6 +105,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
         lblFiltros = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbeEsperados = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -175,6 +184,13 @@ public class InventarioView extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton4.setText("Limpar Filtro");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -182,21 +198,25 @@ public class InventarioView extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblPiso)
-                            .addComponent(lblUnidade)
-                            .addComponent(lblBloco))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cbxBloco, javax.swing.GroupLayout.Alignment.LEADING, 0, 280, Short.MAX_VALUE)
-                            .addComponent(cbxUnidade, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxPiso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 258, Short.MAX_VALUE)
-                        .addComponent(btnBuscar)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(lblPiso)
+                                    .addComponent(lblUnidade)
+                                    .addComponent(lblBloco))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(cbxBloco, javax.swing.GroupLayout.Alignment.LEADING, 0, 280, Short.MAX_VALUE)
+                                    .addComponent(cbxUnidade, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbxPiso, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnBuscar)))
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
@@ -226,10 +246,12 @@ public class InventarioView extends javax.swing.JInternalFrame {
                     .addComponent(lblPiso)
                     .addComponent(cbxPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnBuscar)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar)
+                    .addComponent(jButton4))
                 .addGap(24, 24, 24)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tbeEsperados.setModel(new javax.swing.table.DefaultTableModel(
@@ -342,34 +364,41 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAchei)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addComponent(jScrollPane3))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
     public void atualizaTabelaSala() {
         try {
             listaSala = salaDAO.listaTodosInventario();
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
-       String dados[][] = new String[listaSala.size()][4];
+       Object dados[][] = new String[listaSala.size()][5];
         int i = 0;
         for (SalaM sal : listaSala) {
             dados[i][0] = String.valueOf(sal.getId());
             dados[i][1] = sal.getDescricao();
             dados[i][2] = sal.getPiso().getDescricao();
             dados[i][3] = sal.getPiso().getBloco().getDescricao();
+            if(sal.getInventario() == 0)
+                dados[i][4] = "A Fazer";
+            else if(sal.getInventario() == -1)
+                dados[i][4] = "Incompleto";
+            else 
+                dados[i][4] = "Completo";
             i++;          
         }
         
-        String tituloColuna[] = {"ID","Nome", "Piso Pertencente", "Bloco Pertencente"};
-        DefaultTableModel tabelaCliente = new DefaultTableModel();
-        tabelaCliente.setDataVector(dados, tituloColuna);
+        
+        
+        String tituloColuna[] = {"ID","Nome", "Piso", "Bloco","Inventario"};
+        
         tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false
@@ -384,17 +413,14 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(80);
         
+         
+        tbeSala.setDefaultRenderer(Object.class, new ColorirSala());
         /*DefaultTableCellRenderer centralizado = new ColorirGreen();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);*/
         
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        
-        TableCellRenderer renderer = new ColorirGreen();
-        tbeSala.setDefaultRenderer(Object.class, renderer);
         
         
         tbeSala.setRowHeight(25);
@@ -551,16 +577,18 @@ public class InventarioView extends javax.swing.JInternalFrame {
                     + "\nBloco: "+sala.busca(numeroSala).getPiso().getBloco().getDescricao()
                     + "\nPiso: "+sala.busca(numeroSala).getPiso().getDescricao()
                     + "\nSala: "+sala.busca(numeroSala).getDescricao()) == 0){
-                if(listaPatrimonioEsperados.size() == 0 ){
+                if(listaPatrimonioEsperados.isEmpty() ){
                     try {
                         SalaDAO.finalizaSala(numeroSala, 1);
                         atualizaTabelaSala();
+                        atualizaTabelaPatrimoniosEsperados();
                     } catch (SQLException ex) {
                         Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     try {
                         SalaDAO.finalizaSala(numeroSala, -1);
+                        PatrimonioDAO.inventarioNaoEncontrados(listaPatrimonioEsperados);
                         atualizaTabelaSala();
                     } catch (SQLException ex) {
                         Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
@@ -572,6 +600,10 @@ public class InventarioView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        atualizaTabelaSala();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
     public void atualizaTabelaPatrimonioReais(){
         try {
             listaPatrimonioReais = patrimonioDAO.listaPatrimonioReais(numeroSala);
@@ -579,15 +611,16 @@ public class InventarioView extends javax.swing.JInternalFrame {
             Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        String dados[][] = new String[listaPatrimonioReais.size()][3];
+        Object dados[][] = new String[listaPatrimonioReais.size()][4];
         int i = 0;
         for (PatrimonioM pat : listaPatrimonioReais) {
             dados[i][0] = ""+pat.getId();
             dados[i][1] = pat.getCodigo();
             dados[i][2] = pat.getDescricao();
+            dados[i][3] = "Encontrado";
             i++;
         }
-        String tituloColuna[] = {"ID","Codigo", "Descrição"};
+        String tituloColuna[] = {"ID","Codigo", "Descrição","Inventario"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
         tbeReais.setModel(new DefaultTableModel(dados, tituloColuna) {
@@ -600,6 +633,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
+        
+        tbeReais.setDefaultRenderer(Object.class, new ColorirReais());
         
         tbeReais.getColumnModel().getColumn(0).setPreferredWidth(50);
         tbeReais.getColumnModel().getColumn(1).setPreferredWidth(80);
@@ -615,15 +650,19 @@ public class InventarioView extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
-         String dados[][] = new String[listaPatrimonioEsperados.size()][3];
+         Object dados[][] = new String[listaPatrimonioEsperados.size()][4];
         int i = 0;
         for (PatrimonioM pat : listaPatrimonioEsperados) {
             dados[i][0] = ""+pat.getId();
             dados[i][1] = pat.getCodigo();
             dados[i][2] = pat.getDescricao();
+            if(pat.getInventario() == 0)
+                dados[i][3] = "A Encontrar";
+            else
+                dados[i][3] = "Perdido";
             i++;
         }
-        String tituloColuna[] = {"ID","Codigo", "Descrição"};
+        String tituloColuna[] = {"ID","Codigo", "Descrição","Inventario"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
         tbeEsperados.setModel(new DefaultTableModel(dados, tituloColuna) {
@@ -637,9 +676,15 @@ public class InventarioView extends javax.swing.JInternalFrame {
             }
         });
         
+        
+                
+        
+        
         tbeEsperados.getColumnModel().getColumn(0).setPreferredWidth(50);
         tbeEsperados.getColumnModel().getColumn(1).setPreferredWidth(80);
         tbeEsperados.getColumnModel().getColumn(2).setPreferredWidth(250);
+        
+        tbeEsperados.setDefaultRenderer(Object.class, new ColorirEsperados());
         
         tbeEsperados.setRowHeight(25);
         tbeEsperados.updateUI();
@@ -652,17 +697,18 @@ public class InventarioView extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
-        String dados[][] = new String[listaSala.size()][4];
+        Object dados[][] = new String[listaSala.size()][5];
         int i = 0;
         for (SalaM sal : listaSala) {
             dados[i][0] = String.valueOf(sal.getId());
             dados[i][1] = sal.getDescricao();
             dados[i][2] = sal.getPiso().getDescricao();
             dados[i][3] = sal.getPiso().getBloco().getDescricao();
+            dados[i][4] = String.valueOf(sal.getInventario());
             i++;           
         }
         
-        String tituloColuna[] = {"ID","Nome", "Piso Pertencente", "Bloco Pertencente"};
+        String tituloColuna[] = {"ID","Nome", "Piso Pertencente", "Bloco Pertencente","Inventario"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         tabelaCliente.setDataVector(dados, tituloColuna);
         tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
@@ -703,6 +749,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

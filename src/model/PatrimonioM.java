@@ -171,4 +171,14 @@ public class PatrimonioM {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+
+    public Integer getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(Integer inventario) {
+        this.inventario = inventario;
+    }
+    
+    
 }
