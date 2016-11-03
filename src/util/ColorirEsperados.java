@@ -28,16 +28,19 @@ public class ColorirEsperados extends DefaultTableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
         JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         Color c = Color.WHITE;
+        Color f = Color.BLACK;
         Object text = table.getValueAt(row, 3);
        
-        if("Perdido".equals(text.toString()))
+        if("Perdido".equals(text.toString())){
             c = Color.RED;
-        else
+            f = Color.WHITE;
+        }else
             c = Color.WHITE;
         if(isSelected)
             c = Color.LIGHT_GRAY;
         
         label.setBackground(c);
+        label.setForeground(f);
         return label;
     }
 }

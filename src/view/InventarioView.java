@@ -382,7 +382,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
             dados[i][3] = sal.getPiso().getBloco().getDescricao();
                 switch (sal.getInventario()) {
                 case 0:
-                    dados[i][4] = "A Fazer";
+                    dados[i][4] = "Pendente";
                     break;
                 case -1:
                     dados[i][4] = "Incompleto";
@@ -408,11 +408,11 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
-        tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeSala.getColumnModel().getColumn(0).setPreferredWidth(40);
         tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
-        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(120);
         
          
         tbeSala.setDefaultRenderer(Object.class, new ColorirSala());
@@ -651,7 +651,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
             dados[i][1] = pat.getCodigo();
             dados[i][2] = pat.getDescricao();
             if(pat.getInventario() == 0)
-                dados[i][3] = "A Encontrar";
+                dados[i][3] = "Pendente";
             else
                 dados[i][3] = "Perdido";
             i++;
@@ -700,7 +700,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
             dados[i][3] = sal.getPiso().getBloco().getDescricao();
                 switch (sal.getInventario()) {
                 case 0:
-                    dados[i][4] = "A Fazer";
+                    dados[i][4] = "Pendente";
                     break;
                 case -1:
                     dados[i][4] = "Incompleto";

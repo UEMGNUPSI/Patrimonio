@@ -530,7 +530,12 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_mniConsultaBaixadosMouseClicked
 
     private void mniConsultaPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultaPatrimonioActionPerformed
-        ConsultaView consulta = new ConsultaView();
+        ConsultaView consulta = null;
+        try {
+            consulta = new ConsultaView();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pnlPrincipal.removeAll();
         pnlPrincipal.add(consulta);
         pnlPrincipal.updateUI();
