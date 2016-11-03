@@ -131,6 +131,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         cbxAcoes.addItem("Baixar");
     }
     
+  
     public void definePeriodo(){
         
         String dataInicio = tfdPeriodoInicio.getText();
@@ -265,7 +266,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(13, 13, 13)
                         .addComponent(cbxAcoes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
