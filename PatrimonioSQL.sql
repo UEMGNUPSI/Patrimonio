@@ -156,13 +156,14 @@ CREATE TABLE IF NOT EXISTS `HistoricoAcoes` (
   `idObjeto` INT NOT NULL,
   `tipoObjeto` VARCHAR(45) NOT NULL,
   `acao` VARCHAR(45) NOT NULL,
-  `dataAcao` VARCHAR(45) NOT NULL,
-  `id_usuario` int  NOT NULL,
+  `dataAcao` DATE NOT NULL,
+  `id_usuario` int NOT NULL,
   PRIMARY KEY (`idAcao`),
   foreign key (id_usuario) references Usuario(id)
   );
-
-
+  
+  insert into HistoricoAcoes values(0, 1, 'sala', 'deletar', '2016/10/10', 2);
+ 
   CREATE TABLE IF NOT EXISTS `Patrimonio_baixado`(
   `id` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(90) NOT NULL,

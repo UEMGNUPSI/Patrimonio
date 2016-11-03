@@ -26,7 +26,8 @@ public class HistoricoAcaoDAO {
         UsuarioDAO user = new UsuarioDAO();
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-           listaHistorico.add(new HistoricoAcaoM(rs.getString("tipoObjeto"), rs.getString("dataAcao"), user.UsuarioMById(rs.getInt("id_usuario")), rs.getString("acao") ));
+            
+           listaHistorico.add(new HistoricoAcaoM(rs.getString("tipoObjeto"), rs.getDate("dataAcao"), user.UsuarioMById(rs.getInt("id_usuario")), rs.getString("acao") ));
         }
         pst.close();
         return listaHistorico;
@@ -42,21 +43,20 @@ public class HistoricoAcaoDAO {
         pst.setInt(2, historico.getIdObjeto());
         pst.setString(3, historico.getTipoObjeto());
         pst.setString(4, historico.getAcao());
-        pst.setString(5, historico.getDataAcao());
-        pst.setInt(6, historico.getUsario().getId());
+        pst.setDate(5, historico.getDataAcao());
+        pst.setInt(6, historico.getUsuario().getId());
         pst.execute();
         pst.close();
     }  
     
-    public HistoricoAcaoM busca(HistoricoAcaoM historico, int qnt, int combCampos) throws SQLException{
+    public List<HistoricoAcaoM> busca(HistoricoAcaoM historico, int qnt, int combCampos) throws SQLException{
         PreparedStatement pst = null;
-        String sql;
-        HistoricoAcaoM retornoHistorico = null;
-        
-        sql = "select * from HistoricoAcoes where ";
+        String sql = null;
+        List<HistoricoAcaoM> retornoHistorico = new ArrayList<HistoricoAcaoM>();     
         //Qnt é para verificar quantos campos foram preenchidos nos filtros.
         //combCampos é uma combinação matematica para saber quais campos foram preenchidos
         //campo1 = 2, campo2 = 3, campo3 = 5, campo4 = 7
+    
         if (qnt == 1){
             //se somente 1 campo tiver sido preenchido no filtro
             if (combCampos == 2){
@@ -65,17 +65,18 @@ public class HistoricoAcaoDAO {
                 pst.setString(1, historico.getTipoObjeto().toString());
             }
             if (combCampos == 3){
-                sql.concat(" dataAcao = ?");
+                sql = "select * from HistoricoAcoes where dataAcao between ? and ?";
                 pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, historico.getDataAcao().toString());
+                pst.setDate(1, historico.getPeriodoInicio());
+                pst.setDate(2, historico.getPeriodoFim());
             }
             if (combCampos == 5){
-                sql.concat(" usuario = ?");
+                sql = "select * from HistoricoAcoes where id_usuario = ?";
                 pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, historico.getUsario().getId());
+                pst.setInt(1, historico.getUsuario().getId());
             }
             if (combCampos == 7){
-                sql.concat(" acao = ?");
+                sql = "select * from HistoricoAcoes where acao = ?";
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setString(1, historico.getAcao().toString());
             }
@@ -88,7 +89,7 @@ public class HistoricoAcaoDAO {
                 sql.concat(" tipoObjeto = ? and dataAcao = ?");
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setString(1, historico.getTipoObjeto().toString());
-                pst.setString(2, historico.getDataAcao().toString());
+                pst.setDate(2, historico.getDataAcao());
             }
             if (combCampos == 7){
                 //se for 7 a unica possibilidade eh
@@ -96,7 +97,7 @@ public class HistoricoAcaoDAO {
                 sql.concat(" tipoObjeto = ? and usuario = ?");
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setString(1, historico.getTipoObjeto().toString());
-                pst.setInt(2, historico.getUsario().getId());
+                pst.setInt(2, historico.getUsuario().getId());
             }
             if (combCampos == 9){
                 //se for 9 a unica possibilidade eh
@@ -111,15 +112,15 @@ public class HistoricoAcaoDAO {
                 //data e usuario
                 sql.concat(" dataAcao = ? and usuario = ?");
                 pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, historico.getDataAcao().toString());
-                pst.setInt(2, historico.getUsario().getId());
+                pst.setDate(1, historico.getDataAcao());;
+                pst.setInt(2, historico.getUsuario().getId());
             }
             if (combCampos == 10){
                 //se a combinacao for 8 a unica possibilidade eh
                 //data e acao
                 sql.concat(" dataAcao = ? and acao = ?");
                 pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, historico.getDataAcao().toString());
+                pst.setDate(1, historico.getDataAcao());
                 pst.setString(2, historico.getAcao().toString());
             }
             if (combCampos == 12){
@@ -127,7 +128,7 @@ public class HistoricoAcaoDAO {
                 //usario e acao
                 sql.concat(" usuario = ? and acao = ?");
                 pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, historico.getUsario().getId());
+                pst.setInt(1, historico.getUsuario().getId());
                 pst.setString(2, historico.getAcao().toString());
             }
                
@@ -141,8 +142,8 @@ public class HistoricoAcaoDAO {
                    sql.concat(" tipoObjeto = ? and dataAcao = ? and usuario = ?");
                    pst = Conexao.getInstance().prepareStatement(sql);
                    pst.setString(1, historico.getTipoObjeto().toString());
-                   pst.setString(2, historico.getDataAcao().toString());
-                   pst.setInt(3, historico.getUsario().getId());
+                   pst.setDate(2, historico.getDataAcao());
+                   pst.setInt(3, historico.getUsuario().getId());
             }
             if (combCampos == 12){
                    //se a combinacao for 12 a unica possibilidade eh
@@ -150,7 +151,7 @@ public class HistoricoAcaoDAO {
                    sql.concat(" tipoObjeto = ? and dataAcao = ? and acao = ?");
                    pst = Conexao.getInstance().prepareStatement(sql);
                    pst.setString(1, historico.getTipoObjeto().toString());
-                   pst.setString(2, historico.getDataAcao().toString());
+                   pst.setDate(2, historico.getDataAcao());
                    pst.setString(3, historico.getAcao().toString());
             }
             if (combCampos == 14){
@@ -159,17 +160,16 @@ public class HistoricoAcaoDAO {
                    sql.concat(" tipoObjeto = ? and usuario = ? and acao = ?");
                    pst = Conexao.getInstance().prepareStatement(sql);
                    pst.setString(1, historico.getTipoObjeto().toString());
-                   pst.setInt(2, historico.getUsario().getId());
+                   pst.setInt(2, historico.getUsuario().getId());
                    pst.setString(3, historico.getAcao().toString());
             }
             if (combCampos == 15){
-                   
                    //se a combinacao for 14 a unica possibilidade eh
                    //data, usuario e acao
                    sql.concat(" data = ? and usuario = ? and acao = ?");
                    pst = Conexao.getInstance().prepareStatement(sql);
-                   pst.setString(1, historico.getDataAcao().toString());
-                   pst.setInt(2, historico.getUsario().getId());
+                   pst.setDate(1, historico.getDataAcao());
+                   pst.setInt(2, historico.getUsuario().getId());
                    pst.setString(3, historico.getAcao().toString());
             }
                
@@ -181,15 +181,15 @@ public class HistoricoAcaoDAO {
             pst = Conexao.getInstance().prepareStatement(sql);
             pst.setString(1, historico.getTipoObjeto().toString());
             pst.setString(2, historico.getDataAcao().toString());
-            pst.setInt(3, historico.getUsario().getId());
+            pst.setInt(3, historico.getUsuario().getId());
             pst.setString(4, historico.getAcao().toString());
         }
-           
+        
         ResultSet rs = pst.executeQuery();
         UsuarioDAO user = new UsuarioDAO();
         while(rs.next()){
             
-            retornoHistorico = new HistoricoAcaoM(rs.getString("tipoObjeto"), rs.getString("dataAcao"), user.UsuarioMById(rs.getInt("id_usuario")), rs.getString("acao"));
+            retornoHistorico.add(new HistoricoAcaoM(rs.getString("tipoObjeto"), rs.getDate("dataAcao"), user.UsuarioMById(rs.getInt("id_usuario")), rs.getString("acao")));
         }
         pst.close();
         return retornoHistorico;

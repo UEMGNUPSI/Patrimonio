@@ -5,54 +5,59 @@
  */
 package model;
 
+import java.sql.Date;
+
 /**
  *
  * @author NUPSI-03
  */
 public class HistoricoAcaoM {
     
-   private Integer id;
-   private Integer idObjeto;
-   private String tipoObjeto;
-   private String acao;
-   private String dataAcao;
-   private UsuarioM usuario;
-   
-   public HistoricoAcaoM(){
+    private Integer id;
+    private Integer idObjeto;
+    private String tipoObjeto;
+    private String acao;
+    private Date dataAcao;
+    private UsuarioM usuario;
+    private Date periodoInicio;
+    private Date periodoFim;
+
+     
+    public HistoricoAcaoM(){
        
-   }
+    }
    
-   public HistoricoAcaoM(Integer idObjeto, String tipoObjeto, String acao, String dataAcao, UsuarioM usuario) {
+    public HistoricoAcaoM(Integer id, Integer idObjeto, String tipoObjeto, String acao, Date dataAcao, UsuarioM usuario) {
+        this.id = id;
         this.idObjeto = idObjeto;
         this.tipoObjeto = tipoObjeto;
         this.acao = acao;
         this.dataAcao = dataAcao;
         this.usuario = usuario;
-   }
-   
-   public HistoricoAcaoM(String tipoObjeto, String dataAcao, UsuarioM usuario, String acao) { 
+    }
+    
+    
+    public HistoricoAcaoM(String tipoObjeto, Date dataAcao, UsuarioM usuario, String acao) {
         this.tipoObjeto = tipoObjeto;
-        this.dataAcao = dataAcao;
-        this.usuario = usuario;
         this.acao = acao;
-   }
-    
-   public HistoricoAcaoM(String tipoObjeto, String dataAcao, UsuarioM usuario) { 
-        this.tipoObjeto = tipoObjeto;
         this.dataAcao = dataAcao;
         this.usuario = usuario;
     }
-    
-    public HistoricoAcaoM(String tipoObjeto, String dataAcao) { 
-        this.tipoObjeto = tipoObjeto;
-        this.dataAcao = dataAcao;
+ 
+    public HistoricoAcaoM(UsuarioM usuario){
+        this.usuario = usuario;
     }
     
-    public HistoricoAcaoM(String tipoObjeto) { 
-        this.tipoObjeto = tipoObjeto;
+    public HistoricoAcaoM(String acao){
+        this.acao = acao;
+    }
+    
+    public HistoricoAcaoM(Date periodoInicio, Date periodoFim){
+        this.periodoInicio = periodoInicio;
+        this.periodoFim = periodoFim;
     }
    
-   public Integer getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -84,20 +89,35 @@ public class HistoricoAcaoM {
         this.acao = acao;
     }
 
-    public String getDataAcao() {
-        return dataAcao;
-    }
-
-    public void setDataAcao(String dataAcao) {
-        this.dataAcao = dataAcao;
-    }
-
-    public UsuarioM getUsario() {
+    public UsuarioM getUsuario() {
         return usuario;
     }
 
-    public void setUsario(UsuarioM usario) {
-        this.usuario = usario;
+    public void setUsuario(UsuarioM usuario) {
+        this.usuario = usuario;
+    }
+    
+    public Date getDataAcao() {
+        return dataAcao;
+    }
+
+    public void setDataAcao(Date dataAcao) {
+        this.dataAcao = dataAcao;
+    }
+    public Date getPeriodoInicio() {
+        return periodoInicio;
+    }
+
+    public void setPeriodoInicio(Date periodoInicio) {
+        this.periodoInicio = periodoInicio;
+    }
+
+    public Date getPeriodoFim() {
+        return periodoFim;
+    }
+
+    public void setPeriodoFim(Date periodoFim) {
+        this.periodoFim = periodoFim;
     }
 
     

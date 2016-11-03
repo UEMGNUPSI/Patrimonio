@@ -6,15 +6,21 @@
 package view;
 
 import dao.HistoricoAcaoDAO;
+import dao.UsuarioDAO;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.HistoricoAcaoM;
+import model.UsuarioM;
 
 /**
  *
@@ -26,31 +32,48 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     /**
      * Creates new form HistoricoView
      */
+    HistoricoAcaoM hist;
+    HistoricoAcaoDAO historicoAcaoDAO;
+    List<HistoricoAcaoM> listaHistorico;
+    UsuarioDAO usuarioDAO;
+    List<UsuarioM> listaUsuario;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
+    Date dataIni = null;
+    Date dataF = null;
+    
     public HistoricoView() {
+        
         initComponents();
         this.setVisible(true);
         historicoAcaoDAO = new HistoricoAcaoDAO();
         listaHistorico = new ArrayList<>();
-        atualizaTabelaHistorico();
-    }
-    
-    HistoricoAcaoDAO historicoAcaoDAO;
-    List<HistoricoAcaoM> listaHistorico;
-    
-    public void atualizaTabelaHistorico() {
-        try {
+        usuarioDAO = new UsuarioDAO();
+        listaUsuario = new ArrayList<>();
+        sdf.setLenient(false);
+        
+        //inicia a tela já com todos os logs
+        /*try {
             listaHistorico = historicoAcaoDAO.listaTodos();
         } catch (SQLException ex) {
+            
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
+        
+        preencheComboUsuario();
+        preencheComboAcoes();
+        //atualizaTabelaHistorico();
+    } 
+    
+    public void atualizaTabelaHistorico() {
+       
         String dados[][] = new String[listaHistorico.size()][4];
         int i = 0;
         for (HistoricoAcaoM hist : listaHistorico) {
             
-            dados[i][0] = hist.getDataAcao();
+            dados[i][0] = hist.getDataAcao().toString();
             dados[i][1] = hist.getTipoObjeto();
             dados[i][2] = hist.getAcao();
-            dados[i][3] = hist.getUsario().getNome();
+            dados[i][3] = hist.getUsuario().getNome();
             
             i++;
         }
@@ -79,6 +102,48 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         tbeHistorico.setRowHeight(25);
         tbeHistorico.updateUI();
     }
+    
+    public void preencheComboUsuario(){
+        cbxUsuario.removeAllItems();
+        cbxUsuario.addItem("--Selecione--");
+        
+        try {
+            listaUsuario = usuarioDAO.listaTodos();
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (UsuarioM user : listaUsuario){
+            if (!user.getUsuario().equals("root"))
+            {
+                cbxUsuario.addItem(user.getNome());
+            }   
+        }        
+        
+    }
+    
+    public void preencheComboAcoes(){
+        cbxAcoes.removeAllItems();
+        cbxAcoes.addItem("--Selecione--");
+        
+        cbxAcoes.addItem("Adicionar");
+        cbxAcoes.addItem("Alterar");
+        cbxAcoes.addItem("Deletar");
+        cbxAcoes.addItem("Baixar");
+    }
+    
+    public void definePeriodo(){
+        
+        String dataInicio = tfdPeriodoInicio.getText();
+        String dataFim = tfdPeriodoFim.getText();
+       
+       
+        try {
+            dataIni = new Date(sdf.parse(dataInicio).getTime());
+            dataF = new Date(sdf.parse(dataFim).getTime());
+        } catch (ParseException ex) {
+            Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+        }       
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,18 +155,19 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        lblFiltro = new javax.swing.JLabel();
-        lblData = new javax.swing.JLabel();
-        tfdData = new javax.swing.JTextField();
-        tfdPatrimonio = new javax.swing.JTextField();
-        lblPatrimonio = new javax.swing.JLabel();
-        tfdUsuario = new javax.swing.JTextField();
-        lblUsuario = new javax.swing.JLabel();
-        tfdAcao = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbeHistorico = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        cbxUsuario = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        tfdPeriodoInicio = new javax.swing.JFormattedTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        tfdPeriodoFim = new javax.swing.JFormattedTextField();
+        jLabel6 = new javax.swing.JLabel();
+        cbxAcoes = new javax.swing.JComboBox<>();
         tfdNavegacao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         lblQuantPaginas = new javax.swing.JLabel();
@@ -111,33 +177,6 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-
-        lblFiltro.setText("Filtros");
-
-        lblData.setText("Data");
-
-        tfdData.setPreferredSize(new java.awt.Dimension(6, 25));
-        tfdData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdDataActionPerformed(evt);
-            }
-        });
-
-        tfdPatrimonio.setPreferredSize(new java.awt.Dimension(6, 25));
-
-        lblPatrimonio.setText("Objeto");
-
-        tfdUsuario.setPreferredSize(new java.awt.Dimension(6, 25));
-
-        lblUsuario.setText("Usuário");
-
-        tfdAcao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfdAcaoActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setText("Ação:");
 
         tbeHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -166,6 +205,9 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tbeHistorico);
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros"));
+        jPanel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+
         btnBuscar.setText("Buscar");
         btnBuscar.setPreferredSize(new java.awt.Dimension(65, 26));
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -174,64 +216,101 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel1.setText("Usuário:");
+
+        jLabel2.setText("Período da ação");
+
+        try {
+            tfdPeriodoInicio.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel4.setText("Início:");
+
+        jLabel5.setText("Fim:");
+
+        try {
+            tfdPeriodoFim.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel6.setText("Ação:");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cbxUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel2)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tfdPeriodoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tfdPeriodoFim, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cbxAcoes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbxUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tfdPeriodoInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(tfdPeriodoFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbxAcoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(197, Short.MAX_VALUE)
-                        .addComponent(lblFiltro)
-                        .addGap(100, 100, 100))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(24, 24, 24)
-                                        .addComponent(lblUsuario))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lblData, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(lblPatrimonio, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfdAcao)
-                                    .addComponent(tfdPatrimonio, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                                    .addComponent(tfdUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfdData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addComponent(lblFiltro)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfdData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblPatrimonio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfdPatrimonio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblData))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblUsuario)
-                    .addComponent(tfdUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfdAcao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         tfdNavegacao.setPreferredSize(new java.awt.Dimension(6, 23));
@@ -300,10 +379,6 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfdDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdDataActionPerformed
-
     private void tbeHistoricoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeHistoricoMouseClicked
     }//GEN-LAST:event_tbeHistoricoMouseClicked
 
@@ -320,33 +395,59 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAnterior1ActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        /*UsuarioM usuario = null;
+        try {
+            usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         
+       /* definePeriodo();
+
+        try {
+            
+            hist = new HistoricoAcaoM(dataIni, dataF);
+            
+            listaHistorico = historicoAcaoDAO.busca(hist, 1, 3);
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        /*try {
+            hist = new HistoricoAcaoM(usuario);
+            listaHistorico = historicoAcaoDAO.busca(hist, 1, 5);
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+       
+        /*hist = new HistoricoAcaoM(cbxAcoes.getSelectedItem().toString());
+        try {
+            listaHistorico = historicoAcaoDAO.busca(hist, 1, 7);
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
         
+        atualizaTabelaHistorico();
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void tfdAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdAcaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfdAcaoActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnterior1;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnProximo;
+    private javax.swing.JComboBox<String> cbxAcoes;
+    private javax.swing.JComboBox<String> cbxUsuario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblData;
-    private javax.swing.JLabel lblFiltro;
-    private javax.swing.JLabel lblPatrimonio;
     private javax.swing.JLabel lblQuantPaginas;
-    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTable tbeHistorico;
-    private javax.swing.JTextField tfdAcao;
-    private javax.swing.JTextField tfdData;
     private javax.swing.JTextField tfdNavegacao;
-    private javax.swing.JTextField tfdPatrimonio;
-    private javax.swing.JTextField tfdUsuario;
+    private javax.swing.JFormattedTextField tfdPeriodoFim;
+    private javax.swing.JFormattedTextField tfdPeriodoInicio;
     // End of variables declaration//GEN-END:variables
 }
