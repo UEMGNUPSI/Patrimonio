@@ -256,17 +256,14 @@ public class InventarioView extends javax.swing.JInternalFrame {
 
         tbeEsperados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 4"
+                "ID", "Codigo", "Descrição", "Inventario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -277,17 +274,14 @@ public class InventarioView extends javax.swing.JInternalFrame {
 
         tbeReais.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2"
+                "ID", "Codigol", "Descrição", "Inventario"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -386,12 +380,17 @@ public class InventarioView extends javax.swing.JInternalFrame {
             dados[i][1] = sal.getDescricao();
             dados[i][2] = sal.getPiso().getDescricao();
             dados[i][3] = sal.getPiso().getBloco().getDescricao();
-            if(sal.getInventario() == 0)
-                dados[i][4] = "A Fazer";
-            else if(sal.getInventario() == -1)
-                dados[i][4] = "Incompleto";
-            else 
-                dados[i][4] = "Completo";
+                switch (sal.getInventario()) {
+                case 0:
+                    dados[i][4] = "Pendente";
+                    break;
+                case -1:
+                    dados[i][4] = "Incompleto";
+                    break;
+                default:
+                    dados[i][4] = "Completo";
+                    break;
+            }
             i++;          
         }
         
@@ -409,19 +408,14 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
-        tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeSala.getColumnModel().getColumn(0).setPreferredWidth(40);
         tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
-        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(120);
         
          
         tbeSala.setDefaultRenderer(Object.class, new ColorirSala());
-        /*DefaultTableCellRenderer centralizado = new ColorirGreen();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);*/
-        
-        
         
         tbeSala.setRowHeight(25);
         tbeSala.updateUI();
@@ -581,7 +575,6 @@ public class InventarioView extends javax.swing.JInternalFrame {
                     try {
                         SalaDAO.finalizaSala(numeroSala, 1);
                         atualizaTabelaSala();
-                        atualizaTabelaPatrimoniosEsperados();
                     } catch (SQLException ex) {
                         Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -590,6 +583,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
                         SalaDAO.finalizaSala(numeroSala, -1);
                         PatrimonioDAO.inventarioNaoEncontrados(listaPatrimonioEsperados);
                         atualizaTabelaSala();
+                        atualizaTabelaPatrimoniosEsperados();
                     } catch (SQLException ex) {
                         Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -657,7 +651,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
             dados[i][1] = pat.getCodigo();
             dados[i][2] = pat.getDescricao();
             if(pat.getInventario() == 0)
-                dados[i][3] = "A Encontrar";
+                dados[i][3] = "Pendente";
             else
                 dados[i][3] = "Perdido";
             i++;
@@ -704,13 +698,24 @@ public class InventarioView extends javax.swing.JInternalFrame {
             dados[i][1] = sal.getDescricao();
             dados[i][2] = sal.getPiso().getDescricao();
             dados[i][3] = sal.getPiso().getBloco().getDescricao();
-            dados[i][4] = String.valueOf(sal.getInventario());
-            i++;           
+                switch (sal.getInventario()) {
+                case 0:
+                    dados[i][4] = "Pendente";
+                    break;
+                case -1:
+                    dados[i][4] = "Incompleto";
+                    break;
+                default:
+                    dados[i][4] = "Completo";
+                    break;
+                }
+            i++;          
         }
         
-        String tituloColuna[] = {"ID","Nome", "Piso Pertencente", "Bloco Pertencente","Inventario"};
-        DefaultTableModel tabelaCliente = new DefaultTableModel();
-        tabelaCliente.setDataVector(dados, tituloColuna);
+        
+        
+        String tituloColuna[] = {"ID","Nome", "Piso", "Bloco","Inventario"};
+        
         tbeSala.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
                 false, false, false, false, false
@@ -725,18 +730,13 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tbeSala.getColumnModel().getColumn(1).setPreferredWidth(200);
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(80);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(80);
+        tbeSala.getColumnModel().getColumn(4).setPreferredWidth(80);
         
-        //TableCellRenderer renderer = new Colorir();
-        //tbeSala.setDefaultRenderer(Object.class, renderer);
+         
+        tbeSala.setDefaultRenderer(Object.class, new ColorirSala());
         
-        /*DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeSala.getColumnModel().getColumn(0).setCellRenderer(centralizado);*/
         tbeSala.setRowHeight(25);
         tbeSala.updateUI();
-        
-        
-        
         
     }
 
