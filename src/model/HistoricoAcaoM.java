@@ -19,9 +19,6 @@ public class HistoricoAcaoM {
     private String acao;
     private Date dataAcao;
     private UsuarioM usuario;
-    private Date periodoInicio;
-    private Date periodoFim;
-
      
     public HistoricoAcaoM(){
        
@@ -44,19 +41,6 @@ public class HistoricoAcaoM {
         this.usuario = usuario;
     }
  
-    public HistoricoAcaoM(UsuarioM usuario){
-        this.usuario = usuario;
-    }
-    
-    public HistoricoAcaoM(String acao){
-        this.acao = acao;
-    }
-    
-    public HistoricoAcaoM(Date periodoInicio, Date periodoFim){
-        this.periodoInicio = periodoInicio;
-        this.periodoFim = periodoFim;
-    }
-   
     public Integer getId() {
         return id;
     }
@@ -104,22 +88,5 @@ public class HistoricoAcaoM {
     public void setDataAcao(Date dataAcao) {
         this.dataAcao = dataAcao;
     }
-    public Date getPeriodoInicio() {
-        return periodoInicio;
-    }
-
-    public void setPeriodoInicio(Date periodoInicio) {
-        this.periodoInicio = periodoInicio;
-    }
-
-    public Date getPeriodoFim() {
-        return periodoFim;
-    }
-
-    public void setPeriodoFim(Date periodoFim) {
-        this.periodoFim = periodoFim;
-    }
-
-    
    
 }

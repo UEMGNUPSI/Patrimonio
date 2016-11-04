@@ -5,7 +5,9 @@
  */
 package view;
 
+import dao.HistoricoAcaoDAO;
 import dao.OrgaoDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.HistoricoAcaoM;
 import model.OrgaoM;
+import model.UsuarioM;
 import util.LimiteDigitos;
 
 /**
@@ -28,7 +32,9 @@ public class OrgaoView extends javax.swing.JInternalFrame {
     /**
      * Creates new form Orgão
      */
-    public OrgaoView() {
+    private UsuarioM usuarioAtivo;
+    
+    public OrgaoView(UsuarioM usuarioAtivo) {
         orgaoDAO = new OrgaoDAO();
         listaOrgao = new ArrayList<>();
         initComponents();  
@@ -37,11 +43,15 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         tfdCnpj.setDocument(new LimiteDigitos(45));
         tfdContato.setDocument(new LimiteDigitos(45));
         tfdNome.setDocument(new LimiteDigitos(45));
+        this.usuarioAtivo = usuarioAtivo;
 
     }
 
     OrgaoM orgao;
     OrgaoDAO orgaoDAO;
+    String acao;
+    int idHistorico;
+    String descricaoHistorico;
     List<OrgaoM> listaOrgao;
 
     public void atualizaTabelaOrgao() {
@@ -84,6 +94,17 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         tbeOrgao.setRowHeight(25);
         tbeOrgao.updateUI();
 
+    }
+    
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
     }
 
     /**
@@ -350,8 +371,11 @@ public class OrgaoView extends javax.swing.JInternalFrame {
                 orgao.setNome(tfdNome.getText());
                 orgao.setCnpj(tfdCnpj.getText());
                 orgao.setContato(tfdContato.getText());
-               
+                acao = "Alterar";
+                idHistorico = orgao.getId();
+                descricaoHistorico = orgao.getNome();
                 try {
+                    salvaHistorico();
                     orgaoDAO.alterar(orgao);
                     JOptionPane.showMessageDialog(null, "Alterado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
@@ -376,9 +400,14 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         } else {
             orgao = new OrgaoM();
             orgao.setId(Integer.parseInt(tfdID.getText()));
+            orgao.setNome(tfdNome.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdNome.getText() + " ?");
             if (confirma == 0) {
                 try {
+                    acao = "Excluir";
+                    idHistorico = orgao.getId();
+                    descricaoHistorico = orgao.getNome();
+                    salvaHistorico();
                     orgaoDAO.excluir(orgao);
                     atualizaTabelaOrgao();
                     limpaCamposOrgao();
