@@ -22,16 +22,24 @@ public class UnidadeDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar(UnidadeM unidade) throws SQLException{
+    public int salvar(UnidadeM unidade) throws SQLException{
+        int auxID = 0;
         sql = "insert into Unidade values(?,?,?,?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, unidade.getNome());
         pst.setString(3, unidade.getTelefone());
         pst.setString(4, unidade.getEndereco());
         pst.setString(5, unidade.getEmail());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
         pst.close();
+        
+        return auxID;
     }
     
     public UnidadeM busca(int id) throws SQLException{

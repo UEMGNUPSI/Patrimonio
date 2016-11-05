@@ -42,6 +42,7 @@ public class HistoricoAcaoDAO {
     public static void salvar(HistoricoAcaoM historico) throws SQLException{
         PreparedStatement pst;
         String sql;
+      
         sql = "insert into HistoricoAcoes values(?,?,?,?,?,?)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
@@ -52,6 +53,7 @@ public class HistoricoAcaoDAO {
         pst.setInt(6, historico.getUsuario().getId());
         pst.execute();
         pst.close();
+  
     }  
     
     public List<HistoricoAcaoM> buscaDescricao(String desc) throws SQLException{

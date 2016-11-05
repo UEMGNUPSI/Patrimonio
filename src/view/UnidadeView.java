@@ -5,7 +5,9 @@
  */
 package view;
 
+import dao.HistoricoAcaoDAO;
 import dao.UnidadeDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.HistoricoAcaoM;
 import model.UnidadeM;
+import model.UsuarioM;
 import util.LimiteDigitos;
 
 /**
@@ -28,9 +32,10 @@ public class UnidadeView extends javax.swing.JInternalFrame {
     /**
      * Creates new form UnidadeView
      */
-    public UnidadeView() {
+    public UnidadeView(UsuarioM usuarioAtivo) {
         unidadeDAO = new UnidadeDAO();
         listaUnidade = new ArrayList<>();
+        this.usuarioAtivo = usuarioAtivo;
         initComponents();
         this.setVisible(true);
         atualizaTabelaUnidade();
@@ -44,6 +49,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
     UnidadeM unidade;
     UnidadeDAO unidadeDAO;
     List<UnidadeM> listaUnidade;
+    
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    UsuarioM usuarioAtivo;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -291,9 +301,14 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         } else {
             unidade = new UnidadeM();
             unidade.setId(Integer.parseInt(tfdID.getText()));
+            unidade.setNome(tfdNome.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdNome.getText() + " ?");
             if (confirma == 0) {
                 try {
+                    acao = "Excluir";
+                    idHistorico = unidade.getId();
+                    descricaoHistorico = unidade.getNome();
+                    salvaHistorico();
                     unidadeDAO.excluir(unidade);
                 } catch (SQLException ex) {
                     Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
@@ -348,7 +363,10 @@ public class UnidadeView extends javax.swing.JInternalFrame {
             unidade.setEndereco(tfdEndereco.getText());
             unidade.setEmail(tfdEmail.getText());
             try {
-                unidadeDAO.salvar(unidade);
+                idHistorico = unidadeDAO.salvar(unidade);
+                acao = "Novo";
+                descricaoHistorico = unidade.getNome();
+                salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaUnidade();
                 preparaSalvareCancelar();
@@ -374,6 +392,10 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 unidade.setEndereco(tfdEndereco.getText());
                 unidade.setEmail(tfdEmail.getText());
                 try {
+                    idHistorico = unidade.getId();
+                    acao = "Alterar";
+                    descricaoHistorico = unidade.getNome();
+                    salvaHistorico();
                     unidadeDAO.alterar(unidade);
                     JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
@@ -397,7 +419,17 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         preparaAlterar();
         ativaCampos();
     }//GEN-LAST:event_btnAlterarUnidadeActionPerformed
-
+    
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
+    }
     public void LimpaCamposUnidade() {
         tfdID.setText("");
         tfdNome.setText("");

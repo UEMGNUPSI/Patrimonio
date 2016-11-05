@@ -410,7 +410,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void mniUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniUnidadeActionPerformed
         // TODO add your handling code here:
-        UnidadeView unidade = new UnidadeView();
+        UnidadeView unidade = new UnidadeView(usuarioAtivo);
         pnlPrincipal.removeAll();
         pnlPrincipal.add(unidade);
         pnlPrincipal.updateUI();

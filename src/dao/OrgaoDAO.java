@@ -20,15 +20,22 @@ public class OrgaoDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar(OrgaoM entidade) throws SQLException{
+    public int salvar(OrgaoM entidade) throws SQLException{
+        int auxID = 0;
         sql = "insert into Entidade values(?,?,?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, entidade.getNome());
         pst.setString(3, entidade.getCnpj());
         pst.setString(4, entidade.getContato());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
         pst.close();
+        return auxID;
     }
     
      public OrgaoM busca(int id) throws SQLException{

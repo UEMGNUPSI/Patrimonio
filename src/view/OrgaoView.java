@@ -37,6 +37,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
     public OrgaoView(UsuarioM usuarioAtivo) {
         orgaoDAO = new OrgaoDAO();
         listaOrgao = new ArrayList<>();
+        
         initComponents();  
         this.setVisible(true);
         atualizaTabelaOrgao();
@@ -49,6 +50,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
 
     OrgaoM orgao;
     OrgaoDAO orgaoDAO;
+    
     String acao;
     int idHistorico;
     String descricaoHistorico;
@@ -343,7 +345,10 @@ public class OrgaoView extends javax.swing.JInternalFrame {
             orgao.setCnpj(tfdCnpj.getText());
             orgao.setContato(tfdContato.getText());
             try {
-                orgaoDAO.salvar(orgao);
+                idHistorico = orgaoDAO.salvar(orgao);
+                acao = "Novo";
+                descricaoHistorico = orgao.getNome();
+                salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaOrgao();
                 limpaCamposOrgao();
