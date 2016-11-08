@@ -106,9 +106,9 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         
         validaQuantidade();
         
-        btnAnterior.setEnabled(false);
-        btnProximo.setEnabled(false);
-        lblQuantPaginas.setText("0/0");
+        //btnAnterior.setEnabled(false);
+        //btnProximo.setEnabled(false);
+        //lblQuantPaginas.setText("0/0");
         
     }
     
@@ -532,21 +532,26 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         }else{
 
             try {
-                //Como a busca sera exata entao eu setei os botoes anterior e proximo como false e a lblQuantPaginas 1/1 e se nao encontrar fica 0/0
-                //ta feito assim nos outros que tem busca exata (idSala, orgao, conservacao, subtipo)
-                if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){
-                    listaPatrimonio = null;
+                
+                //FEITO
+                if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){ 
                     try{
-                        listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(tfdFiltroBusca.getText()));
-                        btnAnterior.setEnabled(false);
-                        btnProximo.setEnabled(false);
-                        lblQuantPaginas.setText("1/1"); 
+                        listaPatrimonio = null;
+                        //listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(tfdFiltroBusca.getText()));  
+                        listaPatrimonio = patrimonioDAO.listaTodosSala100(Integer.parseInt(tfdFiltroBusca.getText()),inicio);  
+                        validaQuantidadeBuscaIdSala();
+                        cont = 3;      
+                        //btnAnterior.setEnabled(false);
+                        //btnProximo.setEnabled(false);
+                        //lblQuantPaginas.setText("1/1");
+                        //JOptionPane.showMessageDialog(null, listaPatrimonio.size());
                         
-                        if(listaPatrimonio.size() < 1)
+                        if(listaPatrimonio.size() < 1){
                             JOptionPane.showMessageDialog(null, "Sala não Encontrada");
                             btnAnterior.setEnabled(false);
                             btnProximo.setEnabled(false);
                             lblQuantPaginas.setText("0/0");
+                        }
                     }catch(java.lang.NumberFormatException ex){
                         JOptionPane.showMessageDialog(null, "Digite caracteres válidos!\n(Somente Numeros)");
                     }
@@ -555,10 +560,11 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                 }else
                     //FEITO
                 if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
-                     listaPatrimonio = null;
+                    listaPatrimonio = null;
                     listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
                     validaQuantidadeBuscaCodigo();
                     cont = 1;
+                    
                     if(listaPatrimonio.size() < 1){
                            JOptionPane.showMessageDialog(null, "Código não Encontrado");
                            btnAnterior.setEnabled(false);
@@ -579,16 +585,20 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                            lblQuantPaginas.setText("0/0");
                     }
                 }else
-                    
+                //FEITO
                 if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
                     listaPatrimonio = null;
                     try{
-                        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());   
-                    
-                        listaPatrimonio = patrimonioDAO.buscaOrgao(orgao.getId());
-                        btnAnterior.setEnabled(false);
+                        //JOptionPane.showMessageDialog(null, "AQUI");
+                        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+                        listaPatrimonio = patrimonioDAO.buscaOrgao100(orgao.getId(),inicio);
+                        //JOptionPane.showMessageDialog(null, listaPatrimonio.size());
+                        validaQuantidadeBuscaOrgao();
+                        cont = 4;       
+                        /*btnAnterior.setEnabled(false);
                         btnProximo.setEnabled(false);
                         lblQuantPaginas.setText("1/1");
+                        */
                     }catch(java.lang.NullPointerException ex){
                         JOptionPane.showMessageDialog(null, "Digite um orgão valido!" );
                         btnAnterior.setEnabled(false);
@@ -596,35 +606,39 @@ public class ConsultaView extends javax.swing.JInternalFrame {
                         lblQuantPaginas.setText("0/0");
                     }
                 }else
-                    
+                //FEITO
                 if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
                     listaPatrimonio = null;
                     try{
                             conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
-                            listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());
-                            btnAnterior.setEnabled(false);
-                            btnProximo.setEnabled(false);
-                            lblQuantPaginas.setText("1/1");
+                            listaPatrimonio = patrimonioDAO.buscaConservacao100(conservacao.getId(),inicio);
+                            validaQuantidadeBuscaConservacao();
+                            cont = 5;
                      }catch(java.lang.NullPointerException ex){
                         JOptionPane.showMessageDialog(null, "Digite uma Conservação valida!" );
-                    }
-                    
-                    if(listaPatrimonio.size() < 1)
+                    }                    
+                    if(listaPatrimonio.size() < 1){
                            JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
                             btnAnterior.setEnabled(false);
                             btnProximo.setEnabled(false);
                             lblQuantPaginas.setText("0/0");
+                    }
                 }else
                     
                 if(cbxFiltro.getSelectedItem().toString().equals("Subtipo")){
                     try{
                         subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
-                        listaPatrimonio = patrimonioDAO.buscaSubtipo(subtipo.getId());
-                        btnAnterior.setEnabled(false);
-                        btnProximo.setEnabled(false);
-                        lblQuantPaginas.setText("1/1");
+                        listaPatrimonio = patrimonioDAO.buscaSubtipo100(subtipo.getId(),inicio);
+                        validaQuantidadeBuscaSubtipo();
+                        cont = 6;
                      }catch(java.lang.NullPointerException ex){
                         JOptionPane.showMessageDialog(null, "Digite um SubTipo valido!" );
+                    }
+                    if(listaPatrimonio.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
+                            btnAnterior.setEnabled(false);
+                            btnProximo.setEnabled(false);
+                            lblQuantPaginas.setText("0/0");
                     }
                 }
 
@@ -681,6 +695,66 @@ public class ConsultaView extends javax.swing.JInternalFrame {
             btnProximo.setEnabled(false);
         }
     }
+    public void proximoBuscaIdSala(){
+        inicio+=100;
+        try {
+            listaPatrimonio = patrimonioDAO.listaTodosSala100(Integer.parseInt(tfdFiltroBusca.getText()),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaOrgao(){
+        inicio+=100;
+        try {
+           orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+           listaPatrimonio = patrimonioDAO.buscaOrgao100(orgao.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaConservacao(){
+        inicio+=100;
+        try {
+           conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
+           listaPatrimonio = patrimonioDAO.buscaConservacao100(conservacao.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaSubtipo(){
+        inicio+=100;
+        try {
+           subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+            listaPatrimonio = patrimonioDAO.buscaSubtipo100(subtipo.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    
     
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
         switch (cont) {
@@ -694,6 +768,18 @@ public class ConsultaView extends javax.swing.JInternalFrame {
             break;
             case 2:
             proximoBuscaDescricao();
+            atualizaTabelaBusca();
+            case 3:
+            proximoBuscaIdSala();
+            atualizaTabelaBusca();
+            case 4:
+            proximoBuscaOrgao();
+            atualizaTabelaBusca();
+            case 5:
+            proximoBuscaConservacao();
+            atualizaTabelaBusca();
+            case 6:
+            proximoBuscaSubtipo();
             atualizaTabelaBusca();
             break;
             default:
@@ -786,7 +872,65 @@ public class ConsultaView extends javax.swing.JInternalFrame {
             btnAnterior.setEnabled(false);
         }
     }
-    
+    public void anteriorBuscaIdSala(){
+        inicio -=100;
+        try {
+            listaPatrimonio = patrimonioDAO.listaTodosSala100(Integer.parseInt(tfdFiltroBusca.getText()),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    public void anteriorBuscaOrgao(){
+        inicio -=100;
+        try {
+           orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+           listaPatrimonio = patrimonioDAO.buscaOrgao100(orgao.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    public void anteriorBuscaConservacao(){
+        inicio -=100;
+        try {
+           conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
+           listaPatrimonio = patrimonioDAO.buscaConservacao100(conservacao.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+     public void anteriorBuscaSubtipo(){
+        inicio -=100;
+        try {
+           subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+            listaPatrimonio = patrimonioDAO.buscaSubtipo100(subtipo.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
     public void atualizaTabelaPatrimonio(int inicio) {
 
         try {
@@ -853,6 +997,18 @@ public class ConsultaView extends javax.swing.JInternalFrame {
             case 2:
             anteriorBuscaDescricao();
             atualizaTabelaBusca();
+            case 3:
+            anteriorBuscaIdSala();
+            atualizaTabelaBusca(); 
+            case 4:
+            anteriorBuscaOrgao();
+            atualizaTabelaBusca(); 
+            case 5:
+            anteriorBuscaConservacao();
+            atualizaTabelaBusca(); 
+            case 6:
+            anteriorBuscaSubtipo();
+            atualizaTabelaBusca(); 
             break;
             default:
             break;
@@ -890,11 +1046,83 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         }
         
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+    }
+    public void validaQuantidadeBuscaConservacao() throws SQLException{
+        conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());                          
+        this.quantMax = patrimonioDAO.quantidadeConservacao(conservacao.getId());
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+    public void validaQuantidadeBuscaSubtipo() throws SQLException{
+         subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+                                         
+        this.quantMax = patrimonioDAO.quantidadeSubtipo(subtipo.getId()); 
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+    public void validaQuantidadeBuscaOrgao() throws SQLException{
+        
+        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());
+        this.quantMax = patrimonioDAO.quantidadeOrgao(orgao.getId());
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
         
     }
      public void validaQuantidadeBuscaCodigo() throws SQLException{
         this.quantMax = patrimonioDAO.quantidadeCodigo(tfdFiltroBusca.getText());
         
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+     public void validaQuantidadeBuscaIdSala() throws SQLException{
+        this.quantMax = patrimonioDAO.quantidadeIdSala(Integer.parseInt(tfdFiltroBusca.getText()));
+        //JOptionPane.showMessageDialog(null, quantMax);
         pagAtual = 1;
         
         if(quantMax % 100 == 0){

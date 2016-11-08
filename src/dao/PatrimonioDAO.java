@@ -119,7 +119,7 @@ public class PatrimonioDAO {
      
      public List<PatrimonioM> listaTodosSala(int id_sala) throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select * from Patrimonio where id_sala = ?  ";
+        sql = "select * from Patrimonio where id_sala = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, id_sala);
         ResultSet rs = pst.executeQuery();
@@ -137,6 +137,31 @@ public class PatrimonioDAO {
         pst.close();
         return listaPat;
     }
+     
+     public List<PatrimonioM> listaTodosSala100(int id_sala, int inicio) throws SQLException{
+        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
+        sql = "select * from Patrimonio where id_sala = ? limit ?,100";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id_sala);
+        pst.setInt(2, inicio);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
+           listaPat.add(new PatrimonioM(rs.getInt("id"),
+                   rs.getString("descricao"),
+                   rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
+        }
+        pst.close();
+        return listaPat;
+    }
+     
+     
+     
      
      public List<PatrimonioM> buscaPatrimonio(String codigo) throws SQLException{
         String aux = "%"+codigo+"%";
@@ -252,6 +277,33 @@ public class PatrimonioDAO {
         pst.close();
         return listaPat;
      }
+     public List<PatrimonioM> buscaOrgao100(int orgaoId,int inicio) throws SQLException{
+        List<PatrimonioM> listaPat = new ArrayList<>();
+        sql = "select * from patrimonio where id_entidade = ? limit ?,100";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, orgaoId);
+        pst.setInt(2, inicio);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
+           listaPat.add(new PatrimonioM(rs.getInt("id"),
+                   rs.getString("descricao"),
+                   rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),
+                   rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")), 
+                   rs.getBoolean(("kit"))));
+        }
+        pst.close();
+        return listaPat;
+     }
      
      public List<PatrimonioM> buscaConservacao(int conservacaoId) throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
@@ -268,7 +320,38 @@ public class PatrimonioDAO {
            listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
                    rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")),
+                   rs.getBoolean(("kit"))));
+        }
+        pst.close();
+        return listaPat;
+     }
+     public List<PatrimonioM> buscaConservacao100(int conservacaoId, int inicio) throws SQLException{
+        List<PatrimonioM> listaPat = new ArrayList<>();
+        sql = "select * from patrimonio where id_grau_conservacao = ? limit ?,100";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, conservacaoId);
+        pst.setInt(2, inicio);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
+           listaPat.add(new PatrimonioM(rs.getInt("id"),
+                   rs.getString("descricao"),
+                   rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")),
+                   rs.getBoolean(("kit"))));
         }
         pst.close();
         return listaPat;
@@ -421,6 +504,36 @@ public class PatrimonioDAO {
         pst.close();
         return listaPat;
      }
+     public List<PatrimonioM> buscaSubtipo100(int comparador, int inicio) throws SQLException{
+        List<PatrimonioM> listaPat = new ArrayList<>();
+        sql = "select * from patrimonio where id_subtipo = ? limit ?,100";
+        
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, comparador);
+        pst.setInt(2, inicio);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
+           listaPat.add(new PatrimonioM(
+                   rs.getInt("id"),
+                   rs.getString("descricao"),
+                   rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),
+                   rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")),
+                   rs.getBoolean(("kit"))
+           ));
+        }
+        pst.close();
+        return listaPat;
+     }
      
       public List<PatrimonioM> lista100(int id_inicio) throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
@@ -487,11 +600,88 @@ public class PatrimonioDAO {
         
         return quant;
      }
+      public int quantidadeOrgao(int comparador) throws SQLException{     
+        String aux = "%"+comparador+"%";
+        sql = "select count(*) quantidade from patrimonio where id_entidade = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        //pst.setString(1, aux);
+        pst.setInt(1,comparador);
+        ResultSet rs = pst.executeQuery();
+
+        //PatrimonioM patrimonioM = new PatrimonioM(rs.getInt("quantidade"));
+        int quant = 0;
+        while(rs.next()){
+            quant = rs.getInt("quantidade");
+        }
+        
+        pst.close();
+        
+        return quant;
+     }
+      
+      
+      public int quantidadeConservacao(int comparador) throws SQLException{     
+        String aux = "%"+comparador+"%";
+        sql = "select count(*) quantidade from patrimonio where id_grau_conservacao = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        //pst.setString(1, aux);
+        pst.setInt(1,comparador);
+        ResultSet rs = pst.executeQuery();
+
+        //PatrimonioM patrimonioM = new PatrimonioM(rs.getInt("quantidade"));
+        int quant = 0;
+        while(rs.next()){
+            quant = rs.getInt("quantidade");
+        }
+        
+        pst.close();
+        
+        return quant;
+     }
+       public int quantidadeSubtipo(int comparador) throws SQLException{     
+        String aux = "%"+comparador+"%";
+        sql = "select count(*) quantidade from patrimonio where id_subtipo = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        //pst.setString(1, aux);
+        pst.setInt(1,comparador);
+        ResultSet rs = pst.executeQuery();
+
+        //PatrimonioM patrimonioM = new PatrimonioM(rs.getInt("quantidade"));
+        int quant = 0;
+        while(rs.next()){
+            quant = rs.getInt("quantidade");
+        }
+        
+        pst.close();
+        
+        return quant;
+     }
+      
+      
       public int quantidadeCodigo(String comparador) throws SQLException{     
         String aux = "%"+comparador+"%";
         sql = "select count(*) quantidade from patrimonio where codigo like ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setString(1, aux);
+        ResultSet rs = pst.executeQuery();
+
+        //PatrimonioM patrimonioM = new PatrimonioM(rs.getInt("quantidade"));
+        int quant = 0;
+        while(rs.next()){
+            quant = rs.getInt("quantidade");
+        }
+        
+        pst.close();
+        
+        return quant;
+     }
+      
+       public int quantidadeIdSala(int comparador) throws SQLException{     
+        String aux = "%"+comparador+"%";
+        sql = "select count(*) quantidade from patrimonio where id_sala = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        //pst.setString(1, aux);
+        pst.setInt(1, comparador);
         ResultSet rs = pst.executeQuery();
 
         //PatrimonioM patrimonioM = new PatrimonioM(rs.getInt("quantidade"));
