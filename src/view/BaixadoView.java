@@ -5,6 +5,7 @@
  */
 package view;
 
+import dao.BaixadoDAO;
 import dao.BlocoDAO;
 import dao.GrauConservacaoDAO;
 import dao.OrgaoDAO;
@@ -22,6 +23,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.BaixadoM;
 import model.BlocoM;
 import model.GrauConservacaoM;
 import model.OrgaoM;
@@ -41,6 +43,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
      * Creates new form BaixadoView
      */
     List<PatrimonioM> listaPatrimonio;
+    List<BaixadoM> listaBaixado;
     List<UnidadeM> listaUnidade;
     UnidadeDAO unidadeDAO;
     List<BlocoM> listaBloco;
@@ -58,15 +61,22 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     TipoDAO tipoDAO;
     SubTipoM subtipo;
     SubTipoDAO subtipoDAO;
+    BaixadoDAO baixadoDAO;
+    
+    int inicio = 0, quantMax, pagAtual, pagUltima;
+    int cont = 0;
+    int ultimoID;
     
     
     PatrimonioDAO patrimonioDAO;
-    public BaixadoView() {
+    public BaixadoView() throws SQLException {
         initComponents();
+        baixadoDAO = new BaixadoDAO();
         this.setVisible(true);
         patrimonioDAO = new PatrimonioDAO();
         preencheFiltro();
         listaPatrimonio = new ArrayList<>();
+        listaBaixado = new ArrayList<>();
         listaUnidade = new ArrayList<>();
         unidadeDAO = new UnidadeDAO();
         listaBloco = new ArrayList<>();
@@ -79,14 +89,17 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         tipo = new TipoM();
         subtipo = new SubTipoM();
         subtipoDAO = new SubTipoDAO();
+        atualizaTabelaBaixado(inicio);
+        validaQuantidade();
+        
     }
      public void preencheFiltro(){
         cbxFiltro.removeAllItems();
         cbxFiltro.addItem("--Selecione--");
-        cbxFiltro.addItem("ID Sala");
+        //cbxFiltro.addItem("ID Sala");
         cbxFiltro.addItem("Codigo");
         cbxFiltro.addItem("Descrição");
-        cbxFiltro.addItem("Orgão");
+        //cbxFiltro.addItem("Orgão");
         cbxFiltro.addItem("Conservação");
         cbxFiltro.addItem("Subtipo");
     }
@@ -101,22 +114,22 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbeBuscaBaixados = new javax.swing.JTable();
+        tbeBusca = new javax.swing.JTable();
         cbxFiltro = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
         tfdFiltroBusca = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        btnAnterior = new javax.swing.JButton();
+        btnProximo = new javax.swing.JButton();
+        lblQuantPaginas = new javax.swing.JLabel();
+        tfdNavegacao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
 
-        tbeBuscaBaixados.setModel(new javax.swing.table.DefaultTableModel(
+        tbeBusca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -124,7 +137,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 "Codigo", "Descrição", "Data", "Usuario??"
             }
         ));
-        jScrollPane1.setViewportView(tbeBuscaBaixados);
+        jScrollPane1.setViewportView(tbeBusca);
 
         cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxFiltro.addActionListener(new java.awt.event.ActionListener() {
@@ -143,13 +156,24 @@ public class BaixadoView extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Filtro");
 
-        jButton1.setText("<<");
+        btnAnterior.setText("<<");
+        btnAnterior.setEnabled(false);
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText(">>");
+        btnProximo.setText(">>");
+        btnProximo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProximoActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("quant de paginas");
+        lblQuantPaginas.setText("quant de paginas");
 
-        jTextField1.setPreferredSize(new java.awt.Dimension(6, 23));
+        tfdNavegacao.setPreferredSize(new java.awt.Dimension(6, 23));
 
         jLabel3.setText("Ir para:");
 
@@ -158,31 +182,29 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel1)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(357, 357, 357)
-                        .addComponent(jButton1)
+                        .addGap(0, 388, Short.MAX_VALUE)
+                        .addComponent(btnAnterior)
                         .addGap(4, 4, 4)
-                        .addComponent(jLabel2)
+                        .addComponent(lblQuantPaginas)
                         .addGap(4, 4, 4)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 353, Short.MAX_VALUE)
+                        .addComponent(btnProximo)
+                        .addGap(291, 291, 291)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfdNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -200,12 +222,12 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAnterior)
+                    .addComponent(btnProximo)
+                    .addComponent(lblQuantPaginas)
+                    .addComponent(tfdNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -214,8 +236,105 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     private void cbxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFiltroActionPerformed
 
     }//GEN-LAST:event_cbxFiltroActionPerformed
-public void atualizaTabelaBusca(){
-         String dados[][] = new String[listaPatrimonio.size()][8];
+
+     public void atualizaTabelaBusca(){
+        String dados[][] = new String[listaBaixado.size()][8];
+        int i = 0;
+        for (BaixadoM bai : listaBaixado) {
+            dados[i][0] = String.valueOf(bai.getId());
+            dados[i][1] = bai.getDescricao();
+            dados[i][2] = bai.getCodigo();
+            dados[i][3] = bai.getSubTipo().getDescricao();
+            dados[i][4] = bai.getGrau_conservacao().getDescricao();
+            dados[i][5] = bai.getNotaFiscal();
+            dados[i][6] = bai.getEntidade().getNome();            
+            i++;          
+        }
+        
+        String tituloColuna[] = {"ID", "Descricâo", "Código", "Subtipo", "Grau de Conservação", "Nota Fiscal", "Orgão"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbeBusca.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+
+        tbeBusca.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tbeBusca.getColumnModel().getColumn(1).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(2).setPreferredWidth(215);
+        tbeBusca.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(4).setPreferredWidth(215);
+        tbeBusca.getColumnModel().getColumn(5).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(6).setPreferredWidth(90);
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbeBusca.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeBusca.setRowHeight(25);
+        tbeBusca.updateUI();
+    } 
+     
+     public void atualizaTabelaBaixado(int inicio) {
+
+        try {
+           //listaPatrimonio = patrimonioDAO.listaTodos();
+            //listaPatrimonio = patrimonioDAO.lista100(inicio);
+            listaBaixado = baixadoDAO.lista100(inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String dados[][] = new String[listaBaixado.size()][8];
+        int i = 0;
+        for (BaixadoM bai : listaBaixado) {
+            dados[i][0] = String.valueOf(bai.getId());
+            dados[i][1] = bai.getDescricao();
+            dados[i][2] = bai.getCodigo();
+            dados[i][3] = bai.getSubTipo().getDescricao();
+            dados[i][4] = bai.getGrau_conservacao().getDescricao();
+            dados[i][5] = bai.getNotaFiscal();
+            dados[i][6] = bai.getEntidade().getNome();            
+            i++;          
+        }
+        
+        String tituloColuna[] = {"ID", "Descricâo", "Código", "Subtipo", "Grau de Conservação", "Nota Fiscal", "Orgão"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbeBusca.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+
+        tbeBusca.getColumnModel().getColumn(0).setPreferredWidth(60);
+        tbeBusca.getColumnModel().getColumn(1).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(2).setPreferredWidth(215);
+        tbeBusca.getColumnModel().getColumn(3).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(4).setPreferredWidth(215);
+        tbeBusca.getColumnModel().getColumn(5).setPreferredWidth(90);
+        tbeBusca.getColumnModel().getColumn(6).setPreferredWidth(90);
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbeBusca.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeBusca.setRowHeight(25);
+        tbeBusca.updateUI();
+    }
+    /*
+    public void atualizaTabelaBusca(){
+    
+    
+        String dados[][] = new String[listaPatrimonio.size()][8];
         int i = 0;
         for (PatrimonioM pat : listaPatrimonio) {
             dados[i][0] = String.valueOf(pat.getId());
@@ -260,8 +379,144 @@ public void atualizaTabelaBusca(){
         tbeBuscaBaixados.updateUI();
     
     } 
+    */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        
+        inicio = 0;
+        btnAnterior.setEnabled(true);
+        btnAnterior.setEnabled(false);
+        
+        if(tfdFiltroBusca.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
+        }else{
 
+            try {
+                
+               /* //FEITO
+                if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){ 
+                    try{
+                        listaBaixado = null;
+                        //listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(tfdFiltroBusca.getText()));  
+                        listaBaixado = patrimonioDAO.listaTodosSala100(Integer.parseInt(tfdFiltroBusca.getText()),inicio);  
+                        validaQuantidadeBuscaIdSala();
+                        cont = 3;      
+                        //btnAnterior.setEnabled(false);
+                        //btnProximo.setEnabled(false);
+                        //lblQuantPaginas.setText("1/1");
+                        //JOptionPane.showMessageDialog(null, listaPatrimonio.size());
+                        
+                        if(listaPatrimonio.size() < 1){
+                            JOptionPane.showMessageDialog(null, "Sala não Encontrada");
+                            btnAnterior.setEnabled(false);
+                            btnAnterior.setEnabled(false);
+                            lblQuantPaginas.setText("0/0");
+                        }
+                    }catch(java.lang.NumberFormatException ex){
+                        JOptionPane.showMessageDialog(null, "Digite caracteres válidos!\n(Somente Numeros)");
+                    }
+                    
+
+                }else*/
+                    //FEITO
+                if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
+                    listaBaixado = null;                   
+                    listaBaixado = baixadoDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
+                    validaQuantidadeBuscaCodigo();
+                    
+                    cont = 1;
+                    if(listaBaixado.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Código não Encontrado");
+                           btnAnterior.setEnabled(false);
+                           btnAnterior.setEnabled(false);
+                           lblQuantPaginas.setText("0/0");
+                    }                   
+                }else
+                    //FEITO
+                if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
+                    listaBaixado = null;                   
+                    listaBaixado = baixadoDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
+                    validaQuantidadeBuscaDescricao();
+                    cont = 2;
+                    if(listaBaixado.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Descrição não Encontrada");
+                           btnAnterior.setEnabled(false);
+                           btnAnterior.setEnabled(false);
+                           lblQuantPaginas.setText("0/0");
+                    }
+                }else
+                //FEITO
+                if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
+                    listaBaixado = null;
+                    try{
+                        //JOptionPane.showMessageDialog(null, "AQUI");
+                        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+                        listaBaixado = baixadoDAO.buscaOrgao100(orgao.getId(),inicio);
+                        //JOptionPane.showMessageDialog(null, listaPatrimonio.size());
+                        validaQuantidadeBuscaOrgao();
+                        cont = 3;       
+                        /*btnAnterior.setEnabled(false);
+                        btnProximo.setEnabled(false);
+                        lblQuantPaginas.setText("1/1");
+                        */
+                    }catch(java.lang.NullPointerException ex){
+                        JOptionPane.showMessageDialog(null, "Digite um orgão valido!" );
+                        btnAnterior.setEnabled(false);
+                        btnAnterior.setEnabled(false);
+                        lblQuantPaginas.setText("0/0");
+                    }
+                }else
+                //FEITO
+                if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
+                    listaBaixado = null;
+                    try{
+                            conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
+                            listaBaixado = baixadoDAO.buscaConservacao100(conservacao.getId(),inicio);
+                            
+                            validaQuantidadeBuscaConservacao();
+                            
+                            cont = 4;
+                     }catch(java.lang.NullPointerException ex){
+                        JOptionPane.showMessageDialog(null, "Conservação não Encontrada" );
+                    }                    
+                    if(listaBaixado.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
+                            btnAnterior.setEnabled(false);
+                            btnAnterior.setEnabled(false);
+                            lblQuantPaginas.setText("0/0");
+                    }
+                }else
+                    
+                if(cbxFiltro.getSelectedItem().toString().equals("Subtipo")){
+                    try{
+                        subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+                        listaBaixado = baixadoDAO.buscaSubtipo100(subtipo.getId(),inicio);
+                        validaQuantidadeBuscaSubtipo();
+                        cont = 5;
+                     }catch(java.lang.NullPointerException ex){
+                        JOptionPane.showMessageDialog(null, "Digite um SubTipo valido!" );
+                    }
+                    if(listaBaixado.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
+                            btnAnterior.setEnabled(false);
+                            btnAnterior.setEnabled(false);
+                            lblQuantPaginas.setText("0/0");
+                    }
+                }
+
+                
+                    atualizaTabelaBusca();
+                
+
+            } catch (SQLException ex) {
+                Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ""+ex.getMessage());
+            }
+        }
+
+        
+        
+        
+        /*
         if(tfdFiltroBusca.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
         }else{
@@ -331,21 +586,378 @@ public void atualizaTabelaBusca(){
                 Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, ""+ex.getMessage());
             }
-        }
+        }*/
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
+        switch (cont) {
+            case 0:
+            anteriorNormal();
+            atualizaTabelaBusca();
+            break;
+            case 1:
+            anteriorBuscaPatrimonio();
+            atualizaTabelaBusca();
+            break;
+            case 2:
+            anteriorBuscaDescricao();
+            atualizaTabelaBusca();
+            break;
+            case 3:
+            anteriorBuscaOrgao();
+            atualizaTabelaBusca(); 
+            break;
+            case 4:
+            anteriorBuscaConservacao();
+            atualizaTabelaBusca();
+            break;
+            case 5:
+            anteriorBuscaSubtipo();
+            atualizaTabelaBusca(); 
+            break;
+            default:
+            break;
+        }
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+//METODOS DO BOTAO ANTERIOR
+    public void anteriorNormal(){
+        inicio -=100;
+        atualizaTabelaBaixado(inicio);
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    public void anteriorBuscaPatrimonio(){
+        inicio -=100;
+        try {
+            listaBaixado = baixadoDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    public void anteriorBuscaDescricao(){
+        inicio -=100;
+        try {
+            listaBaixado = baixadoDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    
+    public void anteriorBuscaOrgao(){
+        inicio -=100;
+        try {
+           orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+           listaBaixado = baixadoDAO.buscaOrgao100(orgao.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    public void anteriorBuscaConservacao(){
+        inicio -=100;
+        try {
+           conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
+           listaBaixado = baixadoDAO.buscaConservacao100(conservacao.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+     public void anteriorBuscaSubtipo(){
+        inicio -=100;
+        try {
+           subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+            listaBaixado = baixadoDAO.buscaSubtipo100(subtipo.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnProximo.setEnabled(true);
+        pagAtual--;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio==0){
+            btnAnterior.setEnabled(false);
+        }
+    }
+    private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
+       switch (cont) {
+            case 0:
+            proximoNormal();
+            atualizaTabelaBusca();
+            break;
+            case 1:
+            proximoBuscaPatrimonio();
+            atualizaTabelaBusca();
+            break;
+            case 2:
+            proximoBuscaDescricao();
+            atualizaTabelaBusca(); 
+            break;
+            case 3:
+            proximoBuscaOrgao();
+            atualizaTabelaBusca();
+            break;
+            case 4:
+            proximoBuscaConservacao();
+            atualizaTabelaBusca();
+            break;
+            case 5:
+            proximoBuscaSubtipo();
+            atualizaTabelaBusca();
+            break;
+            default:
+            break;
+        }
+    }//GEN-LAST:event_btnProximoActionPerformed
+//METODOS BOTAO BUSCA PROXIMO
+    public void proximoNormal(){
+        inicio+=100;
+        atualizaTabelaBaixado(inicio);
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaPatrimonio(){
+        inicio+=100;
+        try {
+            listaBaixado = baixadoDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaDescricao(){
+        inicio+=100;
+        try {
+            listaBaixado = baixadoDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    
+    public void proximoBuscaOrgao(){
+        inicio+=100;
+        try {
+           orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+           listaBaixado = baixadoDAO.buscaOrgao100(orgao.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaConservacao(){
+        inicio+=100;
+        try {
+           conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
+           listaBaixado = baixadoDAO.buscaConservacao100(conservacao.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    public void proximoBuscaSubtipo(){
+        inicio+=100;
+        try {
+           subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+            listaBaixado = baixadoDAO.buscaSubtipo100(subtipo.getId(),inicio);
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        btnAnterior.setEnabled(true);
+        pagAtual++;
+        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+        if(inicio>=(quantMax-100)){
+            btnProximo.setEnabled(false);
+        }
+    }
+    
+
+
+//Metodos de validar quantidade
+    public void validaQuantidade() throws SQLException{
+        this.quantMax = baixadoDAO.quantidade();
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+    public void validaQuantidadeBuscaDescricao() throws SQLException{
+        this.quantMax = baixadoDAO.quantidadeDescricao(tfdFiltroBusca.getText());
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+    }
+    public void validaQuantidadeBuscaConservacao() throws SQLException{
+        conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());                          
+        this.quantMax = baixadoDAO.quantidadeConservacao(conservacao.getId());
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+    public void validaQuantidadeBuscaSubtipo() throws SQLException{
+         subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+                                         
+        this.quantMax = baixadoDAO.quantidadeSubtipo(subtipo.getId()); 
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+    public void validaQuantidadeBuscaOrgao() throws SQLException{
+        
+        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());
+        this.quantMax = baixadoDAO.quantidadeOrgao(orgao.getId());
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+     public void validaQuantidadeBuscaCodigo() throws SQLException{
+        this.quantMax = baixadoDAO.quantidadeCodigo(tfdFiltroBusca.getText());
+        
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+     public void validaQuantidadeBuscaIdSala() throws SQLException{
+        this.quantMax = patrimonioDAO.quantidadeIdSala(Integer.parseInt(tfdFiltroBusca.getText()));
+        //JOptionPane.showMessageDialog(null, quantMax);
+        pagAtual = 1;
+        
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnProximo;
     private javax.swing.JComboBox<String> cbxFiltro;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTable tbeBuscaBaixados;
+    private javax.swing.JLabel lblQuantPaginas;
+    private javax.swing.JTable tbeBusca;
     private javax.swing.JTextField tfdFiltroBusca;
+    private javax.swing.JTextField tfdNavegacao;
     // End of variables declaration//GEN-END:variables
 }

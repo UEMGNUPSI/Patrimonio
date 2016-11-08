@@ -769,15 +769,19 @@ public class ConsultaView extends javax.swing.JInternalFrame {
             case 2:
             proximoBuscaDescricao();
             atualizaTabelaBusca();
+            break;
             case 3:
             proximoBuscaIdSala();
             atualizaTabelaBusca();
+            break;
             case 4:
             proximoBuscaOrgao();
             atualizaTabelaBusca();
+            break;
             case 5:
             proximoBuscaConservacao();
             atualizaTabelaBusca();
+            break;
             case 6:
             proximoBuscaSubtipo();
             atualizaTabelaBusca();
@@ -997,15 +1001,19 @@ public class ConsultaView extends javax.swing.JInternalFrame {
             case 2:
             anteriorBuscaDescricao();
             atualizaTabelaBusca();
+            break;
             case 3:
             anteriorBuscaIdSala();
             atualizaTabelaBusca(); 
+            break;
             case 4:
             anteriorBuscaOrgao();
             atualizaTabelaBusca(); 
+            break;
             case 5:
             anteriorBuscaConservacao();
             atualizaTabelaBusca(); 
+            break;
             case 6:
             anteriorBuscaSubtipo();
             atualizaTabelaBusca(); 
