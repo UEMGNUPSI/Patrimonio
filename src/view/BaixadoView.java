@@ -67,14 +67,15 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     int cont = 0;
     int ultimoID;
     
-    
     PatrimonioDAO patrimonioDAO;
+    
     public BaixadoView() throws SQLException {
+        
         initComponents();
+        
         baixadoDAO = new BaixadoDAO();
         this.setVisible(true);
         patrimonioDAO = new PatrimonioDAO();
-        preencheFiltro();
         listaPatrimonio = new ArrayList<>();
         listaBaixado = new ArrayList<>();
         listaUnidade = new ArrayList<>();
@@ -89,17 +90,17 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         tipo = new TipoM();
         subtipo = new SubTipoM();
         subtipoDAO = new SubTipoDAO();
-        atualizaTabelaBaixado(inicio);
-        validaQuantidade();
         
+        preencheFiltro();
+        atualizaTabelaBaixado(inicio);
+        validaQuantidade();    
     }
+    //METODO PARA PREENCHER AS OPÇÕES DO COMBO BOX
      public void preencheFiltro(){
         cbxFiltro.removeAllItems();
-        cbxFiltro.addItem("--Selecione--");
-        //cbxFiltro.addItem("ID Sala");
+        cbxFiltro.addItem("--Selecione--");      
         cbxFiltro.addItem("Codigo");
         cbxFiltro.addItem("Descrição");
-        //cbxFiltro.addItem("Orgão");
         cbxFiltro.addItem("Conservação");
         cbxFiltro.addItem("Subtipo");
     }
@@ -236,7 +237,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     private void cbxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxFiltroActionPerformed
 
     }//GEN-LAST:event_cbxFiltroActionPerformed
-
+//METODO PARA ATUALIZAR A TABELA BUSCA
      public void atualizaTabelaBusca(){
         String dados[][] = new String[listaBaixado.size()][8];
         int i = 0;
@@ -264,7 +265,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 return canEdit[columnIndex];
             }
         });
-
+        //COMANDOS PARA SETAR O TAMANHO DOS CAMPOS DA TABELA
         tbeBusca.getColumnModel().getColumn(0).setPreferredWidth(60);
         tbeBusca.getColumnModel().getColumn(1).setPreferredWidth(90);
         tbeBusca.getColumnModel().getColumn(2).setPreferredWidth(215);
@@ -279,12 +280,11 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         tbeBusca.setRowHeight(25);
         tbeBusca.updateUI();
     } 
-     
+     //METODO PARRA ATUALIZAR A TABELA DE PATRIMONIOS BAIXADOS SETANDO APENAS 100 ELEMENTOS
+     //PERCORRE 100 APARTIR DO INICIO
      public void atualizaTabelaBaixado(int inicio) {
 
         try {
-           //listaPatrimonio = patrimonioDAO.listaTodos();
-            //listaPatrimonio = patrimonioDAO.lista100(inicio);
             listaBaixado = baixadoDAO.lista100(inicio);
         } catch (SQLException ex) {
             Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
@@ -330,56 +330,6 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         tbeBusca.setRowHeight(25);
         tbeBusca.updateUI();
     }
-    /*
-    public void atualizaTabelaBusca(){
-    
-    
-        String dados[][] = new String[listaPatrimonio.size()][8];
-        int i = 0;
-        for (PatrimonioM pat : listaPatrimonio) {
-            dados[i][0] = String.valueOf(pat.getId());
-            dados[i][1] = pat.getCodigo();
-            dados[i][2] = pat.getDescricao();
-            dados[i][3] = pat.getSubTipo().getDescricao();
-            dados[i][4] = pat.getSala().getDescricao();
-            dados[i][5] = pat.getGrau_conservacao().getDescricao();
-            dados[i][6] = pat.getStatus().getNome();
-            dados[i][7] = pat.getEntidade().getNome();
-            i++;
-        }
-        String tituloColuna[] = {"ID", "Codigo", "Descrição", "Subtipo", "Sala", "Grau de Conservação", "Status", "Entidade"};
-        DefaultTableModel tabelaCliente = new DefaultTableModel();
-        tabelaCliente.setDataVector(dados, tituloColuna);
-        tbeBuscaBaixados.setModel(new DefaultTableModel(dados, tituloColuna) {
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false, false, false, false, false, false, false
-            };
-
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
-        
-        
-
-        tbeBuscaBaixados.getColumnModel().getColumn(0).setPreferredWidth(60);
-        tbeBuscaBaixados.getColumnModel().getColumn(1).setPreferredWidth(90);
-        tbeBuscaBaixados.getColumnModel().getColumn(2).setPreferredWidth(215);
-        tbeBuscaBaixados.getColumnModel().getColumn(3).setPreferredWidth(215);
-        tbeBuscaBaixados.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tbeBuscaBaixados.getColumnModel().getColumn(5).setPreferredWidth(90);
-        tbeBuscaBaixados.getColumnModel().getColumn(6).setPreferredWidth(90);
-        tbeBuscaBaixados.getColumnModel().getColumn(7).setPreferredWidth(90);
-
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeBuscaBaixados.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tbeBuscaBaixados.setRowHeight(25);
-        tbeBuscaBaixados.updateUI();
-    
-    } 
-    */
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         
         inicio = 0;
@@ -390,37 +340,13 @@ public class BaixadoView extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
         }else{
 
-            try {
-                
-               /* //FEITO
-                if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){ 
-                    try{
-                        listaBaixado = null;
-                        //listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(tfdFiltroBusca.getText()));  
-                        listaBaixado = patrimonioDAO.listaTodosSala100(Integer.parseInt(tfdFiltroBusca.getText()),inicio);  
-                        validaQuantidadeBuscaIdSala();
-                        cont = 3;      
-                        //btnAnterior.setEnabled(false);
-                        //btnProximo.setEnabled(false);
-                        //lblQuantPaginas.setText("1/1");
-                        //JOptionPane.showMessageDialog(null, listaPatrimonio.size());
-                        
-                        if(listaPatrimonio.size() < 1){
-                            JOptionPane.showMessageDialog(null, "Sala não Encontrada");
-                            btnAnterior.setEnabled(false);
-                            btnAnterior.setEnabled(false);
-                            lblQuantPaginas.setText("0/0");
-                        }
-                    }catch(java.lang.NumberFormatException ex){
-                        JOptionPane.showMessageDialog(null, "Digite caracteres válidos!\n(Somente Numeros)");
-                    }
-                    
-
-                }else*/
-                    //FEITO
+            try {                  
+                    //SELECIONADO CODIGO
                 if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
                     listaBaixado = null;                   
+                    // LISTA UMA BUSCA DE 100 ELEMENTOS 
                     listaBaixado = baixadoDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
+                    //SETA O LBL DE QUANTIDADE DE PAGINAS, BUSCA ESTA INFO NO BANCO
                     validaQuantidadeBuscaCodigo();
                     
                     cont = 1;
@@ -448,16 +374,13 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
                     listaBaixado = null;
                     try{
-                        //JOptionPane.showMessageDialog(null, "AQUI");
-                        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+                        //BUSCA UM ORGAO APARTIR DO NOME, UTILIZA-SE O ID DESTE ORGAO NA CHAMADA DE METODO ABAIXO
+                        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                                               
                         listaBaixado = baixadoDAO.buscaOrgao100(orgao.getId(),inicio);
-                        //JOptionPane.showMessageDialog(null, listaPatrimonio.size());
+                        
                         validaQuantidadeBuscaOrgao();
                         cont = 3;       
-                        /*btnAnterior.setEnabled(false);
-                        btnProximo.setEnabled(false);
-                        lblQuantPaginas.setText("1/1");
-                        */
+                        
                     }catch(java.lang.NullPointerException ex){
                         JOptionPane.showMessageDialog(null, "Digite um orgão valido!" );
                         btnAnterior.setEnabled(false);
@@ -512,106 +435,37 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, ""+ex.getMessage());
             }
         }
-
-        
-        
-        
-        /*
-        if(tfdFiltroBusca.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
-        }else{
-
-            try {
-                if(cbxFiltro.getSelectedItem().toString().equals("ID Sala")){
-                    listaPatrimonio = null;
-                    try{
-                        listaPatrimonio = patrimonioDAO.listaTodosSala(Integer.parseInt(tfdFiltroBusca.getText()));
-
-                        if(listaPatrimonio.size() < 1)
-                        JOptionPane.showMessageDialog(null, "Sala não Encontrada");
-
-                    }catch(java.lang.NumberFormatException ex){
-                        JOptionPane.showMessageDialog(null, "Digite caracteres válidos!\n(Somente Numeros)");
-                    }
-
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Codigo")) {
-                    listaPatrimonio = null;
-                    listaPatrimonio = patrimonioDAO.buscaPatrimonio(tfdFiltroBusca.getText());
-
-                    if(listaPatrimonio.size() < 1)
-                    JOptionPane.showMessageDialog(null, "Código não Encontrado");
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
-                    listaPatrimonio = null;
-                    listaPatrimonio = patrimonioDAO.buscaDescricao(tfdFiltroBusca.getText());
-
-                    if(listaPatrimonio.size() < 1)
-                    JOptionPane.showMessageDialog(null, "Descrição não Encontrada");
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
-                    listaPatrimonio = null;
-                    try{
-                        orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());
-
-                        listaPatrimonio = patrimonioDAO.buscaOrgao(orgao.getId());
-                    }catch(java.lang.NullPointerException ex){
-                        JOptionPane.showMessageDialog(null, "Digite um orgão valido!" );
-                    }
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Conservação")){
-                    listaPatrimonio = null;
-                    try{
-                        conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
-                        listaPatrimonio = patrimonioDAO.buscaConservacao(conservacao.getId());
-                    }catch(java.lang.NullPointerException ex){
-                        JOptionPane.showMessageDialog(null, "Digite uma Conservação valida!" );
-                    }
-
-                    if(listaPatrimonio.size() < 1)
-                    JOptionPane.showMessageDialog(null, "Conservação não Encontrada");
-                }else
-                if(cbxFiltro.getSelectedItem().toString().equals("Subtipo")){
-                    try{
-                        subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
-                        listaPatrimonio = patrimonioDAO.buscaSubtipo(subtipo.getId());
-                    }catch(java.lang.NullPointerException ex){
-                        JOptionPane.showMessageDialog(null, "Digite um SubTipo valido!" );
-                    }
-                }
-
-                atualizaTabelaBusca();
-
-            } catch (SQLException ex) {
-                Logger.getLogger(ConsultaView.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, ""+ex.getMessage());
-            }
-        }*/
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         switch (cont) {
             case 0:
+                //ATUALIZA A TABELA SEM NENHUM FILTRO
             anteriorNormal();
             atualizaTabelaBusca();
             break;
             case 1:
+                //ATUALIZA A TABELA PELA BUSCA DE PATRIMONIO
             anteriorBuscaPatrimonio();
             atualizaTabelaBusca();
             break;
             case 2:
+                //ATUALIZA A TABELA PELA BUSCA DE DESCRIÇÃO
             anteriorBuscaDescricao();
             atualizaTabelaBusca();
             break;
             case 3:
+                //ATUALIZA A TABELA PELA BUSCA DE ORGÃO
             anteriorBuscaOrgao();
             atualizaTabelaBusca(); 
             break;
             case 4:
+                //ATUALIZA A TABELA PELA BUSCA DE CONCERVAÇÃO
             anteriorBuscaConservacao();
             atualizaTabelaBusca();
             break;
             case 5:
+                //ATUALIZA A TABELA PELA BUSCA DE SUBTIPO
             anteriorBuscaSubtipo();
             atualizaTabelaBusca(); 
             break;
@@ -822,7 +676,8 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     
 
 
-//Metodos de validar quantidade
+//Metodos de validar quantidade, 
+//ESTES METODOS BUSCAM NO BANCO A QUANTIDADE DE RESULTADOS PARA CADA CASO E SETA A LABEL DE QUANTIDADE DE PAGINAS
     public void validaQuantidade() throws SQLException{
         this.quantMax = baixadoDAO.quantidade();
         
@@ -931,7 +786,6 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     }
      public void validaQuantidadeBuscaIdSala() throws SQLException{
         this.quantMax = patrimonioDAO.quantidadeIdSala(Integer.parseInt(tfdFiltroBusca.getText()));
-        //JOptionPane.showMessageDialog(null, quantMax);
         pagAtual = 1;
         
         if(quantMax % 100 == 0){
