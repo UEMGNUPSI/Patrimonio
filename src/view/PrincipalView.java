@@ -542,10 +542,16 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_mniConsultaPatrimonioActionPerformed
 
     private void mniConsultaHistóricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultaHistóricoActionPerformed
-       HistoricoView historico = new HistoricoView();
+       HistoricoView historico=null;
+        try {
+            historico = new HistoricoView();
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalView.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pnlPrincipal.removeAll();
-        pnlPrincipal.add(historico);
-        pnlPrincipal.updateUI();
+            pnlPrincipal.add(historico);
+            pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniConsultaHistóricoActionPerformed
 
     private void mniConsultaBaixadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultaBaixadosActionPerformed

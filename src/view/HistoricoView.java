@@ -41,7 +41,11 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     Date dataIni = null;
     Date dataF = null;
     
-    public HistoricoView() {
+    int inicio = 0, quantMax, pagAtual, pagUltima;
+    int cont = 0;
+    int ultimoID;
+    
+    public HistoricoView() throws SQLException {
         
         initComponents();
         this.setVisible(true);
@@ -61,10 +65,53 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         
         preencheComboUsuario();
         preencheComboAcoes();
-        //atualizaTabelaHistorico();
+        atualizaTabelaHistorico100(inicio);
+        
     } 
     
     public void atualizaTabelaHistorico() {
+       
+        String dados[][] = new String[listaHistorico.size()][4];
+        int i = 0;
+        for (HistoricoAcaoM hist : listaHistorico) {
+            
+            dados[i][0] = hist.getDataAcao().toString();
+            dados[i][1] = hist.getTipoObjeto();
+            dados[i][2] = hist.getAcao();
+            dados[i][3] = hist.getUsuario().getNome();
+            
+            i++;
+        }
+        String tituloColuna[] = {"Data", "Descrição", "Ação", "Usuário"};
+        DefaultTableModel tabelaCliente = new DefaultTableModel();
+        tabelaCliente.setDataVector(dados, tituloColuna);
+        tbeHistorico.setModel(new DefaultTableModel(dados, tituloColuna) {
+            boolean[] canEdit = new boolean[]{
+                false, false, false, false
+            };
+
+            @Override
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit[columnIndex];
+            }
+        });
+        tbeHistorico.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tbeHistorico.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tbeHistorico.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tbeHistorico.getColumnModel().getColumn(3).setPreferredWidth(300);
+        
+
+        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+        tbeHistorico.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeHistorico.setRowHeight(25);
+        tbeHistorico.updateUI();
+        
+    }
+    public void atualizaTabelaHistorico100(int inicio) throws SQLException {
+        
+       listaHistorico = historicoAcaoDAO.lista100(inicio);
+       validaQuantidadeTodos();
        
         String dados[][] = new String[listaHistorico.size()][4];
         int i = 0;
@@ -162,7 +209,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         lblQuantPaginas = new javax.swing.JLabel();
         btnProximo = new javax.swing.JButton();
-        btnAnterior1 = new javax.swing.JButton();
+        btnAnterior = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -330,11 +377,11 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAnterior1.setText("<<");
-        btnAnterior1.setEnabled(false);
-        btnAnterior1.addActionListener(new java.awt.event.ActionListener() {
+        btnAnterior.setText("<<");
+        btnAnterior.setEnabled(false);
+        btnAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnterior1ActionPerformed(evt);
+                btnAnteriorActionPerformed(evt);
             }
         });
 
@@ -348,7 +395,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAnterior1)
+                .addComponent(btnAnterior)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblQuantPaginas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -370,7 +417,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                     .addComponent(btnProximo)
                     .addComponent(jLabel3)
                     .addComponent(tfdNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAnterior1))
+                    .addComponent(btnAnterior))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
 
@@ -388,17 +435,38 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btnProximoActionPerformed
 
-    private void btnAnterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnterior1ActionPerformed
+    private void btnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnAnterior1ActionPerformed
-
-    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+    }//GEN-LAST:event_btnAnteriorActionPerformed
+    public void validaQuantidadeTodos() throws SQLException{
+         this.quantMax = historicoAcaoDAO.contaTodos();
+        //JOptionPane.showMessageDialog(null, quantMax);
+        pagAtual = 1;
         
+        if(quantMax % 100 == 0){
+             pagUltima = quantMax / 100;
+        }else if(quantMax <= 100){
+            pagUltima = 1;
+            btnProximo.setEnabled(false);
+        }else{
+             pagUltima = (quantMax / 100) + 1;
+        }
+        
+        lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
+        
+    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        inicio = 0;
+        btnProximo.setEnabled(true);
+        btnAnterior.setEnabled(false);
         
         if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && tfdDescricao.getText().isEmpty() ){
             //se não selecionar nenhum filtro retorna tudo
             try {
                 listaHistorico = historicoAcaoDAO.listaTodos();
+                
+                //listaHistorico = historicoAcaoDAO.lista100(inicio);
+                validaQuantidadeTodos();
             } catch (SQLException ex) {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -411,7 +479,8 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             
             try {
                 usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
-                listaHistorico = historicoAcaoDAO.buscaUsuario(usuario);               
+                listaHistorico = historicoAcaoDAO.buscaUsuario(usuario);           
+                //listaHistorico = historicoAcaoDAO.buscaUsuario100(usuario,inicio); 
             } catch (SQLException ex) {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -446,6 +515,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             
             try {
                 listaHistorico = historicoAcaoDAO.buscaPeriodo(dataIni, dataF);
+                //listaHistorico = historicoAcaoDAO.buscaPeriodo100(dataIni, dataF, inicio);
             } catch (SQLException ex) {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -454,6 +524,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && !tfdDescricao.getText().isEmpty() ){
             try {
                 listaHistorico = historicoAcaoDAO.buscaDescricao(tfdDescricao.getText());
+                //listaHistorico = historicoAcaoDAO.buscaDescricao100(tfdDescricao.getText(),inicio);
             } catch (SQLException ex) {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -466,7 +537,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
  
     }//GEN-LAST:event_btnBuscarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAnterior1;
+    private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnProximo;
     private javax.swing.JComboBox<String> cbxAcoes;
