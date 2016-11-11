@@ -21,14 +21,22 @@ public class BlocoDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar(BlocoM bloco) throws SQLException{
+    public int salvar(BlocoM bloco) throws SQLException{
+        int auxID = 0;
         sql = "insert into Bloco values(?,?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);     
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);     
         pst.setInt(1, 0);
         pst.setString(2, bloco.getDescricao());
         pst.setInt(3, bloco.getUnidadeM().getId());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+            auxID = rs.getInt(1);
+        }
+        
         pst.close();
+        return auxID;
     }
     
      public BlocoM busca(int id) throws SQLException{

@@ -23,14 +23,23 @@ public class PisoDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar(PisoM piso) throws SQLException{
+    public int salvar(PisoM piso) throws SQLException{
+        int auxID = 0;
         sql = "insert into Piso values(?,?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, piso.getDescricao());
         pst.setInt(3, piso.getBloco().getId());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
+        
         pst.close();
+        
+        return auxID;
     }
     
      public PisoM busca(int id) throws SQLException{

@@ -20,13 +20,23 @@ public class GrauConservacaoDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar (GrauConservacaoM grauM) throws SQLException{
+    public int salvar (GrauConservacaoM grauM) throws SQLException{
+        
+        int auxID = 0;
+        
         sql = "insert into Grau_conservacao values(?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, grauM.getDescricao());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
         pst.close();
+        
+        return auxID;
     }
     
      public GrauConservacaoM busca(int id) throws SQLException{

@@ -6,7 +6,9 @@
 package view;
 
 import dao.BlocoDAO;
+import dao.HistoricoAcaoDAO;
 import dao.UnidadeDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,9 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
+import model.HistoricoAcaoM;
 import model.UnidadeM;
+import model.UsuarioM;
 import util.LimiteDigitos;
 
 /**
@@ -30,18 +34,24 @@ public class BlocoView extends javax.swing.JInternalFrame {
     /**
      * Creates new form BlocoView
      */
-    public BlocoView() {
+    public BlocoView(UsuarioM usuarioAtivo) {
         blocoDAO = new BlocoDAO();
         listaBloco = new ArrayList<>();
         listaUnidade = new ArrayList<>();
         unidadeDAO = new UnidadeDAO();
+        this.usuarioAtivo = usuarioAtivo;
         initComponents();
         this.setVisible(true);
         atualizaBoxUnidade();
         atualizaTabelaBloco();
         tfdDescricaoBloco.setDocument(new LimiteDigitos(45));
     }
-
+    UsuarioM usuarioAtivo;
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    
+    
     BlocoM bloco;
     BlocoDAO blocoDAO;
     List<BlocoM> listaBloco;
@@ -248,6 +258,16 @@ public class BlocoView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
+    } 
     public void atualizaBoxUnidade() {
         cbxUnidade.removeAllItems();
         cbxUnidade.addItem("--Selecione--");
@@ -323,7 +343,11 @@ public class BlocoView extends javax.swing.JInternalFrame {
             bloco.setDescricao(tfdDescricaoBloco.getText());
             bloco.setUnidadeM(pegaUnidade());
             try {
-                blocoDAO.salvar(bloco);
+                
+                idHistorico = blocoDAO.salvar(bloco);
+                acao = "Novo";
+                descricaoHistorico = bloco.getDescricao();
+                salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE); 
                 atualizaTabelaBloco();
                 preparaSalvareCancelar();
@@ -338,6 +362,10 @@ public class BlocoView extends javax.swing.JInternalFrame {
             bloco.setId(Integer.parseInt(tfdIDBloco.getText()));
             bloco.setDescricao(tfdDescricaoBloco.getText());
             try {
+                idHistorico = bloco.getId();
+                acao = "Alterar";
+                descricaoHistorico = bloco.getDescricao();
+                salvaHistorico();
                 blocoDAO.alterar(bloco);
                 JOptionPane.showMessageDialog(null, "Bloco atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaBloco();
@@ -361,9 +389,14 @@ public class BlocoView extends javax.swing.JInternalFrame {
         } else {
             bloco = new BlocoM();
             bloco.setId(Integer.parseInt(tfdIDBloco.getText()));
+            bloco.setDescricao(tfdDescricaoBloco.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoBloco.getText() + " ?");
             if (confirma == 0) {
                 try {
+                    acao = "Excluir";
+                    idHistorico = bloco.getId();
+                    descricaoHistorico = bloco.getDescricao();
+                    salvaHistorico();
                     blocoDAO.excluir(bloco);
                     atualizaTabelaBloco();
                     limpaCamposBloco();

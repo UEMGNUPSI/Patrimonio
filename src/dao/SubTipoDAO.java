@@ -22,14 +22,22 @@ public class SubTipoDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar (SubTipoM subTipoM) throws SQLException{
+    public int salvar (SubTipoM subTipoM) throws SQLException{
+        int auxID = 0;
         sql = "insert into Subtipo values(?,?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, subTipoM.getDescricao());
         pst.setInt(3, subTipoM.getTipo().getId());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
         pst.close();
+        
+        return auxID;
     }
     
      public SubTipoM busca(int id) throws SQLException{

@@ -22,13 +22,21 @@ public class TipoDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar (TipoM tipoM) throws SQLException{
+    public int salvar (TipoM tipoM) throws SQLException{
+        int auxID = 0;
         sql = "insert into Tipo values(?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, tipoM.getDescricao());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
         pst.close();
+        
+        return auxID;
     }
     
      public TipoM busca(int id) throws SQLException{

@@ -6,9 +6,12 @@
 package view;
 
 import dao.GrauConservacaoDAO;
+import dao.HistoricoAcaoDAO;
 import dao.StatusDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +20,9 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.GrauConservacaoM;
+import model.HistoricoAcaoM;
 import model.StatusM;
+import model.UsuarioM;
 import util.LimiteDigitos;
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
@@ -29,13 +34,14 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
     /**
      * Creates new form ConservacaoStatusView
      */
-    public ConservacaoStatusView() {
+    public ConservacaoStatusView(UsuarioM usuarioAtivo) {
         grauConservacaoDAO = new GrauConservacaoDAO();
         statusDAO = new StatusDAO();
-
         listaGrauConservacao = new ArrayList<>();
         listaStatus = new ArrayList<>();
 
+        this.usuarioAtivo = usuarioAtivo;
+        
         initComponents();
         this.setVisible(true);
         atualizaTabelaConservacao();
@@ -54,6 +60,11 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
     List<StatusM> listaStatus;
     List<GrauConservacaoM> listaGrauConservacao;
 
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    UsuarioM usuarioAtivo;
+    
     public void atualizaTabelaConservacao() {
 
         try {
@@ -129,6 +140,17 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         tbeStatus.setRowHeight(25);
         tbeStatus.updateUI();
 
+    }
+    
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
     }
 
     public void limpaCamposConservacao() {
@@ -466,7 +488,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
 
             try {
-                grauConservacaoDAO.salvar(grauConservacao);
+                idHistorico = grauConservacaoDAO.salvar(grauConservacao);
+                acao = "Novo Grau Conservação";
+                descricaoHistorico = grauConservacao.getDescricao();
+                salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaConservacao();
                 preparaSalvareCancelarConservacao();
@@ -482,28 +507,30 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             }
              
         } else {
+            
             grauConservacao = new GrauConservacaoM();
             grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
             grauConservacao.setId(Integer.parseInt(tfdIDConservacao.getText()));
         
-        try {
-            grauConservacaoDAO.alterar(grauConservacao);
-            JOptionPane.showMessageDialog(null, "Conservação alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-            atualizaTabelaConservacao();
-            preparaSalvareCancelarConservacao();
-            desativaCamposConservacao();
-            limpaCamposConservacao();
-        } catch (SQLException ex) {
-            Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
-            if (ex.getErrorCode() == 1062) {
-                JOptionPane.showMessageDialog(null, "Conservacao já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+            try {
+                idHistorico = grauConservacao.getId();
+                acao = "Alterar Grau de Conservação";
+                descricaoHistorico = grauConservacao.getDescricao();
+                salvaHistorico();
+                grauConservacaoDAO.alterar(grauConservacao);
+                JOptionPane.showMessageDialog(null, "Conservação alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                atualizaTabelaConservacao();
+                preparaSalvareCancelarConservacao();
+                desativaCamposConservacao();
+                limpaCamposConservacao();
+            } catch (SQLException ex) {
+                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(null, "Conservacao já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
             }
-        }
-            
-        
-
         }
 
 
@@ -516,9 +543,15 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         } else {
             grauConservacao = new GrauConservacaoM();
             grauConservacao.setId(Integer.parseInt(tfdIDConservacao.getText()));
+            grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Dejesa Excluir: " + tdfDescricaoConservacao.getText());
             if (confirma == 0) {
                 try {
+                    idHistorico = grauConservacao.getId();
+                    acao = "Excluir Grau Conservação";
+                    descricaoHistorico = grauConservacao.getDescricao();
+                    salvaHistorico();
+                    
                     grauConservacaoDAO.excluir(grauConservacao);
                 } catch (SQLException ex) {
                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
@@ -562,7 +595,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             status.setNome(tfdDescricaoStatus.getText());
 
             try {
-                statusDAO.salvar(status);
+                idHistorico = statusDAO.salvar(status);
+                acao = "Novo Status";
+                descricaoHistorico = status.getNome();
+                salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaStatus();
                 preparaSalvareCancelarStatus();
@@ -582,6 +618,10 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
             status.setNome(tfdDescricaoStatus.getText());
             status.setId(Integer.parseInt(tfdIDStatus.getText()));
             try {
+                idHistorico = status.getId();
+                acao = "Alterar Status";
+                descricaoHistorico = status.getNome();
+                salvaHistorico();
                 statusDAO.alterar(status);
                 JOptionPane.showMessageDialog(null, "Status alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 atualizaTabelaStatus();
@@ -607,9 +647,14 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         } else {
             status = new StatusM();
             status.setId(Integer.parseInt(tfdIDStatus.getText()));
+            status.setNome(tfdDescricaoStatus.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Dejesa Excluir: " + tfdDescricaoStatus.getText());
             if (confirma == 0) {
                 try {
+                    acao = "Excluir Status";
+                    idHistorico = status.getId();
+                    descricaoHistorico = status.getNome();
+                    salvaHistorico();
                     statusDAO.excluir(status);
                 } catch (SQLException ex) {
                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);

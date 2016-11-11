@@ -6,8 +6,10 @@
 package view;
 
 import dao.BlocoDAO;
+import dao.HistoricoAcaoDAO;
 import dao.PisoDAO;
 import dao.UnidadeDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +20,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
+import model.HistoricoAcaoM;
 import model.PisoM;
 import model.UnidadeM;
+import model.UsuarioM;
 import util.LimiteDigitos;
 
 /**
@@ -36,17 +40,25 @@ public class PisoView extends javax.swing.JInternalFrame {
     BlocoDAO blocoDAO;
     List<UnidadeM> listaUnidade;
     UnidadeDAO unidadeDAO;
-
+    
+    
+    UsuarioM usuarioAtivo;
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    
     /**
      * Creates new form PisoView
      */
-    public PisoView() {
+    public PisoView(UsuarioM usuarioAtivo) {
         pisoDAO = new PisoDAO();
         listaPiso = new ArrayList<>();
         listaBloco = new ArrayList<>();
         blocoDAO = new BlocoDAO();
         listaUnidade = new ArrayList<>();
         unidadeDAO = new UnidadeDAO();
+        
+        this.usuarioAtivo = usuarioAtivo;
         initComponents();
         this.setVisible(true);
         atualizaTabelaPiso();
@@ -343,6 +355,17 @@ public class PisoView extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
+    }
 
 
     private void cbxUnidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidade1ActionPerformed
@@ -388,7 +411,10 @@ public class PisoView extends javax.swing.JInternalFrame {
             piso.setDescricao(tfdDescricaoPiso.getText());
             piso.setBloco(pegaBloco());
             try {
-                pisoDAO.salvar(piso);
+                idHistorico = pisoDAO.salvar(piso);
+                acao = "Novo";
+                descricaoHistorico = piso.getDescricao();
+                salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
@@ -403,6 +429,10 @@ public class PisoView extends javax.swing.JInternalFrame {
             piso.setDescricao(tfdDescricaoPiso.getText());      
             piso.setId(Integer.parseInt(tfdIDPiso.getText()));
             try {
+                idHistorico = piso.getId();
+                acao = "Alterar";
+                descricaoHistorico = piso.getDescricao();
+                salvaHistorico();
                 pisoDAO.alterar(piso);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
@@ -421,9 +451,14 @@ public class PisoView extends javax.swing.JInternalFrame {
         } else {
             piso = new PisoM();
             piso.setId(Integer.parseInt(tfdIDPiso.getText()));
+            piso.setDescricao(tfdDescricaoPiso.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoPiso.getText() + " ?");
             if (confirma == 0) {
                 try {
+                    acao = "Excluir";
+                    idHistorico = piso.getId();
+                    descricaoHistorico = piso.getDescricao();
+                    salvaHistorico();
                     pisoDAO.excluir(piso);
                     atualizaTabelaPiso();
                     limpaCamposPiso();

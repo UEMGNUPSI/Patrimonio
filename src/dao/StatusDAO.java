@@ -20,13 +20,21 @@ public class StatusDAO {
      PreparedStatement pst;
     String sql;
     
-    public void salvar(StatusM status) throws SQLException{
+    public int salvar(StatusM status) throws SQLException{
+        int auxID = 0;
         sql = "insert into Status values(?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, status.getNome());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
         pst.close();
+        
+        return auxID;
     }
      
     public StatusM busca(int id) throws SQLException{

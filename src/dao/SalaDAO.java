@@ -21,14 +21,22 @@ public class SalaDAO {
     PreparedStatement pst;
     String sql;
     
-    public void salvar(SalaM sala) throws SQLException{
+    public int salvar(SalaM sala) throws SQLException{
+        int auxID = 0;
         sql = "insert into Sala values(?,?,?,1)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, sala.getDescricao());
         pst.setInt(3, sala.getPiso().getId());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
         pst.close();
+        
+        return auxID;
     }
     
      public SalaM busca(int id) throws SQLException{

@@ -6,11 +6,14 @@
 package view;
 
 import dao.BlocoDAO;
+import dao.HistoricoAcaoDAO;
 import dao.PisoDAO;
 import dao.SalaDAO;
 import dao.UnidadeDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,9 +22,11 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
+import model.HistoricoAcaoM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
+import model.UsuarioM;
 import util.LimiteDigitos;
 
 /**
@@ -43,11 +48,15 @@ public class SalaView extends javax.swing.JInternalFrame {
     UnidadeM unid;
     BlocoM bloc;
     PisoM piso;
-
+    
+    UsuarioM usuarioAtivo;
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
     /**
      * Creates new form SalaView
      */
-    public SalaView() {
+    public SalaView(UsuarioM usuarioAtivo) {
         salaDAO = new SalaDAO();
         listaSala = new ArrayList<>();
         pisoDAO = new PisoDAO();
@@ -56,6 +65,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         listaUnidade = new ArrayList<>();
         listaBloco = new ArrayList<>();
         listaPiso = new ArrayList<>();
+        this.usuarioAtivo = usuarioAtivo;
         initComponents();
         this.setVisible(true);
         atualizaTabelaSala();
@@ -124,6 +134,17 @@ public class SalaView extends javax.swing.JInternalFrame {
             cbxUnidade1.addItem(uni.getNome());
         }
 
+    }
+    
+     public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
     }
 
     @SuppressWarnings("unchecked")
@@ -439,7 +460,10 @@ public class SalaView extends javax.swing.JInternalFrame {
             sala.setDescricao(tfdDescricaoSala.getText());
             sala.setPiso(pegaSala());
             try {
-                salaDAO.salvar(sala);
+                idHistorico = salaDAO.salvar(sala);
+                acao = "Novo";
+                descricaoHistorico = sala.getDescricao();
+                salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
@@ -456,6 +480,10 @@ public class SalaView extends javax.swing.JInternalFrame {
             sala.setId(Integer.parseInt(tfdIDSala.getText()));
             btnSalvarSala.setEnabled(true);
             try {
+                idHistorico = sala.getId();
+                acao = "Alterar";
+                descricaoHistorico = sala.getDescricao();
+                salvaHistorico();
                 salaDAO.alterar(sala);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             } catch (SQLException ex) {
@@ -475,9 +503,14 @@ public class SalaView extends javax.swing.JInternalFrame {
         } else {
             sala = new SalaM();
             sala.setId(Integer.parseInt(tfdIDSala.getText()));
+            sala.setDescricao(tfdDescricaoSala.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoSala.getText() + " ?");
             if (confirma == 0) {
                 try {
+                    acao = "Excluir";
+                    idHistorico = sala.getId();
+                    descricaoHistorico = sala.getDescricao();
+                    salvaHistorico();
                     salaDAO.excluir(sala);
                     atualizaTabelaSala();
                     limpaCamposSala();

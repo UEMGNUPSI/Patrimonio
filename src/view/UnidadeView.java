@@ -305,7 +305,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdNome.getText() + " ?");
             if (confirma == 0) {
                 try {
-                    acao = "Excluir";
+                    acao = "Excluir Unidade";
                     idHistorico = unidade.getId();
                     descricaoHistorico = unidade.getNome();
                     salvaHistorico();
@@ -364,7 +364,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
             unidade.setEmail(tfdEmail.getText());
             try {
                 idHistorico = unidadeDAO.salvar(unidade);
-                acao = "Novo";
+                acao = "Novo Unidade";
                 descricaoHistorico = unidade.getNome();
                 salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -393,7 +393,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 unidade.setEmail(tfdEmail.getText());
                 try {
                     idHistorico = unidade.getId();
-                    acao = "Alterar";
+                    acao = "Alterar Unidade";
                     descricaoHistorico = unidade.getNome();
                     salvaHistorico();
                     unidadeDAO.alterar(unidade);
@@ -430,6 +430,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         
         HistoricoAcaoDAO.salvar(historico);
     }
+    
     public void LimpaCamposUnidade() {
         tfdID.setText("");
         tfdNome.setText("");

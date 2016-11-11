@@ -384,7 +384,7 @@ public class PrincipalView extends javax.swing.JFrame {
         // TODO add your handling code here:
         PatrimonioView patrimonio = null;
         try {
-            patrimonio = new PatrimonioView();
+            patrimonio = new PatrimonioView(usuarioAtivo);
         } catch (SQLException ex) {
             Logger.getLogger(PrincipalView.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -395,14 +395,14 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void mniTipoSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTipoSubtipoActionPerformed
         // TODO add your handling code here:
-        TipoSubtipoView tipoSubtipo = new TipoSubtipoView();
+        TipoSubtipoView tipoSubtipo = new TipoSubtipoView(usuarioAtivo);
         pnlPrincipal.removeAll();
         pnlPrincipal.add(tipoSubtipo);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniTipoSubtipoActionPerformed
 
     private void mniConservacaoStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConservacaoStatusActionPerformed
-        ConservacaoStatusView conservacaoStatus = new ConservacaoStatusView();
+        ConservacaoStatusView conservacaoStatus = new ConservacaoStatusView(usuarioAtivo);
         pnlPrincipal.removeAll();
         pnlPrincipal.add(conservacaoStatus);
         pnlPrincipal.updateUI();
@@ -418,7 +418,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void mniBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniBlocoActionPerformed
         // TODO add your handling code here:
-        BlocoView bloco = new BlocoView();
+        BlocoView bloco = new BlocoView(usuarioAtivo);
         pnlPrincipal.removeAll();
         pnlPrincipal.add(bloco);
         pnlPrincipal.updateUI();
@@ -426,7 +426,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void mniPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniPisoActionPerformed
         // TODO add your handling code here:
-        PisoView piso = new PisoView();
+        PisoView piso = new PisoView(usuarioAtivo);
         pnlPrincipal.removeAll();
         pnlPrincipal.add(piso);
         pnlPrincipal.updateUI();
@@ -434,7 +434,7 @@ public class PrincipalView extends javax.swing.JFrame {
 
     private void mniSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniSalaActionPerformed
         // TODO add your handling code here:
-        SalaView sala = new SalaView();
+        SalaView sala = new SalaView(usuarioAtivo);
         pnlPrincipal.removeAll();
         pnlPrincipal.add(sala);
         pnlPrincipal.updateUI();

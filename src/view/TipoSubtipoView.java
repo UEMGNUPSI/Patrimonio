@@ -5,6 +5,7 @@
  */
 package view;
 
+import dao.HistoricoAcaoDAO;
 import dao.SubTipoDAO;
 import dao.TipoDAO;
 import java.awt.Graphics2D;
@@ -12,6 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +29,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.GrauConservacaoM;
+import model.HistoricoAcaoM;
 import model.StatusM;
 import model.SubTipoM;
 import model.TipoM;
 import model.UnidadeM;
+import model.UsuarioM;
 import util.LimiteDigitos;
 
 /**
@@ -44,13 +48,14 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     /**
      * Creates new form TipoSubtipo
      */
-    public TipoSubtipoView() {
+    public TipoSubtipoView(UsuarioM usuarioAtivo) {
 
         tipoDAO = new TipoDAO();
         subTipoDAO = new SubTipoDAO();
         listaTipo = new ArrayList<>();
         listaSubTipo = new ArrayList<>();
-
+        this.usuarioAtivo = usuarioAtivo;
+        
         initComponents();
         this.setVisible(true);
         atualizaTabelaTipo();
@@ -60,9 +65,14 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         limpaCamposSubTipo();
         tfdDescricaoSubTipo.setDocument(new LimiteDigitos(45));
         tfdDescricaoTipo.setDocument(new LimiteDigitos(45));
-        
-      
+          
     }
+    
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    UsuarioM usuarioAtivo;
+    
     TipoM tipo;
     SubTipoM subTipo;
     TipoDAO tipoDAO;
@@ -149,6 +159,18 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         tbeSubTipo.setRowHeight(25);
         tbeSubTipo.updateUI();
 
+    }
+    
+    
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
     }
 
     public void limpaCamposTipo() {
@@ -577,7 +599,10 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             tipo.setDescricao(tfdDescricaoTipo.getText());
 
             try {
-                tipoDAO.salvar(tipo);
+                idHistorico = tipoDAO.salvar(tipo);
+                acao = "Novo Tipo";
+                descricaoHistorico = tipo.getDescricao();
+                salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 
                 preparaSalvareCancelarTipo();
@@ -606,6 +631,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             tipo.setId(Integer.parseInt(tfdIDTipo.getText()));
 
             try {
+                idHistorico = tipo.getId();
+                acao = "Alterar Tipo";
+                descricaoHistorico = tipo.getDescricao();
+                salvaHistorico();
+                
                 tipoDAO.alterar(tipo);
                 JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 
@@ -636,9 +666,15 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         } else {
             tipo = new TipoM();
             tipo.setId(Integer.parseInt(tfdIDTipo.getText()));
+            tipo.setDescricao(tfdDescricaoTipo.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Dejesa Excluir: " + tfdDescricaoTipo.getText());
             if (confirma == 0) {
                 try {
+                    acao = "Excluir Tipo";
+                    idHistorico = tipo.getId();
+                    descricaoHistorico = tipo.getDescricao();
+                    salvaHistorico();
+                    
                     tipoDAO.excluir(tipo);
                     limpaCamposTipo();
                     atualizaTabelaTipo();
@@ -691,8 +727,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             subTipo = new SubTipoM();
             subTipo.setDescricao(tfdDescricaoSubTipo.getText());
             subTipo.setTipo(listaTipo.get(cbxSubtipo.getSelectedIndex() - 1));
-            try {               
-                subTipoDAO.salvar(subTipo);                
+            try {
+                idHistorico = subTipoDAO.salvar(subTipo);   
+                acao = "Novo Subtipo";
+                descricaoHistorico = subTipo.getDescricao();
+                salvaHistorico();
                 if(bi!=null){
                 salvarImagen();                
                 }   
@@ -717,6 +756,10 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             subTipo.setTipo(listaTipo.get(cbxSubtipo.getSelectedIndex() - 1));
             subTipo.setId(Integer.parseInt(tfdIDSubTipo.getText()));
             try {
+                idHistorico = subTipo.getId();
+                acao = "Alterar Subtipo";
+                descricaoHistorico = subTipo.getDescricao();
+                salvaHistorico();
                 subTipoDAO.alterar(subTipo);
                 
                 if(bi!=null){
@@ -750,9 +793,14 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         } else {
             subTipo = new SubTipoM();
             subTipo.setId(Integer.parseInt(tfdIDSubTipo.getText()));
+            subTipo.setDescricao(tfdDescricaoSubTipo.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Dejesa Excluir: " + tfdDescricaoSubTipo.getText());
             if (confirma == 0) {
                 try {
+                    acao = "Excluir Subtipo";
+                    idHistorico = subTipo.getId();
+                    descricaoHistorico = subTipo.getDescricao();
+                    salvaHistorico();
                     File file = new File(caminho + tfdDescricaoSubTipo.getText() + ".jpg");
 
                     if (file.exists() == true) {

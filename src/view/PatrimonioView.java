@@ -8,6 +8,7 @@ package view;
 import dao.BlocoDAO;
 import dao.OrgaoDAO;
 import dao.GrauConservacaoDAO;
+import dao.HistoricoAcaoDAO;
 import dao.PatrimonioCompostoDAO;
 import dao.PatrimonioDAO;
 import dao.PisoDAO;
@@ -17,6 +18,7 @@ import dao.SubTipoDAO;
 import dao.TipoDAO;
 import dao.UnidadeDAO;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
 import model.OrgaoM;
 import model.GrauConservacaoM;
+import model.HistoricoAcaoM;
 import model.PatrimonioCompostoM;
 import model.PatrimonioM;
 import model.PisoM;
@@ -37,6 +40,7 @@ import model.StatusM;
 import model.SubTipoM;
 import model.TipoM;
 import model.UnidadeM;
+import model.UsuarioM;
 import util.LimitaDigitosNum;
 import util.LimiteDigitos;
 
@@ -90,13 +94,18 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     List<PatrimonioM> listaPatrimonio;
     List<PatrimonioCompostoM> listaComposto;
     
+    //Historico
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    UsuarioM usuarioAtivo;
     
 //AUXILIARES
     int inicio = 0, quantMax, pagAtual, pagUltima;
     int cont = 0;
     int ultimoID;
     
-    public PatrimonioView() throws SQLException {
+    public PatrimonioView(UsuarioM usuarioAtivo) throws SQLException {
         //DAOS
         orgaoDAO = new OrgaoDAO();
         conservacaoDAO = new GrauConservacaoDAO();
@@ -134,6 +143,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         listaSub = new ArrayList<>();
         listaPatrimonio = new ArrayList<>();
         
+        this.usuarioAtivo = usuarioAtivo;
         initComponents();
         
         this.setVisible(true);
@@ -939,6 +949,17 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     
     } 
     
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
+    }
+    
     public void preencheFiltro(){
         cbxFiltro.removeAllItems();
         cbxFiltro.addItem("--Selecione--");
@@ -1090,6 +1111,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 //Recebe o ultimo ID gerado
                 ultimoID = patrimonioDAO.salvar(patrimonio);
                 auxPatrimonio = patrimonioDAO.busca(ultimoID);
+                
+                idHistorico = ultimoID;
+                acao = "Novo Patrimonio";
+                descricaoHistorico = patrimonio.getDescricao();
+                salvaHistorico();
                 // a partir daqui tem que liberar a tela do composto
                 if (ckxPatrimonioComposto.isSelected())
                 {                    
@@ -1135,6 +1161,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             int auxID = Integer.parseInt(tfdIDPatrimonio.getText());
             //Se for uma situação de alteração ele vai pegar o ID do patrimonio direto do textfield
             try {
+                
                 //cria o auxiliar a partir do ID
                 auxPatrimonio = patrimonioDAO.busca(auxID);
             } catch (SQLException ex) {
@@ -1159,12 +1186,18 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             patrimonio.setKit(ckxPatrimonioComposto.isSelected());
             
             try{
+                
+                idHistorico = patrimonio.getId();
+                acao = "Alterar Patrimonio";
+                descricaoHistorico = patrimonio.getDescricao();
+                salvaHistorico();
+                
                 patrimonioDAO.alterar(patrimonio);               
                 JOptionPane.showMessageDialog(null, "Patrimônio atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 desativaCampos();
                 preparaSalvareCancelar();
                 limpaCamposPatrimonio();
-               if(cont == 0){
+                if(cont == 0){
                     atualizaTabelaPatrimonio(inicio);
                 }else if(cont ==1 ){
                     listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
@@ -1216,6 +1249,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     }
                     preparaExcluir();
                     desativaCampos();
+                    acao = "Baixar Patrimomio";
+                    idHistorico = patrimonioBaixar.getId();
+                    descricaoHistorico = patrimonioBaixar.getDescricao();
+                    salvaHistorico();
+                    
                     JOptionPane.showMessageDialog(null, "Patrimônio Baixado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     pnlPatrimonioComposto.setVisible(false);
                 } catch (SQLException ex) {
