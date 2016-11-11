@@ -122,7 +122,7 @@ public class HistoricoAcaoDAO {
         return retBusca;
     }
     public List<HistoricoAcaoM> buscaUsuario(UsuarioM usuario) throws SQLException{
-        sql = "select * from HistoricoAcoes where id_usuario = ?";
+        sql = "select * from HistoricoAcoes where usuario = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, usuario.getId());
         
@@ -137,7 +137,7 @@ public class HistoricoAcaoDAO {
         return retBusca;
     }
      public List<HistoricoAcaoM> buscaUsuario100(UsuarioM usuario, int ultimo) throws SQLException{
-        sql = "select * from HistoricoAcoes where id_usuario = ? limit ?,100";
+        sql = "select * from HistoricoAcoes where usuario = ? limit ?,100";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, usuario.getId());
         pst.setInt(2, ultimo);
@@ -152,6 +152,31 @@ public class HistoricoAcaoDAO {
         pst.close();
         return retBusca;
     }
+     public int contaUsuario(UsuarioM usuario) throws SQLException{           
+        sql = "select count(*) quantidade from HistoricoAcoes where usuario = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);       
+        pst.setInt(1, usuario.getId());
+        ResultSet rs = pst.executeQuery();        
+        int quant = 0;
+        while(rs.next()){
+            quant = rs.getInt("quantidade");
+        }        
+        pst.close();        
+        return quant;
+     }
+    public int contaDescricao(String desc) throws SQLException{           
+        sql = "select count(*) quantidade from HistoricoAcoes where tipoObjeto like ?";
+        pst = Conexao.getInstance().prepareStatement(sql);       
+        pst.setString(1, desc);
+        ResultSet rs = pst.executeQuery();        
+        int quant = 0;
+        while(rs.next()){
+            quant = rs.getInt("quantidade");
+        }        
+        pst.close();        
+        return quant;
+     }
+    
     
     public List<HistoricoAcaoM> buscaPeriodo(Date inicio, Date fim) throws SQLException{
         
@@ -188,6 +213,20 @@ public class HistoricoAcaoDAO {
         pst.close();
         return retBusca;
     }
+     public int contaPeriodo(Date inicio, Date fim) throws SQLException{           
+        sql = "select count(*) quantidade from HistoricoAcoes where dataAcao between ? and ?";
+        pst = Conexao.getInstance().prepareStatement(sql);       
+        pst.setDate(1, inicio);
+        pst.setDate(2, fim);
+        ResultSet rs = pst.executeQuery();        
+        int quant = 0;
+        while(rs.next()){
+            quant = rs.getInt("quantidade");
+        }        
+        pst.close();        
+        return quant;
+     }
+    
    
     
  
