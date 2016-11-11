@@ -67,6 +67,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         preencheComboUsuario();
         preencheComboAcoes();
         atualizaTabelaHistorico100(inicio);
+        validaQuantidadeTodos();
         
     } 
     
@@ -371,7 +372,6 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         lblQuantPaginas.setText("quant de paginas");
 
         btnProximo.setText(">>");
-        btnProximo.setEnabled(false);
         btnProximo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProximoActionPerformed(evt);
