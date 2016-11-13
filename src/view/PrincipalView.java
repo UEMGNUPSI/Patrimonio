@@ -33,7 +33,7 @@ public class PrincipalView extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
-    UsuarioM usuarioAtivo = new UsuarioM();
+    public static UsuarioM usuarioAtivo = new UsuarioM();
     public PrincipalView(UsuarioM usuario) {
         initComponents();
         this.setVisible(true);
@@ -94,11 +94,11 @@ public class PrincipalView extends javax.swing.JFrame {
         mnuRelatorios = new javax.swing.JMenu();
         mniRelatorioSala = new javax.swing.JMenuItem();
         mniRelatorioDescricao = new javax.swing.JMenuItem();
+        mnuInventario = new javax.swing.JMenu();
         mnuUsuario = new javax.swing.JMenu();
         mniMinhaConta = new javax.swing.JMenuItem();
         mniAdicionarUsuario = new javax.swing.JMenuItem();
         mnuSobre = new javax.swing.JMenu();
-        mnuInventario = new javax.swing.JMenu();
 
         jMenuItem1.setText("jMenuItem1");
 
@@ -308,6 +308,15 @@ public class PrincipalView extends javax.swing.JFrame {
 
         mnbPrincipal.add(mnuRelatorios);
 
+        mnuInventario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/prancheta.png"))); // NOI18N
+        mnuInventario.setText("Inventario");
+        mnuInventario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                mnuInventarioMouseClicked(evt);
+            }
+        });
+        mnbPrincipal.add(mnuInventario);
+
         mnuUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/user.png"))); // NOI18N
         mnuUsuario.setText("Usuário");
 
@@ -347,14 +356,6 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         });
         mnbPrincipal.add(mnuSobre);
-
-        mnuInventario.setText("Inventario");
-        mnuInventario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                mnuInventarioMouseClicked(evt);
-            }
-        });
-        mnbPrincipal.add(mnuInventario);
 
         setJMenuBar(mnbPrincipal);
 
