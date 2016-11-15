@@ -42,7 +42,9 @@ public class HistoricoAcaoDAO {
         pst.close();
         return listaHistorico;
     }
-     public List<HistoricoAcaoM> lista100(int ultimo) throws SQLException{
+    
+    
+    public List<HistoricoAcaoM> lista100(int ultimo) throws SQLException{
         List<HistoricoAcaoM> listaHistorico = new ArrayList<>();
         String sql = "select * from HistoricoAcoes limit ?,100";
         PreparedStatement pst = Conexao.getInstance().prepareStatement(sql);
@@ -53,13 +55,14 @@ public class HistoricoAcaoDAO {
             
            listaHistorico.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
                    rs.getDate("dataAcao"),
-                   user.UsuarioMById(rs.getInt("usuario")),
+                   user.UsuarioMById(rs.getInt("id_usuario")),
                    rs.getString("acao") ));
         }
         pst.close();
         return listaHistorico;
     }
-     public int contaTodos() throws SQLException{           
+    
+    public int contaTodos() throws SQLException{           
         sql = "select count(*) quantidade from HistoricoAcoes";
         pst = Conexao.getInstance().prepareStatement(sql);       
         ResultSet rs = pst.executeQuery();
@@ -69,7 +72,7 @@ public class HistoricoAcaoDAO {
         }        
         pst.close();        
         return quant;
-     }
+    }
     
     public static void salvar(HistoricoAcaoM historico) throws SQLException{
         PreparedStatement pst;
@@ -104,6 +107,7 @@ public class HistoricoAcaoDAO {
         pst.close();
         return retBusca;
     }
+    
     public List<HistoricoAcaoM> buscaDescricao100(String desc, int ultimo) throws SQLException{
         String aux = "%"+desc+"%";
         sql = "select * from HistoricoAcoes where tipoObjeto like ? limit ?,100";
@@ -121,6 +125,7 @@ public class HistoricoAcaoDAO {
         pst.close();
         return retBusca;
     }
+    
     public List<HistoricoAcaoM> buscaUsuario(UsuarioM usuario) throws SQLException{
         sql = "select * from HistoricoAcoes where usuario = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
@@ -136,8 +141,9 @@ public class HistoricoAcaoDAO {
         pst.close();
         return retBusca;
     }
-     public List<HistoricoAcaoM> buscaUsuario100(UsuarioM usuario, int ultimo) throws SQLException{
-        sql = "select * from HistoricoAcoes where usuario = ? limit ?,100";
+    
+    public List<HistoricoAcaoM> buscaUsuario100(UsuarioM usuario, int ultimo) throws SQLException{
+        sql = "select * from HistoricoAcoes where id_usuario = ? limit ?,100";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, usuario.getId());
         pst.setInt(2, ultimo);
@@ -152,8 +158,9 @@ public class HistoricoAcaoDAO {
         pst.close();
         return retBusca;
     }
-     public int contaUsuario(UsuarioM usuario) throws SQLException{           
-        sql = "select count(*) quantidade from HistoricoAcoes where usuario = ?";
+    
+    public int contaUsuario(UsuarioM usuario) throws SQLException{           
+        sql = "select count(*) quantidade from HistoricoAcoes where id_usuario = ?";
         pst = Conexao.getInstance().prepareStatement(sql);       
         pst.setInt(1, usuario.getId());
         ResultSet rs = pst.executeQuery();        
@@ -164,6 +171,7 @@ public class HistoricoAcaoDAO {
         pst.close();        
         return quant;
      }
+    
     public int contaDescricao(String desc) throws SQLException{           
         sql = "select count(*) quantidade from HistoricoAcoes where tipoObjeto like ?";
         pst = Conexao.getInstance().prepareStatement(sql);       
