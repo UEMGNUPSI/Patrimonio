@@ -346,7 +346,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
             orgao.setContato(tfdContato.getText());
             try {
                 idHistorico = orgaoDAO.salvar(orgao);
-                acao = "Novo";
+                acao = "Novo Orgão";
                 descricaoHistorico = orgao.getNome();
                 salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -376,7 +376,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
                 orgao.setNome(tfdNome.getText());
                 orgao.setCnpj(tfdCnpj.getText());
                 orgao.setContato(tfdContato.getText());
-                acao = "Alterar";
+                acao = "Alterar Orgão";
                 idHistorico = orgao.getId();
                 descricaoHistorico = orgao.getNome();
                 try {
@@ -409,7 +409,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdNome.getText() + " ?");
             if (confirma == 0) {
                 try {
-                    acao = "Excluir";
+                    acao = "Excluir Orgão";
                     idHistorico = orgao.getId();
                     descricaoHistorico = orgao.getNome();
                     salvaHistorico();

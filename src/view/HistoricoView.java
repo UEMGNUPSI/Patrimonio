@@ -9,6 +9,7 @@ import dao.HistoricoAcaoDAO;
 import dao.UsuarioDAO;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,28 +57,30 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         listaUsuario = new ArrayList<>();
         sdf.setLenient(false);
         
-        //inicia a tela já com todos os logs
-        /*try {
-            listaHistorico = historicoAcaoDAO.listaTodos();
-        } catch (SQLException ex) {
-            
-            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-        
         preencheComboUsuario();
         preencheComboAcoes();
-        atualizaTabelaHistorico100(inicio);
+        //atualizaTabelaHistorico100(inicio);
         validaQuantidadeTodos();
         
     } 
+    
+    public String converteData(Date data){
+        java.util.Date testeData;
+        testeData = new java.util.Date(data.getTime());
+        String teste = sdf.format(testeData);
+        return teste;
+    }
     
     public void atualizaTabelaHistorico() {
        
         String dados[][] = new String[listaHistorico.size()][4];
         int i = 0;
+        
         for (HistoricoAcaoM hist : listaHistorico) {
             
-            dados[i][0] = hist.getDataAcao().toString();
+            
+            //dados[i][0] = hist.getDataAcao().toString();
+            dados[i][0] = converteData(hist.getDataAcao());
             dados[i][1] = hist.getTipoObjeto();
             dados[i][2] = hist.getAcao();
             dados[i][3] = hist.getUsuario().getNome();
@@ -86,6 +89,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         }
         String tituloColuna[] = {"Data", "Descrição", "Ação", "Usuário"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
+        
         tabelaCliente.setDataVector(dados, tituloColuna);
         tbeHistorico.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
@@ -110,10 +114,11 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         tbeHistorico.updateUI();
         
     }
+    
     public void atualizaTabelaHistorico100(int inicio) throws SQLException {
         
-       listaHistorico = historicoAcaoDAO.lista100(inicio);
-       validaQuantidadeTodos();
+        listaHistorico = historicoAcaoDAO.lista100(inicio);
+        validaQuantidadeTodos();
        
         String dados[][] = new String[listaHistorico.size()][4];
         int i = 0;
@@ -175,10 +180,24 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         cbxAcoes.removeAllItems();
         cbxAcoes.addItem("--Selecione--");
         
-        cbxAcoes.addItem("Adicionar");
+        cbxAcoes.addItem("Novo");
         cbxAcoes.addItem("Alterar");
-        cbxAcoes.addItem("Deletar");
         cbxAcoes.addItem("Baixar");
+        cbxAcoes.addItem("Excluir");
+        
+    }
+    
+    public void limpaCampos(){
+        cbxUsuario.setSelectedIndex(0);
+        tfdPeriodoInicio.setValue(null);
+        tfdPeriodoFim.setValue(null);
+        cbxAcoes.setSelectedIndex(0);
+        tfdDescricao.setText("");
+    }
+    
+    private void limpaTabela(){
+        DefaultTableModel dm = (DefaultTableModel) tbeHistorico.getModel();
+        dm.getDataVector().removeAllElements();
     }
     
     
@@ -431,7 +450,8 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     private void tfdNavegacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNavegacaoKeyPressed
         
     }//GEN-LAST:event_tfdNavegacaoKeyPressed
- public void proximoNormal() throws SQLException{
+    
+    public void proximoNormal() throws SQLException{
         inicio+=100;
         atualizaTabelaHistorico100(inicio);
         btnAnterior.setEnabled(true);
@@ -441,7 +461,8 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             btnProximo.setEnabled(false);
         }
     }
-  public void proximoBuscaUsuario() throws SQLException{
+    
+    public void proximoBuscaUsuario() throws SQLException{
         inicio+=100;
         usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
         listaHistorico = historicoAcaoDAO.buscaUsuario100(usuario,inicio); 
@@ -452,7 +473,8 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             btnProximo.setEnabled(false);
         }
     }
-  public void proximoBuscaQuantPeriodo() throws SQLException{
+    
+    public void proximoBuscaQuantPeriodo() throws SQLException{
         inicio+=100;
         listaHistorico = historicoAcaoDAO.buscaPeriodo100(dataIni, dataF, inicio);
         btnAnterior.setEnabled(true);
@@ -462,7 +484,8 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             btnProximo.setEnabled(false);
         }
     }
-  public void proximoBuscaQuantDescricao() throws SQLException{
+    
+    public void proximoBuscaQuantDescricao() throws SQLException{
         inicio+=100;
         listaHistorico = historicoAcaoDAO.buscaDescricao100(tfdDescricao.getText(),inicio);
         btnAnterior.setEnabled(true);
@@ -616,9 +639,10 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
         
     }
-        public void validaQuantidadeUsuario(UsuarioM user) throws SQLException{
+    public void validaQuantidadeUsuario(UsuarioM user) throws SQLException{
+        
          
-         this.quantMax = historicoAcaoDAO.contaUsuario(user);
+        this.quantMax = historicoAcaoDAO.contaUsuario(user);
         //JOptionPane.showMessageDialog(null, quantMax);
         pagAtual = 1;
         
@@ -673,6 +697,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     }
       
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        limpaTabela();
         inicio = 0;
         btnProximo.setEnabled(true);
         btnAnterior.setEnabled(false);
@@ -689,11 +714,9 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             }
         }
         
-        
         if (cbxUsuario.getSelectedIndex() != 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && tfdDescricao.getText().isEmpty()){
             //se vai filtrar somente por usuario
-           
-            
+
             try {
                 usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
                 //listaHistorico = historicoAcaoDAO.buscaUsuario(usuario);           
@@ -743,9 +766,10 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         }
         
         if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && !tfdDescricao.getText().isEmpty() ){
+            //busca por descricao
             try {
                 //listaHistorico = historicoAcaoDAO.buscaDescricao(tfdDescricao.getText());
-                listaHistorico = historicoAcaoDAO.buscaDescricao100(tfdDescricao.getText(),inicio);
+                listaHistorico = historicoAcaoDAO.buscaDescricao100(tfdDescricao.getText(), inicio);
                 validaQuantidadePeriodo(tfdDescricao.getText());
                 cont = 3;
                 
@@ -755,9 +779,24 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             
         }
         
+         if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() != 0 && tfdDescricao.getText().isEmpty()){
+            //se vai filtrar somente por acao
+
+            try {
+                   
+                listaHistorico = historicoAcaoDAO.buscaoAcao100(cbxAcoes.getSelectedItem().toString());
+                //tem que ver como funciona essa parada de contar
+                //validaQuantidadeUsuario(usuario);
+                //cont = 1;
+            } catch (SQLException ex) {
+                Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
 
         
         atualizaTabelaHistorico();
+        limpaCampos();
  
     }//GEN-LAST:event_btnBuscarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables

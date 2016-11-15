@@ -345,7 +345,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
             try {
                 
                 idHistorico = blocoDAO.salvar(bloco);
-                acao = "Novo";
+                acao = "Novo Bloco";
                 descricaoHistorico = bloco.getDescricao();
                 salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE); 
@@ -363,7 +363,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
             bloco.setDescricao(tfdDescricaoBloco.getText());
             try {
                 idHistorico = bloco.getId();
-                acao = "Alterar";
+                acao = "Alterar Bloco";
                 descricaoHistorico = bloco.getDescricao();
                 salvaHistorico();
                 blocoDAO.alterar(bloco);
@@ -393,7 +393,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoBloco.getText() + " ?");
             if (confirma == 0) {
                 try {
-                    acao = "Excluir";
+                    acao = "Excluir Bloco";
                     idHistorico = bloco.getId();
                     descricaoHistorico = bloco.getDescricao();
                     salvaHistorico();

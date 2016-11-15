@@ -108,6 +108,7 @@ public class HistoricoAcaoDAO {
         return retBusca;
     }
     
+      
     public List<HistoricoAcaoM> buscaDescricao100(String desc, int ultimo) throws SQLException{
         String aux = "%"+desc+"%";
         sql = "select * from HistoricoAcoes where tipoObjeto like ? limit ?,100";
@@ -126,6 +127,25 @@ public class HistoricoAcaoDAO {
         return retBusca;
     }
     
+    public List<HistoricoAcaoM> buscaoAcao100(String acao) throws SQLException{
+        String aux = "%" + acao + "%";
+        sql = "select * from HistoricoAcoes where acao like ?";
+        //sql = "select * from HistoricoAcoes where acao like ? limit ?,100";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, aux);
+        //pst.setInt(2, ultimo);
+        
+        ResultSet rs = pst.executeQuery();
+        UsuarioDAO user = new UsuarioDAO();
+        while(rs.next()){
+            
+            retBusca.add(new HistoricoAcaoM(rs.getString("tipoObjeto"), rs.getDate("dataAcao"), user.UsuarioMById(rs.getInt("id_usuario")), rs.getString("acao")));
+        }
+        
+        pst.close();
+        return retBusca;
+    }
+   
     public List<HistoricoAcaoM> buscaUsuario(UsuarioM usuario) throws SQLException{
         sql = "select * from HistoricoAcoes where usuario = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
@@ -234,42 +254,6 @@ public class HistoricoAcaoDAO {
         pst.close();        
         return quant;
      }
-    
-   
-    
- 
-    public List<HistoricoAcaoM> busca(HistoricoAcaoM historico, int qnt, int combCampos) throws SQLException{
-        PreparedStatement pst = null;
-        String sql = null;
-        List<HistoricoAcaoM> retornoHistorico = new ArrayList<HistoricoAcaoM>();     
-        //Qnt é para verificar quantos campos foram preenchidos nos filtros.
-        //combCampos é uma combinação matematica para saber quais campos foram preenchidos
-        //campo1 = 2, campo2 = 3, campo3 = 5, campo4 = 7
-    
-        if (qnt == 1){
-            
-            
-            if (combCampos == 3){
-                
-            }
-            
-            if (combCampos == 7){
-                sql = "select * from HistoricoAcoes where acao = ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, historico.getAcao().toString());
-            }
-        }
-       
-        ResultSet rs = pst.executeQuery();
-        UsuarioDAO user = new UsuarioDAO();
-        while(rs.next()){
-            
-            retornoHistorico.add(new HistoricoAcaoM(rs.getString("tipoObjeto"), rs.getDate("dataAcao"), user.UsuarioMById(rs.getInt("id_usuario")), rs.getString("acao")));
-        }
-        pst.close();
-        return retornoHistorico;
-     }
-    
-    
+  
     
 }

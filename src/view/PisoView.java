@@ -412,7 +412,7 @@ public class PisoView extends javax.swing.JInternalFrame {
             piso.setBloco(pegaBloco());
             try {
                 idHistorico = pisoDAO.salvar(piso);
-                acao = "Novo";
+                acao = "Novo Piso";
                 descricaoHistorico = piso.getDescricao();
                 salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -430,7 +430,7 @@ public class PisoView extends javax.swing.JInternalFrame {
             piso.setId(Integer.parseInt(tfdIDPiso.getText()));
             try {
                 idHistorico = piso.getId();
-                acao = "Alterar";
+                acao = "Alterar Piso";
                 descricaoHistorico = piso.getDescricao();
                 salvaHistorico();
                 pisoDAO.alterar(piso);
@@ -455,7 +455,7 @@ public class PisoView extends javax.swing.JInternalFrame {
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoPiso.getText() + " ?");
             if (confirma == 0) {
                 try {
-                    acao = "Excluir";
+                    acao = "Excluir Piso";
                     idHistorico = piso.getId();
                     descricaoHistorico = piso.getDescricao();
                     salvaHistorico();

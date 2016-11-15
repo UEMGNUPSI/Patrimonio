@@ -461,7 +461,7 @@ public class SalaView extends javax.swing.JInternalFrame {
             sala.setPiso(pegaSala());
             try {
                 idHistorico = salaDAO.salvar(sala);
-                acao = "Novo";
+                acao = "Novo Sala";
                 descricaoHistorico = sala.getDescricao();
                 salvaHistorico();
                 JOptionPane.showMessageDialog(null, "Gravado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -481,7 +481,7 @@ public class SalaView extends javax.swing.JInternalFrame {
             btnSalvarSala.setEnabled(true);
             try {
                 idHistorico = sala.getId();
-                acao = "Alterar";
+                acao = "Alterar Sala";
                 descricaoHistorico = sala.getDescricao();
                 salvaHistorico();
                 salaDAO.alterar(sala);
@@ -507,7 +507,7 @@ public class SalaView extends javax.swing.JInternalFrame {
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdDescricaoSala.getText() + " ?");
             if (confirma == 0) {
                 try {
-                    acao = "Excluir";
+                    acao = "Excluir Sala";
                     idHistorico = sala.getId();
                     descricaoHistorico = sala.getDescricao();
                     salvaHistorico();
