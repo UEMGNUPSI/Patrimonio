@@ -370,6 +370,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
         }
         else {
+            if(tfdSenha.getText().equals(tfdConfirmaSenha.getText())){
                 usuario = new UsuarioM();
                 usuario.setId(Integer.parseInt(tfdID.getText()));
                 usuario.setUsuario(tfdUsuario.getText());
@@ -391,11 +392,14 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                     } else {
                         JOptionPane.showMessageDialog(null, ex.getMessage());
                     }
+                }
                 
+            }else{
+                JOptionPane.showMessageDialog(null, "Senhas não coincidem", "Erro", JOptionPane.WARNING_MESSAGE);
             }
 
         }
-
+            
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
