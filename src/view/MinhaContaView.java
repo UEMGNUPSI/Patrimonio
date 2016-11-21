@@ -1,10 +1,13 @@
 package view;
 
+import dao.HistoricoAcaoDAO;
 import dao.UsuarioDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import model.HistoricoAcaoM;
 import model.UsuarioM;
 import util.LimiteDigitos;
 
@@ -24,6 +27,11 @@ public class MinhaContaView extends javax.swing.JInternalFrame {
      * Creates new form MinhaContaView4
      */
     public UsuarioM usuario = new UsuarioM();
+    
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    
     public MinhaContaView(UsuarioM usuario) {
         initComponents();      
         this.setVisible(true);
@@ -38,7 +46,17 @@ public class MinhaContaView extends javax.swing.JInternalFrame {
        
     }
     UsuarioDAO usuarioDAO = new UsuarioDAO();
-
+    
+     public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuario);
+        
+        HistoricoAcaoDAO.salvar(historico);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -263,7 +281,11 @@ public class MinhaContaView extends javax.swing.JInternalFrame {
                 usuario.setUsuario(tfdUsuario.getText());
                 usuario.setSenha(tfdSenha.getText());
                 try {
+                    idHistorico = Integer.parseInt(tfdID.getText());
+                    acao = "Alterar Usuário";
+                    descricaoHistorico = usuario.getNome();
                     usuarioDAO.alterar(usuario);
+                    salvaHistorico();
                     JOptionPane.showMessageDialog(null, "Usuario atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     desativaCampos();
                 } catch (SQLException ex) {

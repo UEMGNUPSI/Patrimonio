@@ -453,7 +453,7 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_mniAdicionarUsuarioMouseClicked
 
     private void mniAdicionarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAdicionarUsuarioActionPerformed
-        UsuarioView usuario = new UsuarioView();
+        UsuarioView usuario = new UsuarioView(usuarioAtivo);
         pnlPrincipal.removeAll();
         pnlPrincipal.add(usuario);
         pnlPrincipal.updateUI();
@@ -505,7 +505,7 @@ public class PrincipalView extends javax.swing.JFrame {
     }//GEN-LAST:event_mniMinhaContaActionPerformed
 
     private void mnuMovimentacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuMovimentacoesMouseClicked
-        MovimentacaoView movimentacao = new MovimentacaoView();
+        MovimentacaoView movimentacao = new MovimentacaoView(usuarioAtivo);
         pnlPrincipal.removeAll();
         pnlPrincipal.add(movimentacao);
         pnlPrincipal.updateUI();

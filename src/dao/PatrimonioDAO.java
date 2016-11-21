@@ -474,7 +474,7 @@ public class PatrimonioDAO {
      
      public void movimentar( List<PatrimonioM> lista, int id_sala) throws SQLException{
          for(int i = 0; i < lista.size(); i++){
-             sql = "update Patrimonio set id_sala = ? where id = ?";
+            sql = "update Patrimonio set id_sala = ? where id = ?";
             pst = Conexao.getInstance().prepareStatement(sql);
             pst.setInt(1, id_sala);
             pst.setInt(2, lista.get(i).getId());

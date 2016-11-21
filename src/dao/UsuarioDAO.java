@@ -62,9 +62,10 @@ public class UsuarioDAO {
         pst.close();
         return listaUser;
     }
-       public void salvar(UsuarioM usuario) throws SQLException{
+       public int salvar(UsuarioM usuario) throws SQLException{
+        int auxID = 0;
         sql = "insert into Usuario values(?,?,?,?,?,?,?)";
-        pst = Conexao.getInstance().prepareStatement(sql);
+        pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
         pst.setInt(1, 0);
         pst.setString(2, usuario.getUsuario());
         pst.setString(3, usuario.getSenha());
@@ -73,7 +74,14 @@ public class UsuarioDAO {
         pst.setString(6, usuario.getMasp());
         pst.setString(7, usuario.getContato());
         pst.execute();
+        
+        ResultSet rs = pst.getGeneratedKeys();
+        while(rs.next()){
+           auxID = rs.getInt(1);
+        }
         pst.close();
+        
+        return auxID;
     }   
         public void excluir(UsuarioM usuario) throws SQLException{
         sql = "delete from Usuario where id = ?";

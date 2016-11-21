@@ -6,10 +6,12 @@
 package view;
 
 import dao.BlocoDAO;
+import dao.HistoricoAcaoDAO;
 import dao.PatrimonioDAO;
 import dao.PisoDAO;
 import dao.SalaDAO;
 import dao.UnidadeDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +22,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import model.BlocoM;
+import model.HistoricoAcaoM;
 import model.PatrimonioM;
 import model.PisoM;
 import model.SalaM;
 import model.UnidadeM;
+import model.UsuarioM;
 
 /**
  *
@@ -53,10 +57,16 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
     List<PatrimonioM> listaMovimentacao;
     PatrimonioM patrimonio;
     
-    public MovimentacaoView() {
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    UsuarioM usuarioAtivo;
+    
+    public MovimentacaoView(UsuarioM usuarioAtivo) {
         initComponents();
         
         this.setVisible(true);
+        this.usuarioAtivo = usuarioAtivo;
         
         listaPatrimonio = new ArrayList<>();
         patrimonioDAO = new PatrimonioDAO();
@@ -394,7 +404,19 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
+    }
+    
+    
     private void cbxBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBlocoActionPerformed
        if (cbxBloco.getSelectedIndex() < 1) {
             cbxPiso.removeAllItems();
@@ -617,6 +639,13 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             salaM = salaDAO.buscaID(pisoM.getId(), cbxSalaDestino.getSelectedItem().toString());
             patrimonioDAO.movimentar(listaMovimentacao, salaM.getId());
             JOptionPane.showMessageDialog(null, "Movimentação realizada com Sucesso!\nSala Destino: "+salaM.getDescricao());
+            acao = "Movimentação";
+            for(int i = 0; i < listaMovimentacao.size(); i++){
+                idHistorico = listaMovimentacao.get(i).getId();
+                descricaoHistorico = listaMovimentacao.get(i).getDescricao();
+                salvaHistorico();
+            }
+            
             listaPatrimonioSelecionados = patrimonioDAO.listaSelecionados(salaM.getId());
             listaMovimentacao = new ArrayList<>();
             atualizaTabelaEsquerda();

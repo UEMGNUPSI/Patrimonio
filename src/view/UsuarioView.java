@@ -5,7 +5,9 @@
  */
 package view;
 
+import dao.HistoricoAcaoDAO;
 import dao.UsuarioDAO;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import model.HistoricoAcaoM;
 import model.UsuarioM;
 import util.LimiteDigitos;
 
@@ -27,10 +30,11 @@ public class UsuarioView extends javax.swing.JInternalFrame {
     /**
      * Creates new form UsuarioView
      */
-    public UsuarioView() {
+    public UsuarioView(UsuarioM usuarioAtivo) {
          listaUsuario = new ArrayList<>();
         initComponents();      
         this.setVisible(true);
+        this.usuarioAtivo = usuarioAtivo;
         atualizaTabelaUsuario();
         tfdUsuario.setDocument(new LimiteDigitos(20));
         tfdSenha.setDocument(new LimiteDigitos(20));
@@ -42,6 +46,21 @@ public class UsuarioView extends javax.swing.JInternalFrame {
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     List<UsuarioM> listaUsuario;
     
+    UsuarioM usuarioAtivo;
+    int idHistorico;
+    String acao;
+    String descricaoHistorico;
+    
+    public void salvaHistorico() throws SQLException{
+        HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setIdObjeto(idHistorico);
+        historico.setTipoObjeto(descricaoHistorico);
+        historico.setAcao(acao);
+        historico.setDataAcao(new Date(System.currentTimeMillis()));
+        historico.setUsuario(usuarioAtivo);
+        
+        HistoricoAcaoDAO.salvar(historico);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -80,7 +99,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
         jLabel2.setText("ID");
 
-        jLabel3.setText("Nome de Usuário");
+        jLabel3.setText("Usuário");
 
         jLabel4.setText("Senha");
 
@@ -348,7 +367,11 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 usuario.setMasp(tfdMasp.getText());
                 usuario.setContato(tfdContato.getText());
                 try {
-                    usuarioDAO.salvar(usuario);
+                    
+                    idHistorico = usuarioDAO.salvar(usuario);
+                    acao = "Novo Usuário";
+                    descricaoHistorico = usuario.getNome();
+                    salvaHistorico();
                     JOptionPane.showMessageDialog(null, "Usuario Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     atualizaTabelaUsuario();
                     limpaCamposUsuario();
@@ -381,6 +404,10 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 usuario.setContato(tfdContato.getText());
 
                 try {
+                    idHistorico = usuario.getId();
+                    acao = "Alterar Usuário";
+                    descricaoHistorico = usuario.getNome();
+                    salvaHistorico();
                     usuarioDAO.alterar(usuario);
                     JOptionPane.showMessageDialog(null, "Usuario atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();
@@ -424,9 +451,14 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         } else {
             usuario = new UsuarioM();
             usuario.setId(Integer.parseInt(tfdID.getText()));
+            usuario.setNome(tfdNome.getText());
             int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdNome.getText() + " ?");
             if (confirma == 0) {
                 try {
+                    acao = "Excluir Usuário";
+                    idHistorico = usuario.getId();
+                    descricaoHistorico = usuario.getNome();
+                    salvaHistorico();
                     usuarioDAO.excluir(usuario);
                     atualizaTabelaUsuario();
                     limpaCamposUsuario();
