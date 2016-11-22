@@ -701,11 +701,16 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         inicio = 0;
         btnProximo.setEnabled(true);
         btnAnterior.setEnabled(false);
+        //teste concatenado
+        if (cbxUsuario.getSelectedIndex() != 0 && cbxAcoes.getSelectedIndex() != 0){
+            
+        }
+        
         
         if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && tfdDescricao.getText().isEmpty() ){
             //se não selecionar nenhum filtro retorna tudo
             try {
-                //listaHistorico = historicoAcaoDAO.listaTodos();                
+                           
                 listaHistorico = historicoAcaoDAO.lista100(inicio);
                 validaQuantidadeTodos();
                 cont =0;

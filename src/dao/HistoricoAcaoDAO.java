@@ -25,9 +25,10 @@ public class HistoricoAcaoDAO {
     List<HistoricoAcaoM> retBusca = new ArrayList<>();
     
     
-    
+    /*
     public List<HistoricoAcaoM> listaTodos() throws SQLException{
         List<HistoricoAcaoM> listaHistorico = new ArrayList<HistoricoAcaoM>();
+        listaHistorico = null;
         String sql = "select * from HistoricoAcoes";
         PreparedStatement pst = Conexao.getInstance().prepareStatement(sql);
         UsuarioDAO user = new UsuarioDAO();
@@ -41,8 +42,8 @@ public class HistoricoAcaoDAO {
         }
         pst.close();
         return listaHistorico;
-    }
-    
+    }Nâo utilizado mais
+    */
     
     public List<HistoricoAcaoM> lista100(int ultimo) throws SQLException{
         List<HistoricoAcaoM> listaHistorico = new ArrayList<>();
@@ -223,6 +224,37 @@ public class HistoricoAcaoDAO {
         pst.close();
         return retBusca;
     }
+    public List<HistoricoAcaoM> buscaConcatenada(HistoricoAcaoM item, Date inicio, Date fim, int qnt, int comb) throws SQLException{
+        String aux;
+        aux = "select * from HistoricoAcoes where ";
+        
+        if(qnt == 2){
+            if(comb == 5){
+                sql = aux + "dataAcao between ? and ? and id_usuario = ?";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setDate(1, inicio);
+                pst.setDate(2, fim);
+                pst.setInt(3, item.getUsuario().getId());
+            }
+        }
+        
+        
+     
+        
+        UsuarioDAO user = new UsuarioDAO();
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+            
+           retBusca.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
+                   rs.getDate("dataAcao"),
+                   user.UsuarioMById(rs.getInt("id_usuario")),
+                   rs.getString("acao") ));
+        }
+        pst.close();
+        
+        return retBusca;
+    }
+    
     public List<HistoricoAcaoM> buscaPeriodo100(Date inicio, Date fim, int ultimo) throws SQLException{
         
         sql = "select * from HistoricoAcoes where dataAcao between ? and ? limit ?,100";
