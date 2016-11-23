@@ -102,7 +102,35 @@ public class PatrimonioCompostoDAO {
         pst.execute();
         pst.close();
     }
-    
+    public PatrimonioCompostoM buscaIDbaixado(String descricao) throws SQLException{
+        sql = "select * from patrimonio_composto where id = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, descricao);
+        PatrimonioCompostoM patrimonioComposto = null;
+        ResultSet rs = pst.executeQuery();        
+        while(rs.next()){
+            patrimonioComposto = new PatrimonioCompostoM(rs.getInt("id"));
+        }
+        pst.close();
+        return patrimonioComposto;
+     }
+    public static List<PatrimonioCompostoM> listaTodosExistentesBaixados(PatrimonioCompostoM patrimonio) throws SQLException{
+        PreparedStatement pst;
+        String sql;
+        List<PatrimonioCompostoM> listaComposto = new ArrayList<PatrimonioCompostoM>();
+        sql = "select * from patrimonio_composto_baixado where id_patrimonio = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, patrimonio.getId());
+        ResultSet rs = pst.executeQuery();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        while(rs.next()){
+           
+           listaComposto.add(new PatrimonioCompostoM(rs.getInt("id"), rs.getString("descricao"), grau.busca(rs.getInt("id_grau_conservacao")), status.busca(rs.getInt("id_status"))));
+        }
+        pst.close();
+        return listaComposto;
+    }
     
     
 }
