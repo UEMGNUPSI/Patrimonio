@@ -90,15 +90,15 @@ public class PatrimonioCompostoDAO {
         return patrimonioComposto;
      }
     
-    public static void salvarBaixado(PatrimonioCompostoM patrimonioComposto) throws SQLException{
+    public static void salvarBaixado(PatrimonioCompostoM patrimonioComposto, int id_patrimonio) throws SQLException{
         PreparedStatement pst;
         String sql;
-        sql = "insert into Patrimonio_composto_baixado values(?, ?, ?, ?, ?)";
+        sql = "insert into Patrimonio_composto_baixado values(?, ?, ?, ?)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
         pst.setString(2, patrimonioComposto.getDescricao());
         pst.setInt(3, patrimonioComposto.getGrau().getId());
-        pst.setInt(4, patrimonioComposto.getPatrimonio().getId());
+        pst.setInt(4, id_patrimonio);
         pst.execute();
         pst.close();
     }

@@ -823,7 +823,7 @@ public class PatrimonioDAO {
             pst.close();
             
             sql = "insert into Patrimonio_baixado values(0,?,?,?,?,?,?,?)";
-            pst = Conexao.getInstance().prepareStatement(sql);
+            pst = Conexao.getInstance().prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setString(1, patrimonio.getDescricao());
             pst.setString(2, patrimonio.getCodigo());
             pst.setInt(3, patrimonio.getSubTipo().getId());
@@ -832,10 +832,20 @@ public class PatrimonioDAO {
             pst.setInt(6, patrimonio.getEntidade().getId());
             pst.setBoolean(7, patrimonio.getKit());
             pst.execute();
+           
+            int auxID = 0;
+            ResultSet rs = pst.getGeneratedKeys();
+            
+            while(rs.next()){
+                auxID = rs.getInt(1);
+            }
+            
             pst.close();
             
+            
             for(PatrimonioCompostoM composto : listaComposto){
-                PatrimonioCompostoDAO.salvarBaixado(composto);
+
+                PatrimonioCompostoDAO.salvarBaixado(composto, auxID);
             }
         }else{
             sql = "delete from Patrimonio where id = ?";
@@ -858,6 +868,21 @@ public class PatrimonioDAO {
         }
         
         
+      }
+      
+      public static PatrimonioM buscaBaixadoID(int id) throws SQLException{
+        String sql;
+        PreparedStatement pst;
+        sql = "select * from Patrimonio_baixado where id = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id);
+        ResultSet rs = pst.executeQuery();
+        PatrimonioM pat = null;
+        while(rs.next()){
+           pat = new PatrimonioM(rs.getInt(1)); 
+        }
+        pst.close();
+        return pat;
       }
       
       
