@@ -76,6 +76,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     public BaixadoView() throws SQLException {
         
         initComponents();
+        //pnlPatrimonioComposto1.setVisible(false);
         patrimonioCompostoDAO = new PatrimonioCompostoDAO();
         baixadoDAO = new BaixadoDAO();
         this.setVisible(true);
@@ -133,7 +134,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         pnlPatrimonioComposto1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tbePatrimonioComposto1 = new javax.swing.JTable();
+        tbePatrimonioCompostoBaixado = new javax.swing.JTable();
 
         setClosable(true);
         setMaximizable(true);
@@ -194,12 +195,9 @@ public class BaixadoView extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Patrimonio Composto");
 
-        tbePatrimonioComposto1.setModel(new javax.swing.table.DefaultTableModel(
+        tbePatrimonioCompostoBaixado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Descrição", "Grau de Conservação", "Status"
@@ -220,12 +218,12 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tbePatrimonioComposto1.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbePatrimonioCompostoBaixado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tbePatrimonioComposto1MouseClicked(evt);
+                tbePatrimonioCompostoBaixadoMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tbePatrimonioComposto1);
+        jScrollPane3.setViewportView(tbePatrimonioCompostoBaixado);
 
         javax.swing.GroupLayout pnlPatrimonioComposto1Layout = new javax.swing.GroupLayout(pnlPatrimonioComposto1);
         pnlPatrimonioComposto1.setLayout(pnlPatrimonioComposto1Layout);
@@ -299,7 +297,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlPatrimonioComposto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -406,6 +404,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         inicio = 0;
         btnAnterior.setEnabled(true);
         btnAnterior.setEnabled(false);
+        
         
         if(tfdFiltroBusca.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
@@ -660,61 +659,64 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnProximoActionPerformed
 
-    private void tbePatrimonioComposto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePatrimonioComposto1MouseClicked
+    private void tbePatrimonioCompostoBaixadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePatrimonioCompostoBaixadoMouseClicked
         
-    }//GEN-LAST:event_tbePatrimonioComposto1MouseClicked
+    }//GEN-LAST:event_tbePatrimonioCompostoBaixadoMouseClicked
 
     private void tbeBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBuscaMouseClicked
-       PatrimonioCompostoM patrimonioComposto = new PatrimonioCompostoM();
+       //PatrimonioCompostoM patrimonioComposto = new PatrimonioCompostoM();
         try {
-            patrimonioComposto = patrimonioCompostoDAO.buscaIDbaixado(tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString());
-            //JOptionPane.showMessageDialog(null, tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString());
-            listaCompostoB = patrimonioCompostoDAO.listaTodosExistentesBaixados(patrimonioComposto);
-            JOptionPane.showMessageDialog(null,patrimonioCompostoDAO.listaTodosExistentesBaixados(patrimonioComposto));
-            
+            int id_patrimonio = patrimonioCompostoDAO.buscaIDbaixado(tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString());
+           
+           
+            listaCompostoB = patrimonioCompostoDAO.listaTodosCompostoBaixados(id_patrimonio);
+           
+
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         
-        atualizaTabelaCompostoExistente();
        
+        atualizaTabelaCompostoExistente();
+        
+        //pnlPatrimonioComposto1.setVisible(true);
        
     }//GEN-LAST:event_tbeBuscaMouseClicked
 public void atualizaTabelaCompostoExistente(){
-        
-        String dados[][] = new String[listaCompostoB.size()][4];
-        int i = 0;
-        for (PatrimonioCompostoM patComposto : listaCompostoB){
-            dados[i][0] = String.valueOf(patComposto.getId());
-            dados[i][1] = patComposto.getDescricao();
-            dados[i][2] = patComposto.getGrau().getDescricao();
-            dados[i][3] = patComposto.getStatus().getNome();
-            i++;
-        }
-        String tituloColuna[] = {"ID","Descrição", "Grau de Conservação", "Status"};
-        DefaultTableModel tabelaComposto = new DefaultTableModel();
-        tabelaComposto.setDataVector(dados, tituloColuna);
-        tbePatrimonioComposto1.setModel(new DefaultTableModel(dados, tituloColuna){
-            boolean[] canEdit = new boolean[]{ false, false, false 
-            };
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex){
-                return canEdit[columnIndex];
-            }
-        });
-        
-        tbePatrimonioComposto1.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbePatrimonioComposto1.getColumnModel().getColumn(1).setPreferredWidth(300);
-        tbePatrimonioComposto1.getColumnModel().getColumn(2).setPreferredWidth(300);
-        tbePatrimonioComposto1.getColumnModel().getColumn(3).setPreferredWidth(300);
-        
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbePatrimonioComposto1.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tbePatrimonioComposto1.setRowHeight(25);
-        tbePatrimonioComposto1.updateUI();
-    }
+    
 
+            String dados[][] = new String[listaCompostoB.size()][4];
+            int i = 0;
+            for (PatrimonioCompostoM patComposto : listaCompostoB){
+                dados[i][0] = String.valueOf(patComposto.getId());
+                dados[i][1] = patComposto.getDescricao();
+                dados[i][2] = patComposto.getGrau().getDescricao();
+                i++;
+            }
+            String tituloColuna[] = {"ID","Descrição", "Grau de Conservação"};
+            DefaultTableModel tabelaComposto = new DefaultTableModel();
+            tabelaComposto.setDataVector(dados, tituloColuna);
+            tbePatrimonioCompostoBaixado.setModel(new DefaultTableModel(dados, tituloColuna){
+                boolean[] canEdit = new boolean[]{ false, false, false 
+                };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex){
+                    return canEdit[columnIndex];
+                }
+            });
+
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(3).setPreferredWidth(300);
+
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            tbePatrimonioCompostoBaixado.setRowHeight(25);
+
+    }
 
 //METODOS BOTAO BUSCA PROXIMO
     public void proximoNormal(){
@@ -930,37 +932,20 @@ public void atualizaTabelaCompostoExistente(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlterarPatrimonioComposto;
     private javax.swing.JButton btnAnterior;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnCancelarPatrimonioComposto;
-    private javax.swing.JButton btnExcluirPatrimonioComposto;
-    private javax.swing.JButton btnNovoPatrimonioComposto;
     private javax.swing.JButton btnProximo;
-    private javax.swing.JButton btnSalvarPatrimonioComposto;
-    private javax.swing.JComboBox<String> cbxConservacaoPatrimonioComposto;
     private javax.swing.JComboBox<String> cbxFiltro;
-    private javax.swing.JComboBox<String> cbxStatusPatrimonioComposto;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JLabel lblDescricao1;
-    private javax.swing.JLabel lblGrauConservacao1;
     private javax.swing.JLabel lblQuantPaginas;
-    private javax.swing.JLabel lblStatus1;
-    private javax.swing.JPanel pnlPatrimonioComposto;
     private javax.swing.JPanel pnlPatrimonioComposto1;
     private javax.swing.JTable tbeBusca;
-    private javax.swing.JTable tbePatrimonioComposto;
-    private javax.swing.JTable tbePatrimonioComposto1;
-    private javax.swing.JTextField tfdDescricaoPatrimonioComposto;
+    private javax.swing.JTable tbePatrimonioCompostoBaixado;
     private javax.swing.JTextField tfdFiltroBusca;
-    private javax.swing.JTextField tfdIDComposto;
     private javax.swing.JTextField tfdNavegacao;
     // End of variables declaration//GEN-END:variables
 }
