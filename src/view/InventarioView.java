@@ -586,6 +586,8 @@ public class InventarioView extends javax.swing.JInternalFrame {
                     SalaDAO.iniciaInventario();
                     PatrimonioDAO.iniciaInventario();
                     atualizaTabelaSala();
+                    atualizaTabelaPatrimonioReais();
+                    atualizaTabelaPatrimoniosEsperados();
                 } catch (SQLException ex) {
                     Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, "Probelma ao iniciar Inventario:\n"+ex.getMessage());

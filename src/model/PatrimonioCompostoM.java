@@ -42,6 +42,25 @@ public class PatrimonioCompostoM {
         
         
     }
+     public PatrimonioCompostoM(int id, String descricao, GrauConservacaoM grau_conservacao, StatusM status) {
+        this.id = id;
+        this.descricao = descricao;
+        this.grau = grau_conservacao;
+        this.status = status;
+        //this.patrimonio = patrimonio;
+        
+        
+    }
+      public PatrimonioCompostoM(int id, String descricao, GrauConservacaoM grau_conservacao) {
+        this.id = id;
+        this.descricao = descricao;
+        this.grau = grau_conservacao;
+    }
+     public PatrimonioCompostoM(int id) {
+        this.id = id;
+      
+  
+    }
       
     public int getId() {
         return id;

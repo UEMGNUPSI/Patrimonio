@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import model.PatrimonioCompostoM;
 import model.PatrimonioM;
 
@@ -90,19 +91,51 @@ public class PatrimonioCompostoDAO {
         return patrimonioComposto;
      }
     
-    public static void salvarBaixado(PatrimonioCompostoM patrimonioComposto) throws SQLException{
+    public static void salvarBaixado(PatrimonioCompostoM patrimonioComposto, int id_patrimonio) throws SQLException{
         PreparedStatement pst;
         String sql;
-        sql = "insert into Patrimonio_composto_baixado values(?, ?, ?, ?, ?)";
+        sql = "insert into Patrimonio_composto_baixado values(?, ?, ?, ?)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
         pst.setString(2, patrimonioComposto.getDescricao());
         pst.setInt(3, patrimonioComposto.getGrau().getId());
-        pst.setInt(4, patrimonioComposto.getPatrimonio().getId());
+        pst.setInt(4, id_patrimonio);
         pst.execute();
         pst.close();
     }
-    
+    public int buscaIDbaixado(String descricao) throws SQLException{
+        sql = "select * from patrimonio_baixado where id = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, descricao);
+        PatrimonioCompostoM patrimonioComposto = null;
+        int aux = 0;
+        ResultSet rs = pst.executeQuery();        
+        while(rs.next()){
+            aux = rs.getInt("id");
+        }
+        pst.close();
+        return aux;
+     }
+    public List<PatrimonioCompostoM> listaTodosCompostoBaixados(int id) throws SQLException{
+        
+        //PreparedStatement pst;
+        //String sql;
+        List<PatrimonioCompostoM> listaComposto = new ArrayList<>();
+        sql = "select * from patrimonio_composto_baixado where id_patrimonio = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setInt(1, id);
+        
+        ResultSet rs = pst.executeQuery();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        while(rs.next()){
+           
+           listaComposto.add(new PatrimonioCompostoM(rs.getInt("id"), rs.getString("descricao"), grau.busca(rs.getInt("id_grau_conservacao"))));
+        }
+        pst.close();
+        
+        return listaComposto;
+    }
     
     
 }

@@ -76,6 +76,12 @@ public class PatrimonioM {
         this.descricao = descricao;
         this.inventario = inventario;
     }
+
+    public PatrimonioM(Integer id) {
+        this.id = id;
+       
+    }
+    
     
     
     

@@ -9,6 +9,7 @@ import dao.BaixadoDAO;
 import dao.BlocoDAO;
 import dao.GrauConservacaoDAO;
 import dao.OrgaoDAO;
+import dao.PatrimonioCompostoDAO;
 import dao.PatrimonioDAO;
 import dao.PisoDAO;
 import dao.SubTipoDAO;
@@ -27,6 +28,7 @@ import model.BaixadoM;
 import model.BlocoM;
 import model.GrauConservacaoM;
 import model.OrgaoM;
+import model.PatrimonioCompostoM;
 import model.PatrimonioM;
 import model.PisoM;
 import model.SubTipoM;
@@ -44,6 +46,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
      */
     List<PatrimonioM> listaPatrimonio;
     List<BaixadoM> listaBaixado;
+    List<PatrimonioCompostoM> listaCompostoB;
     List<UnidadeM> listaUnidade;
     UnidadeDAO unidadeDAO;
     List<BlocoM> listaBloco;
@@ -62,6 +65,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     SubTipoM subtipo;
     SubTipoDAO subtipoDAO;
     BaixadoDAO baixadoDAO;
+    PatrimonioCompostoDAO patrimonioCompostoDAO;
     
     int inicio = 0, quantMax, pagAtual, pagUltima;
     int cont = 0;
@@ -72,11 +76,13 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     public BaixadoView() throws SQLException {
         
         initComponents();
-        
+        //pnlPatrimonioComposto1.setVisible(false);
+        patrimonioCompostoDAO = new PatrimonioCompostoDAO();
         baixadoDAO = new BaixadoDAO();
         this.setVisible(true);
         patrimonioDAO = new PatrimonioDAO();
         listaPatrimonio = new ArrayList<>();
+        listaCompostoB = new ArrayList<>();
         listaBaixado = new ArrayList<>();
         listaUnidade = new ArrayList<>();
         unidadeDAO = new UnidadeDAO();
@@ -125,6 +131,10 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         lblQuantPaginas = new javax.swing.JLabel();
         tfdNavegacao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        pnlPatrimonioComposto1 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tbePatrimonioCompostoBaixado = new javax.swing.JTable();
 
         setClosable(true);
         setMaximizable(true);
@@ -138,6 +148,11 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 "Codigo", "Descrição", "Data", "Usuario??"
             }
         ));
+        tbeBusca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbeBuscaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbeBusca);
 
         cbxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
@@ -178,6 +193,56 @@ public class BaixadoView extends javax.swing.JInternalFrame {
 
         jLabel3.setText("Ir para:");
 
+        jLabel6.setText("Patrimonio Composto");
+
+        tbePatrimonioCompostoBaixado.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Descrição", "Grau de Conservação", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tbePatrimonioCompostoBaixado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbePatrimonioCompostoBaixadoMouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(tbePatrimonioCompostoBaixado);
+
+        javax.swing.GroupLayout pnlPatrimonioComposto1Layout = new javax.swing.GroupLayout(pnlPatrimonioComposto1);
+        pnlPatrimonioComposto1.setLayout(pnlPatrimonioComposto1Layout);
+        pnlPatrimonioComposto1Layout.setHorizontalGroup(
+            pnlPatrimonioComposto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPatrimonioComposto1Layout.createSequentialGroup()
+                .addGap(417, 417, 417)
+                .addComponent(jLabel6))
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 935, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        pnlPatrimonioComposto1Layout.setVerticalGroup(
+            pnlPatrimonioComposto1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlPatrimonioComposto1Layout.createSequentialGroup()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,17 +251,8 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 388, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnAnterior)
                         .addGap(4, 4, 4)
                         .addComponent(lblQuantPaginas)
@@ -205,7 +261,18 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                         .addGap(291, 291, 291)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfdNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tfdNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(pnlPatrimonioComposto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -228,7 +295,9 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                     .addComponent(lblQuantPaginas)
                     .addComponent(tfdNavegacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(pnlPatrimonioComposto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -335,6 +404,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         inicio = 0;
         btnAnterior.setEnabled(true);
         btnAnterior.setEnabled(false);
+        
         
         if(tfdFiltroBusca.getText().equals("") || cbxFiltro.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Selecione um Filtro!!");
@@ -588,6 +658,66 @@ public class BaixadoView extends javax.swing.JInternalFrame {
             break;
         }
     }//GEN-LAST:event_btnProximoActionPerformed
+
+    private void tbePatrimonioCompostoBaixadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbePatrimonioCompostoBaixadoMouseClicked
+        
+    }//GEN-LAST:event_tbePatrimonioCompostoBaixadoMouseClicked
+
+    private void tbeBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBuscaMouseClicked
+       //PatrimonioCompostoM patrimonioComposto = new PatrimonioCompostoM();
+        try {
+            int id_patrimonio = patrimonioCompostoDAO.buscaIDbaixado(tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString());
+           
+           
+            listaCompostoB = patrimonioCompostoDAO.listaTodosCompostoBaixados(id_patrimonio);
+           
+
+        } catch (SQLException ex) {
+            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        
+       
+        atualizaTabelaCompostoExistente();
+        
+        //pnlPatrimonioComposto1.setVisible(true);
+       
+    }//GEN-LAST:event_tbeBuscaMouseClicked
+public void atualizaTabelaCompostoExistente(){
+    
+
+            String dados[][] = new String[listaCompostoB.size()][4];
+            int i = 0;
+            for (PatrimonioCompostoM patComposto : listaCompostoB){
+                dados[i][0] = String.valueOf(patComposto.getId());
+                dados[i][1] = patComposto.getDescricao();
+                dados[i][2] = patComposto.getGrau().getDescricao();
+                i++;
+            }
+            String tituloColuna[] = {"ID","Descrição", "Grau de Conservação"};
+            DefaultTableModel tabelaComposto = new DefaultTableModel();
+            tabelaComposto.setDataVector(dados, tituloColuna);
+            tbePatrimonioCompostoBaixado.setModel(new DefaultTableModel(dados, tituloColuna){
+                boolean[] canEdit = new boolean[]{ false, false, false 
+                };
+                @Override
+                public boolean isCellEditable(int rowIndex, int columnIndex){
+                    return canEdit[columnIndex];
+                }
+            });
+
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(0).setPreferredWidth(50);
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(1).setPreferredWidth(300);
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(2).setPreferredWidth(300);
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(3).setPreferredWidth(300);
+
+            DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
+            centralizado.setHorizontalAlignment(SwingConstants.CENTER);
+            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+            tbePatrimonioCompostoBaixado.setRowHeight(25);
+
+    }
+
 //METODOS BOTAO BUSCA PROXIMO
     public void proximoNormal(){
         inicio+=100;
@@ -808,9 +938,13 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> cbxFiltro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblQuantPaginas;
+    private javax.swing.JPanel pnlPatrimonioComposto1;
     private javax.swing.JTable tbeBusca;
+    private javax.swing.JTable tbePatrimonioCompostoBaixado;
     private javax.swing.JTextField tfdFiltroBusca;
     private javax.swing.JTextField tfdNavegacao;
     // End of variables declaration//GEN-END:variables
