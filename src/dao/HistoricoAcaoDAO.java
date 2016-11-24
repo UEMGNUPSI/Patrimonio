@@ -224,8 +224,9 @@ public class HistoricoAcaoDAO {
         pst.close();
         return retBusca;
     }
-    public List<HistoricoAcaoM> buscaConcatenada(HistoricoAcaoM item, Date inicio, Date fim, int qnt, int comb) throws SQLException{
+    public List<HistoricoAcaoM> buscaConcatenada(HistoricoAcaoM infoFiltro, Date inicio, Date fim, int qnt, int comb) throws SQLException{
         String aux;
+        String aux2;
         aux = "select * from HistoricoAcoes where ";
         
         if(qnt == 2){
@@ -234,7 +235,23 @@ public class HistoricoAcaoDAO {
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setDate(1, inicio);
                 pst.setDate(2, fim);
-                pst.setInt(3, item.getUsuario().getId());
+                pst.setInt(3, infoFiltro.getUsuario().getId());
+            }
+            
+            if (comb == 7){
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                sql = aux + "id_usuario = ? and acao like ?";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+                pst.setString(2, aux2);  
+            }
+            
+            if (comb == 9){
+                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "id_usuario = ? and tipoObjeto like ?";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+                pst.setString(2, aux2);
             }
         }
         

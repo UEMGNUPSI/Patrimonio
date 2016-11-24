@@ -29,19 +29,22 @@ import model.UsuarioM;
  */
 public class HistoricoView extends javax.swing.JInternalFrame {
     
+    
 
     /**
      * Creates new form HistoricoView
      */
-    HistoricoAcaoM hist;
     HistoricoAcaoDAO historicoAcaoDAO;
     List<HistoricoAcaoM> listaHistorico;
     UsuarioDAO usuarioDAO;
     List<UsuarioM> listaUsuario;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  
-    Date dataIni = null;
-    Date dataF = null;
+    Date dataIni = new Date(System.currentTimeMillis());;
+    Date dataF = new Date(System.currentTimeMillis());;
     UsuarioM usuario = null;
+    
+    int qntCampos = 0;
+    int combCampos = 0;
     
     int inicio = 0, quantMax, pagAtual, pagUltima;
     int cont = 0;
@@ -695,18 +698,116 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
         
     }
-      
+        
+    private void contaFiltros(){
+                
+        if (cbxUsuario.getSelectedIndex() != 0)
+        {
+            qntCampos++;
+            combCampos = combCampos + 2;
+        }
+        if (!tfdPeriodoInicio.getText().equals("  /  /    ") && !tfdPeriodoFim.getText().equals("  /  /    "))
+        {
+            qntCampos++;
+            combCampos = combCampos + 3;
+        }
+        if (cbxAcoes.getSelectedIndex() != 0)
+        {
+            qntCampos++;
+            combCampos = combCampos + 5;
+        }
+        if (!tfdDescricao.getText().isEmpty()){
+            qntCampos++;
+            combCampos = combCampos + 7;
+        }
+   
+    }
+    
+    private HistoricoAcaoM pegaInfoFiltros(){
+        HistoricoAcaoM infoHistorico;
+        infoHistorico = new HistoricoAcaoM();
+        //combinacao de só 2 filtros
+        if(qntCampos == 2){
+            //usuario e periodo
+            if (combCampos == 5){
+                try {
+                    usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
+                } catch (SQLException ex) {
+                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                infoHistorico.setUsuario(usuario);
+                
+                if(tfdPeriodoFim.getText().equals("  /  /    ")){
+                    
+                    //se a data final estiver vazia ele considera ate a data atual
+                    //pega a data atual já convertida para o formato MySQL yyyy-mm-dd
+                    dataF = new Date(System.currentTimeMillis());
+                    String dataInicio = tfdPeriodoInicio.getText();
+                    try {
+                        dataIni = new Date(sdf.parse(dataInicio).getTime());
+                    } catch (ParseException ex) {
+                        Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                else{
+                    String dataInicio = tfdPeriodoInicio.getText();
+                    String dataFim = tfdPeriodoFim.getText();
+                try {
+                    dataIni = new Date(sdf.parse(dataInicio).getTime());
+                    dataF = new Date(sdf.parse(dataFim).getTime());
+                } catch (ParseException ex) {
+                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                }
+            }
+            //Usuario e Acao
+            if(combCampos == 7){
+                try {
+                    usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
+                } catch (SQLException ex) {
+                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                infoHistorico.setUsuario(usuario);
+                infoHistorico.setAcao(cbxAcoes.getSelectedItem().toString());
+                
+            }
+            //Usuario e Descricao
+            if(combCampos == 9){
+                try {
+                    usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
+                } catch (SQLException ex) {
+                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                infoHistorico.setUsuario(usuario);
+                infoHistorico.setTipoObjeto(tfdDescricao.getText());
+            }
+                
+            
+        }
+        
+       
+        try {
+            
+            listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos);
+        } catch (SQLException ex) {
+            Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+    
+        }
+        
+        
+        return infoHistorico;
+    }
+ 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         limpaTabela();
         inicio = 0;
         btnProximo.setEnabled(true);
         btnAnterior.setEnabled(false);
-        //teste concatenado
-        if (cbxUsuario.getSelectedIndex() != 0 && cbxAcoes.getSelectedIndex() != 0){
-            
-        }
         
+        contaFiltros();
+        pegaInfoFiltros();
         
+        /*
         if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && tfdDescricao.getText().isEmpty() ){
             //se não selecionar nenhum filtro retorna tudo
             try {
@@ -797,7 +898,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
+        */
 
         
         atualizaTabelaHistorico();
