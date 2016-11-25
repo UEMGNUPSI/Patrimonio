@@ -96,6 +96,39 @@ public class HistoricoAcaoDAO {
         String aux;
         String aux2;
         aux = "select * from HistoricoAcoes where ";
+        
+        if (qnt == 1){
+            
+            //por usuario
+            if (comb == 2){
+                sql = aux + "id_usuario = ?";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+            }
+            
+            //por periodo
+            if (comb == 3){
+                sql = aux + "dataAcao between ? and ?";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setDate(1, inicio);
+                pst.setDate(2, fim);               
+            }
+            
+            //por acao
+            if (comb == 5){
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                sql = aux + "acao like ?";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setString(1, aux2);  
+            }
+            
+            if (comb == 7){
+                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "tipoObjeto like ?";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setString(1, aux2);   
+            }
+        }
 
         //com somente 2 filtros de busca
         if(qnt == 2){

@@ -201,10 +201,6 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         listaHistorico = null;
     }
     
-    private void limpaTabela(){
-        DefaultTableModel dm = (DefaultTableModel) tbeHistorico.getModel();
-        dm.getDataVector().removeAllElements();
-    }
     
     
     /**
@@ -751,7 +747,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     }
  
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        limpaTabela();
+        
         inicio = 0;
         btnProximo.setEnabled(true);
         btnAnterior.setEnabled(false);
@@ -772,11 +768,10 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        
-        
+ 
         atualizaTabelaHistorico();
         limpaCampos();
+        listaHistorico = null;
  
     }//GEN-LAST:event_btnBuscarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
