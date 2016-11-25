@@ -22,12 +22,9 @@ public class HistoricoAcaoDAO {
     
     PreparedStatement pst = null;
     String sql = null;
-    List<HistoricoAcaoM> retBusca = new ArrayList<>();
-    
-    
-   
+
     public List<HistoricoAcaoM> listaTodos() throws SQLException{
-       
+        List<HistoricoAcaoM> retBusca = new ArrayList<>();
         sql = "select * from HistoricoAcoes";
         pst = Conexao.getInstance().prepareStatement(sql);
    
@@ -93,6 +90,7 @@ public class HistoricoAcaoDAO {
     }  
     
     public List<HistoricoAcaoM> buscaConcatenada(HistoricoAcaoM infoFiltro, Date inicio, Date fim, int qnt, int comb) throws SQLException{
+        List<HistoricoAcaoM> retBusca = new ArrayList<>();
         String aux;
         String aux2;
         aux = "select * from HistoricoAcoes where ";
