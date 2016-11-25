@@ -196,6 +196,9 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         tfdPeriodoFim.setValue(null);
         cbxAcoes.setSelectedIndex(0);
         tfdDescricao.setText("");
+        qntCampos = 0;
+        combCampos = 0;
+        listaHistorico = null;
     }
     
     private void limpaTabela(){
@@ -465,41 +468,12 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         }
     }
     
-    public void proximoBuscaUsuario() throws SQLException{
-        inicio+=100;
-        usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
-        listaHistorico = historicoAcaoDAO.buscaUsuario100(usuario,inicio); 
-        btnAnterior.setEnabled(true);
-        pagAtual++;
-        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
-        if(inicio>=(quantMax-100)){
-            btnProximo.setEnabled(false);
-        }
-    }
     
-    public void proximoBuscaQuantPeriodo() throws SQLException{
-        inicio+=100;
-        listaHistorico = historicoAcaoDAO.buscaPeriodo100(dataIni, dataF, inicio);
-        btnAnterior.setEnabled(true);
-        pagAtual++;
-        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
-        if(inicio>=(quantMax-100)){
-            btnProximo.setEnabled(false);
-        }
-    }
-    
-    public void proximoBuscaQuantDescricao() throws SQLException{
-        inicio+=100;
-        listaHistorico = historicoAcaoDAO.buscaDescricao100(tfdDescricao.getText(),inicio);
-        btnAnterior.setEnabled(true);
-        pagAtual++;
-        lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
-        if(inicio>=(quantMax-100)){
-            btnProximo.setEnabled(false);
-        }
-    }
     private void btnProximoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoActionPerformed
-    switch (cont) {
+        
+        
+        /*
+        switch (cont) {
             case 0:
             {
                 try {
@@ -537,8 +511,11 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             default:
             break;
         }
+        */
+        
     }//GEN-LAST:event_btnProximoActionPerformed
- public void anteriorNormal() throws SQLException{
+   
+    public void anteriorNormal() throws SQLException{
         inicio -=100;
         atualizaTabelaHistorico100(inicio);
         btnProximo.setEnabled(true);
@@ -551,7 +528,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
   public void anteriorBuscaUsuario() throws SQLException{
         inicio -=100;
         usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
-        listaHistorico = historicoAcaoDAO.buscaUsuario100(usuario,inicio); 
+        //listaHistorico = historicoAcaoDAO.buscaUsuario100(usuario,inicio); 
         btnProximo.setEnabled(true);
         pagAtual--;
         lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
@@ -561,7 +538,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     }
   public void anteriorBuscaQuantPeriodo() throws SQLException{
         inicio -=100;
-        listaHistorico = historicoAcaoDAO.buscaPeriodo100(dataIni, dataF, inicio);
+        //listaHistorico = historicoAcaoDAO.buscaPeriodo100(dataIni, dataF, inicio);
         btnProximo.setEnabled(true);
         pagAtual--;
         lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
@@ -571,7 +548,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     }
    public void anteriorBuscaDescricao() throws SQLException{
         inicio -=100;
-        listaHistorico = historicoAcaoDAO.buscaDescricao100(tfdDescricao.getText(),inicio);
+        //listaHistorico = historicoAcaoDAO.buscaDescricao100(tfdDescricao.getText(),inicio);
         btnProximo.setEnabled(true);
         pagAtual--;
         lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
@@ -625,6 +602,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             break;
         }
     }//GEN-LAST:event_btnAnteriorActionPerformed
+    
     public void validaQuantidadeTodos() throws SQLException{
          this.quantMax = historicoAcaoDAO.contaTodos();
         //JOptionPane.showMessageDialog(null, quantMax);
@@ -645,7 +623,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     public void validaQuantidadeUsuario(UsuarioM user) throws SQLException{
         
          
-        this.quantMax = historicoAcaoDAO.contaUsuario(user);
+        //this.quantMax = historicoAcaoDAO.contaUsuario(user);
         //JOptionPane.showMessageDialog(null, quantMax);
         pagAtual = 1;
         
@@ -662,9 +640,9 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         
     }
         
-        public void validaQuantidadePeriodo(String desc) throws SQLException{
+    public void validaQuantidadePeriodo(String desc) throws SQLException{
             
-            this.quantMax = historicoAcaoDAO.contaDescricao(desc);
+        //this.quantMax = historicoAcaoDAO.contaDescricao(desc);
         //JOptionPane.showMessageDialog(null, quantMax);
         pagAtual = 1;
         
@@ -680,9 +658,12 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
         
     }
-        public void validaQuantidadePeriodo(Date Ini, Date Fim) throws SQLException{
+        
+        
+    public void validaQuantidadePeriodo(Date Ini, Date Fim) throws SQLException{
+        
             
-            this.quantMax = historicoAcaoDAO.contaPeriodo(Ini,Fim);
+        //this.quantMax = historicoAcaoDAO.contaPeriodo(Ini,Fim);
         //JOptionPane.showMessageDialog(null, quantMax);
         pagAtual = 1;
         
@@ -723,78 +704,49 @@ public class HistoricoView extends javax.swing.JInternalFrame {
    
     }
     
-    private HistoricoAcaoM pegaInfoFiltros(){
+    private HistoricoAcaoM pegaInfoFiltros() throws SQLException{
         HistoricoAcaoM infoHistorico;
         infoHistorico = new HistoricoAcaoM();
-        //combinacao de só 2 filtros
-        if(qntCampos == 2){
-            //usuario e periodo
-            if (combCampos == 5){
-                try {
-                    usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
-                } catch (SQLException ex) {
-                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                infoHistorico.setUsuario(usuario);
-                
-                if(tfdPeriodoFim.getText().equals("  /  /    ")){
-                    
-                    //se a data final estiver vazia ele considera ate a data atual
-                    //pega a data atual já convertida para o formato MySQL yyyy-mm-dd
-                    dataF = new Date(System.currentTimeMillis());
-                    String dataInicio = tfdPeriodoInicio.getText();
-                    try {
-                        dataIni = new Date(sdf.parse(dataInicio).getTime());
-                    } catch (ParseException ex) {
-                        Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                else{
-                    String dataInicio = tfdPeriodoInicio.getText();
-                    String dataFim = tfdPeriodoFim.getText();
+        
+        if(cbxUsuario.getSelectedIndex() != 0){
+            usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
+            infoHistorico.setUsuario(usuario);
+        }
+        
+        if(cbxAcoes.getSelectedIndex() != 0){
+            infoHistorico.setAcao(cbxAcoes.getSelectedItem().toString());
+        }
+        
+        if(!tfdDescricao.getText().isEmpty()){
+            infoHistorico.setTipoObjeto(tfdDescricao.getText());
+        }
+        
+        if(!tfdPeriodoInicio.getText().equals("  /  /    ")){
+            
+            if(tfdPeriodoFim.getText().equals("  /  /    ")){
+            //se a data final estiver vazia ele considera ate a data atual
+            //pega a data atual já convertida para o formato MySQL yyyy-mm-dd
+            dataF = new Date(System.currentTimeMillis());
+            String dataInicio = tfdPeriodoInicio.getText();
+            try {
+                dataIni = new Date(sdf.parse(dataInicio).getTime());
+            } catch (ParseException ex) {
+                Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+            } 
+            
+            }
+            else{
+                String dataInicio = tfdPeriodoInicio.getText();
+                String dataFim = tfdPeriodoFim.getText();
                 try {
                     dataIni = new Date(sdf.parse(dataInicio).getTime());
                     dataF = new Date(sdf.parse(dataFim).getTime());
                 } catch (ParseException ex) {
                     Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                }
-            }
-            //Usuario e Acao
-            if(combCampos == 7){
-                try {
-                    usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
-                } catch (SQLException ex) {
-                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                infoHistorico.setUsuario(usuario);
-                infoHistorico.setAcao(cbxAcoes.getSelectedItem().toString());
-                
-            }
-            //Usuario e Descricao
-            if(combCampos == 9){
-                try {
-                    usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
-                } catch (SQLException ex) {
-                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                infoHistorico.setUsuario(usuario);
-                infoHistorico.setTipoObjeto(tfdDescricao.getText());
-            }
-                
-            
+            }   
         }
-        
-       
-        try {
-            
-            listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos);
-        } catch (SQLException ex) {
-            Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-    
-        }
-        
-        
+
         return infoHistorico;
     }
  
@@ -805,101 +757,23 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         btnAnterior.setEnabled(false);
         
         contaFiltros();
-        pegaInfoFiltros();
-        
-        /*
-        if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && tfdDescricao.getText().isEmpty() ){
-            //se não selecionar nenhum filtro retorna tudo
+        if (qntCampos == 0){
             try {
-                           
-                listaHistorico = historicoAcaoDAO.lista100(inicio);
-                validaQuantidadeTodos();
-                cont =0;
+                listaHistorico = historicoAcaoDAO.listaTodos();
             } catch (SQLException ex) {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-        if (cbxUsuario.getSelectedIndex() != 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && tfdDescricao.getText().isEmpty()){
-            //se vai filtrar somente por usuario
-
+        else
+        {
             try {
-                usuario = usuarioDAO.buscaNome(cbxUsuario.getSelectedItem().toString());
-                //listaHistorico = historicoAcaoDAO.buscaUsuario(usuario);           
-                listaHistorico = historicoAcaoDAO.buscaUsuario100(usuario,inicio); 
-                validaQuantidadeUsuario(usuario);
-                cont = 1;
+                listaHistorico = historicoAcaoDAO.buscaConcatenada(pegaInfoFiltros(), dataIni, dataF, qntCampos, combCampos);
             } catch (SQLException ex) {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
         
-        if (cbxUsuario.getSelectedIndex() == 0 && !tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && tfdDescricao.getText().isEmpty() ){
-            //se vai filtrar apenas pelo periodo
-            
-            if(tfdPeriodoFim.getText().equals("  /  /    ")){
-                //se a data final estiver vazia ele considera ate a data atual
-                //pega a data atual já convertida para o formato MySQL yyyy-mm-dd
-                dataF = new Date(System.currentTimeMillis());
-                String dataInicio = tfdPeriodoInicio.getText();
-                try {
-                    dataIni = new Date(sdf.parse(dataInicio).getTime());
-                } catch (ParseException ex) {
-                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            else
-            {
-                String dataInicio = tfdPeriodoInicio.getText();
-                String dataFim = tfdPeriodoFim.getText();
-                try {
-                    dataIni = new Date(sdf.parse(dataInicio).getTime());
-                    dataF = new Date(sdf.parse(dataFim).getTime());
-                } catch (ParseException ex) {
-                    Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-            
-            try {
-                //listaHistorico = historicoAcaoDAO.buscaPeriodo(dataIni, dataF);
-                listaHistorico = historicoAcaoDAO.buscaPeriodo100(dataIni, dataF, inicio);
-                validaQuantidadePeriodo(dataIni, dataF);
-                cont = 2;
-            } catch (SQLException ex) {
-                Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        
-        if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() == 0 && !tfdDescricao.getText().isEmpty() ){
-            //busca por descricao
-            try {
-                //listaHistorico = historicoAcaoDAO.buscaDescricao(tfdDescricao.getText());
-                listaHistorico = historicoAcaoDAO.buscaDescricao100(tfdDescricao.getText(), inicio);
-                validaQuantidadePeriodo(tfdDescricao.getText());
-                cont = 3;
-                
-            } catch (SQLException ex) {
-                Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-        }
-        
-         if (cbxUsuario.getSelectedIndex() == 0 && tfdPeriodoInicio.getText().equals("  /  /    ") && cbxAcoes.getSelectedIndex() != 0 && tfdDescricao.getText().isEmpty()){
-            //se vai filtrar somente por acao
-
-            try {
-                   
-                listaHistorico = historicoAcaoDAO.buscaoAcao100(cbxAcoes.getSelectedItem().toString());
-                //tem que ver como funciona essa parada de contar
-                //validaQuantidadeUsuario(usuario);
-                //cont = 1;
-            } catch (SQLException ex) {
-                Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        */
-
         
         atualizaTabelaHistorico();
         limpaCampos();
