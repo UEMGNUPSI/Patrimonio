@@ -97,6 +97,7 @@ public class HistoricoAcaoDAO {
         String aux2;
         aux = "select * from HistoricoAcoes where ";
         
+        //somente por 1 filtro
         if (qnt == 1){
             
             //por usuario
