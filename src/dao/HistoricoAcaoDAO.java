@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import model.HistoricoAcaoM;
-import model.UsuarioM;
 
 /**
  *
@@ -22,7 +21,9 @@ public class HistoricoAcaoDAO {
     
     PreparedStatement pst = null;
     String sql = null;
-
+    
+    int quantidade;
+    
     public List<HistoricoAcaoM> listaTodos() throws SQLException{
         List<HistoricoAcaoM> retBusca = new ArrayList<>();
         sql = "select * from HistoricoAcoes";
@@ -61,14 +62,15 @@ public class HistoricoAcaoDAO {
     }
     
     public int contaTodos() throws SQLException{           
-        sql = "select count(*) quantidade from HistoricoAcoes";
+        sql = "select count(*) quantidade from historicoacoes";
         pst = Conexao.getInstance().prepareStatement(sql);       
         ResultSet rs = pst.executeQuery();
         int quant = 0;
         while(rs.next()){
             quant = rs.getInt("quantidade");
         }        
-        pst.close();        
+        pst.close();      
+        quantidade = quant;
         return quant;
     }
     
@@ -89,7 +91,7 @@ public class HistoricoAcaoDAO {
   
     }  
     
-    public List<HistoricoAcaoM> buscaConcatenada(HistoricoAcaoM infoFiltro, Date inicio, Date fim, int qnt, int comb) throws SQLException{
+    public List<HistoricoAcaoM> buscaConcatenada(HistoricoAcaoM infoFiltro, Date inicio, Date fim, int qnt, int comb, int limite) throws SQLException{
         List<HistoricoAcaoM> retBusca = new ArrayList<>();
         String aux;
         String aux2;
@@ -100,9 +102,214 @@ public class HistoricoAcaoDAO {
             
             //por usuario
             if (comb == 2){
+                sql = aux + "id_usuario = ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+                pst.setInt(2 ,limite);
+                
+            }
+            
+            //por periodo
+            if (comb == 3){
+                sql = aux + "dataAcao between ? and ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setDate(1, inicio);
+                pst.setDate(2, fim);    
+                pst.setInt(3, limite);
+
+            }
+            
+            //por acao
+            if (comb == 5){
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                sql = aux + "acao like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setString(1, aux2);  
+                pst.setInt(2, limite);
+
+            }
+            
+            if (comb == 7){
+                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "tipoObjeto like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setString(1, aux2); 
+                pst.setInt(2, limite);
+            }
+        }
+
+        //com somente 2 filtros de busca
+        if(qnt == 2){
+            
+            //combinacao = 5 significa usuario e periodo
+            if(comb == 5){
+                sql = aux + "dataAcao between ? and ? and id_usuario = ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setDate(1, inicio);
+                pst.setDate(2, fim);
+                pst.setInt(3, infoFiltro.getUsuario().getId());
+                pst.setInt(4, limite);
+            }
+            
+            //combinacao = 7 significa usuario e acao
+            if (comb == 7){
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                sql = aux + "id_usuario = ? and acao like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+                pst.setString(2, aux2);  
+                pst.setInt(3, limite);
+            }
+            
+            //combicanao = 9 usuario e descricao (tipo de objeto Sala, Piso... etc)
+            if (comb == 9){
+                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "id_usuario = ? and tipoObjeto like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+                pst.setString(2, aux2);
+                pst.setInt(3, limite);
+            }
+            
+            //combinacao = 8 Periodo e acao
+            if (comb == 8){
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                sql = aux + "dataAcao between ? and ? and acao like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setDate(1, inicio);
+                pst.setDate(2, fim);
+                pst.setString(3, aux2); 
+                pst.setInt(4, limite);
+            }
+            
+            //combinacao = 10 Periodo e descricao
+            if (comb == 10){
+                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "dataAcao between ? and ? and tipoObjeto like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setDate(1, inicio);
+                pst.setDate(2, fim);
+                pst.setString(3, aux2);  
+                pst.setInt(4, limite);
+            }
+            
+            //com = 12 Acao e Descrição
+            if (comb == 12){
+                String aux3;
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "acao like ? and tipoObjeto like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setString(1, aux2);
+                pst.setString(2, aux3);
+                pst.setInt(3, limite);
+            }
+        }
+        
+        //com combinação de 3 filtros
+        if (qnt == 3){
+            
+            //combinacao = 10 usuario, periodo e acao
+            if (comb == 10){
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                sql = aux + "id_usuario = ? and dataAcao between ? and ? and acao like ? limit ?,100" ;
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+                pst.setDate(2, inicio);
+                pst.setDate(3, fim);
+                pst.setString(4, aux2);
+                pst.setInt(5, limite);
+            }
+            
+            //combinacao 12 usaurio, periodo e descricao
+            if (comb == 12){
+                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "id_usuario = ? and dataAcao between ? and ? and tipoObjeto like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+                pst.setDate(2, inicio);
+                pst.setDate(3, fim);
+                pst.setString(4, aux2);
+                pst.setInt(5, limite);
+            }
+            
+            //combinacao 14 usuario, acao e descricao
+            if (comb == 14){
+                String aux3;
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "id_usuario = ? and acao like ? and tipoObjeto like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setInt(1, infoFiltro.getUsuario().getId());
+                pst.setString(2, aux2);
+                pst.setString(3, aux3);
+                pst.setInt(4, limite);
+            }
+            
+            //combinacao 15 periodo, acao e descricao
+            if (comb == 15){
+                String aux3;
+                aux2 = "%" + infoFiltro.getAcao() + "%";
+                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
+                sql = aux + "dataAcao between ? and ? and acao like ? and tipoObjeto like ? limit ?,100";
+                pst = Conexao.getInstance().prepareStatement(sql);
+                pst.setDate(1, inicio);
+                pst.setDate(2, fim);
+                pst.setString(3, aux2);
+                pst.setString(4, aux3);
+                pst.setInt(5, limite);
+            }
+            
+        }
+        
+        if (qnt == 4){
+            String aux3;
+            aux2 = "%" + infoFiltro.getAcao() + "%";
+            aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
+            sql = aux + "id_usuario = ? and dataAcao between ? and ? and acao like ? and tipoObjeto like ? limit ?,100";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setInt(1, infoFiltro.getUsuario().getId());
+            pst.setDate(2, inicio);
+            pst.setDate(3, fim);
+            pst.setString(4, aux2);
+            pst.setString(5, aux3);
+            pst.setInt(6, limite);
+        }
+        
+        UsuarioDAO user = new UsuarioDAO();
+        ResultSet rs = pst.executeQuery();
+        
+        
+        while(rs.next()){
+            
+           retBusca.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
+                   rs.getDate("dataAcao"),
+                   user.UsuarioMById(rs.getInt("id_usuario")),
+                   rs.getString("acao") ));
+           
+           
+        }
+        
+        buscaQuantidadeBusca(infoFiltro, inicio, fim, qnt, comb);
+        pst.close();
+        return retBusca;
+    }
+    
+     public int buscaQuantidadeBusca(HistoricoAcaoM infoFiltro, Date inicio, Date fim, int qnt, int comb) throws SQLException{
+        String aux;
+        String aux2;
+        
+        aux = "select count(*) quantidade from HistoricoAcoes where ";
+        
+        //somente por 1 filtro
+        if (qnt == 1){
+            
+            //por usuario
+            if (comb == 2){
                 sql = aux + "id_usuario = ?";
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setInt(1, infoFiltro.getUsuario().getId());
+                
             }
             
             //por periodo
@@ -110,7 +317,8 @@ public class HistoricoAcaoDAO {
                 sql = aux + "dataAcao between ? and ?";
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setDate(1, inicio);
-                pst.setDate(2, fim);               
+                pst.setDate(2, fim);    
+
             }
             
             //por acao
@@ -119,13 +327,14 @@ public class HistoricoAcaoDAO {
                 sql = aux + "acao like ?";
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setString(1, aux2);  
+
             }
             
             if (comb == 7){
                 aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
                 sql = aux + "tipoObjeto like ?";
                 pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, aux2);   
+                pst.setString(1, aux2); 
             }
         }
 
@@ -166,7 +375,7 @@ public class HistoricoAcaoDAO {
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setDate(1, inicio);
                 pst.setDate(2, fim);
-                pst.setString(3, aux2);   
+                pst.setString(3, aux2); 
             }
             
             //combinacao = 10 Periodo e descricao
@@ -176,7 +385,7 @@ public class HistoricoAcaoDAO {
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setDate(1, inicio);
                 pst.setDate(2, fim);
-                pst.setString(3, aux2);   
+                pst.setString(3, aux2);  
             }
             
             //com = 12 Acao e Descrição
@@ -197,13 +406,12 @@ public class HistoricoAcaoDAO {
             //combinacao = 10 usuario, periodo e acao
             if (comb == 10){
                 aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "id_usuario = ? and dataAcao between ? and ? and acao like ?";
+                sql = aux + "id_usuario = ? and dataAcao between ? and ? and acao like ?" ;
                 pst = Conexao.getInstance().prepareStatement(sql);
                 pst.setInt(1, infoFiltro.getUsuario().getId());
                 pst.setDate(2, inicio);
                 pst.setDate(3, fim);
                 pst.setString(4, aux2);
-
             }
             
             //combinacao 12 usaurio, periodo e descricao
@@ -227,7 +435,6 @@ public class HistoricoAcaoDAO {
                 pst.setInt(1, infoFiltro.getUsuario().getId());
                 pst.setString(2, aux2);
                 pst.setString(3, aux3);
-                
             }
             
             //combinacao 15 periodo, acao e descricao
@@ -255,21 +462,38 @@ public class HistoricoAcaoDAO {
             pst.setDate(2, inicio);
             pst.setDate(3, fim);
             pst.setString(4, aux2);
-            pst.setString(5, aux3); 
+            pst.setString(5, aux3);
         }
-
-        UsuarioDAO user = new UsuarioDAO();
+        
         ResultSet rs = pst.executeQuery();
+        
+        
         while(rs.next()){
             
-           retBusca.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
-                   rs.getDate("dataAcao"),
-                   user.UsuarioMById(rs.getInt("id_usuario")),
-                   rs.getString("acao") ));
+           quantidade = rs.getInt("quantidade");
+           
+           
         }
         pst.close();
-        
-        return retBusca;
+        return quantidade;
+    }
+    
+    public int quantidade(){
+        return quantidade;
+    }
+    
+    public static int buscaQuantidade() throws SQLException{
+        String sql;
+        PreparedStatement pst;
+        sql = "select count(*) quantidade from historicoacoes";
+         pst = Conexao.getInstance().prepareStatement(sql);
+         ResultSet rs = pst.executeQuery();
+         int quantidade = 0;
+         while(rs.next()){
+            quantidade = rs.getInt("quantidade");
+         }
+         pst.close();
+         return quantidade;
     }
     
 }

@@ -377,16 +377,8 @@ public class PatrimonioDAO {
         SalaDAO sala = new SalaDAO();
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
-           listaPat.add(new PatrimonioM(/*rs.getInt("id"),*/
+           listaPat.add(new PatrimonioM(
                    rs.getString("descricao"),
-                   /*rs.getString("codigo"),
-                   subtipo.busca(rs.getInt("id_subtipo")),
-                   grau.busca(rs.getInt("id_grau_conservacao")),
-                   status.busca(rs.getInt("id_status")),
-                   sala.busca(rs.getInt("id_sala")),
-                   rs.getString("nota_fiscal"),
-                   entidade.busca(rs.getInt("id_entidade")),
-                   rs.getBoolean(("kit")),*/
                    rs.getInt("quantidade")
            ));
         }
