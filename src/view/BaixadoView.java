@@ -200,7 +200,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Descrição", "Grau de Conservação", "Status"
+                "ID", "Descrição", "Grau de Conservação"
             }
         ) {
             Class[] types = new Class [] {

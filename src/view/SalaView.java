@@ -108,7 +108,7 @@ public class SalaView extends javax.swing.JInternalFrame {
             }
         });
         tbeSala.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(400);
+        tbeSala.getColumnModel().getColumn(1).setPreferredWidth(290);
         tbeSala.getColumnModel().getColumn(2).setPreferredWidth(130);
         tbeSala.getColumnModel().getColumn(3).setPreferredWidth(130);
         tbeSala.getColumnModel().getColumn(4).setPreferredWidth(130);
