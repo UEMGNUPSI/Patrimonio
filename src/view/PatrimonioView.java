@@ -1075,7 +1075,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         ativaCamposNovo();
         tfdCodigoPatrimonio.setText("");
         tfdIDPatrimonio.setText("");
-        tfdCodigoPatrimonio.requestFocusInWindow();  
+        cbxUnidade.requestFocusInWindow();
+        //tfdCodigoPatrimonio.requestFocusInWindow();  
         pnlPatrimonioComposto.setVisible(false);
     }//GEN-LAST:event_btnNovoPatrimonioActionPerformed
 
@@ -1132,8 +1133,8 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                     preparaSalvareCancelar();                    
                     salvarMantendoInformacoes(); 
                 }                         
-                atualizaTabelaPatrimonio(inicio);
-                
+                //atualizaTabelaPatrimonio(inicio);
+                limpaCamposPatrimonio();
                 //limpa a busca
                 inicio = 0;
                 atualizaTabelaPatrimonio(inicio);
