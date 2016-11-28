@@ -22,26 +22,20 @@ public class HistoricoAcaoDAO {
     PreparedStatement pst = null;
     String sql = null;
     
-    int quantidade;
-    
-    public List<HistoricoAcaoM> listaTodos() throws SQLException{
-        List<HistoricoAcaoM> retBusca = new ArrayList<>();
-        sql = "select * from HistoricoAcoes";
+    public int quantidadeLista100(int ultimo) throws SQLException{
+        int qntLista = 0;
+        sql = "select  count(*) quantidade from HistoricoAcoes";
         pst = Conexao.getInstance().prepareStatement(sql);
-   
-        UsuarioDAO user = new UsuarioDAO();
         ResultSet rs = pst.executeQuery();
-        while(rs.next()){
-            
-           retBusca.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
-                   rs.getDate("dataAcao"),
-                   user.UsuarioMById(rs.getInt("id_usuario")),
-                   rs.getString("acao") ));
+        
+           while(rs.next()){
+            qntLista = rs.getInt("quantidade");
         }
+        
         pst.close();
-        return retBusca;
+        
+        return qntLista;
     }
-    
     
     public List<HistoricoAcaoM> lista100(int ultimo) throws SQLException{
         List<HistoricoAcaoM> listaHistorico = new ArrayList<>();
@@ -50,28 +44,18 @@ public class HistoricoAcaoDAO {
         pst.setInt(1, ultimo);
         UsuarioDAO user = new UsuarioDAO();
         ResultSet rs = pst.executeQuery();
-        while(rs.next()){
+        while (rs.next()) {
             
-           listaHistorico.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
-                   rs.getDate("dataAcao"),
-                   user.UsuarioMById(rs.getInt("id_usuario")),
-                   rs.getString("acao") ));
+            listaHistorico.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
+            rs.getDate("dataAcao"),
+            user.UsuarioMById(rs.getInt("id_usuario")),
+            rs.getString("acao"),
+            rs.getString("codigo")));
+            
+            pst.close();
+            
         }
-        pst.close();
         return listaHistorico;
-    }
-    
-    public int contaTodos() throws SQLException{           
-        sql = "select count(*) quantidade from historicoacoes";
-        pst = Conexao.getInstance().prepareStatement(sql);       
-        ResultSet rs = pst.executeQuery();
-        int quant = 0;
-        while(rs.next()){
-            quant = rs.getInt("quantidade");
-        }        
-        pst.close();      
-        quantidade = quant;
-        return quant;
     }
     
     public static void salvar(HistoricoAcaoM historico) throws SQLException{
@@ -86,195 +70,39 @@ public class HistoricoAcaoDAO {
         pst.setString(4, historico.getAcao());
         pst.setDate(5, historico.getDataAcao());
         pst.setInt(6, historico.getUsuario().getId());
+        pst.setString(7, historico.getCodigo());
         pst.execute();
         pst.close();
   
-    }  
+    } 
     
-    public List<HistoricoAcaoM> buscaConcatenada(HistoricoAcaoM infoFiltro, Date inicio, Date fim, int qnt, int comb, int limite) throws SQLException{
-        List<HistoricoAcaoM> retBusca = new ArrayList<>();
-        String aux;
-        String aux2;
-        aux = "select * from HistoricoAcoes where ";
-        
-        //somente por 1 filtro
-        if (qnt == 1){
-            
-            //por usuario
-            if (comb == 2){
-                sql = aux + "id_usuario = ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setInt(2 ,limite);
-                
-            }
-            
-            //por periodo
-            if (comb == 3){
-                sql = aux + "dataAcao between ? and ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);    
-                pst.setInt(3, limite);
-
-            }
-            
-            //por acao
-            if (comb == 5){
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "acao like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, aux2);  
-                pst.setInt(2, limite);
-
-            }
-            
-            if (comb == 7){
-                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "tipoObjeto like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, aux2); 
-                pst.setInt(2, limite);
-            }
-        }
-
-        //com somente 2 filtros de busca
-        if(qnt == 2){
-            
-            //combinacao = 5 significa usuario e periodo
-            if(comb == 5){
-                sql = aux + "dataAcao between ? and ? and id_usuario = ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);
-                pst.setInt(3, infoFiltro.getUsuario().getId());
-                pst.setInt(4, limite);
-            }
-            
-            //combinacao = 7 significa usuario e acao
-            if (comb == 7){
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "id_usuario = ? and acao like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setString(2, aux2);  
-                pst.setInt(3, limite);
-            }
-            
-            //combicanao = 9 usuario e descricao (tipo de objeto Sala, Piso... etc)
-            if (comb == 9){
-                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "id_usuario = ? and tipoObjeto like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setString(2, aux2);
-                pst.setInt(3, limite);
-            }
-            
-            //combinacao = 8 Periodo e acao
-            if (comb == 8){
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "dataAcao between ? and ? and acao like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);
-                pst.setString(3, aux2); 
-                pst.setInt(4, limite);
-            }
-            
-            //combinacao = 10 Periodo e descricao
-            if (comb == 10){
-                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "dataAcao between ? and ? and tipoObjeto like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);
-                pst.setString(3, aux2);  
-                pst.setInt(4, limite);
-            }
-            
-            //com = 12 Acao e Descrição
-            if (comb == 12){
-                String aux3;
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "acao like ? and tipoObjeto like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, aux2);
-                pst.setString(2, aux3);
-                pst.setInt(3, limite);
-            }
-        }
-        
-        //com combinação de 3 filtros
-        if (qnt == 3){
-            
-            //combinacao = 10 usuario, periodo e acao
-            if (comb == 10){
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "id_usuario = ? and dataAcao between ? and ? and acao like ? limit ?,100" ;
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setDate(2, inicio);
-                pst.setDate(3, fim);
-                pst.setString(4, aux2);
-                pst.setInt(5, limite);
-            }
-            
-            //combinacao 12 usaurio, periodo e descricao
-            if (comb == 12){
-                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "id_usuario = ? and dataAcao between ? and ? and tipoObjeto like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setDate(2, inicio);
-                pst.setDate(3, fim);
-                pst.setString(4, aux2);
-                pst.setInt(5, limite);
-            }
-            
-            //combinacao 14 usuario, acao e descricao
-            if (comb == 14){
-                String aux3;
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "id_usuario = ? and acao like ? and tipoObjeto like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setString(2, aux2);
-                pst.setString(3, aux3);
-                pst.setInt(4, limite);
-            }
-            
-            //combinacao 15 periodo, acao e descricao
-            if (comb == 15){
-                String aux3;
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "dataAcao between ? and ? and acao like ? and tipoObjeto like ? limit ?,100";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);
-                pst.setString(3, aux2);
-                pst.setString(4, aux3);
-                pst.setInt(5, limite);
-            }
-            
-        }
-        
-        if (qnt == 4){
-            String aux3;
-            aux2 = "%" + infoFiltro.getAcao() + "%";
-            aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
-            sql = aux + "id_usuario = ? and dataAcao between ? and ? and acao like ? and tipoObjeto like ? limit ?,100";
+    public List<HistoricoAcaoM> buscaNova100(HistoricoAcaoM filtros, Date inicio, Date fim, int limiteInicio) throws SQLException{
+        List<HistoricoAcaoM> lista = new ArrayList<>();
+        String auxAcao = "%"+filtros.getAcao()+"%";
+        String auxTipoObjeto = "%"+filtros.getTipoObjeto()+"%";
+        String auxCodigo = "%"+filtros.getCodigo()+"%";
+       
+        if (inicio == null){
+            sql = "select * from HistoricoAcoes where id_usuario like ? and acao like ? and tipoObjeto like ? and codigo like ?, limit?, 100";
             pst = Conexao.getInstance().prepareStatement(sql);
-            pst.setInt(1, infoFiltro.getUsuario().getId());
+            pst.setInt(1, filtros.getUsuario().getId());
+            pst.setString(2, auxAcao );
+            pst.setString(3, auxTipoObjeto);
+            pst.setString(4, auxCodigo);
+            pst.setInt(5, limiteInicio);
+        }
+        else {
+            sql = "select * from HistoricoAcoes where id_usuario like ? and dataAcao BETWEEN ? and ? and acao like ? and tipoObjeto like ? and codigo like ?, limit ?, 100";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setInt(1, filtros.getUsuario().getId());
             pst.setDate(2, inicio);
             pst.setDate(3, fim);
-            pst.setString(4, aux2);
-            pst.setString(5, aux3);
-            pst.setInt(6, limite);
+            pst.setString(4, auxAcao);
+            pst.setString(5, auxTipoObjeto);
+            pst.setString(6, auxCodigo);
+            pst.setInt(7, limiteInicio);
         }
+        
         
         UsuarioDAO user = new UsuarioDAO();
         ResultSet rs = pst.executeQuery();
@@ -282,218 +110,17 @@ public class HistoricoAcaoDAO {
         
         while(rs.next()){
             
-           retBusca.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
-                   rs.getDate("dataAcao"),
-                   user.UsuarioMById(rs.getInt("id_usuario")),
-                   rs.getString("acao") ));
-           
-           
+            lista.add(new HistoricoAcaoM(rs.getString("tipoObjeto"),
+            rs.getDate("dataAcao"),
+            user.UsuarioMById(rs.getInt("id_usuario")),
+            rs.getString("acao"),
+            rs.getString("codigo")));
+            
+          
         }
         
-        buscaQuantidadeBusca(infoFiltro, inicio, fim, qnt, comb);
-        pst.close();
-        return retBusca;
+        return lista;
     }
     
-     public int buscaQuantidadeBusca(HistoricoAcaoM infoFiltro, Date inicio, Date fim, int qnt, int comb) throws SQLException{
-        String aux;
-        String aux2;
-        
-        aux = "select count(*) quantidade from HistoricoAcoes where ";
-        
-        //somente por 1 filtro
-        if (qnt == 1){
-            
-            //por usuario
-            if (comb == 2){
-                sql = aux + "id_usuario = ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                
-            }
-            
-            //por periodo
-            if (comb == 3){
-                sql = aux + "dataAcao between ? and ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);    
-
-            }
-            
-            //por acao
-            if (comb == 5){
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "acao like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, aux2);  
-
-            }
-            
-            if (comb == 7){
-                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "tipoObjeto like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, aux2); 
-            }
-        }
-
-        //com somente 2 filtros de busca
-        if(qnt == 2){
-            
-            //combinacao = 5 significa usuario e periodo
-            if(comb == 5){
-                sql = aux + "dataAcao between ? and ? and id_usuario = ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);
-                pst.setInt(3, infoFiltro.getUsuario().getId());
-            }
-            
-            //combinacao = 7 significa usuario e acao
-            if (comb == 7){
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "id_usuario = ? and acao like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setString(2, aux2);  
-            }
-            
-            //combicanao = 9 usuario e descricao (tipo de objeto Sala, Piso... etc)
-            if (comb == 9){
-                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "id_usuario = ? and tipoObjeto like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setString(2, aux2);
-            }
-            
-            //combinacao = 8 Periodo e acao
-            if (comb == 8){
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "dataAcao between ? and ? and acao like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);
-                pst.setString(3, aux2); 
-            }
-            
-            //combinacao = 10 Periodo e descricao
-            if (comb == 10){
-                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "dataAcao between ? and ? and tipoObjeto like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);
-                pst.setString(3, aux2);  
-            }
-            
-            //com = 12 Acao e Descrição
-            if (comb == 12){
-                String aux3;
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "acao like ? and tipoObjeto like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setString(1, aux2);
-                pst.setString(2, aux3);
-            }
-        }
-        
-        //com combinação de 3 filtros
-        if (qnt == 3){
-            
-            //combinacao = 10 usuario, periodo e acao
-            if (comb == 10){
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                sql = aux + "id_usuario = ? and dataAcao between ? and ? and acao like ?" ;
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setDate(2, inicio);
-                pst.setDate(3, fim);
-                pst.setString(4, aux2);
-            }
-            
-            //combinacao 12 usaurio, periodo e descricao
-            if (comb == 12){
-                aux2 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "id_usuario = ? and dataAcao between ? and ? and tipoObjeto like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setDate(2, inicio);
-                pst.setDate(3, fim);
-                pst.setString(4, aux2);
-            }
-            
-            //combinacao 14 usuario, acao e descricao
-            if (comb == 14){
-                String aux3;
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "id_usuario = ? and acao like ? and tipoObjeto like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setInt(1, infoFiltro.getUsuario().getId());
-                pst.setString(2, aux2);
-                pst.setString(3, aux3);
-            }
-            
-            //combinacao 15 periodo, acao e descricao
-            if (comb == 15){
-                String aux3;
-                aux2 = "%" + infoFiltro.getAcao() + "%";
-                aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
-                sql = aux + "dataAcao between ? and ? and acao like ? and tipoObjeto like ?";
-                pst = Conexao.getInstance().prepareStatement(sql);
-                pst.setDate(1, inicio);
-                pst.setDate(2, fim);
-                pst.setString(3, aux2);
-                pst.setString(4, aux3);
-            }
-            
-        }
-        
-        if (qnt == 4){
-            String aux3;
-            aux2 = "%" + infoFiltro.getAcao() + "%";
-            aux3 = "%" + infoFiltro.getTipoObjeto() + "%";
-            sql = aux + "id_usuario = ? and dataAcao between ? and ? and acao like ? and tipoObjeto like ?";
-            pst = Conexao.getInstance().prepareStatement(sql);
-            pst.setInt(1, infoFiltro.getUsuario().getId());
-            pst.setDate(2, inicio);
-            pst.setDate(3, fim);
-            pst.setString(4, aux2);
-            pst.setString(5, aux3);
-        }
-        
-        ResultSet rs = pst.executeQuery();
-        
-        
-        while(rs.next()){
-            
-           quantidade = rs.getInt("quantidade");
-           
-           
-        }
-        pst.close();
-        return quantidade;
-    }
-    
-    public int quantidade(){
-        return quantidade;
-    }
-    
-    public static int buscaQuantidade() throws SQLException{
-        String sql;
-        PreparedStatement pst;
-        sql = "select count(*) quantidade from historicoacoes";
-         pst = Conexao.getInstance().prepareStatement(sql);
-         ResultSet rs = pst.executeQuery();
-         int quantidade = 0;
-         while(rs.next()){
-            quantidade = rs.getInt("quantidade");
-         }
-         pst.close();
-         return quantidade;
-    }
     
 }

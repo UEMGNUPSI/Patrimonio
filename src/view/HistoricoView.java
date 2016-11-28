@@ -85,18 +85,17 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     
     public void atualizaTabelaHistorico() {
        
-        String dados[][] = new String[listaHistorico.size()][5];
+        String dados[][] = new String[listaHistorico.size()][6];
         int i = 0;
         
         for (HistoricoAcaoM hist : listaHistorico) {
-            
-            
-            //dados[i][0] = hist.getDataAcao().toString();
+           
             dados[i][0] = converteData(hist.getDataAcao());
             dados[i][1] = hist.getTipoObjeto();
-            dados[i][2] = hist.getAcao();
-            dados[i][3] = hist.getUsuario().getNome();
-            dados[i][4] = ""+(i+inicio+1);
+            dados[i][2] = hist.getCodigo();
+            dados[i][3] = hist.getAcao();
+            dados[i][4] = hist.getUsuario().getNome();
+            dados[i][5] = ""+(i+inicio+1);
             
             i++;
         }
@@ -227,16 +226,18 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        cbxUsuario = new javax.swing.JComboBox<>();
+        cbxUsuario = new javax.swing.JComboBox<String>();
         jLabel2 = new javax.swing.JLabel();
         tfdPeriodoInicio = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         tfdPeriodoFim = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
-        cbxAcoes = new javax.swing.JComboBox<>();
+        cbxAcoes = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
         tfdDescricao = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        tfdCodigo = new javax.swing.JTextField();
         tfdNavegacao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         lblQuantPaginas = new javax.swing.JLabel();
@@ -309,24 +310,28 @@ public class HistoricoView extends javax.swing.JInternalFrame {
 
         jLabel7.setText("Descrição:");
 
+        jLabel8.setText("Código:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbxAcoes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxAcoes, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cbxUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(cbxUsuario, 0, 216, Short.MAX_VALUE))
                             .addComponent(jLabel2)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
@@ -335,12 +340,17 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tfdPeriodoFim, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(tfdPeriodoFim, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfdDescricao)))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfdDescricao)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(tfdCodigo)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -365,7 +375,11 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(tfdDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfdCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -385,7 +399,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 267, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -494,7 +508,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                         listaHistorico = historicoAcaoDAO.lista100(inicio);
                         atualizaTabelaHistorico();
                     }else{
-                        listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos, inicio);
+                        //listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos, inicio);
                         atualizaTabelaHistorico();
             }
                 } catch (SQLException ex) {
@@ -516,7 +530,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         if(qntCampos == 0){
             listaHistorico = historicoAcaoDAO.lista100(inicio);
         }else{
-             listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos, inicio);
+             //listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos, inicio);
         }
        
         atualizaTabelaHistorico();
@@ -543,7 +557,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         if(qntCampos == 0){
             listaHistorico = historicoAcaoDAO.lista100(inicio);
         }else{
-             listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos,inicio);
+             //listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos,inicio);
         }
         atualizaTabelaHistorico();
         btnProximo.setEnabled(true);
@@ -566,11 +580,11 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     
     public void validaQuantidadeTodos() throws SQLException{
         if(qntCampos == 0){
-            this.quantMax = historicoAcaoDAO.buscaQuantidade();
+            //this.quantMax = historicoAcaoDAO.buscaQuantidade();
         }else{
             
         
-            this.quantMax = historicoAcaoDAO.buscaQuantidadeBusca(pegaInfoFiltros(), dataIni, dataF, qntCampos, combCampos);
+            //this.quantMax = historicoAcaoDAO.buscaQuantidadeBusca(pegaInfoFiltros(), dataIni, dataF, qntCampos, combCampos);
          }
         pagAtual = 1;
         
@@ -689,7 +703,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         else
         {
             try {
-                listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos,inicio);
+                listaHistorico = historicoAcaoDAO.buscaNova100(infoHistorico, dataIni, dataF, inicio);
                 validaQuantidadeTodos();
                 atualizaTabelaHistorico();
                 limpaCampos();
@@ -717,11 +731,13 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblQuantPaginas;
     private javax.swing.JTable tbeHistorico;
+    private javax.swing.JTextField tfdCodigo;
     private javax.swing.JTextField tfdDescricao;
     private javax.swing.JTextField tfdNavegacao;
     private javax.swing.JFormattedTextField tfdPeriodoFim;

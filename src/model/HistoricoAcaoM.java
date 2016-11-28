@@ -19,26 +19,37 @@ public class HistoricoAcaoM {
     private String acao;
     private Date dataAcao;
     private UsuarioM usuario;
+    private String codigo;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
      
     public HistoricoAcaoM(){
        
     }
    
-    public HistoricoAcaoM(Integer id, Integer idObjeto, String tipoObjeto, String acao, Date dataAcao, UsuarioM usuario) {
+    public HistoricoAcaoM(Integer id, Integer idObjeto, String tipoObjeto, String acao, Date dataAcao, UsuarioM usuario, String codigo) {
         this.id = id;
         this.idObjeto = idObjeto;
         this.tipoObjeto = tipoObjeto;
         this.acao = acao;
         this.dataAcao = dataAcao;
         this.usuario = usuario;
+        this.codigo = codigo;
     }
     
     
-    public HistoricoAcaoM(String tipoObjeto, Date dataAcao, UsuarioM usuario, String acao) {
+    public HistoricoAcaoM(String tipoObjeto, Date dataAcao, UsuarioM usuario, String acao, String codigo) {
         this.tipoObjeto = tipoObjeto;
         this.acao = acao;
         this.dataAcao = dataAcao;
         this.usuario = usuario;
+        this.codigo = codigo;
     }
  
     public Integer getId() {
