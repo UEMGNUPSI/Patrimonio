@@ -182,6 +182,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
 
             }
         ));
+        tbeBusca.getTableHeader().setReorderingAllowed(false);
         tbeBusca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeBuscaMouseClicked(evt);
@@ -1024,7 +1025,11 @@ public class ConsultaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAnteriorActionPerformed
     public void validaQuantidade() throws SQLException{
         this.quantMax = patrimonioDAO.quantidade();
-        
+        if (quantMax < 100){
+            lblQuantPaginas.setText(1 + "/" + 1);
+             btnProximo.setEnabled(false);
+              btnAnterior.setEnabled(false);
+        }else{
         pagAtual = 1;
         
         if(quantMax % 100 == 0){
@@ -1037,7 +1042,7 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         }
         
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
-        
+        }
     }
     public void validaQuantidadeBuscaDescricao() throws SQLException{
         this.quantMax = patrimonioDAO.quantidadeDescricao(tfdFiltroBusca.getText());

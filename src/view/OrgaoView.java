@@ -139,7 +139,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Cadastrar Orgão");
+        setTitle("Orgão");
         setToolTipText("");
         try {
             setSelected(true);

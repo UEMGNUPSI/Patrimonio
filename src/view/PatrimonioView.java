@@ -96,7 +96,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     
     //Historico
     int idHistorico;
-    String acao;
+    String acao, codigoHistorico;
     String descricaoHistorico;
     UsuarioM usuarioAtivo;
     
@@ -245,7 +245,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Cadastrar Patrimônio");
+        setTitle("Patrimônio");
 
         cbxBloco.setEnabled(false);
         cbxBloco.addActionListener(new java.awt.event.ActionListener() {
@@ -699,6 +699,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePatrimonioComposto.getTableHeader().setReorderingAllowed(false);
         tbePatrimonioComposto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbePatrimonioCompostoMouseClicked(evt);
@@ -805,6 +806,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePatrimonio.getTableHeader().setReorderingAllowed(false);
         tbePatrimonio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbePatrimonioMouseClicked(evt);
@@ -1216,6 +1218,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 
                 idHistorico = ultimoID;
                 acao = "Novo Patrimonio";
+                codigoHistorico = patrimonio.getCodigo();
                 descricaoHistorico = patrimonio.getDescricao();
                 salvaHistorico();
                 // a partir daqui tem que liberar a tela do composto
@@ -2579,7 +2582,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
     public void validaQuantidade() throws SQLException{
         this.quantMax = patrimonioDAO.quantidade();
-        
+        if (quantMax < 100){
+            lblQuantPaginas.setText(1 + "/" + 1);
+             btnProximo.setEnabled(false);
+              btnAnterior.setEnabled(false);
+        }else{
         pagAtual = 1;
         
         if(quantMax % 100 == 0){
@@ -2592,7 +2599,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
-        
+        }
     }
     public void validaQuantidadeBuscaDescricao() throws SQLException{
         this.quantMax = patrimonioDAO.quantidadeDescricao(tfdFiltroBusca.getText());

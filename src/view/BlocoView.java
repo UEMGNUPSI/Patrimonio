@@ -86,7 +86,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Cadastrar Bloco");
+        setTitle("Bloco");
 
         tbeBloco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -96,6 +96,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setResizable(true);
+        setTitle("Gerenciar Usuários");
 
         jLabel2.setText("ID");
 
