@@ -115,6 +115,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeUnidade.getTableHeader().setReorderingAllowed(false);
         tbeUnidade.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeUnidadeMouseClicked(evt);

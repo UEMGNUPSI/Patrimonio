@@ -119,6 +119,7 @@ public class PisoView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePiso.getTableHeader().setReorderingAllowed(false);
         tbePiso.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbePisoMouseClicked(evt);

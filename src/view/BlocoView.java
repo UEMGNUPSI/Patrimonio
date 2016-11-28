@@ -114,6 +114,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeBloco.getTableHeader().setReorderingAllowed(false);
         tbeBloco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeBlocoMouseClicked(evt);

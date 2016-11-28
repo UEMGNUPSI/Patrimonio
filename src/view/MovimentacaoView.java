@@ -11,6 +11,7 @@ import dao.PatrimonioDAO;
 import dao.PisoDAO;
 import dao.SalaDAO;
 import dao.UnidadeDAO;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -149,6 +150,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 "ID", "Codigo", "Descrição", "Conservação"
             }
         ));
+        tbeDireita.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbeDireita);
 
         btnEsquerdaDireita.setText(">>");
@@ -176,6 +178,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbeEsquerda.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbeEsquerda);
 
         btnEfetuarMovimentacao.setText("Efetuar Movimentação");
@@ -191,11 +194,21 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 cbxUnidadeDestinoActionPerformed(evt);
             }
         });
+        cbxUnidadeDestino.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxUnidadeDestinoKeyPressed(evt);
+            }
+        });
 
         cbxBlocoDestino.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxBlocoDestino.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxBlocoDestinoActionPerformed(evt);
+            }
+        });
+        cbxBlocoDestino.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxBlocoDestinoKeyPressed(evt);
             }
         });
 
@@ -212,12 +225,22 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 cbxPisoDestinoActionPerformed(evt);
             }
         });
+        cbxPisoDestino.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxPisoDestinoKeyPressed(evt);
+            }
+        });
 
         cbxPiso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxPiso.setPreferredSize(new java.awt.Dimension(253, 20));
         cbxPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxPisoActionPerformed(evt);
+            }
+        });
+        cbxPiso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxPisoKeyPressed(evt);
             }
         });
 
@@ -228,12 +251,22 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 cbxBlocoActionPerformed(evt);
             }
         });
+        cbxBloco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxBlocoKeyPressed(evt);
+            }
+        });
 
         cbxUnidade.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxUnidade.setPreferredSize(new java.awt.Dimension(253, 20));
         cbxUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxUnidadeActionPerformed(evt);
+            }
+        });
+        cbxUnidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxUnidadeKeyPressed(evt);
             }
         });
 
@@ -432,7 +465,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 for (PisoM piso : listaPiso) {
                     cbxPiso.addItem(piso.getDescricao());
                 }
-                cbxPiso.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxPiso.removeAllItems();
                 cbxPiso.addItem("--Selecione--");
@@ -458,7 +490,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 for (BlocoM bloc : listaBloco) {
                     cbxBloco.addItem(bloc.getDescricao());
                 }
-                cbxBloco.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxBloco.removeAllItems();
                 cbxBloco.addItem("--Selecione--");
@@ -485,7 +516,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 for (SalaM sala : listaSala) {
                     cbxSala.addItem(sala.getDescricao());
                 }
-                cbxSala.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxSala.removeAllItems();
                 cbxSala.addItem("--Selecione--");
@@ -576,7 +606,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 for (PisoM piso : listaPiso) {
                     cbxPisoDestino.addItem(piso.getDescricao());
                 }
-                cbxPisoDestino.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxPisoDestino.removeAllItems();
                 cbxPisoDestino.addItem("--Selecione--");
@@ -592,7 +621,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         } else {
             cbxSalaDestino.removeAllItems();
             cbxSalaDestino.addItem("--Selecione--");
-            //UnidadeM unid = new UnidadeM();
             try {
                 
                 unidM = unidadeDAO.buscaNome(cbxUnidadeDestino.getSelectedItem().toString());//pega a unidade selecionada
@@ -603,7 +631,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 for (SalaM sala : listaSala) {
                     cbxSalaDestino.addItem(sala.getDescricao());
                 }
-                cbxSalaDestino.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxSalaDestino.removeAllItems();
                 cbxSalaDestino.addItem("--Selecione--");
@@ -626,7 +653,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 for (BlocoM bloc : listaBloco) {
                     cbxBlocoDestino.addItem(bloc.getDescricao());
                 }
-                cbxBlocoDestino.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxBlocoDestino.removeAllItems();
                 cbxBlocoDestino.addItem("--Selecione--");
@@ -662,10 +688,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
 
     
     private void cbxSalaDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSalaDestinoActionPerformed
-        
-        /*if(cbxSalaDestino.getSelectedIndex() >= 1)    
-        btnEfetuarMovimentacao.setEnabled(true);*/
-        
+
     }//GEN-LAST:event_cbxSalaDestinoActionPerformed
 
     private void cbxSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSalaActionPerformed
@@ -702,6 +725,43 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         atualizaTabelaDireita();
         
     }//GEN-LAST:event_btnCancelarMovimentacaoActionPerformed
+
+    private void cbxUnidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxUnidadeKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             cbxBloco.requestFocus();
+        }
+    }//GEN-LAST:event_cbxUnidadeKeyPressed
+
+    private void cbxBlocoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxBlocoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             cbxPiso.requestFocus();
+        }
+    }//GEN-LAST:event_cbxBlocoKeyPressed
+
+    private void cbxPisoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxPisoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             cbxSala.requestFocus();
+        }
+    }//GEN-LAST:event_cbxPisoKeyPressed
+
+    private void cbxUnidadeDestinoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxUnidadeDestinoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxBlocoDestino.requestFocus();
+        }
+        
+    }//GEN-LAST:event_cbxUnidadeDestinoKeyPressed
+
+    private void cbxBlocoDestinoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxBlocoDestinoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxPisoDestino.requestFocus();
+        }
+    }//GEN-LAST:event_cbxBlocoDestinoKeyPressed
+
+    private void cbxPisoDestinoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxPisoDestinoKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxSalaDestino.requestFocus();
+        }
+    }//GEN-LAST:event_cbxPisoDestinoKeyPressed
     
    
 

@@ -227,6 +227,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeStatus.getTableHeader().setReorderingAllowed(false);
         tbeStatus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeStatusMouseClicked(evt);
@@ -260,6 +261,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeConservacao.getTableHeader().setReorderingAllowed(false);
         tbeConservacao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeConservacaoMouseClicked(evt);
