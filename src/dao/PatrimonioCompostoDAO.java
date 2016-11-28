@@ -103,19 +103,21 @@ public class PatrimonioCompostoDAO {
         pst.execute();
         pst.close();
     }
-    public int buscaIDbaixado(String descricao) throws SQLException{
+    public PatrimonioCompostoM buscaIDbaixado(int id) throws SQLException{
         sql = "select * from patrimonio_baixado where id = ?";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setString(1, descricao);
+        pst.setInt(1, id);
         PatrimonioCompostoM patrimonioComposto = null;
         int aux = 0;
         ResultSet rs = pst.executeQuery();        
         while(rs.next()){
-            aux = rs.getInt("id");
+            //aux = rs.getInt("id");
+           patrimonioComposto = new PatrimonioCompostoM(rs.getInt("id"),rs.getBoolean("kit"));
         }
         pst.close();
-        return aux;
+        return patrimonioComposto;
      }
+    
     public List<PatrimonioCompostoM> listaTodosCompostoBaixados(int id) throws SQLException{
         
         //PreparedStatement pst;

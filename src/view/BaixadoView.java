@@ -15,6 +15,7 @@ import dao.PisoDAO;
 import dao.SubTipoDAO;
 import dao.TipoDAO;
 import dao.UnidadeDAO;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,8 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         
         preencheFiltro();
         atualizaTabelaBaixado(inicio);
-        validaQuantidade();    
+        validaQuantidade();  
+        pnlPatrimonioComposto1.setVisible(false);
     }
     //METODO PARA PREENCHER AS OPÇÕES DO COMBO BOX
      public void preencheFiltro(){
@@ -135,6 +137,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbePatrimonioCompostoBaixado = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -191,6 +194,11 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         lblQuantPaginas.setText("quant de paginas");
 
         tfdNavegacao.setPreferredSize(new java.awt.Dimension(6, 23));
+        tfdNavegacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdNavegacaoKeyPressed(evt);
+            }
+        });
 
         jLabel3.setText("Ir para:");
 
@@ -245,6 +253,13 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -271,7 +286,10 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                                     .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton1)))
                             .addComponent(pnlPatrimonioComposto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -286,7 +304,9 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                     .addComponent(tfdFiltroBusca)
                     .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -665,29 +685,125 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbePatrimonioCompostoBaixadoMouseClicked
 
     private void tbeBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBuscaMouseClicked
-       //PatrimonioCompostoM patrimonioComposto = new PatrimonioCompostoM();
+       PatrimonioCompostoM patrimonioComposto = new PatrimonioCompostoM();
         try {
-            int id_patrimonio = patrimonioCompostoDAO.buscaIDbaixado(tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString());
+            
+            patrimonioComposto = patrimonioCompostoDAO.buscaIDbaixado(Integer.parseInt(tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString()));
            
            
-            listaCompostoB = patrimonioCompostoDAO.listaTodosCompostoBaixados(id_patrimonio);
+            listaCompostoB = patrimonioCompostoDAO.listaTodosCompostoBaixados(patrimonioComposto.getId());
+            if(patrimonioComposto.isKit()){
+            pnlPatrimonioComposto1.setVisible(true);
+            }else{
+                pnlPatrimonioComposto1.setVisible(false);
+            }
            
 
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
             
         }
+        atualizaTabelaCompostoExistente();
+        
         
        
-        atualizaTabelaCompostoExistente();
+        
         
         //pnlPatrimonioComposto1.setVisible(true);
        
     }//GEN-LAST:event_tbeBuscaMouseClicked
+
+    private void tfdNavegacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNavegacaoKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            if(Integer.parseInt(tfdNavegacao.getText()) > pagUltima || Integer.parseInt(tfdNavegacao.getText()) < 1){
+                JOptionPane.showMessageDialog(null, "Página Invalida!");
+                tfdNavegacao.setText("");
+            }else{
+                inicio = (Integer.parseInt(tfdNavegacao.getText()) -1) * 100;
+                //atualizaTabelaPatrimonio(inicio);
+                
+                switch (cont) {
+                    case 0:
+                        atualizaTabelaBaixado(inicio);
+                    break;
+                    case 1:
+                    try {
+                            listaBaixado = baixadoDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    atualizaTabelaBusca();
+                    break;
+                    case 2:
+                   try {
+                            listaBaixado = baixadoDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                   atualizaTabelaBusca();
+                    break;
+                    case 3:
+                        try {
+                            orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+                            listaBaixado = baixadoDAO.buscaOrgao100(orgao.getId(),inicio);
+                         } catch (SQLException ex) {
+                             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                        atualizaTabelaBusca();
+                    break;
+                    case 4:
+                         try {
+                            conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
+                            listaBaixado = baixadoDAO.buscaConservacao100(conservacao.getId(),inicio);
+                         } catch (SQLException ex) {
+                             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                        atualizaTabelaBusca();
+                    break;
+                    case 5:
+                        try {
+                            subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+                             listaBaixado = baixadoDAO.buscaSubtipo100(subtipo.getId(),inicio);
+                         } catch (SQLException ex) {
+                             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                        atualizaTabelaBusca();
+                    break;
+                    default:
+                    break;
+                }
+
+                pagAtual = Integer.parseInt(tfdNavegacao.getText());
+                lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+                if(inicio == 0){
+                    btnAnterior.setEnabled(false);
+                }else{
+                    btnAnterior.setEnabled(true);
+                }
+                if(pagAtual == pagUltima){
+                    btnProximo.setEnabled(false);
+                }else{
+                    btnProximo.setEnabled(true);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_tfdNavegacaoKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            atualizaTabelaBaixado(inicio);
+        try { 
+            validaQuantidade();
+        } catch (SQLException ex) {
+            Logger.getLogger(BaixadoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tfdFiltroBusca.setText("");
+        cbxFiltro.setSelectedIndex(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 public void atualizaTabelaCompostoExistente(){
     
 
-            String dados[][] = new String[listaCompostoB.size()][4];
+            String dados[][] = new String[listaCompostoB.size()][3];
             int i = 0;
             for (PatrimonioCompostoM patComposto : listaCompostoB){
                 dados[i][0] = String.valueOf(patComposto.getId());
@@ -710,7 +826,6 @@ public void atualizaTabelaCompostoExistente(){
             tbePatrimonioCompostoBaixado.getColumnModel().getColumn(0).setPreferredWidth(50);
             tbePatrimonioCompostoBaixado.getColumnModel().getColumn(1).setPreferredWidth(300);
             tbePatrimonioCompostoBaixado.getColumnModel().getColumn(2).setPreferredWidth(300);
-            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(3).setPreferredWidth(300);
 
             DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
             centralizado.setHorizontalAlignment(SwingConstants.CENTER);
@@ -811,7 +926,11 @@ public void atualizaTabelaCompostoExistente(){
 //ESTES METODOS BUSCAM NO BANCO A QUANTIDADE DE RESULTADOS PARA CADA CASO E SETA A LABEL DE QUANTIDADE DE PAGINAS
     public void validaQuantidade() throws SQLException{
         this.quantMax = baixadoDAO.quantidade();
-        
+        if (quantMax < 100){
+            lblQuantPaginas.setText(1 + "/" + 1);
+             btnProximo.setEnabled(false);
+              btnAnterior.setEnabled(false);
+        }else{
         pagAtual = 1;
         
         if(quantMax % 100 == 0){
@@ -824,7 +943,7 @@ public void atualizaTabelaCompostoExistente(){
         }
         
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
-        
+        }
     }
     public void validaQuantidadeBuscaDescricao() throws SQLException{
         this.quantMax = baixadoDAO.quantidadeDescricao(tfdFiltroBusca.getText());
@@ -937,6 +1056,7 @@ public void atualizaTabelaCompostoExistente(){
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnProximo;
     private javax.swing.JComboBox<String> cbxFiltro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
