@@ -182,7 +182,6 @@ public class ConsultaView extends javax.swing.JInternalFrame {
 
             }
         ));
-        tbeBusca.getTableHeader().setReorderingAllowed(false);
         tbeBusca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeBuscaMouseClicked(evt);
