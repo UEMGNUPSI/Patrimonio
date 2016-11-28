@@ -152,6 +152,8 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 "Codigo", "Descrição", "Data", "Usuario??"
             }
         ));
+        tbeBusca.setSurrendersFocusOnKeystroke(true);
+        tbeBusca.getTableHeader().setReorderingAllowed(false);
         tbeBusca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeBuscaMouseClicked(evt);
@@ -227,6 +229,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePatrimonioCompostoBaixado.getTableHeader().setReorderingAllowed(false);
         tbePatrimonioCompostoBaixado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbePatrimonioCompostoBaixadoMouseClicked(evt);
