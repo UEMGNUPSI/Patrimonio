@@ -171,6 +171,11 @@ public class OrgaoView extends javax.swing.JInternalFrame {
                 btnAlterarActionPerformed(evt);
             }
         });
+        btnAlterar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAlterarKeyPressed(evt);
+            }
+        });
 
         lblNome.setText("ID");
 
@@ -188,6 +193,11 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
+            }
+        });
+        btnNovo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoKeyPressed(evt);
             }
         });
 
@@ -236,12 +246,22 @@ public class OrgaoView extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
+        btnCancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarKeyPressed(evt);
+            }
+        });
 
         btnExcluir.setText("Excluir");
         btnExcluir.setEnabled(false);
         btnExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirActionPerformed(evt);
+            }
+        });
+        btnExcluir.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnExcluirKeyPressed(evt);
             }
         });
 
@@ -577,6 +597,70 @@ public class OrgaoView extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnSalvarKeyPressed
+
+    private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             limpaCamposOrgao();
+            preparaSalvareCancelar();
+            desativaCampos();
+        }
+    }//GEN-LAST:event_btnCancelarKeyPressed
+
+    private void btnAlterarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAlterarKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            preparaAlterar();
+            ativaCampos();
+        }
+    }//GEN-LAST:event_btnAlterarKeyPressed
+
+    private void btnExcluirKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnExcluirKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (tfdID.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Selecione uma Orgao.", "Erro", JOptionPane.WARNING_MESSAGE);
+            } else {
+                orgao = new OrgaoM();
+                orgao.setId(Integer.parseInt(tfdID.getText()));
+                orgao.setNome(tfdNome.getText());
+                int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdNome.getText() + " ?");
+                if (confirma == 0) {
+                    try {
+                        acao = "Excluir Orgão";
+                        idHistorico = orgao.getId();
+                        descricaoHistorico = orgao.getNome();
+                        salvaHistorico();
+                        orgaoDAO.excluir(orgao);
+                        atualizaTabelaOrgao();
+                        limpaCamposOrgao();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                        if (ex.getErrorCode() == 1451) {
+                            JOptionPane.showMessageDialog(null, "Impossível excluir essa Orgao, ela já possui patrimônios cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                        }
+                    }
+
+                }
+            }
+            limpaCamposOrgao();
+            atualizaTabelaOrgao();
+            preparaExcluir();
+        }
+    }//GEN-LAST:event_btnExcluirKeyPressed
+
+    private void btnNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             limpaCamposOrgao();
+             preparaNovo();
+             ativaCampos();
+             tfdNome.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_btnNovoKeyPressed
 
     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES
     
