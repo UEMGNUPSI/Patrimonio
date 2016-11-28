@@ -39,7 +39,7 @@ public class HistoricoAcaoDAO {
     
     public List<HistoricoAcaoM> lista100(int ultimo) throws SQLException{
         List<HistoricoAcaoM> listaHistorico = new ArrayList<>();
-        sql = "select * from HistoricoAcoes limit ?,100";
+        sql = "select * from HistoricoAcoes limit ?, 100";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, ultimo);
         UsuarioDAO user = new UsuarioDAO();
@@ -51,18 +51,18 @@ public class HistoricoAcaoDAO {
             user.UsuarioMById(rs.getInt("id_usuario")),
             rs.getString("acao"),
             rs.getString("codigo")));
-            
-            pst.close();
-            
+     
         }
+        pst.close();
         return listaHistorico;
     }
     
     public static void salvar(HistoricoAcaoM historico) throws SQLException{
         PreparedStatement pst;
         String sql;
+        
       
-        sql = "insert into HistoricoAcoes values(?,?,?,?,?,?)";
+        sql = "insert into HistoricoAcoes values(?,?,?,?,?,?,?)";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setInt(1, 0);
         pst.setInt(2, historico.getIdObjeto());
@@ -70,7 +70,11 @@ public class HistoricoAcaoDAO {
         pst.setString(4, historico.getAcao());
         pst.setDate(5, historico.getDataAcao());
         pst.setInt(6, historico.getUsuario().getId());
-        pst.setString(7, historico.getCodigo());
+        if(!historico.getCodigo().equals(null)){
+            pst.setString(7, historico.getCodigo());
+        }else{
+            pst.setString(7, " - ");
+        }
         pst.execute();
         pst.close();
   
@@ -91,8 +95,18 @@ public class HistoricoAcaoDAO {
             pst.setString(4, auxCodigo);
             pst.setInt(5, limiteInicio);
         }
-        else {
-            sql = "select * from HistoricoAcoes where id_usuario like ? and dataAcao BETWEEN ? and ? and acao like ? and tipoObjeto like ? and codigo like ?, limit ?, 100";
+        else if (filtros.getUsuario() == null){
+            sql = "select * from HistoricoAcoes where dataAcao BETWEEN ? and ? and acao like ? and tipoObjeto like ? and codigo like ?, limit ?, 100";
+            pst = Conexao.getInstance().prepareStatement(sql);
+            pst.setDate(1, inicio);
+            pst.setDate(2, fim);
+            pst.setString(3, auxAcao);
+            pst.setString(4, auxTipoObjeto);
+            pst.setString(5, auxCodigo);
+            pst.setInt(6, limiteInicio);
+            
+        }else {
+            sql = "select * from HistoricoAcoes where id_usuario = ? and dataAcao BETWEEN ? and ? and acao like ? and tipoObjeto like ? and codigo like ?, limit ?, 100";
             pst = Conexao.getInstance().prepareStatement(sql);
             pst.setInt(1, filtros.getUsuario().getId());
             pst.setDate(2, inicio);
@@ -101,7 +115,9 @@ public class HistoricoAcaoDAO {
             pst.setString(5, auxTipoObjeto);
             pst.setString(6, auxCodigo);
             pst.setInt(7, limiteInicio);
+            
         }
+        
         
         
         UsuarioDAO user = new UsuarioDAO();

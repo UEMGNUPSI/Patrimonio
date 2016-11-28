@@ -101,11 +101,14 @@ public class OrgaoView extends javax.swing.JInternalFrame {
     
     public void salvaHistorico() throws SQLException{
         HistoricoAcaoM historico = new HistoricoAcaoM();
+        historico.setCodigo(" - ");
+        
         historico.setIdObjeto(idHistorico);
         historico.setTipoObjeto(descricaoHistorico);
         historico.setAcao(acao);
         historico.setDataAcao(new Date(System.currentTimeMillis()));
         historico.setUsuario(usuarioAtivo);
+        
         
         HistoricoAcaoDAO.salvar(historico);
     }
@@ -422,6 +425,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
                 descricaoHistorico = orgao.getNome();
                 try {
                     salvaHistorico();
+                    
                     orgaoDAO.alterar(orgao);
                     JOptionPane.showMessageDialog(null, "Alterado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     preparaSalvareCancelar();

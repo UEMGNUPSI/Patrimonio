@@ -1295,6 +1295,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 idHistorico = patrimonio.getId();
                 acao = "Alterar Patrimonio";
                 descricaoHistorico = patrimonio.getDescricao();
+                codigoHistorico = patrimonio.getCodigo();
                 salvaHistorico();
                 
                 patrimonioDAO.alterar(patrimonio);               

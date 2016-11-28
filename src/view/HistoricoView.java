@@ -99,7 +99,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             
             i++;
         }
-        String tituloColuna[] = {"Data", "Descrição", "Ação", "Usuário","Sequencia"};
+        String tituloColuna[] = {"Data", "Descrição", "Código", "Ação", "Usuário","Sequencia"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         
         tabelaCliente.setDataVector(dados, tituloColuna);
@@ -129,48 +129,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         
     }
     
-    public void atualizaTabelaHistorico100(int inicio) throws SQLException {
-        
-        listaHistorico = historicoAcaoDAO.lista100(inicio);
-        validaQuantidadeTodos();
-       
-        String dados[][] = new String[listaHistorico.size()][4];
-        int i = 0;
-        for (HistoricoAcaoM hist : listaHistorico) {
-            
-            dados[i][0] = hist.getDataAcao().toString();
-            dados[i][1] = hist.getTipoObjeto();
-            dados[i][2] = hist.getAcao();
-            dados[i][3] = hist.getUsuario().getNome();
-            
-            i++;
-        }
-        String tituloColuna[] = {"Data", "Descrição", "Ação", "Usuário"};
-        DefaultTableModel tabelaCliente = new DefaultTableModel();
-        tabelaCliente.setDataVector(dados, tituloColuna);
-        tbeHistorico.setModel(new DefaultTableModel(dados, tituloColuna) {
-            boolean[] canEdit = new boolean[]{
-                false, false, false, false
-            };
-
-            @Override
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit[columnIndex];
-            }
-        });
-        tbeHistorico.getColumnModel().getColumn(0).setPreferredWidth(50);
-        tbeHistorico.getColumnModel().getColumn(1).setPreferredWidth(200);
-        tbeHistorico.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tbeHistorico.getColumnModel().getColumn(3).setPreferredWidth(300);
-        
-
-        DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
-        centralizado.setHorizontalAlignment(SwingConstants.CENTER);
-        tbeHistorico.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tbeHistorico.setRowHeight(25);
-        tbeHistorico.updateUI();
-        
-    }
+    
     
     public void preencheComboUsuario(){
         cbxUsuario.removeAllItems();
@@ -691,6 +650,8 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         contaFiltros();
+        
+        
         if (qntCampos == 0){
             try {
                 listaHistorico = historicoAcaoDAO.lista100(inicio);
