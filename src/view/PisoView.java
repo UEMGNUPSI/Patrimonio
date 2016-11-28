@@ -98,7 +98,7 @@ public class PisoView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Cadastrar Piso");
+        setTitle("Piso");
 
         tbePiso.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

@@ -174,7 +174,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Cadastrar Sala");
+        setTitle("Sala");
 
         tbeSala.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -444,7 +444,6 @@ public class SalaView extends javax.swing.JInternalFrame {
                 for (PisoM pis : listaPiso) {
                     cbxPiso1.addItem(pis.getDescricao());
                 }
-                cbxPiso1.requestFocusInWindow();
             } catch (SQLException ex) {
                 cbxPiso1.removeAllItems();
                 cbxPiso1.addItem("--Selecione--");

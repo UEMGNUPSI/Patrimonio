@@ -24,7 +24,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/view/icones/Crystal_Clear_action_edit_add.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cadastrar"/>
+            <Property name="text" type="java.lang.String" value="Arquivo"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mniOrgao">
@@ -230,7 +230,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mniAdicionarUsuario">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Gerenciar Usuarios"/>
+                <Property name="text" type="java.lang.String" value="Gerenciar Usu&#xe1;rios"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="mniAdicionarUsuarioMouseClicked"/>

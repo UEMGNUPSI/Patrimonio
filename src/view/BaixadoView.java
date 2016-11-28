@@ -140,6 +140,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Baixados");
 
         tbeBusca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
