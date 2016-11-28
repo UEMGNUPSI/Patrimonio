@@ -2579,7 +2579,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     }
     public void validaQuantidade() throws SQLException{
         this.quantMax = patrimonioDAO.quantidade();
-        
+        if (quantMax < 100){
+            lblQuantPaginas.setText(1 + "/" + 1);
+             btnProximo.setEnabled(false);
+              btnAnterior.setEnabled(false);
+        }else{
         pagAtual = 1;
         
         if(quantMax % 100 == 0){
@@ -2592,7 +2596,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
-        
+        }
     }
     public void validaQuantidadeBuscaDescricao() throws SQLException{
         this.quantMax = patrimonioDAO.quantidadeDescricao(tfdFiltroBusca.getText());

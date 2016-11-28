@@ -100,7 +100,8 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         
         preencheFiltro();
         atualizaTabelaBaixado(inicio);
-        validaQuantidade();    
+        validaQuantidade();  
+        pnlPatrimonioComposto1.setVisible(false);
     }
     //METODO PARA PREENCHER AS OPÇÕES DO COMBO BOX
      public void preencheFiltro(){
@@ -136,6 +137,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tbePatrimonioCompostoBaixado = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setClosable(true);
         setMaximizable(true);
@@ -251,6 +253,13 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 .addContainerGap())
         );
 
+        jButton1.setText("Cancelar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -277,7 +286,10 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                                     .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(tfdFiltroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButton1)))
                             .addComponent(pnlPatrimonioComposto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -292,7 +304,9 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                     .addComponent(tfdFiltroBusca)
                     .addComponent(cbxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -775,6 +789,17 @@ public class BaixadoView extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_tfdNavegacaoKeyPressed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+            atualizaTabelaBaixado(inicio);
+        try { 
+            validaQuantidade();
+        } catch (SQLException ex) {
+            Logger.getLogger(BaixadoView.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tfdFiltroBusca.setText("");
+        cbxFiltro.setSelectedIndex(0);
+    }//GEN-LAST:event_jButton1ActionPerformed
 public void atualizaTabelaCompostoExistente(){
     
 
@@ -901,7 +926,11 @@ public void atualizaTabelaCompostoExistente(){
 //ESTES METODOS BUSCAM NO BANCO A QUANTIDADE DE RESULTADOS PARA CADA CASO E SETA A LABEL DE QUANTIDADE DE PAGINAS
     public void validaQuantidade() throws SQLException{
         this.quantMax = baixadoDAO.quantidade();
-        
+        if (quantMax < 100){
+            lblQuantPaginas.setText(1 + "/" + 1);
+             btnProximo.setEnabled(false);
+              btnAnterior.setEnabled(false);
+        }else{
         pagAtual = 1;
         
         if(quantMax % 100 == 0){
@@ -914,7 +943,7 @@ public void atualizaTabelaCompostoExistente(){
         }
         
         lblQuantPaginas.setText(pagAtual + "/" + pagUltima);
-        
+        }
     }
     public void validaQuantidadeBuscaDescricao() throws SQLException{
         this.quantMax = baixadoDAO.quantidadeDescricao(tfdFiltroBusca.getText());
@@ -1027,6 +1056,7 @@ public void atualizaTabelaCompostoExistente(){
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnProximo;
     private javax.swing.JComboBox<String> cbxFiltro;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
