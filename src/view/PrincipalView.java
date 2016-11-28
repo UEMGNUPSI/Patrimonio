@@ -128,7 +128,7 @@ public class PrincipalView extends javax.swing.JFrame {
         );
 
         mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
-        mnuCadastrar.setText("Cadastrar");
+        mnuCadastrar.setText("Arquivo");
 
         mniOrgao.setText("Orgão");
         mniOrgao.addActionListener(new java.awt.event.ActionListener() {
@@ -333,7 +333,7 @@ public class PrincipalView extends javax.swing.JFrame {
         });
         mnuUsuario.add(mniMinhaConta);
 
-        mniAdicionarUsuario.setText("Gerenciar Usuarios");
+        mniAdicionarUsuario.setText("Gerenciar Usuários");
         mniAdicionarUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 mniAdicionarUsuarioMouseClicked(evt);

@@ -124,6 +124,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         tbeHistorico.getColumnModel().getColumn(0).setCellRenderer(centralizado);
+        tbeHistorico.getColumnModel().getColumn(4).setCellRenderer(centralizado);
         tbeHistorico.setRowHeight(25);
         tbeHistorico.updateUI();
         
@@ -246,6 +247,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Histórico");
 
         tbeHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

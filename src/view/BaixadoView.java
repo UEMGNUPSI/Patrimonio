@@ -139,6 +139,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Baixados");
 
         tbeBusca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -253,7 +254,6 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAnterior)
                         .addGap(4, 4, 4)
                         .addComponent(lblQuantPaginas)

@@ -91,6 +91,7 @@ public class MinhaContaView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setMaximizable(true);
+        setTitle("Minha Conta");
 
         tfdSenha.setEnabled(false);
         tfdSenha.addActionListener(new java.awt.event.ActionListener() {

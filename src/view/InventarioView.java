@@ -127,6 +127,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
+        setTitle("Inventario");
 
         sprSala.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -632,6 +633,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         atualizaTabelaSala();
+        cbxUnidade.setSelectedIndex(0);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void tfdCodigoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdCodigoKeyPressed

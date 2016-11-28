@@ -245,7 +245,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         setClosable(true);
         setMaximizable(true);
         setResizable(true);
-        setTitle("Cadastrar Patrimônio");
+        setTitle("Patrimônio");
 
         cbxBloco.setEnabled(false);
         cbxBloco.addActionListener(new java.awt.event.ActionListener() {
