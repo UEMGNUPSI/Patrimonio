@@ -459,37 +459,6 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
 
             for (PatrimonioM patrimonio : listaPatrimonio) {
                 
-               
-                if(patrimonio.getKit()){
-                    listaComposto = patri.listaTodosExistentes(patrimonio);
-                    for(PatrimonioCompostoM composto : listaComposto){
-                        Paragraph p1 = new Paragraph(patrimonio.getCodigo(),f5);
-                        p1.setAlignment(Element.ALIGN_JUSTIFIED);
-                        PdfPCell col1 = new PdfPCell(p1);
-                        col1.setBorder(0);
-
-                        Paragraph p2 = new Paragraph(composto.getPatrimonio().getSala().getDescricao(),f5);
-                        p2.setAlignment(Element.ALIGN_JUSTIFIED);
-                        PdfPCell col2 = new PdfPCell(p2);
-                        col2.setBorder(0);
-
-                        Paragraph p3 = new Paragraph(composto.getGrau().getDescricao(),f5);
-                        p3.setAlignment(Element.ALIGN_JUSTIFIED);
-                        PdfPCell col3 = new PdfPCell(p3);
-                        col3.setBorder(0);
-
-                        Paragraph p4 = new Paragraph(patrimonio.getEntidade().getNome(),f5);
-                        p4.setAlignment(Element.ALIGN_JUSTIFIED);
-                        PdfPCell col4 = new PdfPCell(p4);
-                        col4.setBorder(0);
-
-                        tabela.addCell(col1);
-                        tabela.addCell(col2);
-                        tabela.addCell(col3);
-                        tabela.addCell(col4);
-                    }
-                }else{
-
                     Paragraph p1 = new Paragraph(patrimonio.getCodigo(),f5);
                     p1.setAlignment(Element.ALIGN_JUSTIFIED);
                     PdfPCell col1 = new PdfPCell(p1);
@@ -514,7 +483,6 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                     tabela.addCell(col2);
                     tabela.addCell(col3);
                     tabela.addCell(col4);
-                }
             }
 
             doc.add(tabela);
