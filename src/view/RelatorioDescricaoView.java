@@ -223,6 +223,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeDescricao.getTableHeader().setReorderingAllowed(false);
         tbeDescricao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeDescricaoMouseClicked(evt);
