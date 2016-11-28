@@ -347,6 +347,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
             }
         });
         tbeOrgao.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tbeOrgao.getTableHeader().setReorderingAllowed(false);
         tbeOrgao.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeOrgaoMouseClicked(evt);

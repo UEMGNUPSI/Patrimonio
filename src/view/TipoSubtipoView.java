@@ -555,6 +555,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeTipo.getTableHeader().setReorderingAllowed(false);
         tbeTipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeTipoMouseClicked(evt);
@@ -573,6 +574,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 "ID", "Descrição SubTipo"
             }
         ));
+        tbeSubTipo.getTableHeader().setReorderingAllowed(false);
         tbeSubTipo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeSubTipoMouseClicked(evt);
@@ -609,7 +611,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 

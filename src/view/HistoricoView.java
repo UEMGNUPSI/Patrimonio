@@ -269,6 +269,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             }
         });
         tbeHistorico.setSelectionForeground(new java.awt.Color(153, 0, 255));
+        tbeHistorico.getTableHeader().setReorderingAllowed(false);
         tbeHistorico.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeHistoricoMouseClicked(evt);

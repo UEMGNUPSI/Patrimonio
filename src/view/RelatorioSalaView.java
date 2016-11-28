@@ -245,6 +245,7 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeSala.getTableHeader().setReorderingAllowed(false);
         tbeSala.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeSalaMouseClicked(evt);
@@ -331,9 +332,8 @@ public class RelatorioSalaView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(cbxRelatorioUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(tfdIDSala, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(tfdIDSala)
+                    .addComponent(jLabel5)
                     .addComponent(tfdDescricaoSala, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlRelatorioLayout.createSequentialGroup()

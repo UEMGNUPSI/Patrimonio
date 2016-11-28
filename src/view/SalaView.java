@@ -195,6 +195,7 @@ public class SalaView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeSala.getTableHeader().setReorderingAllowed(false);
         tbeSala.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeSalaMouseClicked(evt);

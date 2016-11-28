@@ -149,6 +149,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 "ID", "Codigo", "Descrição", "Conservação"
             }
         ));
+        tbeDireita.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tbeDireita);
 
         btnEsquerdaDireita.setText(">>");
@@ -176,6 +177,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbeEsquerda.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tbeEsquerda);
 
         btnEfetuarMovimentacao.setText("Efetuar Movimentação");

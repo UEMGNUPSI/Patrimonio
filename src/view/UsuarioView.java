@@ -268,6 +268,7 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbeUsuario.getTableHeader().setReorderingAllowed(false);
         tbeUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeUsuarioMouseClicked(evt);
