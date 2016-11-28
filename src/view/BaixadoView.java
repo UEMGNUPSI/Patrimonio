@@ -15,6 +15,7 @@ import dao.PisoDAO;
 import dao.SubTipoDAO;
 import dao.TipoDAO;
 import dao.UnidadeDAO;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -190,6 +191,11 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         lblQuantPaginas.setText("quant de paginas");
 
         tfdNavegacao.setPreferredSize(new java.awt.Dimension(6, 23));
+        tfdNavegacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdNavegacaoKeyPressed(evt);
+            }
+        });
 
         jLabel3.setText("Ir para:");
 
@@ -253,7 +259,6 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAnterior)
                         .addGap(4, 4, 4)
                         .addComponent(lblQuantPaginas)
@@ -665,29 +670,114 @@ public class BaixadoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tbePatrimonioCompostoBaixadoMouseClicked
 
     private void tbeBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBuscaMouseClicked
-       //PatrimonioCompostoM patrimonioComposto = new PatrimonioCompostoM();
+       PatrimonioCompostoM patrimonioComposto = new PatrimonioCompostoM();
         try {
-            int id_patrimonio = patrimonioCompostoDAO.buscaIDbaixado(tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString());
+            
+            patrimonioComposto = patrimonioCompostoDAO.buscaIDbaixado(Integer.parseInt(tbeBusca.getValueAt(tbeBusca.getSelectedRow(), 0).toString()));
            
            
-            listaCompostoB = patrimonioCompostoDAO.listaTodosCompostoBaixados(id_patrimonio);
+            listaCompostoB = patrimonioCompostoDAO.listaTodosCompostoBaixados(patrimonioComposto.getId());
+            if(patrimonioComposto.isKit()){
+            pnlPatrimonioComposto1.setVisible(true);
+            }else{
+                pnlPatrimonioComposto1.setVisible(false);
+            }
            
 
         } catch (SQLException ex) {
             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
             
         }
+        atualizaTabelaCompostoExistente();
+        
         
        
-        atualizaTabelaCompostoExistente();
+        
         
         //pnlPatrimonioComposto1.setVisible(true);
        
     }//GEN-LAST:event_tbeBuscaMouseClicked
+
+    private void tfdNavegacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNavegacaoKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            if(Integer.parseInt(tfdNavegacao.getText()) > pagUltima || Integer.parseInt(tfdNavegacao.getText()) < 1){
+                JOptionPane.showMessageDialog(null, "Página Invalida!");
+                tfdNavegacao.setText("");
+            }else{
+                inicio = (Integer.parseInt(tfdNavegacao.getText()) -1) * 100;
+                //atualizaTabelaPatrimonio(inicio);
+                
+                switch (cont) {
+                    case 0:
+                        atualizaTabelaBaixado(inicio);
+                    break;
+                    case 1:
+                    try {
+                            listaBaixado = baixadoDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    atualizaTabelaBusca();
+                    break;
+                    case 2:
+                   try {
+                            listaBaixado = baixadoDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                   atualizaTabelaBusca();
+                    break;
+                    case 3:
+                        try {
+                            orgao = orgaoDAO.buscaNome(tfdFiltroBusca.getText());                       
+                            listaBaixado = baixadoDAO.buscaOrgao100(orgao.getId(),inicio);
+                         } catch (SQLException ex) {
+                             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                        atualizaTabelaBusca();
+                    break;
+                    case 4:
+                         try {
+                            conservacao = conservacaoDAO.buscaNome(tfdFiltroBusca.getText());
+                            listaBaixado = baixadoDAO.buscaConservacao100(conservacao.getId(),inicio);
+                         } catch (SQLException ex) {
+                             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                        atualizaTabelaBusca();
+                    break;
+                    case 5:
+                        try {
+                            subtipo = subtipoDAO.buscaNome(tfdFiltroBusca.getText());
+                             listaBaixado = baixadoDAO.buscaSubtipo100(subtipo.getId(),inicio);
+                         } catch (SQLException ex) {
+                             Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                         }
+                        atualizaTabelaBusca();
+                    break;
+                    default:
+                    break;
+                }
+
+                pagAtual = Integer.parseInt(tfdNavegacao.getText());
+                lblQuantPaginas.setText(pagAtual+"/"+pagUltima);
+                if(inicio == 0){
+                    btnAnterior.setEnabled(false);
+                }else{
+                    btnAnterior.setEnabled(true);
+                }
+                if(pagAtual == pagUltima){
+                    btnProximo.setEnabled(false);
+                }else{
+                    btnProximo.setEnabled(true);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_tfdNavegacaoKeyPressed
 public void atualizaTabelaCompostoExistente(){
     
 
-            String dados[][] = new String[listaCompostoB.size()][4];
+            String dados[][] = new String[listaCompostoB.size()][3];
             int i = 0;
             for (PatrimonioCompostoM patComposto : listaCompostoB){
                 dados[i][0] = String.valueOf(patComposto.getId());
@@ -710,7 +800,6 @@ public void atualizaTabelaCompostoExistente(){
             tbePatrimonioCompostoBaixado.getColumnModel().getColumn(0).setPreferredWidth(50);
             tbePatrimonioCompostoBaixado.getColumnModel().getColumn(1).setPreferredWidth(300);
             tbePatrimonioCompostoBaixado.getColumnModel().getColumn(2).setPreferredWidth(300);
-            tbePatrimonioCompostoBaixado.getColumnModel().getColumn(3).setPreferredWidth(300);
 
             DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
             centralizado.setHorizontalAlignment(SwingConstants.CENTER);

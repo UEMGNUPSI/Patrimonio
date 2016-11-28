@@ -13,6 +13,8 @@ public class PatrimonioCompostoM {
     
     int id;
     String descricao;
+
+   
     /*int id_grau_conservacao;
     int id_status;
     int id_patrimonio;
@@ -20,6 +22,8 @@ public class PatrimonioCompostoM {
     PatrimonioM patrimonio;
     GrauConservacaoM grau;
     StatusM status;
+    boolean kit;
+    
     public PatrimonioCompostoM(){
         
     }
@@ -56,10 +60,22 @@ public class PatrimonioCompostoM {
         this.descricao = descricao;
         this.grau = grau_conservacao;
     }
+      public PatrimonioCompostoM(int id,boolean kit) {
+        this.id = id;
+        this.kit = kit;
+        
+    }
      public PatrimonioCompostoM(int id) {
         this.id = id;
       
   
+    }
+      public boolean isKit() {
+        return kit;
+    }
+
+    public void setKit(boolean kit) {
+        this.kit = kit;
     }
       
     public int getId() {
