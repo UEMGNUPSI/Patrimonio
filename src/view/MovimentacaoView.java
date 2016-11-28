@@ -528,6 +528,10 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEsquerdaDireitaActionPerformed
 
     private void btnDireitaEsquerdaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDireitaEsquerdaActionPerformed
+        if(cbxUnidadeDestino.getSelectedIndex()<1 || cbxBlocoDestino.getSelectedIndex()<1 || cbxPisoDestino.getSelectedIndex()<1 || cbxSalaDestino.getSelectedIndex()<1){
+            JOptionPane.showMessageDialog(null, "Selecione a sala destino!");
+        }else{
+
         try {
             patrimonio = patrimonioDAO.busca(Integer.parseInt(tbeDireita.getValueAt(tbeDireita.getSelectedRow(), 0).toString()));
             listaPatrimonioSelecionados.add(patrimonio);
@@ -554,7 +558,7 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
             Logger.getLogger(MovimentacaoView.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
-        
+        }
     }//GEN-LAST:event_btnDireitaEsquerdaActionPerformed
 
     private void cbxBlocoDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBlocoDestinoActionPerformed

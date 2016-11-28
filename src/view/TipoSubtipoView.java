@@ -321,6 +321,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 btnSalvarSubtipoActionPerformed(evt);
             }
         });
+        btnSalvarSubtipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarSubtipoKeyPressed(evt);
+            }
+        });
 
         btnAdicionarImagem.setText("Adicionar Imagem");
         btnAdicionarImagem.setEnabled(false);
@@ -604,7 +609,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -1038,8 +1043,76 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxSubtipoKeyPressed
 
     private void tfdDescricaoSubTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoSubTipoKeyPressed
-        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarSubtipo.requestFocusInWindow();
+        }
     }//GEN-LAST:event_tfdDescricaoSubTipoKeyPressed
+
+    private void btnSalvarSubtipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarSubtipoKeyPressed
+        if (tfdDescricaoSubTipo.getText().isEmpty() || cbxSubtipo.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
+            tfdDescricaoSubTipo.requestFocusInWindow();
+        } else if(tfdIDSubTipo.getText().isEmpty()){
+            subTipo = new SubTipoM();
+            subTipo.setDescricao(tfdDescricaoSubTipo.getText());
+            subTipo.setTipo(listaTipo.get(cbxSubtipo.getSelectedIndex() - 1));
+            try {
+                idHistorico = subTipoDAO.salvar(subTipo);   
+                acao = "Novo Subtipo";
+                descricaoHistorico = subTipo.getDescricao();
+                salvaHistorico();
+                if(bi!=null){
+                salvarImagen();                
+                }   
+                
+                limpaCamposSubTipo();
+                desativaCamposSubtipo();
+                preparaSalvareCancelarSubtipo();
+                atualizaTabelaSubTipo();
+   
+                JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(null, "Subtipo já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }       
+    }else{
+            subTipo = new SubTipoM();
+            subTipo.setDescricao(tfdDescricaoSubTipo.getText());
+            subTipo.setTipo(listaTipo.get(cbxSubtipo.getSelectedIndex() - 1));
+            subTipo.setId(Integer.parseInt(tfdIDSubTipo.getText()));
+            try {
+                idHistorico = subTipo.getId();
+                acao = "Alterar Subtipo";
+                descricaoHistorico = subTipo.getDescricao();
+                salvaHistorico();
+                subTipoDAO.alterar(subTipo);
+                
+                if(bi!=null){
+                salvarImagen();               
+                }
+                JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                
+                limpaCamposSubTipo();
+                limpaCamposSubTipo();
+                desativaCamposSubtipo();
+                preparaSalvareCancelarSubtipo();
+               
+                atualizaTabelaSubTipo();
+            } catch (SQLException ex) {
+                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                if (ex.getErrorCode() == 1062) {
+                    JOptionPane.showMessageDialog(null, "Subtipo já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_btnSalvarSubtipoKeyPressed
 
     public void salvarImagen() {
 
