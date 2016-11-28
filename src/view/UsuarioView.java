@@ -467,7 +467,11 @@ public class UsuarioView extends javax.swing.JInternalFrame {
 
                 } catch (SQLException ex) {
                     Logger.getLogger(UsuarioView.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                    if(ex.getErrorCode() == 1451){
+                        JOptionPane.showMessageDialog(null, "Impossivel remover este usuario! Já possui vinculos com o Sistema!", "Erro",JOptionPane.WARNING_MESSAGE );
+                    }else{
+                        JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro" , JOptionPane.WARNING_MESSAGE );
+                    }
                 }
 
             }
