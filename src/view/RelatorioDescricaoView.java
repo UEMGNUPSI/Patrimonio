@@ -192,16 +192,17 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
         tbeDescricao = new javax.swing.JTable();
         pnlRelatorio = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
+        btnGerarPDF = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txtDescricao = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         lblDescricao = new javax.swing.JLabel();
-        btnGerarPDF = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         lblQuant = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setClosable(true);
         setResizable(true);
+        setTitle("Relatório Patrimônio");
 
         tbeDescricao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -211,19 +212,12 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                 {null, null}
             },
             new String [] {
-                "Descrição", "Quantidade"
+                "Descrição", "ID da Sala"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -242,24 +236,6 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
                 btnBuscarActionPerformed(evt);
             }
         });
-        btnBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                btnBuscarKeyPressed(evt);
-            }
-        });
-
-        jLabel6.setText("Descrição:");
-
-        txtDescricao.setNextFocusableComponent(btnBuscar);
-        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDescricaoKeyPressed(evt);
-            }
-        });
-
-        jLabel1.setText("Selecionado:");
-
-        lblDescricao.setText("jLabel2");
 
         btnGerarPDF.setText("Gerar PDF");
         btnGerarPDF.setEnabled(false);
@@ -269,9 +245,15 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel2.setText("Quantidade:");
+        jLabel6.setText("Descrição:");
 
-        lblQuant.setText("jLabel2");
+        lblDescricao.setText("jLabel1");
+
+        lblQuant.setText("jLabel1");
+
+        jLabel1.setText("Quantidade:");
+
+        jLabel2.setText("Descricao");
 
         javax.swing.GroupLayout pnlRelatorioLayout = new javax.swing.GroupLayout(pnlRelatorio);
         pnlRelatorio.setLayout(pnlRelatorioLayout);
@@ -280,47 +262,43 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             .addGroup(pnlRelatorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlRelatorioLayout.createSequentialGroup()
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtDescricao)))
                     .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtDescricao))))
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDescricao))
                     .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                        .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDescricao))
-                            .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblQuant)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblQuant)))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         pnlRelatorioLayout.setVerticalGroup(
             pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(64, 64, 64)
                 .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(39, 39, 39)
                 .addComponent(btnBuscar)
-                .addGap(27, 27, 27)
+                .addGap(34, 34, 34)
                 .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
                     .addComponent(lblDescricao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
                     .addComponent(lblQuant))
-                .addGap(28, 28, 28)
+                .addGap(35, 35, 35)
                 .addComponent(btnGerarPDF)
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -329,14 +307,14 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 629, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addGap(138, 317, Short.MAX_VALUE))
             .addComponent(jScrollPane1)
         );
 
