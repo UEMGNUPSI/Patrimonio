@@ -96,7 +96,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     
     //Historico
     int idHistorico;
-    String acao;
+    String acao, codigoHistorico;
     String descricaoHistorico;
     UsuarioM usuarioAtivo;
     
@@ -699,6 +699,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePatrimonioComposto.getTableHeader().setReorderingAllowed(false);
         tbePatrimonioComposto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbePatrimonioCompostoMouseClicked(evt);
@@ -805,6 +806,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePatrimonio.getTableHeader().setReorderingAllowed(false);
         tbePatrimonio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbePatrimonioMouseClicked(evt);
@@ -1216,6 +1218,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 
                 idHistorico = ultimoID;
                 acao = "Novo Patrimonio";
+                codigoHistorico = patrimonio.getCodigo();
                 descricaoHistorico = patrimonio.getDescricao();
                 salvaHistorico();
                 // a partir daqui tem que liberar a tela do composto

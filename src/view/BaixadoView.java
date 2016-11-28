@@ -152,6 +152,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 "Codigo", "Descrição", "Data", "Usuario??"
             }
         ));
+        tbeBusca.getTableHeader().setReorderingAllowed(false);
         tbeBusca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbeBuscaMouseClicked(evt);
@@ -227,6 +228,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tbePatrimonioCompostoBaixado.getTableHeader().setReorderingAllowed(false);
         tbePatrimonioCompostoBaixado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tbePatrimonioCompostoBaixadoMouseClicked(evt);
@@ -308,7 +310,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                         .addComponent(jLabel1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAnterior)
                     .addComponent(btnProximo)
@@ -317,7 +319,7 @@ public class BaixadoView extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlPatrimonioComposto1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         pack();
