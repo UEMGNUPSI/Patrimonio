@@ -9,6 +9,7 @@ import dao.HistoricoAcaoDAO;
 import dao.SubTipoDAO;
 import dao.TipoDAO;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -257,12 +258,22 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 tfdDescricaoTipoActionPerformed(evt);
             }
         });
+        tfdDescricaoTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdDescricaoTipoKeyPressed(evt);
+            }
+        });
 
         lblSubtipo.setText("Subtipo");
 
         lblDescricaoSubtipo.setText("Descrição");
 
         tfdDescricaoSubTipo.setEnabled(false);
+        tfdDescricaoSubTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdDescricaoSubTipoKeyPressed(evt);
+            }
+        });
 
         lblTipo.setText("Tipo");
 
@@ -287,6 +298,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         btnSalvarTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarTipoActionPerformed(evt);
+            }
+        });
+        btnSalvarTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarTipoKeyPressed(evt);
             }
         });
 
@@ -332,6 +348,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         cbxSubtipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxSubtipoActionPerformed(evt);
+            }
+        });
+        cbxSubtipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxSubtipoKeyPressed(evt);
             }
         });
 
@@ -583,7 +604,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 522, Short.MAX_VALUE)
+            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -709,6 +730,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         limpaCamposTipo();
         preparaNovoTipo();
+        tfdDescricaoTipo.requestFocusInWindow();
         
     }//GEN-LAST:event_btnNovoTipoActionPerformed
 
@@ -838,7 +860,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         preparaNovoSubTipo();
         limpaCamposSubTipo();
-        
+        cbxSubtipo.requestFocusInWindow();
 
     }//GEN-LAST:event_btnNovoSubtipoActionPerformed
 
@@ -932,6 +954,92 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     private void tfdDescricaoTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdDescricaoTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfdDescricaoTipoActionPerformed
+
+    private void tfdDescricaoTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoTipoKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarTipo.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdDescricaoTipoKeyPressed
+
+    private void btnSalvarTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarTipoKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (tfdDescricaoTipo.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
+                tfdDescricaoTipo.requestFocusInWindow();
+            } else if (tfdIDTipo.getText().isEmpty()) {
+                tipo = new TipoM();
+                tipo.setDescricao(tfdDescricaoTipo.getText());
+
+                try {
+                    idHistorico = tipoDAO.salvar(tipo);
+                    acao = "Novo Tipo";
+                    descricaoHistorico = tipo.getDescricao();
+                    salvaHistorico();
+                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    preparaSalvareCancelarTipo();
+                    desativaCamposTipo();
+                    atualizaTabelaTipo();
+                    preencheComboBox();
+                    atualizaTabelaSubTipo();
+                    limpaCamposTipo();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex.getErrorCode() == 1062) {
+                        JOptionPane.showMessageDialog(null, "Tipo já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+
+            } else {
+
+                tipo = new TipoM();
+                tipo.setDescricao(tfdDescricaoTipo.getText());
+                tipo.setId(Integer.parseInt(tfdIDTipo.getText()));
+
+                try {
+                    idHistorico = tipo.getId();
+                    acao = "Alterar Tipo";
+                    descricaoHistorico = tipo.getDescricao();
+                    salvaHistorico();
+
+                    tipoDAO.alterar(tipo);
+                    JOptionPane.showMessageDialog(null, "Alterado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+                    preparaSalvareCancelarTipo();
+                    desativaCamposTipo();
+                    atualizaTabelaTipo();
+                    preencheComboBox();
+                    atualizaTabelaSubTipo();
+                    limpaCamposTipo();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex.getErrorCode() == 1062) {
+                        JOptionPane.showMessageDialog(null, "Tipo já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+
+            }
+        }
+    }//GEN-LAST:event_btnSalvarTipoKeyPressed
+
+    private void cbxSubtipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxSubtipoKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdDescricaoSubTipo.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxSubtipoKeyPressed
+
+    private void tfdDescricaoSubTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoSubTipoKeyPressed
+        
+    }//GEN-LAST:event_tfdDescricaoSubTipoKeyPressed
 
     public void salvarImagen() {
 

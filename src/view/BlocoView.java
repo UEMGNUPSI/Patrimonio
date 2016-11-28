@@ -8,6 +8,7 @@ package view;
 import dao.BlocoDAO;
 import dao.HistoricoAcaoDAO;
 import dao.UnidadeDAO;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -143,6 +144,11 @@ public class BlocoView extends javax.swing.JInternalFrame {
                 btnSalvarBlocoActionPerformed(evt);
             }
         });
+        btnSalvarBloco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarBlocoKeyPressed(evt);
+            }
+        });
 
         btnNovoBloco.setText("Novo");
         btnNovoBloco.addActionListener(new java.awt.event.ActionListener() {
@@ -155,6 +161,11 @@ public class BlocoView extends javax.swing.JInternalFrame {
         cbxUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxUnidadeActionPerformed(evt);
+            }
+        });
+        cbxUnidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxUnidadeKeyPressed(evt);
             }
         });
 
@@ -173,6 +184,11 @@ public class BlocoView extends javax.swing.JInternalFrame {
         });
 
         tfdDescricaoBloco.setEnabled(false);
+        tfdDescricaoBloco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdDescricaoBlocoKeyPressed(evt);
+            }
+        });
 
         lblDescricaoBloco.setText("Descrição");
 
@@ -325,6 +341,7 @@ public class BlocoView extends javax.swing.JInternalFrame {
 
     private void cbxUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidadeActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbxUnidadeActionPerformed
 
     private void tbeBlocoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbeBlocoMouseClicked
@@ -434,6 +451,71 @@ public class BlocoView extends javax.swing.JInternalFrame {
         preparaSalvareCancelar();
         desativaCampos();
     }//GEN-LAST:event_btnCancelarBlocoActionPerformed
+
+    private void tfdDescricaoBlocoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoBlocoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarBloco.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdDescricaoBlocoKeyPressed
+
+    private void btnSalvarBlocoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarBlocoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (tfdDescricaoBloco.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
+                tfdDescricaoBloco.requestFocusInWindow();
+            } else if (tfdIDBloco.getText().isEmpty()) {
+                bloco = new BlocoM();
+                bloco.setDescricao(tfdDescricaoBloco.getText());
+                bloco.setUnidadeM(pegaUnidade());
+                try {
+
+                    idHistorico = blocoDAO.salvar(bloco);
+                    acao = "Novo Bloco";
+                    descricaoHistorico = bloco.getDescricao();
+                    salvaHistorico();
+                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    atualizaTabelaBloco();
+                    preparaSalvareCancelar();
+                    desativaCampos();
+                    limpaCamposBloco();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+            } else {
+                bloco = new BlocoM();
+                bloco.setId(Integer.parseInt(tfdIDBloco.getText()));
+                bloco.setDescricao(tfdDescricaoBloco.getText());
+                try {
+                    idHistorico = bloco.getId();
+                    acao = "Alterar Bloco";
+                    descricaoHistorico = bloco.getDescricao();
+                    salvaHistorico();
+                    blocoDAO.alterar(bloco);
+                    JOptionPane.showMessageDialog(null, "Bloco atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    atualizaTabelaBloco();
+                    preparaSalvareCancelar();
+                    desativaCampos();
+                    limpaCamposBloco();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+
+                }
+
+            }
+        }
+    }//GEN-LAST:event_btnSalvarBlocoKeyPressed
+
+    private void cbxUnidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxUnidadeKeyPressed
+        
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdDescricaoBloco.requestFocusInWindow();
+        }
+        
+    }//GEN-LAST:event_cbxUnidadeKeyPressed
     
       public UnidadeM pegaUnidade() {
         try {

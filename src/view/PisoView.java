@@ -9,6 +9,7 @@ import dao.BlocoDAO;
 import dao.HistoricoAcaoDAO;
 import dao.PisoDAO;
 import dao.UnidadeDAO;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -126,12 +127,22 @@ public class PisoView extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(tbePiso);
 
         tfdDescricaoPiso.setEnabled(false);
+        tfdDescricaoPiso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdDescricaoPisoKeyPressed(evt);
+            }
+        });
 
         btnSalvarPiso.setText("Salvar");
         btnSalvarPiso.setEnabled(false);
         btnSalvarPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarPisoActionPerformed(evt);
+            }
+        });
+        btnSalvarPiso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarPisoKeyPressed(evt);
             }
         });
 
@@ -200,6 +211,11 @@ public class PisoView extends javax.swing.JInternalFrame {
                 cbxUnidade1PropertyChange(evt);
             }
         });
+        cbxUnidade1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxUnidade1KeyPressed(evt);
+            }
+        });
         cbxUnidade1.addVetoableChangeListener(new java.beans.VetoableChangeListener() {
             public void vetoableChange(java.beans.PropertyChangeEvent evt)throws java.beans.PropertyVetoException {
                 cbxUnidade1VetoableChange(evt);
@@ -210,6 +226,11 @@ public class PisoView extends javax.swing.JInternalFrame {
         cbxBloco1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxBloco1ActionPerformed(evt);
+            }
+        });
+        cbxBloco1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxBloco1KeyPressed(evt);
             }
         });
 
@@ -387,8 +408,6 @@ public class PisoView extends javax.swing.JInternalFrame {
                 Logger.getLogger(PisoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-
     }//GEN-LAST:event_cbxUnidade1ActionPerformed
 
     private void cbxBloco1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBloco1ActionPerformed
@@ -522,6 +541,75 @@ public class PisoView extends javax.swing.JInternalFrame {
         preparaSalvareCancelar();
         desativaCampos();
     }//GEN-LAST:event_btnCancelarPisoActionPerformed
+
+    private void tfdDescricaoPisoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoPisoKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarPiso.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdDescricaoPisoKeyPressed
+
+    private void btnSalvarPisoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarPisoKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (tfdDescricaoPiso.getText().isEmpty() || cbxUnidade1.getSelectedIndex() == 0 || cbxBloco1.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
+                tfdDescricaoPiso.requestFocusInWindow();
+            } else if (tfdIDPiso.getText().isEmpty()) {
+                piso = new PisoM();
+                piso.setDescricao(tfdDescricaoPiso.getText());
+                piso.setBloco(pegaBloco());
+                try {
+                    idHistorico = pisoDAO.salvar(piso);
+                    acao = "Novo Piso";
+                    descricaoHistorico = piso.getDescricao();
+                    salvaHistorico();
+                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                preparaSalvareCancelar();
+                desativaCampos();
+                atualizaTabelaPiso();
+                limpaCamposPiso();
+            } else {
+
+                piso = new PisoM();
+                piso.setDescricao(tfdDescricaoPiso.getText());
+                piso.setId(Integer.parseInt(tfdIDPiso.getText()));
+                try {
+                    idHistorico = piso.getId();
+                    acao = "Alterar Piso";
+                    descricaoHistorico = piso.getDescricao();
+                    salvaHistorico();
+                    pisoDAO.alterar(piso);
+                    JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                preparaSalvareCancelar();
+                desativaCampos();
+                atualizaTabelaPiso();
+                limpaCamposPiso();
+            }               
+        }
+    }//GEN-LAST:event_btnSalvarPisoKeyPressed
+
+    private void cbxUnidade1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxUnidade1KeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxBloco1.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxUnidade1KeyPressed
+
+    private void cbxBloco1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxBloco1KeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdDescricaoPiso.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxBloco1KeyPressed
 
     public BlocoM pegaBloco() {
         try {

@@ -10,6 +10,7 @@ import dao.HistoricoAcaoDAO;
 import dao.PisoDAO;
 import dao.SalaDAO;
 import dao.UnidadeDAO;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -210,6 +211,11 @@ public class SalaView extends javax.swing.JInternalFrame {
                 btnSalvarSalaActionPerformed(evt);
             }
         });
+        btnSalvarSala.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarSalaKeyPressed(evt);
+            }
+        });
 
         tfdIDSala.setEditable(false);
         tfdIDSala.setEnabled(false);
@@ -227,20 +233,33 @@ public class SalaView extends javax.swing.JInternalFrame {
         });
 
         tfdDescricaoSala.setEnabled(false);
+        tfdDescricaoSala.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdDescricaoSalaKeyPressed(evt);
+            }
+        });
 
-        cbxPiso1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Piso 1" }));
         cbxPiso1.setEnabled(false);
         cbxPiso1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxPiso1ActionPerformed(evt);
             }
         });
+        cbxPiso1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxPiso1KeyPressed(evt);
+            }
+        });
 
-        cbxUnidade1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "UEMG", "Cadastrar Unidade" }));
         cbxUnidade1.setEnabled(false);
         cbxUnidade1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxUnidade1ActionPerformed(evt);
+            }
+        });
+        cbxUnidade1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxUnidade1KeyPressed(evt);
             }
         });
 
@@ -250,11 +269,15 @@ public class SalaView extends javax.swing.JInternalFrame {
 
         lblSelecBloco1.setText("Selecione o bloco:");
 
-        cbxBloco1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bloco A", "Cadastrar Bloco" }));
         cbxBloco1.setEnabled(false);
         cbxBloco1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxBloco1ActionPerformed(evt);
+            }
+        });
+        cbxBloco1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxBloco1KeyPressed(evt);
             }
         });
 
@@ -382,27 +405,6 @@ public class SalaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tfdIDSalaActionPerformed
 
     private void cbxUnidade1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidade1ActionPerformed
-     
-        /*if (cbxUnidade1.getSelectedIndex() < 1) {
-            cbxBloco1.removeAllItems();
-            cbxBloco1.addItem("--Selecione--");
-
-        } else {
-            cbxBloco1.removeAllItems();
-            cbxBloco1.addItem("--Selecione--");
-            
-            try {
-                unid = unidadeDAO.buscaNome(cbxUnidade1.getSelectedItem().toString());
-                listaBloco = blocoDAO.buscaUni(unid.getId());
-                for (BlocoM bloc : listaBloco) {
-                    cbxBloco1.addItem(bloc.getDescricao());
-                }
-                cbxBloco1.requestFocusInWindow();
-            } catch (SQLException ex) {
-                cbxBloco1.removeAllItems();
-                cbxBloco1.addItem("--Selecione--");
-            }
-        }*/
         
         if (cbxUnidade1.getSelectedIndex() < 1) {
             cbxBloco1.removeAllItems();
@@ -422,7 +424,6 @@ public class SalaView extends javax.swing.JInternalFrame {
                 Logger.getLogger(PisoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    
 
     }//GEN-LAST:event_cbxUnidade1ActionPerformed
 
@@ -449,6 +450,7 @@ public class SalaView extends javax.swing.JInternalFrame {
                 cbxPiso1.addItem("--Selecione--");
             }
         }
+
     }//GEN-LAST:event_cbxBloco1ActionPerformed
 
     private void btnSalvarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarSalaActionPerformed
@@ -559,7 +561,7 @@ public class SalaView extends javax.swing.JInternalFrame {
 
     private void cbxPiso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPiso1ActionPerformed
         // TODO add your handling code here:
-        tfdDescricaoSala.requestFocusInWindow();
+       
     }//GEN-LAST:event_cbxPiso1ActionPerformed
 
     private void btnCancelarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarSalaActionPerformed
@@ -568,6 +570,84 @@ public class SalaView extends javax.swing.JInternalFrame {
         preparaSalvareCancelar();
         desativaCampos();
     }//GEN-LAST:event_btnCancelarSalaActionPerformed
+
+    private void tfdDescricaoSalaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoSalaKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarSala.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdDescricaoSalaKeyPressed
+
+    private void btnSalvarSalaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarSalaKeyPressed
+
+        // TODO add your handling code here:
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             if (tfdDescricaoSala.getText().isEmpty() || cbxUnidade1.getSelectedIndex() == 0 || cbxBloco1.getSelectedIndex() == 0 || cbxPiso1.getSelectedIndex() == 0) {
+                 JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
+                 tfdDescricaoSala.requestFocusInWindow();
+             } else if (tfdIDSala.getText().isEmpty()) {
+                 sala = new SalaM();
+                 sala.setDescricao(tfdDescricaoSala.getText());
+                 sala.setPiso(pegaSala());
+                 try {
+                     idHistorico = salaDAO.salvar(sala);
+                     acao = "Novo Sala";
+                     descricaoHistorico = sala.getDescricao();
+                     salvaHistorico();
+                     JOptionPane.showMessageDialog(null, "Gravado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                 } catch (SQLException ex) {
+                     Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                 atualizaTabelaSala();
+                 preparaSalvareCancelar();
+                 desativaCampos();
+                 limpaCamposSala();
+             } else {
+
+                 sala = new SalaM();
+                 sala.setDescricao(tfdDescricaoSala.getText());
+                 sala.setPiso(pegaSala());
+                 sala.setId(Integer.parseInt(tfdIDSala.getText()));
+                 btnSalvarSala.setEnabled(true);
+                 try {
+                     idHistorico = sala.getId();
+                     acao = "Alterar Sala";
+                     descricaoHistorico = sala.getDescricao();
+                     salvaHistorico();
+                     salaDAO.alterar(sala);
+                     JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                 } catch (SQLException ex) {
+                     Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+                 atualizaTabelaSala();
+                 preparaSalvareCancelar();
+                 desativaCampos();
+                 limpaCamposSala();
+             }
+        }
+    }//GEN-LAST:event_btnSalvarSalaKeyPressed
+
+    private void cbxUnidade1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxUnidade1KeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxBloco1.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxUnidade1KeyPressed
+
+    private void cbxBloco1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxBloco1KeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxPiso1.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxBloco1KeyPressed
+
+    private void cbxPiso1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxPiso1KeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdDescricaoSala.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxPiso1KeyPressed
 
     public PisoM pegaSala() {
         try {

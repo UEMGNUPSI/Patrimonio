@@ -7,6 +7,7 @@ package view;
 
 import dao.HistoricoAcaoDAO;
 import dao.OrgaoDAO;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -191,20 +192,40 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         });
 
         tfdNome.setEnabled(false);
+        tfdNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdNomeKeyPressed(evt);
+            }
+        });
 
         lblTelefone.setText("CNPJ");
 
         tfdCnpj.setEnabled(false);
+        tfdCnpj.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdCnpjKeyPressed(evt);
+            }
+        });
 
         lblEmail.setText("Contato");
 
         tfdContato.setEnabled(false);
+        tfdContato.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdContatoKeyPressed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
         btnSalvar.setEnabled(false);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
+            }
+        });
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarKeyPressed(evt);
             }
         });
 
@@ -467,6 +488,95 @@ public class OrgaoView extends javax.swing.JInternalFrame {
     private void formInternalFrameClosed(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosed
 
     }//GEN-LAST:event_formInternalFrameClosed
+
+    private void tfdNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNomeKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            tfdCnpj.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdNomeKeyPressed
+
+    private void tfdCnpjKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdCnpjKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            tfdContato.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdCnpjKeyPressed
+
+    private void tfdContatoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdContatoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            btnSalvar.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdContatoKeyPressed
+
+    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            
+            if (tfdNome.getText().isEmpty() || tfdCnpj.getText().isEmpty() || tfdContato.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
+            tfdNome.requestFocusInWindow();
+            } else if (tfdID.getText().isEmpty()){
+                orgao = new OrgaoM();
+                orgao.setNome(tfdNome.getText());
+                orgao.setCnpj(tfdCnpj.getText());
+                orgao.setContato(tfdContato.getText());
+                try {
+                    idHistorico = orgaoDAO.salvar(orgao);
+                    acao = "Novo Orgão";
+                    descricaoHistorico = orgao.getNome();
+                    salvaHistorico();
+                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    atualizaTabelaOrgao();
+                    limpaCamposOrgao();
+                    preparaSalvareCancelar();
+                    desativaCampos();
+                    atualizaTabelaOrgao();
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex.getErrorCode() == 1062) {
+                        JOptionPane.showMessageDialog(null, "Orgao com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+            
+
+            } 
+            else {
+                if (tfdID.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Selecione um Orgao.", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    orgao = new OrgaoM();
+                    orgao.setId(Integer.parseInt(tfdID.getText()));
+                    orgao.setNome(tfdNome.getText());
+                    orgao.setCnpj(tfdCnpj.getText());
+                    orgao.setContato(tfdContato.getText());
+                    acao = "Alterar Orgão";
+                    idHistorico = orgao.getId();
+                    descricaoHistorico = orgao.getNome();
+                    try {
+                        salvaHistorico();
+                        orgaoDAO.alterar(orgao);
+                        JOptionPane.showMessageDialog(null, "Alterado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        preparaSalvareCancelar();
+                        desativaCampos();
+                        atualizaTabelaOrgao();
+                    } catch (SQLException ex) {
+                        if (ex.getErrorCode() == 1062) {
+                            JOptionPane.showMessageDialog(null, "Orgao com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                    }
+                }
+            
+             
+            }
+        }
+    }//GEN-LAST:event_btnSalvarKeyPressed
 
     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES
     

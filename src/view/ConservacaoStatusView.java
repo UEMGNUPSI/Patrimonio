@@ -8,6 +8,7 @@ package view;
 import dao.GrauConservacaoDAO;
 import dao.HistoricoAcaoDAO;
 import dao.StatusDAO;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -269,6 +270,11 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         lblIDConservacao.setText("ID");
 
         tdfDescricaoConservacao.setEnabled(false);
+        tdfDescricaoConservacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tdfDescricaoConservacaoKeyPressed(evt);
+            }
+        });
 
         btnNovoStatus.setText("Novo");
         btnNovoStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -311,8 +317,18 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 btnSalvarStatusActionPerformed(evt);
             }
         });
+        btnSalvarStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarStatusKeyPressed(evt);
+            }
+        });
 
         tfdDescricaoStatus.setEnabled(false);
+        tfdDescricaoStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdDescricaoStatusKeyPressed(evt);
+            }
+        });
 
         lblDescricaoStatus.setText("Descrição");
 
@@ -325,6 +341,11 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         btnSalvarConservacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarConservacaoActionPerformed(evt);
+            }
+        });
+        btnSalvarConservacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarConservacaoKeyPressed(evt);
             }
         });
 
@@ -713,6 +734,136 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         preparaSalvareCancelarStatus();
         desativaCamposStatus();
     }//GEN-LAST:event_btnCancelarStatusActionPerformed
+
+    private void tdfDescricaoConservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tdfDescricaoConservacaoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarConservacao.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tdfDescricaoConservacaoKeyPressed
+
+    private void btnSalvarConservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarConservacaoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             if (tdfDescricaoConservacao.getText().isEmpty()) {
+                 JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
+                 tdfDescricaoConservacao.requestFocusInWindow();
+             } else if (tfdIDConservacao.getText().isEmpty()) {
+                 grauConservacao = new GrauConservacaoM();
+                 grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
+
+                 try {
+                     idHistorico = grauConservacaoDAO.salvar(grauConservacao);
+                     acao = "Novo Grau Conservação";
+                     descricaoHistorico = grauConservacao.getDescricao();
+                     salvaHistorico();
+                     JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                     atualizaTabelaConservacao();
+                     preparaSalvareCancelarConservacao();
+                     desativaCamposConservacao();
+                     limpaCamposConservacao();
+                 } catch (SQLException ex) {
+                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                     if (ex.getErrorCode() == 1062) {
+                         JOptionPane.showMessageDialog(null, "Conservacao já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                     } else {
+                         JOptionPane.showMessageDialog(null, ex.getMessage());
+                     }
+                 }
+
+             } else {
+
+                 grauConservacao = new GrauConservacaoM();
+                 grauConservacao.setDescricao(tdfDescricaoConservacao.getText());
+                 grauConservacao.setId(Integer.parseInt(tfdIDConservacao.getText()));
+
+                 try {
+                     idHistorico = grauConservacao.getId();
+                     acao = "Alterar Grau de Conservação";
+                     descricaoHistorico = grauConservacao.getDescricao();
+                     salvaHistorico();
+                     grauConservacaoDAO.alterar(grauConservacao);
+                     JOptionPane.showMessageDialog(null, "Conservação alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                     atualizaTabelaConservacao();
+                     preparaSalvareCancelarConservacao();
+                     desativaCamposConservacao();
+                     limpaCamposConservacao();
+                 } catch (SQLException ex) {
+                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                     if (ex.getErrorCode() == 1062) {
+                         JOptionPane.showMessageDialog(null, "Conservacao já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                     } else {
+                         JOptionPane.showMessageDialog(null, ex.getMessage());
+                     }
+                 }
+             }
+
+        }
+    }//GEN-LAST:event_btnSalvarConservacaoKeyPressed
+
+    private void tfdDescricaoStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoStatusKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarStatus.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdDescricaoStatusKeyPressed
+
+    private void btnSalvarStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarStatusKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             if (tfdDescricaoStatus.getText().isEmpty()) {
+                 JOptionPane.showMessageDialog(null, "Preencha Todos os campos!", "Erro", JOptionPane.WARNING_MESSAGE);
+                 tfdDescricaoStatus.requestFocusInWindow();
+             } else if (tfdIDStatus.getText().isEmpty()) {
+                 status = new StatusM();
+                 status.setNome(tfdDescricaoStatus.getText());
+
+                 try {
+                     idHistorico = statusDAO.salvar(status);
+                     acao = "Novo Status";
+                     descricaoHistorico = status.getNome();
+                     salvaHistorico();
+                     JOptionPane.showMessageDialog(null, "Gravado com Sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                     atualizaTabelaStatus();
+                     preparaSalvareCancelarStatus();
+                     desativaCamposStatus();
+                     limpaCamposStatus();
+                 } catch (SQLException ex) {
+                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                     if (ex.getErrorCode() == 1062) {
+                         JOptionPane.showMessageDialog(null, "Status já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                     } else {
+                         JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                     }
+                 }
+
+             } else {
+                 status = new StatusM();
+                 status.setNome(tfdDescricaoStatus.getText());
+                 status.setId(Integer.parseInt(tfdIDStatus.getText()));
+                 try {
+                     idHistorico = status.getId();
+                     acao = "Alterar Status";
+                     descricaoHistorico = status.getNome();
+                     salvaHistorico();
+                     statusDAO.alterar(status);
+                     JOptionPane.showMessageDialog(null, "Status alterado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                     atualizaTabelaStatus();
+                     preparaSalvareCancelarStatus();
+                     desativaCamposStatus();
+                     limpaCamposStatus();
+                 } catch (SQLException ex) {
+                     Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                     if (ex.getErrorCode() == 1062) {
+                         JOptionPane.showMessageDialog(null, "Status já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                     } else {
+                         JOptionPane.showMessageDialog(null, ex.getMessage());
+                     }
+                 }
+
+             }
+        }
+    }//GEN-LAST:event_btnSalvarStatusKeyPressed
 
     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES CONSERVAÇÃO
     

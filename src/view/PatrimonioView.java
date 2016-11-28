@@ -253,6 +253,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 cbxBlocoActionPerformed(evt);
             }
         });
+        cbxBloco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxBlocoKeyPressed(evt);
+            }
+        });
 
         lblSelecPiso.setText("Selecione o piso:");
 
@@ -262,11 +267,21 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 cbxPisoActionPerformed(evt);
             }
         });
+        cbxPiso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxPisoKeyPressed(evt);
+            }
+        });
 
         cbxOrgao.setEnabled(false);
         cbxOrgao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxOrgaoActionPerformed(evt);
+            }
+        });
+        cbxOrgao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxOrgaoKeyPressed(evt);
             }
         });
 
@@ -285,11 +300,21 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdDescricaoPatrimonio.setEnabled(false);
         tfdDescricaoPatrimonio.setMinimumSize(new java.awt.Dimension(6, 25));
         tfdDescricaoPatrimonio.setPreferredSize(new java.awt.Dimension(6, 25));
+        tfdDescricaoPatrimonio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdDescricaoPatrimonioKeyPressed(evt);
+            }
+        });
 
         cbxSala.setEnabled(false);
         cbxSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxSalaActionPerformed(evt);
+            }
+        });
+        cbxSala.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxSalaKeyPressed(evt);
             }
         });
 
@@ -301,8 +326,23 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 cbxConservacaoActionPerformed(evt);
             }
         });
+        cbxConservacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxConservacaoKeyPressed(evt);
+            }
+        });
 
         cbxStatus.setEnabled(false);
+        cbxStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxStatusActionPerformed(evt);
+            }
+        });
+        cbxStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxStatusKeyPressed(evt);
+            }
+        });
 
         btnExcluirPatrimonio.setText("Dar Baixa");
         btnExcluirPatrimonio.setEnabled(false);
@@ -317,6 +357,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         btnSalvarPatrimonio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarPatrimonioActionPerformed(evt);
+            }
+        });
+        btnSalvarPatrimonio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarPatrimonioKeyPressed(evt);
             }
         });
 
@@ -348,10 +393,25 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 cbxTipoActionPerformed(evt);
             }
         });
+        cbxTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxTipoKeyPressed(evt);
+            }
+        });
 
         lblSelecSubtipo.setText("Selecione a Subtipo:");
 
         cbxSubtipo.setEnabled(false);
+        cbxSubtipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxSubtipoActionPerformed(evt);
+            }
+        });
+        cbxSubtipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxSubtipoKeyPressed(evt);
+            }
+        });
 
         lblStatus.setText("Status");
 
@@ -368,11 +428,21 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         lblNotaFiscal.setText("Nota Fiscal");
 
         tfdNotaFiscalPatrimonio.setEnabled(false);
+        tfdNotaFiscalPatrimonio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdNotaFiscalPatrimonioKeyPressed(evt);
+            }
+        });
 
         cbxUnidade.setEnabled(false);
         cbxUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxUnidadeActionPerformed(evt);
+            }
+        });
+        cbxUnidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxUnidadeKeyPressed(evt);
             }
         });
 
@@ -384,6 +454,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
         tfdCodigoPatrimonio.setEnabled(false);
         tfdCodigoPatrimonio.setPreferredSize(new java.awt.Dimension(6, 25));
+        tfdCodigoPatrimonio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdCodigoPatrimonioKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -512,6 +587,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 btnSalvarPatrimonioCompostoActionPerformed(evt);
             }
         });
+        btnSalvarPatrimonioComposto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarPatrimonioCompostoKeyPressed(evt);
+            }
+        });
 
         btnAlterarPatrimonioComposto.setText("Alterar");
         btnAlterarPatrimonioComposto.setEnabled(false);
@@ -536,9 +616,24 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         });
 
         cbxStatusPatrimonioComposto.setEnabled(false);
+        cbxStatusPatrimonioComposto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxStatusPatrimonioCompostoActionPerformed(evt);
+            }
+        });
+        cbxStatusPatrimonioComposto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxStatusPatrimonioCompostoKeyPressed(evt);
+            }
+        });
 
         tfdDescricaoPatrimonioComposto.setEnabled(false);
         tfdDescricaoPatrimonioComposto.setPreferredSize(new java.awt.Dimension(6, 25));
+        tfdDescricaoPatrimonioComposto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdDescricaoPatrimonioCompostoKeyPressed(evt);
+            }
+        });
 
         lblGrauConservacao1.setText("Grau de Conservação");
 
@@ -552,6 +647,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxConservacaoPatrimonioComposto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxConservacaoPatrimonioCompostoActionPerformed(evt);
+            }
+        });
+        cbxConservacaoPatrimonioComposto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                cbxConservacaoPatrimonioCompostoKeyPressed(evt);
             }
         });
 
@@ -1067,6 +1167,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 cbxSubtipo.addItem("--Selecione--");
             }
         }
+
     }//GEN-LAST:event_cbxTipoActionPerformed
 
     private void btnNovoPatrimonioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoPatrimonioActionPerformed
@@ -1283,6 +1384,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     private void cbxOrgaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxOrgaoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbxOrgaoActionPerformed
 
     private void ckxPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ckxPatrimonioCompostoActionPerformed
@@ -1291,6 +1393,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     private void cbxSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSalaActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbxSalaActionPerformed
 
     private void cbxPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxPisoActionPerformed
@@ -1314,6 +1417,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 cbxPiso.addItem("--Selecione--");
             }
         }
+        
     }//GEN-LAST:event_cbxPisoActionPerformed
 
     private void cbxBlocoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxBlocoActionPerformed
@@ -1336,7 +1440,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 cbxPiso.addItem("--Selecione--");
             }
         }
-
     }//GEN-LAST:event_cbxBlocoActionPerformed
 
     private void cbxUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxUnidadeActionPerformed
@@ -1359,6 +1462,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 Logger.getLogger(PisoView.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+      
 
     }//GEN-LAST:event_cbxUnidadeActionPerformed
 
@@ -1435,6 +1539,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
 
     private void cbxConservacaoPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxConservacaoPatrimonioCompostoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbxConservacaoPatrimonioCompostoActionPerformed
 
     private void tfdIDCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfdIDCompostoActionPerformed
@@ -1798,6 +1903,306 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         }
         }
     }//GEN-LAST:event_tfdFiltroBuscaKeyPressed
+
+    private void tfdCodigoPatrimonioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdCodigoPatrimonioKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxBloco.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdCodigoPatrimonioKeyPressed
+
+    private void tfdDescricaoPatrimonioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoPatrimonioKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxPiso.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdDescricaoPatrimonioKeyPressed
+
+    private void cbxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStatusActionPerformed
+
+
+    }//GEN-LAST:event_cbxStatusActionPerformed
+
+    private void tfdNotaFiscalPatrimonioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNotaFiscalPatrimonioKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxSubtipo.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdNotaFiscalPatrimonioKeyPressed
+
+    private void cbxSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSubtipoActionPerformed
+
+    }//GEN-LAST:event_cbxSubtipoActionPerformed
+
+    private void btnSalvarPatrimonioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarPatrimonioKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (tfdDescricaoPatrimonio.getText().isEmpty() || tfdCodigoPatrimonio.getText().isEmpty() || tfdNotaFiscalPatrimonio.getText().isEmpty() || cbxSala.getSelectedIndex() == 0 || cbxConservacao.getSelectedIndex() == 0 || cbxOrgao.getSelectedIndex() == 0 || cbxStatus.getSelectedIndex() == 0 || cbxSubtipo.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
+                tfdDescricaoPatrimonio.requestFocusInWindow();
+            } else if (tfdIDPatrimonio.getText().isEmpty()) {
+                //Se estiver o campo ID estiver vazio siginifica que será um novo objeto.
+                patrimonio = new PatrimonioM();
+                patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
+                patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
+                patrimonio.setEntidade(pegaEntidade());
+                patrimonio.setGrau_conservacao(pegaGrau(cbxConservacao.getSelectedItem().toString()));
+                patrimonio.setNotaFiscal(tfdNotaFiscalPatrimonio.getText());
+                patrimonio.setSala(pegaSala());
+                patrimonio.setStatus(pegaStatus(cbxStatus.getSelectedItem().toString()));
+                patrimonio.setSubTipo(pegaSubtipo());
+                patrimonio.setKit(ckxPatrimonioComposto.isSelected());
+                try {
+                    //Recebe o ultimo ID gerado
+                    ultimoID = patrimonioDAO.salvar(patrimonio);
+                    auxPatrimonio = patrimonioDAO.busca(ultimoID);
+
+                    idHistorico = ultimoID;
+                    acao = "Novo Patrimonio";
+                    descricaoHistorico = patrimonio.getDescricao();
+                    salvaHistorico();
+                    // a partir daqui tem que liberar a tela do composto
+                    if (ckxPatrimonioComposto.isSelected()) {
+                        preparaSalvareCancelar();
+                        salvarMantendoInformacoes();
+                        pnlPatrimonioComposto.setVisible(true);
+                        tfdIDPatrimonio.setText("" + ultimoID);
+                        iniciaComposto();
+                        JOptionPane.showMessageDialog(null, "Cadastre os itens do kit", "Cadastro de Kit", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Patrimônio cadastrado com sucesso..", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        preparaSalvareCancelar();
+                        salvarMantendoInformacoes();
+                    }
+                    //atualizaTabelaPatrimonio(inicio);
+                    limpaCamposPatrimonio();
+                    //limpa a busca
+                    inicio = 0;
+                    atualizaTabelaPatrimonio(inicio);
+                    cbxFiltro.setSelectedIndex(0);
+                    tfdFiltroBusca.setText("");
+                    btnAnterior.setEnabled(false);
+                    btnProximo.setEnabled(true);
+
+                    try {
+                        validaQuantidade();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex.getErrorCode() == 1062) {
+                        JOptionPane.showMessageDialog(null, "Patrimônio já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            } else {
+                int auxID = Integer.parseInt(tfdIDPatrimonio.getText());
+                //Se for uma situação de alteração ele vai pegar o ID do patrimonio direto do textfield
+                try {
+
+                    //cria o auxiliar a partir do ID
+                    auxPatrimonio = patrimonioDAO.busca(auxID);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                //Se o campo ID não estiver vazio trata-se de uma alteração
+                patrimonio = new PatrimonioM();
+                patrimonio.setId(Integer.parseInt(tfdIDPatrimonio.getText()));
+                patrimonio.setDescricao(tfdDescricaoPatrimonio.getText());
+                patrimonio.setCodigo(tfdCodigoPatrimonio.getText());
+                patrimonio.setNotaFiscal(tfdNotaFiscalPatrimonio.getText());
+                try {
+                    patrimonio.setGrau_conservacao(grauDAO.buscaNome(cbxConservacao.getSelectedItem().toString()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    patrimonio.setStatus(statusDAO.buscaNome(cbxStatus.getSelectedItem().toString()));
+                } catch (SQLException ex) {
+                    Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                patrimonio.setKit(ckxPatrimonioComposto.isSelected());
+
+                try {
+
+                    idHistorico = patrimonio.getId();
+                    acao = "Alterar Patrimonio";
+                    descricaoHistorico = patrimonio.getDescricao();
+                    salvaHistorico();
+
+                    patrimonioDAO.alterar(patrimonio);
+                    JOptionPane.showMessageDialog(null, "Patrimônio atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    desativaCampos();
+                    preparaSalvareCancelar();
+                    limpaCamposPatrimonio();
+                    if (cont == 0) {
+                        atualizaTabelaPatrimonio(inicio);
+                    } else if (cont == 1) {
+                        listaPatrimonio = patrimonioDAO.buscaPatrimonio100(tfdFiltroBusca.getText(), inicio);
+                        atualizaTabelaBusca();
+                    } else if (cont == 2) {
+                        listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
+                        atualizaTabelaBusca();
+                    }
+                    //atualizaTabelaPatrimonio(inicio);
+
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex.getErrorCode() == 1062) {
+                        JOptionPane.showMessageDialog(null, "Patrimônio já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_btnSalvarPatrimonioKeyPressed
+
+    private void tfdDescricaoPatrimonioCompostoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdDescricaoPatrimonioCompostoKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxConservacaoPatrimonioComposto.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdDescricaoPatrimonioCompostoKeyPressed
+
+    private void cbxStatusPatrimonioCompostoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStatusPatrimonioCompostoActionPerformed
+
+      
+    }//GEN-LAST:event_cbxStatusPatrimonioCompostoActionPerformed
+
+    private void btnSalvarPatrimonioCompostoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarPatrimonioCompostoKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String status, conservacao;
+            if (tfdDescricaoPatrimonioComposto.getText().isEmpty() || cbxConservacaoPatrimonioComposto.getSelectedIndex() == 0 || cbxStatusPatrimonioComposto.getSelectedIndex() == 0) {
+                JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
+                tfdDescricaoPatrimonioComposto.requestFocusInWindow();
+            } else if (tfdIDComposto.getText().isEmpty()) {
+                status = cbxStatusPatrimonioComposto.getSelectedItem().toString();
+                conservacao = cbxConservacaoPatrimonioComposto.getSelectedItem().toString();
+                patComposto = new PatrimonioCompostoM();
+                patComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
+                patComposto.setGrau(pegaGrau(conservacao));
+                patComposto.setStatus(pegaStatus(status));
+                patComposto.setPatrimonio(auxPatrimonio);
+                try {
+                    patrimonioCompostoDAO.salvar(patComposto);
+                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage());
+                }
+                preparaSalvarCancelarComposto();
+                desativaCamposComposto();
+                atualizaTabelaCompostoExistente();
+                limpaCamposComposto();
+
+            } else {
+                status = cbxStatusPatrimonioComposto.getSelectedItem().toString();
+                conservacao = cbxConservacaoPatrimonioComposto.getSelectedItem().toString();
+
+                patComposto = new PatrimonioCompostoM();
+                patComposto.setId(Integer.parseInt(tfdIDComposto.getText()));
+                patComposto.setDescricao(tfdDescricaoPatrimonioComposto.getText());
+                patComposto.setGrau(pegaGrau(conservacao));
+                patComposto.setStatus(pegaStatus(status));
+                patComposto.setPatrimonio(auxPatrimonio);
+                try {
+                    patrimonioCompostoDAO.alterar(patComposto);
+                    JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PatrimonioView.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                preparaSalvarCancelarComposto();
+                desativaCamposComposto();
+                atualizaTabelaCompostoExistente();
+                limpaCamposComposto();
+            }
+        }
+    }//GEN-LAST:event_btnSalvarPatrimonioCompostoKeyPressed
+
+    private void cbxUnidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxUnidadeKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdCodigoPatrimonio.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxUnidadeKeyPressed
+
+    private void cbxBlocoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxBlocoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdDescricaoPatrimonio.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxBlocoKeyPressed
+
+    private void cbxPisoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxPisoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxConservacao.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxPisoKeyPressed
+
+    private void cbxConservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxConservacaoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxSala.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxConservacaoKeyPressed
+
+    private void cbxSalaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxSalaKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxStatus.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxSalaKeyPressed
+
+    private void cbxStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxStatusKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxTipo.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxStatusKeyPressed
+
+    private void cbxTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxTipoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdNotaFiscalPatrimonio.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxTipoKeyPressed
+
+    private void cbxSubtipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxSubtipoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxOrgao.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxSubtipoKeyPressed
+
+    private void cbxOrgaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxOrgaoKeyPressed
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarPatrimonio.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxOrgaoKeyPressed
+
+    private void cbxConservacaoPatrimonioCompostoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxConservacaoPatrimonioCompostoKeyPressed
+
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            cbxStatusPatrimonioComposto.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxConservacaoPatrimonioCompostoKeyPressed
+
+    private void cbxStatusPatrimonioCompostoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxStatusPatrimonioCompostoKeyPressed
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvarPatrimonioComposto.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_cbxStatusPatrimonioCompostoKeyPressed
 
     public OrgaoM pegaEntidade() {
         try {

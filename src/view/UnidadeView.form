@@ -193,6 +193,9 @@
           <Properties>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfdEmailKeyPressed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAlterarUnidade">
           <Properties>
@@ -210,6 +213,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnSalvarKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblIDUnidade">
@@ -234,6 +238,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfdNomeActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfdNomeKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblTelefoneUnidade">
@@ -247,6 +252,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfdTelefoneActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfdTelefoneKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblEnderecoUnidade">
@@ -260,6 +266,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfdEnderecoActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfdEnderecoKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnNovo">

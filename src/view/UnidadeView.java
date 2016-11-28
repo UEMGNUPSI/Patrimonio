@@ -7,6 +7,7 @@ package view;
 
 import dao.HistoricoAcaoDAO;
 import dao.UnidadeDAO;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -124,6 +125,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         lblEmail.setText("E-mail");
 
         tfdEmail.setEnabled(false);
+        tfdEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdEmailKeyPressed(evt);
+            }
+        });
 
         btnAlterarUnidade.setText("Alterar");
         btnAlterarUnidade.setEnabled(false);
@@ -140,6 +146,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarKeyPressed(evt);
+            }
+        });
 
         lblIDUnidade.setText("ID");
 
@@ -154,6 +165,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 tfdNomeActionPerformed(evt);
             }
         });
+        tfdNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdNomeKeyPressed(evt);
+            }
+        });
 
         lblTelefoneUnidade.setText("Telefone ");
 
@@ -163,6 +179,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 tfdTelefoneActionPerformed(evt);
             }
         });
+        tfdTelefone.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdTelefoneKeyPressed(evt);
+            }
+        });
 
         lblEnderecoUnidade.setText("Endereço");
 
@@ -170,6 +191,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         tfdEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfdEnderecoActionPerformed(evt);
+            }
+        });
+        tfdEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfdEnderecoKeyPressed(evt);
             }
         });
 
@@ -419,6 +445,101 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         preparaAlterar();
         ativaCampos();
     }//GEN-LAST:event_btnAlterarUnidadeActionPerformed
+
+    private void tfdNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdNomeKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdTelefone.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdNomeKeyPressed
+
+    private void tfdTelefoneKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdTelefoneKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdEndereco.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdTelefoneKeyPressed
+
+    private void tfdEnderecoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdEnderecoKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            tfdEmail.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdEnderecoKeyPressed
+
+    private void tfdEmailKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfdEmailKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            btnSalvar.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tfdEmailKeyPressed
+
+    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (tfdNome.getText().isEmpty() || tfdEmail.getText().isEmpty() || tfdEndereco.getText().isEmpty() || tfdTelefone.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
+            tfdNome.requestFocusInWindow();
+            } else if (tfdID.getText().isEmpty()) {
+                unidade = new UnidadeM();
+                unidade.setNome(tfdNome.getText());
+                unidade.setTelefone(tfdTelefone.getText());
+                unidade.setEndereco(tfdEndereco.getText());
+                unidade.setEmail(tfdEmail.getText());
+                try {
+                    idHistorico = unidadeDAO.salvar(unidade);
+                    acao = "Novo Unidade";
+                    descricaoHistorico = unidade.getNome();
+                    salvaHistorico();
+                    JOptionPane.showMessageDialog(null, "Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    atualizaTabelaUnidade();
+                    preparaSalvareCancelar();
+                    desativaCampos();
+                    LimpaCamposUnidade();
+                } catch (SQLException ex) {
+                    Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                    if (ex.getErrorCode() == 1062) {
+                        JOptionPane.showMessageDialog(null, "Unidade já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+
+                    } else {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+            }else {
+                if (tfdID.getText().isEmpty()){
+                    JOptionPane.showMessageDialog(null, " Selecione uma Unidade!", "Erro", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    unidade = new UnidadeM();
+                    unidade.setId(Integer.parseInt(tfdID.getText()));
+                    unidade.setNome(tfdNome.getText());
+                    unidade.setTelefone(tfdTelefone.getText());
+                    unidade.setEndereco(tfdEndereco.getText());
+                    unidade.setEmail(tfdEmail.getText());
+                    try {
+                        idHistorico = unidade.getId();
+                        acao = "Alterar Unidade";
+                        descricaoHistorico = unidade.getNome();
+                        salvaHistorico();
+                        unidadeDAO.alterar(unidade);
+                        JOptionPane.showMessageDialog(null, "Alterado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        preparaSalvareCancelar();
+                        LimpaCamposUnidade();
+                        desativaCampos();
+                    } catch (SQLException ex){
+                        if (ex.getErrorCode() == 1062) {
+                            JOptionPane.showMessageDialog(null, "Unidade já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+
+                        } else {
+                            Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+
+                    }
+                }
+            }
+            atualizaTabelaUnidade();
+            
+        }
+    }//GEN-LAST:event_btnSalvarKeyPressed
     
     public void salvaHistorico() throws SQLException{
         HistoricoAcaoM historico = new HistoricoAcaoM();
