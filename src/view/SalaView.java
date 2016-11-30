@@ -144,6 +144,7 @@ public class SalaView extends javax.swing.JInternalFrame {
         historico.setAcao(acao);
         historico.setDataAcao(new Date(System.currentTimeMillis()));
         historico.setUsuario(usuarioAtivo);
+        historico.setCodigo("");
         
         HistoricoAcaoDAO.salvar(historico);
     }

@@ -65,6 +65,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
     String acao;
     String descricaoHistorico;
     UsuarioM usuarioAtivo;
+    String codigoHistorico = null;
     
     public void atualizaTabelaConservacao() {
 
@@ -150,6 +151,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         historico.setAcao(acao);
         historico.setDataAcao(new Date(System.currentTimeMillis()));
         historico.setUsuario(usuarioAtivo);
+        historico.setCodigo("");
         
         HistoricoAcaoDAO.salvar(historico);
     }
@@ -519,7 +521,7 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 atualizaTabelaConservacao();
                 preparaSalvareCancelarConservacao();
                 desativaCamposConservacao();
-            limpaCamposConservacao(); 
+                limpaCamposConservacao(); 
             } catch (SQLException ex) {
                 Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
                 if (ex.getErrorCode() == 1062) {

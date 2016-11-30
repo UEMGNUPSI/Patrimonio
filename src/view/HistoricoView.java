@@ -73,6 +73,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         //atualizaTabelaHistorico100(inicio);
         listaHistorico = historicoAcaoDAO.lista100(inicio);
         atualizaTabelaHistorico();
+        quantMax = historicoAcaoDAO.quantidadeTodos();
         validaQuantidadeTodos();
     } 
     
@@ -99,7 +100,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             
             i++;
         }
-        String tituloColuna[] = {"Data", "Descrição", "Código", "Ação", "Usuário","Sequencia"};
+        String tituloColuna[] = {"Data", "Descrição", "Código", "Ação", "Usuário","Indice"};
         DefaultTableModel tabelaCliente = new DefaultTableModel();
         
         tabelaCliente.setDataVector(dados, tituloColuna);
@@ -114,16 +115,17 @@ public class HistoricoView extends javax.swing.JInternalFrame {
             }
         });
         tbeHistorico.getColumnModel().getColumn(0).setPreferredWidth(80);
-        tbeHistorico.getColumnModel().getColumn(1).setPreferredWidth(120);
-        tbeHistorico.getColumnModel().getColumn(2).setPreferredWidth(120);
-        tbeHistorico.getColumnModel().getColumn(3).setPreferredWidth(120);
-        tbeHistorico.getColumnModel().getColumn(4).setPreferredWidth(30);
+        tbeHistorico.getColumnModel().getColumn(1).setPreferredWidth(110);
+        tbeHistorico.getColumnModel().getColumn(2).setPreferredWidth(110);
+        tbeHistorico.getColumnModel().getColumn(3).setPreferredWidth(110);
+        tbeHistorico.getColumnModel().getColumn(4).setPreferredWidth(110);
+        tbeHistorico.getColumnModel().getColumn(5).setPreferredWidth(50);
         
 
         DefaultTableCellRenderer centralizado = new DefaultTableCellRenderer();
         centralizado.setHorizontalAlignment(SwingConstants.CENTER);
         tbeHistorico.getColumnModel().getColumn(0).setCellRenderer(centralizado);
-        tbeHistorico.getColumnModel().getColumn(4).setCellRenderer(centralizado);
+        tbeHistorico.getColumnModel().getColumn(5).setCellRenderer(centralizado);
         tbeHistorico.setRowHeight(25);
         tbeHistorico.updateUI();
         
@@ -167,6 +169,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         cbxAcoes.setSelectedIndex(0);
         tfdDescricao.setText("");
         listaHistorico = null;
+        tfdCodigo.setText("");
     }
     
     
@@ -186,14 +189,14 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         jPanel2 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        cbxUsuario = new javax.swing.JComboBox<String>();
+        cbxUsuario = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         tfdPeriodoInicio = new javax.swing.JFormattedTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         tfdPeriodoFim = new javax.swing.JFormattedTextField();
         jLabel6 = new javax.swing.JLabel();
-        cbxAcoes = new javax.swing.JComboBox<String>();
+        cbxAcoes = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         tfdDescricao = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
@@ -492,7 +495,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         if(qntCampos == 0){
             listaHistorico = historicoAcaoDAO.lista100(inicio);
         }else{
-             //listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos, inicio);
+             listaHistorico = historicoAcaoDAO.buscaNova100(infoHistorico, dataIni, dataF, inicio);
         }
        
         atualizaTabelaHistorico();
@@ -519,7 +522,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         if(qntCampos == 0){
             listaHistorico = historicoAcaoDAO.lista100(inicio);
         }else{
-             //listaHistorico = historicoAcaoDAO.buscaConcatenada(infoHistorico, dataIni, dataF, qntCampos, combCampos,inicio);
+             listaHistorico = historicoAcaoDAO.buscaNova100(infoHistorico, dataIni, dataF, inicio);
         }
         atualizaTabelaHistorico();
         btnProximo.setEnabled(true);
@@ -541,13 +544,6 @@ public class HistoricoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnAnteriorActionPerformed
     
     public void validaQuantidadeTodos() throws SQLException{
-        if(qntCampos == 0){
-            //this.quantMax = historicoAcaoDAO.buscaQuantidade();
-        }else{
-            
-        
-            //this.quantMax = historicoAcaoDAO.buscaQuantidadeBusca(pegaInfoFiltros(), dataIni, dataF, qntCampos, combCampos);
-         }
         pagAtual = 1;
         
         if(quantMax > 100){
@@ -575,21 +571,24 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         if (cbxUsuario.getSelectedIndex() != 0)
         {
             qntCampos++;
-            combCampos = combCampos + 2;
+            //combCampos = combCampos + 2;
         }
         if (!tfdPeriodoInicio.getText().equals("  /  /    ") && !tfdPeriodoFim.getText().equals("  /  /    "))
         {
             qntCampos++;
-            combCampos = combCampos + 3;
+            //combCampos = combCampos + 3;
         }
         if (cbxAcoes.getSelectedIndex() != 0)
         {
             qntCampos++;
-            combCampos = combCampos + 5;
+            //combCampos = combCampos + 5;
         }
         if (!tfdDescricao.getText().isEmpty()){
             qntCampos++;
-            combCampos = combCampos + 7;
+            //combCampos = combCampos + 7;
+        }
+        if(!tfdCodigo.getText().isEmpty()){
+            qntCampos++;
         }
    
     }
@@ -603,10 +602,14 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         
         if(cbxAcoes.getSelectedIndex() != 0){
             infoHistorico.setAcao(cbxAcoes.getSelectedItem().toString());
+        }else{
+            infoHistorico.setAcao("");
         }
         
         if(!tfdDescricao.getText().isEmpty()){
             infoHistorico.setTipoObjeto(tfdDescricao.getText());
+        }else{
+            infoHistorico.setTipoObjeto("");
         }
         
         if(!tfdPeriodoInicio.getText().equals("  /  /    ")){
@@ -633,7 +636,23 @@ public class HistoricoView extends javax.swing.JInternalFrame {
                     Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }   
+        }else{
+            String dataInicio = "01/01/2000"; //para nao ter problemas com data, setamos uma data antiga
+            try {
+                dataIni = new Date(sdf.parse(dataInicio).getTime());
+                dataF = new Date(System.currentTimeMillis());
+            } catch (ParseException ex) {
+                Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        
+        if(!tfdCodigo.getText().equals("")){
+            infoHistorico.setCodigo(tfdCodigo.getText());
+        }else{
+            infoHistorico.setCodigo("");
+        }
+        
+        
 
         return infoHistorico;
     }
@@ -656,10 +675,12 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         if (qntCampos == 0){
             try {
                 listaHistorico = historicoAcaoDAO.lista100(inicio);
+                quantMax = historicoAcaoDAO.quantidadeTodos();
                 validaQuantidadeTodos();
                 atualizaTabelaHistorico();
                 limpaCampos();
                 listaHistorico = null;
+                
             } catch (SQLException ex) {
                 Logger.getLogger(HistoricoView.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -668,6 +689,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         {
             try {
                 listaHistorico = historicoAcaoDAO.buscaNova100(infoHistorico, dataIni, dataF, inicio);
+                quantMax = historicoAcaoDAO.buscaQuantidade(infoHistorico, dataIni, dataF, inicio);
                 validaQuantidadeTodos();
                 atualizaTabelaHistorico();
                 limpaCampos();

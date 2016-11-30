@@ -99,6 +99,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
     String acao;
     String descricaoHistorico;
     UsuarioM usuarioAtivo;
+    String codigoHistorico;
     
 //AUXILIARES
     int inicio = 0, quantMax, pagAtual, pagUltima;
@@ -1056,7 +1057,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         historico.setAcao(acao);
         historico.setDataAcao(new Date(System.currentTimeMillis()));
         historico.setUsuario(usuarioAtivo);
-        
+        historico.setCodigo(codigoHistorico);
         HistoricoAcaoDAO.salvar(historico);
     }
     
@@ -1217,6 +1218,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 idHistorico = ultimoID;
                 acao = "Novo Patrimonio";
                 descricaoHistorico = patrimonio.getDescricao();
+                codigoHistorico = patrimonio.getCodigo();
                 salvaHistorico();
                 // a partir daqui tem que liberar a tela do composto
                 if (ckxPatrimonioComposto.isSelected())
