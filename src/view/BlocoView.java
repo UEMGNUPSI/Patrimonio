@@ -157,6 +157,11 @@ public class BlocoView extends javax.swing.JInternalFrame {
                 btnNovoBlocoActionPerformed(evt);
             }
         });
+        btnNovoBloco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoBlocoKeyPressed(evt);
+            }
+        });
 
         cbxUnidade.setEnabled(false);
         cbxUnidade.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +186,11 @@ public class BlocoView extends javax.swing.JInternalFrame {
         btnCancelarBloco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarBlocoActionPerformed(evt);
+            }
+        });
+        btnCancelarBloco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarBlocoKeyPressed(evt);
             }
         });
 
@@ -518,6 +528,26 @@ public class BlocoView extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_cbxUnidadeKeyPressed
+
+    private void btnNovoBlocoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoBlocoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposBloco();
+            preparaNovo();
+            ativaCampos();
+            cbxUnidade.requestFocusInWindow();
+        }
+        
+    }//GEN-LAST:event_btnNovoBlocoKeyPressed
+
+    private void btnCancelarBlocoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarBlocoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposBloco();
+            preparaSalvareCancelar();
+            desativaCampos();
+        }
+    }//GEN-LAST:event_btnCancelarBlocoKeyPressed
     
       public UnidadeM pegaUnidade() {
         try {
