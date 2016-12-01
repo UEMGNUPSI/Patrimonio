@@ -411,6 +411,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoPatrimonioActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnNovoPatrimonioKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblID">
@@ -476,6 +477,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarPatrimonioActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnCancelarPatrimonioKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSelecUnidade">
@@ -655,6 +657,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoPatrimonioCompostoActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnNovoPatrimonioCompostoKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfdIDComposto">
@@ -733,6 +736,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarPatrimonioCompostoActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnCancelarPatrimonioCompostoKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnExcluirPatrimonioComposto">

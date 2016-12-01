@@ -380,6 +380,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 btnNovoPatrimonioActionPerformed(evt);
             }
         });
+        btnNovoPatrimonio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoPatrimonioKeyPressed(evt);
+            }
+        });
 
         lblID.setText("ID");
 
@@ -421,6 +426,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         btnCancelarPatrimonio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarPatrimonioActionPerformed(evt);
+            }
+        });
+        btnCancelarPatrimonio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarPatrimonioKeyPressed(evt);
             }
         });
 
@@ -608,6 +618,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 btnNovoPatrimonioCompostoActionPerformed(evt);
             }
         });
+        btnNovoPatrimonioComposto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoPatrimonioCompostoKeyPressed(evt);
+            }
+        });
 
         tfdIDComposto.setEnabled(false);
         tfdIDComposto.addActionListener(new java.awt.event.ActionListener() {
@@ -661,6 +676,11 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         btnCancelarPatrimonioComposto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarPatrimonioCompostoActionPerformed(evt);
+            }
+        });
+        btnCancelarPatrimonioComposto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarPatrimonioCompostoKeyPressed(evt);
             }
         });
 
@@ -2206,6 +2226,48 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
             btnSalvarPatrimonioComposto.requestFocusInWindow();
         }
     }//GEN-LAST:event_cbxStatusPatrimonioCompostoKeyPressed
+
+    private void btnNovoPatrimonioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoPatrimonioKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            preparaNovo();
+            ativaCamposNovo();
+            tfdCodigoPatrimonio.setText("");
+            tfdIDPatrimonio.setText("");
+            cbxUnidade.requestFocusInWindow();
+            //tfdCodigoPatrimonio.requestFocusInWindow();  
+            pnlPatrimonioComposto.setVisible(false);
+        }
+    }//GEN-LAST:event_btnNovoPatrimonioKeyPressed
+
+    private void btnCancelarPatrimonioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarPatrimonioKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposPatrimonio();
+            preparaSalvareCancelar();
+            desativaCampos();      
+        }
+    }//GEN-LAST:event_btnCancelarPatrimonioKeyPressed
+
+    private void btnNovoPatrimonioCompostoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoPatrimonioCompostoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposComposto();
+            ativaCamposComposto();
+            preparaNovoComposto();
+            tfdDescricaoPatrimonioComposto.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_btnNovoPatrimonioCompostoKeyPressed
+
+    private void btnCancelarPatrimonioCompostoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarPatrimonioCompostoKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposComposto();
+            preparaSalvarCancelarComposto();
+            desativaCamposComposto();
+        }
+        
+    }//GEN-LAST:event_btnCancelarPatrimonioCompostoKeyPressed
 
     public OrgaoM pegaEntidade() {
         try {
