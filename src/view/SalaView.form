@@ -220,6 +220,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoSalaActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnNovoSalaKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tfdDescricaoSala">
@@ -311,6 +312,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarSalaActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnCancelarSalaKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnExcluirSala">

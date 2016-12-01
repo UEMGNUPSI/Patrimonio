@@ -233,6 +233,11 @@ public class SalaView extends javax.swing.JInternalFrame {
                 btnNovoSalaActionPerformed(evt);
             }
         });
+        btnNovoSala.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoSalaKeyPressed(evt);
+            }
+        });
 
         tfdDescricaoSala.setEnabled(false);
         tfdDescricaoSala.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -298,6 +303,11 @@ public class SalaView extends javax.swing.JInternalFrame {
         btnCancelarSala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarSalaActionPerformed(evt);
+            }
+        });
+        btnCancelarSala.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarSalaKeyPressed(evt);
             }
         });
 
@@ -645,10 +655,28 @@ public class SalaView extends javax.swing.JInternalFrame {
 
     private void cbxPiso1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxPiso1KeyPressed
 
-         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             tfdDescricaoSala.requestFocusInWindow();
         }
     }//GEN-LAST:event_cbxPiso1KeyPressed
+
+    private void btnNovoSalaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoSalaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposSala();
+            preparaNovo();
+            ativaCampos();
+        }
+    }//GEN-LAST:event_btnNovoSalaKeyPressed
+
+    private void btnCancelarSalaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarSalaKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposSala();
+            preparaSalvareCancelar();
+            desativaCampos();
+        }
+    }//GEN-LAST:event_btnCancelarSalaKeyPressed
 
     public PisoM pegaSala() {
         try {
