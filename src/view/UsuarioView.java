@@ -7,6 +7,7 @@ package view;
 
 import dao.HistoricoAcaoDAO;
 import dao.UsuarioDAO;
+import java.awt.event.KeyEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -122,6 +123,11 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 btnSalvarActionPerformed(evt);
             }
         });
+        btnSalvar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnSalvarKeyPressed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setEnabled(false);
@@ -130,11 +136,21 @@ public class UsuarioView extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
+        btnCancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarKeyPressed(evt);
+            }
+        });
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
+            }
+        });
+        btnNovo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoKeyPressed(evt);
             }
         });
 
@@ -513,6 +529,100 @@ public class UsuarioView extends javax.swing.JInternalFrame {
         
        preparaSelecaoTabela();
     }//GEN-LAST:event_tbeUsuarioMouseClicked
+
+    private void btnNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposUsuario();
+            preparaNovo();
+            ativaCampos();
+            tfdNome.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_btnNovoKeyPressed
+
+    private void btnSalvarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnSalvarKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            if (tfdUsuario.getText().isEmpty() || tfdSenha.getText().isEmpty() || tfdConfirmaSenha.getText().isEmpty() || tfdNome.getText().isEmpty() || tfdMasp.getText().isEmpty() || tfdContato.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Prencha todos os campos.", "Erro", JOptionPane.WARNING_MESSAGE);
+                tfdNome.requestFocusInWindow();
+            } else if (tfdID.getText().isEmpty()) {
+                if (tfdSenha.getText().equals(tfdConfirmaSenha.getText())) {
+
+                    usuario = new UsuarioM();
+                    usuario.setUsuario(tfdUsuario.getText());
+                    usuario.setSenha(tfdSenha.getText());
+                    usuario.setAdmin(ckxAdministrador.isSelected());
+                    usuario.setNome(tfdNome.getText());
+                    usuario.setMasp(tfdMasp.getText());
+                    usuario.setContato(tfdContato.getText());
+                    try {
+
+                        idHistorico = usuarioDAO.salvar(usuario);
+                        acao = "Novo Usuário";
+                        descricaoHistorico = usuario.getNome();
+                        salvaHistorico();
+                        JOptionPane.showMessageDialog(null, "Usuario Gravado com Sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                        atualizaTabelaUsuario();
+                        limpaCamposUsuario();
+                        preparaSalvareCancelar();
+                        desativaCampos();
+
+                    } catch (SQLException ex) {
+                        Logger.getLogger(UsuarioView.class.getName()).log(Level.SEVERE, null, ex);
+                        if (ex.getErrorCode() == 1062) {
+                            JOptionPane.showMessageDialog(null, "Usuario com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, ex.getMessage());
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Senhas não coincidem", "Erro", JOptionPane.WARNING_MESSAGE);
+                }
+
+            } else if (tfdSenha.getText().equals(tfdConfirmaSenha.getText())) {
+                usuario = new UsuarioM();
+                usuario.setId(Integer.parseInt(tfdID.getText()));
+                usuario.setUsuario(tfdUsuario.getText());
+                usuario.setSenha(tfdSenha.getText());
+                usuario.setAdmin(ckxAdministrador.isSelected());
+                usuario.setNome(tfdNome.getText());
+                usuario.setMasp(tfdMasp.getText());
+                usuario.setContato(tfdContato.getText());
+
+                try {
+                    idHistorico = usuario.getId();
+                    acao = "Alterar Usuário";
+                    descricaoHistorico = usuario.getNome();
+                    salvaHistorico();
+                    usuarioDAO.alterar(usuario);
+                    JOptionPane.showMessageDialog(null, "Usuario atualizado com sucesso.", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    preparaSalvareCancelar();
+                    desativaCampos();
+                    atualizaTabelaUsuario();
+                } catch (SQLException ex) {
+                    if (ex.getErrorCode() == 1062) {
+                        JOptionPane.showMessageDialog(null, "Usuario com nome já existente.", "Erro", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(null, ex.getMessage());
+                    }
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Senhas não coincidem", "Erro", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnSalvarKeyPressed
+
+    private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarKeyPressed
+
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposUsuario();
+            preparaSalvareCancelar();
+            desativaCampos();
+        }
+    }//GEN-LAST:event_btnCancelarKeyPressed
 
         // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES
     
