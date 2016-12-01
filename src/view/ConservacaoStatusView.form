@@ -249,6 +249,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoStatusActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnNovoStatusKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAlterarStatus">
@@ -271,6 +272,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovoConservacaoActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnNovoConservacaoKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnExcluirStatus">
@@ -367,6 +369,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarConservacaoActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnCancelarConservacaoKeyPressed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelarStatus">
@@ -376,6 +379,7 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarStatusActionPerformed"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnCancelarStatusKeyPressed"/>
           </Events>
         </Component>
       </SubComponents>

@@ -286,6 +286,11 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 btnNovoStatusActionPerformed(evt);
             }
         });
+        btnNovoStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoStatusKeyPressed(evt);
+            }
+        });
 
         btnAlterarStatus.setText("Alterar");
         btnAlterarStatus.setEnabled(false);
@@ -301,6 +306,11 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
         btnNovoConservacao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoConservacaoActionPerformed(evt);
+            }
+        });
+        btnNovoConservacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoConservacaoKeyPressed(evt);
             }
         });
 
@@ -382,12 +392,22 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
                 btnCancelarConservacaoActionPerformed(evt);
             }
         });
+        btnCancelarConservacao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarConservacaoKeyPressed(evt);
+            }
+        });
 
         btnCancelarStatus.setText("Cancelar");
         btnCancelarStatus.setEnabled(false);
         btnCancelarStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarStatusActionPerformed(evt);
+            }
+        });
+        btnCancelarStatus.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarStatusKeyPressed(evt);
             }
         });
 
@@ -868,6 +888,43 @@ public class ConservacaoStatusView extends javax.swing.JInternalFrame {
              }
         }
     }//GEN-LAST:event_btnSalvarStatusKeyPressed
+
+    private void btnNovoConservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoConservacaoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposConservacao();
+            preparaNovoConservacao();
+            ativaCamposConservacao();
+        }
+        
+    }//GEN-LAST:event_btnNovoConservacaoKeyPressed
+
+    private void btnCancelarConservacaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarConservacaoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposConservacao();
+            preparaSalvareCancelarConservacao();
+            desativaCamposConservacao();
+        }
+    }//GEN-LAST:event_btnCancelarConservacaoKeyPressed
+
+    private void btnNovoStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoStatusKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposStatus();
+            preparaNovoStatus();
+            ativaCamposStatus();
+        }
+    }//GEN-LAST:event_btnNovoStatusKeyPressed
+
+    private void btnCancelarStatusKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarStatusKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposStatus();
+            preparaSalvareCancelarStatus();
+            desativaCamposStatus();
+        }
+    }//GEN-LAST:event_btnCancelarStatusKeyPressed
 
     // INÍCIO MÉTODOS DE CONTROLE DE BOTÕES CONSERVAÇÃO
     
