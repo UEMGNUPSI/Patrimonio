@@ -368,6 +368,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 btnNovoTipoActionPerformed(evt);
             }
         });
+        btnNovoTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoTipoKeyPressed(evt);
+            }
+        });
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Imagem"));
         jPanel2.setMaximumSize(new java.awt.Dimension(150, 150));
@@ -397,11 +402,21 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
                 btnCancelarSubtipoActionPerformed(evt);
             }
         });
+        btnCancelarSubtipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarSubtipoKeyPressed(evt);
+            }
+        });
 
         btnNovoSubtipo.setText("Novo");
         btnNovoSubtipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoSubtipoActionPerformed(evt);
+            }
+        });
+        btnNovoSubtipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoSubtipoKeyPressed(evt);
             }
         });
 
@@ -418,6 +433,11 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         btnCancelarTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarTipoActionPerformed(evt);
+            }
+        });
+        btnCancelarTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarTipoKeyPressed(evt);
             }
         });
 
@@ -612,7 +632,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -1116,6 +1136,42 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         }
         
     }//GEN-LAST:event_btnSalvarSubtipoKeyPressed
+
+    private void btnNovoTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoTipoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposTipo();
+            preparaNovoTipo();
+            tfdDescricaoTipo.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_btnNovoTipoKeyPressed
+
+    private void btnCancelarTipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarTipoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposTipo();
+            preparaSalvareCancelarTipo();
+            desativaCamposTipo();
+        }
+    }//GEN-LAST:event_btnCancelarTipoKeyPressed
+
+    private void btnNovoSubtipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoSubtipoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            preparaNovoSubTipo();
+            limpaCamposSubTipo();
+            cbxSubtipo.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_btnNovoSubtipoKeyPressed
+
+    private void btnCancelarSubtipoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarSubtipoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposSubTipo();
+            preparaSalvareCancelarSubtipo();
+            desativaCamposSubtipo();
+        }
+    }//GEN-LAST:event_btnCancelarSubtipoKeyPressed
 
     public void salvarImagen() {
 
