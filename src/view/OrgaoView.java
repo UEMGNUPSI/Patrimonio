@@ -46,6 +46,7 @@ public class OrgaoView extends javax.swing.JInternalFrame {
         tfdContato.setDocument(new LimiteDigitos(45));
         tfdNome.setDocument(new LimiteDigitos(45));
         this.usuarioAtivo = usuarioAtivo;
+        btnNovo.requestFocusInWindow();
 
     }
 
@@ -661,9 +662,9 @@ public class OrgaoView extends javax.swing.JInternalFrame {
 
          if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
              limpaCamposOrgao();
-             preparaNovo();
-             ativaCampos();
-             tfdNome.requestFocusInWindow();
+            preparaNovo();
+            ativaCampos();
+            tfdNome.requestFocusInWindow();
         }
     }//GEN-LAST:event_btnNovoKeyPressed
 

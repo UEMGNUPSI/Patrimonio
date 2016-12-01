@@ -44,6 +44,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
         tfdEndereco.setDocument(new LimiteDigitos(45));
         tfdNome.setDocument(new LimiteDigitos(45));
         tfdTelefone.setDocument(new LimiteDigitos(45));
+
         
     }
 
@@ -139,6 +140,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 btnAlterarUnidadeActionPerformed(evt);
             }
         });
+        btnAlterarUnidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnAlterarUnidadeKeyPressed(evt);
+            }
+        });
 
         btnSalvar.setText("Salvar");
         btnSalvar.setEnabled(false);
@@ -206,6 +212,11 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 btnNovoActionPerformed(evt);
             }
         });
+        btnNovo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoKeyPressed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
         btnCancelar.setEnabled(false);
@@ -214,12 +225,22 @@ public class UnidadeView extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
+        btnCancelar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarKeyPressed(evt);
+            }
+        });
 
         btnExcluirUnidade.setText("Excluir");
         btnExcluirUnidade.setEnabled(false);
         btnExcluirUnidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnExcluirUnidadeActionPerformed(evt);
+            }
+        });
+        btnExcluirUnidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnExcluirUnidadeKeyPressed(evt);
             }
         });
 
@@ -361,6 +382,7 @@ public class UnidadeView extends javax.swing.JInternalFrame {
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
+        
         LimpaCamposUnidade();
         preparaNovo();
         ativaCampos();
@@ -541,6 +563,69 @@ public class UnidadeView extends javax.swing.JInternalFrame {
             
         }
     }//GEN-LAST:event_btnSalvarKeyPressed
+
+    private void btnNovoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoKeyPressed
+        // TODO add your handling code here:
+        
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            LimpaCamposUnidade();
+            preparaNovo();
+            ativaCampos();
+            tfdNome.requestFocusInWindow();
+        }
+        
+    }//GEN-LAST:event_btnNovoKeyPressed
+
+    private void btnCancelarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            LimpaCamposUnidade();
+            preparaSalvareCancelar();
+            desativaCampos();
+        }
+    }//GEN-LAST:event_btnCancelarKeyPressed
+
+    private void btnAlterarUnidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnAlterarUnidadeKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            preparaAlterar();
+            ativaCampos();
+        }
+    }//GEN-LAST:event_btnAlterarUnidadeKeyPressed
+
+    private void btnExcluirUnidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnExcluirUnidadeKeyPressed
+        // TODO add your handling code here:
+         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+             if (tfdID.getText().isEmpty()) {
+                 JOptionPane.showMessageDialog(null, "Selecione uma Unidade", "Erro", JOptionPane.WARNING_MESSAGE);
+             } else {
+                 unidade = new UnidadeM();
+                 unidade.setId(Integer.parseInt(tfdID.getText()));
+                 unidade.setNome(tfdNome.getText());
+                 int confirma = JOptionPane.showConfirmDialog(null, "Deseja Excluir: " + tfdNome.getText() + " ?");
+                 if (confirma == 0) {
+                     try {
+                         acao = "Excluir Unidade";
+                         idHistorico = unidade.getId();
+                         descricaoHistorico = unidade.getNome();
+                         salvaHistorico();
+                         unidadeDAO.excluir(unidade);
+                     } catch (SQLException ex) {
+                         Logger.getLogger(OrgaoView.class.getName()).log(Level.SEVERE, null, ex);
+                         if (ex.getErrorCode() == 1451) {
+                             JOptionPane.showMessageDialog(null, "Impossível excluir essa unidade, ela já possui blocos cadastrados!", "Erro", JOptionPane.WARNING_MESSAGE);
+                         } else {
+                             JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.WARNING_MESSAGE);
+                         }
+                     }
+
+                 }
+             }
+             LimpaCamposUnidade();
+             atualizaTabelaUnidade();
+             preparaExcluir();
+        }
+    }//GEN-LAST:event_btnExcluirUnidadeKeyPressed
     
     public void salvaHistorico() throws SQLException{
         HistoricoAcaoM historico = new HistoricoAcaoM();
