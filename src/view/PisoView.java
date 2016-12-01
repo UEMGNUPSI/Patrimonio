@@ -171,6 +171,11 @@ public class PisoView extends javax.swing.JInternalFrame {
                 btnNovoPisoActionPerformed(evt);
             }
         });
+        btnNovoPiso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnNovoPisoKeyPressed(evt);
+            }
+        });
 
         lblSelecBloco1.setText("Selecione o bloco:");
 
@@ -179,6 +184,11 @@ public class PisoView extends javax.swing.JInternalFrame {
         btnCancelarPiso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarPisoActionPerformed(evt);
+            }
+        });
+        btnCancelarPiso.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                btnCancelarPisoKeyPressed(evt);
             }
         });
 
@@ -612,6 +622,25 @@ public class PisoView extends javax.swing.JInternalFrame {
             tfdDescricaoPiso.requestFocusInWindow();
         }
     }//GEN-LAST:event_cbxBloco1KeyPressed
+
+    private void btnNovoPisoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnNovoPisoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposPiso();
+            ativaCampos();
+            preparaNovo();
+            cbxUnidade1.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_btnNovoPisoKeyPressed
+
+    private void btnCancelarPisoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnCancelarPisoKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            limpaCamposPiso();
+            preparaSalvareCancelar();
+            desativaCampos();
+        }
+    }//GEN-LAST:event_btnCancelarPisoKeyPressed
 
     public BlocoM pegaBloco() {
         try {
