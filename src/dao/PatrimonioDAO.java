@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
-/**
- *
- * @author nupsi-02
- */
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +9,7 @@ import javax.swing.JOptionPane;
 import model.PatrimonioCompostoM;
 import model.PatrimonioM;
 import model.SalaM;
+
 
 public class PatrimonioDAO {
     PreparedStatement pst;
@@ -260,6 +252,29 @@ public class PatrimonioDAO {
         return listaPat;
      }
      
+      public List<PatrimonioM> buscaOrgao100(String comparador, int inicio) throws SQLException{
+        comparador = "%"+comparador+"%";
+        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
+        sql = "select * from patrimonio p inner join entidade e on p.id_entidade = e.id where e.nome like ? limit ?,100;";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, comparador);
+        pst.setInt(2, inicio);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
+           listaPat.add(new PatrimonioM(rs.getInt("id"),
+                   rs.getString("descricao"),
+                   rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),grau.busca(rs.getInt("id_grau_conservacao")),status.busca(rs.getInt("id_status")),sala.busca(rs.getInt("id_sala")),rs.getString("nota_fiscal"),entidade.busca(rs.getInt("id_entidade")), rs.getBoolean(("kit"))));
+        }
+        pst.close();
+        return listaPat;
+     }
+     
      public List<PatrimonioM> buscaOrgao(int orgaoId) throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
         sql = "select * from patrimonio where id_entidade = ?";
@@ -415,6 +430,37 @@ public class PatrimonioDAO {
         pst.close();
         return listaPat;
      }
+      
+      public List<PatrimonioM> buscaOrgaoGroup(String comparador) throws SQLException{
+        String aux = "%"+comparador+"%";
+        List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
+        sql = "select count(*) quantidade, descricao from patrimonio p inner join entidade e on p.id_entidade = e.id where e.nome like '?'";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, aux);
+        ResultSet rs = pst.executeQuery();
+        SubTipoDAO subtipo = new SubTipoDAO();
+        GrauConservacaoDAO grau = new GrauConservacaoDAO();
+        StatusDAO status = new StatusDAO();
+        SalaDAO sala = new SalaDAO();
+        OrgaoDAO entidade = new OrgaoDAO();
+        while(rs.next()){
+           listaPat.add(new PatrimonioM(/*rs.getInt("id"),*/
+                   rs.getString("descricao"),
+                   /*rs.getString("codigo"),
+                   subtipo.busca(rs.getInt("id_subtipo")),
+                   grau.busca(rs.getInt("id_grau_conservacao")),
+                   status.busca(rs.getInt("id_status")),
+                   sala.busca(rs.getInt("id_sala")),
+                   rs.getString("nota_fiscal"),
+                   entidade.busca(rs.getInt("id_entidade")),
+                   rs.getBoolean(("kit")),*/
+                   rs.getInt("quantidade")
+           ));
+        }
+        pst.close();
+        return listaPat;
+     }
+      
      public List<PatrimonioM> listaTodosPorDescricao(String comparador) throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
         sql = "select * from patrimonio where descricao = ?";

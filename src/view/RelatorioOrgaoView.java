@@ -40,7 +40,7 @@ import model.PatrimonioCompostoM;
 import static javafx.scene.text.Font.font;
 
 
-public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
+public class RelatorioOrgaoView extends javax.swing.JInternalFrame {
     
     SalaM sala;
     SalaDAO salaDAO;
@@ -61,7 +61,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
     Document doc;
     PatrimonioCompostoDAO patri;
 
-    public RelatorioDescricaoView() {
+    public RelatorioOrgaoView() {
         salaDAO = new SalaDAO();
         listaSala = new ArrayList<>();
         pisoDAO = new PisoDAO();
@@ -126,7 +126,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
         try {
             listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
         } catch (SQLException ex) {
-            Logger.getLogger(RelatorioDescricaoView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioOrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         String dados[][] = new String[listaPatrimonio.size()][2];
@@ -238,7 +238,7 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText("Descrição:");
+        jLabel6.setText("ID Orgão:");
 
         lblDescricao.setText("jLabel1");
 
@@ -255,13 +255,12 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
             .addGroup(pnlRelatorioLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlRelatorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(pnlRelatorioLayout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtDescricao)))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGerarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlRelatorioLayout.createSequentialGroup()
+                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnlRelatorioLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -352,10 +351,10 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
     private void btnBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnBuscarKeyPressed
     if (evt.getKeyCode() == KeyEvent.VK_ENTER){  
          try {
-            listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
+            listaPatrimonio = patrimonioDAO.buscaOrgaoGroup(txtDescricao.getText());
             atualizaTabelaBusca();
         } catch (SQLException ex) {
-            Logger.getLogger(RelatorioDescricaoView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioOrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     }//GEN-LAST:event_btnBuscarKeyPressed
@@ -363,10 +362,10 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
     private void txtDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyPressed
          if (evt.getKeyCode() == KeyEvent.VK_ENTER){  
          try {
-            listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
+            listaPatrimonio = patrimonioDAO.buscaOrgaoGroup(txtDescricao.getText());
             atualizaTabelaBusca();
         } catch (SQLException ex) {
-            Logger.getLogger(RelatorioDescricaoView.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RelatorioOrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     }//GEN-LAST:event_txtDescricaoKeyPressed

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import dao.BlocoDAO;
@@ -47,7 +42,6 @@ import util.LimiteDigitos;
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
  * @author NUPSI - Núcle de Práticas em Sistemas de Informação
- * Equipe: Gustavo Pinoti,Leopoldo Ferreira, Marlon Moro, Murillo Cuervo
  */
 public class PatrimonioView extends javax.swing.JInternalFrame {
 
@@ -1086,6 +1080,7 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         cbxFiltro.addItem("--Selecione--");
         cbxFiltro.addItem("Codigo");
         cbxFiltro.addItem("Descrição");
+        cbxFiltro.addItem("Orgão");
     }
     
     public void atualizaBoxTipo() {
@@ -1790,6 +1785,18 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
                 if(cbxFiltro.getSelectedItem().toString().equals("Descrição")){
                     listaPatrimonio = null;
                     listaPatrimonio = patrimonioDAO.buscaDescricao100(tfdFiltroBusca.getText(), inicio);
+                    validaQuantidadeBuscaDescricao();
+                    cont = 2;
+                    if(listaPatrimonio.size() < 1){
+                           JOptionPane.showMessageDialog(null, "Descrição não Encontrada");
+                           btnAnterior.setEnabled(false);
+                           btnProximo.setEnabled(false);
+                           lblQuantPaginas.setText("0/0");
+                    }
+                }else
+                if(cbxFiltro.getSelectedItem().toString().equals("Orgão")){
+                    listaPatrimonio = null;
+                    listaPatrimonio = patrimonioDAO.buscaOrgao100(tfdFiltroBusca.getText(), inicio);
                     validaQuantidadeBuscaDescricao();
                     cont = 2;
                     if(listaPatrimonio.size() < 1){

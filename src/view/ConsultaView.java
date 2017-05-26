@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import dao.BlocoDAO;
@@ -34,16 +29,7 @@ import model.TipoM;
 import model.UnidadeM;
 
 
-/**
- *
- * @author NUPSI-02
- */
 public class ConsultaView extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form ConsultaView
-     */
-
     List<PatrimonioM> listaPatrimonio;
     List<UnidadeM> listaUnidade;
     UnidadeDAO unidadeDAO;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import dao.BlocoDAO;
@@ -43,10 +38,7 @@ import static javafx.scene.text.Font.font;
 import model.PatrimonioCompostoM;
 import static javafx.scene.text.Font.font;
 
-/**
- *
- * @author NUPSI-01
- */
+
 public class RelatorioSalaView extends javax.swing.JInternalFrame {
     
     SalaM sala;

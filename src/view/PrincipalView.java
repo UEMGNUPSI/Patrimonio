@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.awt.Color;
@@ -26,13 +21,9 @@ import model.UsuarioM;
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
  * @author NUPSI - Núcle de Práticas em Sistemas de Informação
- * Equipe: Gustavo Pinoti,Leopoldo Ferreira, Marlon Moro, Murillo Cuervo
  */
 public class PrincipalView extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Principal
-     */
     public static UsuarioM usuarioAtivo = new UsuarioM();
     public PrincipalView(UsuarioM usuario) {
         initComponents();
@@ -94,6 +85,7 @@ public class PrincipalView extends javax.swing.JFrame {
         mnuRelatorios = new javax.swing.JMenu();
         mniRelatorioSala = new javax.swing.JMenuItem();
         mniRelatorioDescricao = new javax.swing.JMenuItem();
+        mniRelatorioOrgao = new javax.swing.JMenuItem();
         mnuInventario = new javax.swing.JMenu();
         mnuUsuario = new javax.swing.JMenu();
         mniMinhaConta = new javax.swing.JMenuItem();
@@ -305,6 +297,14 @@ public class PrincipalView extends javax.swing.JFrame {
             }
         });
         mnuRelatorios.add(mniRelatorioDescricao);
+
+        mniRelatorioOrgao.setText("Orgão");
+        mniRelatorioOrgao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mniRelatorioOrgaoActionPerformed(evt);
+            }
+        });
+        mnuRelatorios.add(mniRelatorioOrgao);
 
         mnbPrincipal.add(mnuRelatorios);
 
@@ -567,6 +567,13 @@ public class PrincipalView extends javax.swing.JFrame {
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniConsultaBaixadosActionPerformed
 
+    private void mniRelatorioOrgaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRelatorioOrgaoActionPerformed
+        RelatorioOrgaoView relatorio = new RelatorioOrgaoView();
+        pnlPrincipal.removeAll();
+        pnlPrincipal.add(relatorio);
+        pnlPrincipal.updateUI();
+    }//GEN-LAST:event_mniRelatorioOrgaoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JLabel foto;
@@ -590,6 +597,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniOrgao;
     private javax.swing.JMenuItem mniPiso;
     private javax.swing.JMenuItem mniRelatorioDescricao;
+    private javax.swing.JMenuItem mniRelatorioOrgao;
     private javax.swing.JMenuItem mniRelatorioSala;
     private javax.swing.JMenuItem mniSala;
     private javax.swing.JMenuItem mniTipoSubtipo;

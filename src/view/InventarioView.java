@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import dao.BlocoDAO;
@@ -37,10 +32,7 @@ import util.ColorirEsperados;
 import util.ColorirReais;
 import util.ColorirSala;
 
-/**
- *
- * @author Leopo
- */
+
 public class InventarioView extends javax.swing.JInternalFrame {
     UnidadeDAO unidadeDAO;
     BlocoDAO blocoDAO;

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import dao.HistoricoAcaoDAO;
@@ -22,15 +17,8 @@ import model.HistoricoAcaoM;
 import model.UsuarioM;
 import util.LimiteDigitos;
 
-/**
- *
- * @author NUPSI-02
- */
-public class UsuarioView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form UsuarioView
-     */
+public class UsuarioView extends javax.swing.JInternalFrame {
     public UsuarioView(UsuarioM usuarioAtivo) {
          listaUsuario = new ArrayList<>();
         initComponents();      

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import dao.HistoricoAcaoDAO;
@@ -38,17 +33,8 @@ import model.UnidadeM;
 import model.UsuarioM;
 import util.LimiteDigitos;
 
-/**
- * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
- * @author NUPSI - Núcle de Práticas em Sistemas de Informação
- * Equipe: Gustavo Pinoti,Leopoldo Ferreira, Marlon Moro, Murillo Cuervo
- */
-//concertar alterar do subTipo ********************************************************************************************
-public class TipoSubtipoView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form TipoSubtipo
-     */
+public class TipoSubtipoView extends javax.swing.JInternalFrame {
     public TipoSubtipoView(UsuarioM usuarioAtivo) {
 
         tipoDAO = new TipoDAO();

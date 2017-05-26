@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import dao.GrauConservacaoDAO;
@@ -25,16 +20,13 @@ import model.HistoricoAcaoM;
 import model.StatusM;
 import model.UsuarioM;
 import util.LimiteDigitos;
+
 /**
  * UNIVERSIDADE DO ESTADO DE MINAS GERAIS - Unidade Frutal
  * @author NUPSI - Núcle de Práticas em Sistemas de Informação
- * Equipe: Gustavo Pinoti,Leopoldo Ferreira, Marlon Moro, Murillo Cuervo
  */
 public class ConservacaoStatusView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form ConservacaoStatusView
-     */
     public ConservacaoStatusView(UsuarioM usuarioAtivo) {
         grauConservacaoDAO = new GrauConservacaoDAO();
         statusDAO = new StatusDAO();

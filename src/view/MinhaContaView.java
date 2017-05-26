@@ -11,21 +11,9 @@ import model.HistoricoAcaoM;
 import model.UsuarioM;
 import util.LimiteDigitos;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Leopo
- */
 public class MinhaContaView extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form MinhaContaView4
-     */
     public UsuarioM usuario = new UsuarioM();
     
     int idHistorico;
