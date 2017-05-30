@@ -144,7 +144,7 @@ public class RelatorioOrgaoView extends javax.swing.JInternalFrame {
             tabelaCliente.setDataVector(dados, tituloColuna);
             tbeDescricao.setModel(new DefaultTableModel(dados, tituloColuna) {
                 boolean[] canEdit = new boolean[]{
-                    false, false, false, false, false
+                    false, false
                 };
 
                 @Override
@@ -239,6 +239,12 @@ public class RelatorioOrgaoView extends javax.swing.JInternalFrame {
         });
 
         jLabel6.setText("ID Orgão:");
+
+        txtDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescricaoActionPerformed(evt);
+            }
+        });
 
         lblDescricao.setText("jLabel1");
 
@@ -369,6 +375,10 @@ public class RelatorioOrgaoView extends javax.swing.JInternalFrame {
         }
     }
     }//GEN-LAST:event_txtDescricaoKeyPressed
+
+    private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescricaoActionPerformed
 
     public void gerarDocumento() throws FileNotFoundException{
         try {

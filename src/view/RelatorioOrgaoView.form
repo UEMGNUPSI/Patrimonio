@@ -162,6 +162,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtDescricao">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtDescricaoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDescricao">
           <Properties>

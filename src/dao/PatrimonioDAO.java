@@ -434,7 +434,7 @@ public class PatrimonioDAO {
       public List<PatrimonioM> buscaOrgaoGroup(String comparador) throws SQLException{
         String aux = "%"+comparador+"%";
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select count(*) quantidade, descricao from patrimonio p inner join entidade e on p.id_entidade = e.id where e.nome like '?'";
+        sql = "select descricao, count(*) quantidade from patrimonio, entidade where patrimonio.id_enditdade = entidade.id and e.id like ? group by e.nome";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setString(1, aux);
         ResultSet rs = pst.executeQuery();
