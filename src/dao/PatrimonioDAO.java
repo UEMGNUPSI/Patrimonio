@@ -434,7 +434,7 @@ public class PatrimonioDAO {
       public List<PatrimonioM> buscaOrgaoGroup(String comparador) throws SQLException{
         String aux = "%"+comparador+"%";
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select descricao, count(*) quantidade from patrimonio, entidade where patrimonio.id_enditdade = entidade.id and e.id like ? group by e.nome";
+        sql = "select count(*) quantidade, id_entidade, id_entidade from patrimonio where id_entidade = ? group by id_entidade";
         pst = Conexao.getInstance().prepareStatement(sql);
         pst.setString(1, aux);
         ResultSet rs = pst.executeQuery();
@@ -444,7 +444,7 @@ public class PatrimonioDAO {
         SalaDAO sala = new SalaDAO();
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
-           listaPat.add(new PatrimonioM(/*rs.getInt("id"),*/
+           listaPat.add(new PatrimonioM(//rs.getInt("id"),
                    rs.getString("descricao"),
                    /*rs.getString("codigo"),
                    subtipo.busca(rs.getInt("id_subtipo")),

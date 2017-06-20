@@ -124,7 +124,7 @@ public class RelatorioOrgaoView extends javax.swing.JInternalFrame {
     
      public void atualizaTabelaBusca() {
         try {
-            listaPatrimonio = patrimonioDAO.buscaDescricaoGroup(txtDescricao.getText());
+            listaPatrimonio = patrimonioDAO.buscaOrgaoGroup(txtDescricao.getText());
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioOrgaoView.class.getName()).log(Level.SEVERE, null, ex);
         }
