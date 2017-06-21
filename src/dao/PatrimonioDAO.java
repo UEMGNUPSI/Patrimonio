@@ -431,12 +431,11 @@ public class PatrimonioDAO {
         return listaPat;
      }
       
-      public List<PatrimonioM> buscaOrgaoGroup(String comparador) throws SQLException{
-        String aux = "%"+comparador+"%";
+      public List<PatrimonioM> buscaOrgaoOrdenado(int orgaoId) throws SQLException{
         List<PatrimonioM> listaPat = new ArrayList<PatrimonioM>();
-        sql = "select count(*) quantidade, id_entidade, id_entidade from patrimonio where id_entidade = ? group by id_entidade";
+        sql = "select * from patrimonio where id_entidade = ? order by descricao";
         pst = Conexao.getInstance().prepareStatement(sql);
-        pst.setString(1, aux);
+        pst.setInt(1, orgaoId);
         ResultSet rs = pst.executeQuery();
         SubTipoDAO subtipo = new SubTipoDAO();
         GrauConservacaoDAO grau = new GrauConservacaoDAO();
@@ -444,18 +443,16 @@ public class PatrimonioDAO {
         SalaDAO sala = new SalaDAO();
         OrgaoDAO entidade = new OrgaoDAO();
         while(rs.next()){
-           listaPat.add(new PatrimonioM(//rs.getInt("id"),
+           listaPat.add(new PatrimonioM(rs.getInt("id"),
                    rs.getString("descricao"),
-                   /*rs.getString("codigo"),
+                   rs.getString("codigo"),
                    subtipo.busca(rs.getInt("id_subtipo")),
                    grau.busca(rs.getInt("id_grau_conservacao")),
                    status.busca(rs.getInt("id_status")),
                    sala.busca(rs.getInt("id_sala")),
                    rs.getString("nota_fiscal"),
-                   entidade.busca(rs.getInt("id_entidade")),
-                   rs.getBoolean(("kit")),*/
-                   rs.getInt("quantidade")
-           ));
+                   entidade.busca(rs.getInt("id_entidade")), 
+                   rs.getBoolean(("kit"))));
         }
         pst.close();
         return listaPat;
@@ -904,8 +901,6 @@ public class PatrimonioDAO {
             pst.execute();
             pst.close();
         }
-        
-        
       }
       
       public static PatrimonioM buscaBaixadoID(int id) throws SQLException{

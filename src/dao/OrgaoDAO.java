@@ -64,26 +64,40 @@ public class OrgaoDAO {
     }
       
      public void alterar(OrgaoM entidade) throws SQLException{
-         sql = "update Entidade set nome = ?, cnpj = ?, contato = ? where id = ?";
-         pst = Conexao.getInstance().prepareStatement(sql);
-         pst.setString(1, entidade.getNome());
-         pst.setString(2, entidade.getCnpj());
-         pst.setString(3, entidade.getContato());
-         pst.setInt(4, entidade.getId());
-         pst.execute();
-         pst.close();
+        sql = "update Entidade set nome = ?, cnpj = ?, contato = ? where id = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, entidade.getNome());
+        pst.setString(2, entidade.getCnpj());
+        pst.setString(3, entidade.getContato());
+        pst.setInt(4, entidade.getId());
+        pst.execute();
+        pst.close();
      }
      
      public OrgaoM buscaNome(String nome) throws SQLException{
-           sql = "select * from Entidade where nome = ?";
-           pst = Conexao.getInstance().prepareStatement(sql);
-           pst.setString(1, nome);
-           OrgaoM entidade = null;
-           ResultSet rs = pst.executeQuery();
-           while(rs.next()){
-               entidade = new OrgaoM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato"));
-            }
-            pst.close();
-            return entidade;
+        sql = "select * from Entidade where nome = ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, nome);
+        OrgaoM entidade = null;
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+            entidade = new OrgaoM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato"));
+         }
+         pst.close();
+         return entidade;
      }
+     public List<OrgaoM> buscaNomeLista(String Nome) throws SQLException{
+        List<OrgaoM> listaEnti = new ArrayList<OrgaoM>();
+        String name = "%"+Nome+"%";
+        sql = "select * from Entidade where nome like ?";
+        pst = Conexao.getInstance().prepareStatement(sql);
+        pst.setString(1, name);
+        pst.execute();
+        ResultSet rs = pst.executeQuery();
+        while(rs.next()){
+           listaEnti.add(new OrgaoM(rs.getInt("id"),rs.getString("nome"),rs.getString("cnpj"),rs.getString("contato")));
+        }
+        pst.close();
+        return listaEnti;
+    }
 }
