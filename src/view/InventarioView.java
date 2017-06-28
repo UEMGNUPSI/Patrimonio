@@ -31,6 +31,7 @@ import model.UnidadeM;
 import util.ColorirEsperados;
 import util.ColorirReais;
 import util.ColorirSala;
+import util.LimiteDigitos;
 
 
 public class InventarioView extends javax.swing.JInternalFrame {
@@ -74,9 +75,17 @@ public class InventarioView extends javax.swing.JInternalFrame {
         this.setVisible(true); 
         atualizaBoxUnidade();
         atualizaTabelaSala();
+        btnAchei.setEnabled(false);
+        btnFinalizar.setEnabled(false);
+        tbeEsperados.setEnabled(false);
+        tbeReais.setEnabled(false);
+        
+        tfdCodigo.setDocument(new LimiteDigitos(90));
         
         if(PrincipalView.usuarioAtivo.isAdmin() == false){
             btnIniciaInventario.setEnabled(false);
+            
+            
         }
         
     }
@@ -111,7 +120,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
         tfdCodigo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         btnAchei = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnFinalizar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -318,10 +327,10 @@ public class InventarioView extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton3.setText("Finalizar Sala");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnFinalizar.setText("Finalizar Sala");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnFinalizarActionPerformed(evt);
             }
         });
 
@@ -362,7 +371,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton3)))
+                                .addComponent(btnFinalizar)))
                         .addContainerGap(39, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -378,7 +387,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
-                        .addComponent(jButton3))
+                        .addComponent(btnFinalizar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -448,7 +457,10 @@ public class InventarioView extends javax.swing.JInternalFrame {
         
         tbeSala.setRowHeight(25);
         tbeSala.updateUI();
+        
+        
     }
+    
     
     public void atualizaBoxUnidade() {
         cbxUnidade.removeAllItems();
@@ -536,7 +548,6 @@ public class InventarioView extends javax.swing.JInternalFrame {
         numeroSala = Integer.parseInt(tbeSala.getValueAt(tbeSala.getSelectedRow(), 0).toString());
         atualizaTabelaPatrimoniosEsperados();
         atualizaTabelaPatrimonioReais();
-        btnAchei.setEnabled(true);
     }//GEN-LAST:event_tbeSalaMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -584,6 +595,10 @@ public class InventarioView extends javax.swing.JInternalFrame {
                     atualizaTabelaSala();
                     atualizaTabelaPatrimonioReais();
                     atualizaTabelaPatrimoniosEsperados();
+                    btnAchei.setEnabled(true);
+                    btnFinalizar.setEnabled(true);
+                    tbeEsperados.setEnabled(true);
+                    tbeReais.setEnabled(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
                     JOptionPane.showMessageDialog(null, "Probelma ao iniciar Inventario:\n"+ex.getMessage());
@@ -595,7 +610,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
     
     
     
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
         SalaDAO sala = new SalaDAO();
         try {
             if(JOptionPane.showConfirmDialog(null, "Deseja finalizar Sala:\n"
@@ -624,7 +639,7 @@ public class InventarioView extends javax.swing.JInternalFrame {
         } catch (SQLException ex) {
             Logger.getLogger(InventarioView.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnFinalizarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         atualizaTabelaSala();
@@ -800,12 +815,12 @@ public class InventarioView extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAchei;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnFinalizar;
     private javax.swing.JButton btnIniciaInventario;
     private javax.swing.JComboBox<String> cbxBloco;
     private javax.swing.JComboBox<String> cbxPiso;
     private javax.swing.JComboBox<String> cbxUnidade;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

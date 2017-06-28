@@ -38,6 +38,7 @@ import java.io.IOException;
 import static javafx.scene.text.Font.font;
 import model.PatrimonioCompostoM;
 import static javafx.scene.text.Font.font;
+import util.LimiteDigitos;
 
 
 public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
@@ -83,6 +84,9 @@ public class RelatorioDescricaoView extends javax.swing.JInternalFrame {
         atualizaTabela();
         lblDescricao.setText("");
         lblQuant.setText("");
+        
+        
+        txtDescricao.setDocument(new LimiteDigitos(90));
     }
     
     public void atualizaTabela() {

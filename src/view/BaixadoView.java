@@ -30,6 +30,7 @@ import model.PisoM;
 import model.SubTipoM;
 import model.TipoM;
 import model.UnidadeM;
+import util.LimiteDigitos;
 
 
 public class BaixadoView extends javax.swing.JInternalFrame {
@@ -91,6 +92,10 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         atualizaTabelaBaixado(inicio);
         validaQuantidade();  
         pnlPatrimonioComposto1.setVisible(false);
+        
+        
+        tfdFiltroBusca.setDocument(new LimiteDigitos(90));
+        
     }
     //METODO PARA PREENCHER AS OPÇÕES DO COMBO BOX
      public void preencheFiltro(){
@@ -100,6 +105,8 @@ public class BaixadoView extends javax.swing.JInternalFrame {
         cbxFiltro.addItem("Descrição");
         cbxFiltro.addItem("Conservação");
         cbxFiltro.addItem("Subtipo");
+        
+        
     }
 
     /**

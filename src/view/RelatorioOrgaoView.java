@@ -40,6 +40,7 @@ import static javafx.scene.text.Font.font;
 import model.PatrimonioCompostoM;
 import static javafx.scene.text.Font.font;
 import model.OrgaoM;
+import util.LimiteDigitos;
 
 
 public class RelatorioOrgaoView extends javax.swing.JInternalFrame {
@@ -93,6 +94,7 @@ public class RelatorioOrgaoView extends javax.swing.JInternalFrame {
         lblID.setText("");
         lblOrgao.setText("");
         
+        txtDescricao.setDocument(new LimiteDigitos(90));
     }
     
     public void atualizaTabela() {
@@ -197,7 +199,7 @@ public class RelatorioOrgaoView extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setResizable(true);
-        setTitle("Relatório Patrimônio");
+        setTitle("Relatório Orgão");
 
         tbeDescricao.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

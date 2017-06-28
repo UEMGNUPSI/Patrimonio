@@ -45,13 +45,21 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         
         initComponents();
         this.setVisible(true);
+        btnAdicionarImagem.setVisible(false);
+        jPanel2.setVisible(false);
+        
+        
         atualizaTabelaTipo();
         atualizaTabelaSubTipo();
         preencheComboBox();
         limpaCamposTipo();
         limpaCamposSubTipo();
+        
+        
         tfdDescricaoSubTipo.setDocument(new LimiteDigitos(45));
         tfdDescricaoTipo.setDocument(new LimiteDigitos(45));
+        
+        
           
     }
     
@@ -618,7 +626,7 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+            .addComponent(pnlTipoSubtipo, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -883,35 +891,6 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_cbxSubtipoActionPerformed
 
 
-    private void btnAdicionarImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarImagemActionPerformed
-        bi = null;
-        // TODO add your handling code here:
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Importar imagem");
-        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg"));
-        fileChooser.setAcceptAllFileFilterUsed(false);
-       
-        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File arquivo = fileChooser.getSelectedFile();//arquivo  
-
-            try {
-                bi = ImageIO.read(arquivo); //carrega a imagem real num buffer
-
-            } catch (IOException ex) {
-                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "Erro!");
-            }
-            BufferedImage aux = new BufferedImage(150, 120, bi.getType());//cria um buffer auxiliar com o tamanho desejado  
-            Graphics2D g = aux.createGraphics();//pega a classe graphics do aux para edicao  
-            AffineTransform at = AffineTransform.getScaleInstance((double) 150 / bi.getWidth(), (double) 120 / bi.getHeight());//cria a transformacao  
-            g.drawRenderedImage(bi, at);//pinta e transforma a imagem real no auxiliar 
-            jLabel1.setText("");
-            jLabel1.setIcon(new ImageIcon(aux));//seta no jlabe
-
-        }
-    }//GEN-LAST:event_btnAdicionarImagemActionPerformed
-
     private void btnCancelarSubtipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarSubtipoActionPerformed
         // TODO add your handling code here:
         limpaCamposSubTipo();
@@ -1158,6 +1137,35 @@ public class TipoSubtipoView extends javax.swing.JInternalFrame {
             desativaCamposSubtipo();
         }
     }//GEN-LAST:event_btnCancelarSubtipoKeyPressed
+
+    private void btnAdicionarImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarImagemActionPerformed
+        bi = null;
+        // TODO add your handling code here:
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Importar imagem");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Images", "jpg"));
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+        if (fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File arquivo = fileChooser.getSelectedFile();//arquivo
+
+            try {
+                bi = ImageIO.read(arquivo); //carrega a imagem real num buffer
+
+            } catch (IOException ex) {
+                Logger.getLogger(ConservacaoStatusView.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Erro!");
+            }
+            BufferedImage aux = new BufferedImage(150, 120, bi.getType());//cria um buffer auxiliar com o tamanho desejado
+            Graphics2D g = aux.createGraphics();//pega a classe graphics do aux para edicao
+            AffineTransform at = AffineTransform.getScaleInstance((double) 150 / bi.getWidth(), (double) 120 / bi.getHeight());//cria a transformacao
+            g.drawRenderedImage(bi, at);//pinta e transforma a imagem real no auxiliar
+            jLabel1.setText("");
+            jLabel1.setIcon(new ImageIcon(aux));//seta no jlabe
+
+        }
+    }//GEN-LAST:event_btnAdicionarImagemActionPerformed
 
     public void salvarImagen() {
 

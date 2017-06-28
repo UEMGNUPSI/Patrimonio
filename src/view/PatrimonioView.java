@@ -155,12 +155,12 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         validaQuantidade();
         
         
-        tfdCodigoPatrimonio.setDocument(new LimiteDigitos(60));
+        tfdCodigoPatrimonio.setDocument(new LimiteDigitos(90));
         tfdDescricaoPatrimonio.setDocument(new LimiteDigitos(90));
         tfdNotaFiscalPatrimonio.setDocument(new LimiteDigitos(45));
         tfdFiltroBusca.setDocument(new LimiteDigitos(45));
         tfdNavegacao.setDocument(new LimitaDigitosNum(3));
-        
+        tfdDescricaoPatrimonioComposto.setDocument(new LimiteDigitos(90));
         
         preencheFiltro();
 

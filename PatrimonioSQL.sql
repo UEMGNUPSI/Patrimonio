@@ -106,7 +106,7 @@ CREATE TABLE IF NOT EXISTS `Grau_conservacao`(
 CREATE TABLE IF NOT EXISTS `Patrimonio` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(90) NOT NULL,
-  `codigo` VARCHAR(60) NOT NULL,
+  `codigo` VARCHAR(90) NOT NULL,
   `id_subtipo` INT NOT NULL,
   `id_grau_conservacao` INT NOT NULL,
   `id_status` INT NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `Usuario`(
 
 CREATE TABLE IF NOT EXISTS `Patrimonio_composto`(
  `id` INT NOT NULL AUTO_INCREMENT,
- `descricao` VARCHAR(45) NOT NULL,
+ `descricao` VARCHAR(90) NOT NULL,
  `id_grau_conservacao` INT NOT NULL,
  `id_status` INT NOT NULL,
  `id_patrimonio` INT NOT NULL,
@@ -148,23 +148,26 @@ CREATE TABLE IF NOT EXISTS `Patrimonio_composto`(
  FOREIGN KEY(id_patrimonio) references Patrimonio(id)
 );
 
+ALTER TABLE Patrimonio_composto MODIFY descricao VARCHAR(90);
+
 CREATE TABLE IF NOT EXISTS `HistoricoAcoes` (
   `idAcao` INT NOT NULL auto_increment,
   `idObjeto` INT NOT NULL,
-  `tipoObjeto` VARCHAR(45) NOT NULL,
+  `tipoObjeto` VARCHAR(90) NOT NULL,
   `acao` VARCHAR(45) NOT NULL,
   `dataAcao` DATE NOT NULL,
   `id_usuario` int NOT NULL,
-  `codigo` VARCHAR(45),
+  `codigo` VARCHAR(90),
   PRIMARY KEY (`idAcao`),
   foreign key (id_usuario) references Usuario(id)
   );
   
+
    
   CREATE TABLE IF NOT EXISTS `Patrimonio_baixado`(
   `id` INT NOT NULL AUTO_INCREMENT,
   `descricao` VARCHAR(90) NOT NULL,
-  `codigo` VARCHAR(60) NOT NULL,
+  `codigo` VARCHAR(90) NOT NULL,
   `id_subtipo` INT NOT NULL,
   `id_grau_conservacao` INT NOT NULL,
   `nota_fiscal` VARCHAR(45) NOT NULL,

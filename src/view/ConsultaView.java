@@ -27,6 +27,7 @@ import model.SalaM;
 import model.SubTipoM;
 import model.TipoM;
 import model.UnidadeM;
+import util.LimiteDigitos;
 
 
 public class ConsultaView extends javax.swing.JInternalFrame {
@@ -91,6 +92,8 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         atualizaTabelaPatrimonio(inicio);
         
         validaQuantidade();
+        
+        tfdFiltroBusca.setDocument(new LimiteDigitos(90));
         
         //btnAnterior.setEnabled(false);
         //btnProximo.setEnabled(false);
