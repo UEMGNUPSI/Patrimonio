@@ -148,7 +148,6 @@ CREATE TABLE IF NOT EXISTS `Patrimonio_composto`(
  FOREIGN KEY(id_patrimonio) references Patrimonio(id)
 );
 
-ALTER TABLE Patrimonio_composto MODIFY descricao VARCHAR(90);
 
 CREATE TABLE IF NOT EXISTS `HistoricoAcoes` (
   `idAcao` INT NOT NULL auto_increment,

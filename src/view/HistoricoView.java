@@ -93,7 +93,7 @@ public class HistoricoView extends javax.swing.JInternalFrame {
         tabelaCliente.setDataVector(dados, tituloColuna);
         tbeHistorico.setModel(new DefaultTableModel(dados, tituloColuna) {
             boolean[] canEdit = new boolean[]{
-                false, false, false, false
+                false, false, false, false, false, false
             };
 
             @Override

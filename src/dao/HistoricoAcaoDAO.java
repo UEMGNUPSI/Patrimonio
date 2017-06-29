@@ -47,11 +47,7 @@ public class HistoricoAcaoDAO {
         pst.setString(4, historico.getAcao());
         pst.setDate(5, historico.getDataAcao());
         pst.setInt(6, historico.getUsuario().getId());
-        if(historico.getCodigo().equals("")){
-            pst.setString(7, " - ");
-        }else{
-            pst.setString(7, historico.getCodigo());
-        }
+        pst.setString(7, historico.getCodigo());
         pst.execute();
         pst.close();
   
