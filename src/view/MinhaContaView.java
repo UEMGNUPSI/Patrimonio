@@ -78,7 +78,6 @@ public class MinhaContaView extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximizable(true);
         setTitle("Minha Conta");
 
         tfdSenha.setEnabled(false);

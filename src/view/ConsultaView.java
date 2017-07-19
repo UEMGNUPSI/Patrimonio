@@ -159,7 +159,6 @@ public class ConsultaView extends javax.swing.JInternalFrame {
         lblQuantPaginas = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("Consulta");
 

@@ -121,7 +121,6 @@ public class MovimentacaoView extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("Movimentação");
         setPreferredSize(new java.awt.Dimension(1130, 645));

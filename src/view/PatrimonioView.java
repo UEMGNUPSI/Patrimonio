@@ -238,7 +238,6 @@ public class PatrimonioView extends javax.swing.JInternalFrame {
         tfdNavegacao = new javax.swing.JTextField();
 
         setClosable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("Patrimônio");
 

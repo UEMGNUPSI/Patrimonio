@@ -126,7 +126,6 @@ public class InventarioView extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
-        setMaximizable(true);
         setResizable(true);
         setTitle("Inventario");
 
