@@ -18,6 +18,11 @@
       </Properties>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="mnbPrincipal">
+      <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
+      </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnuCadastrar">
           <Properties>
@@ -295,38 +300,24 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="pnlPrincipal">
-      <Properties>
-        <Property name="name" type="java.lang.String" value="NUPSI" noResource="true"/>
-      </Properties>
+    <Container class="javax.swing.JDesktopPane" name="pnlPrincipal">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JDesktopPane(){&#xa;&#xa;    public void paintComponent(Graphics g){&#xa;        g.drawImage(image,pnlPrincipal.getWidth()/2 - icon.getIconWidth()/2,pnlPrincipal.getHeight()/2 - icon.getIconHeight()/2,this);&#xa;    }&#xa;}"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodePre" type="java.lang.String" value="ImageIcon icon = new ImageIcon(getClass().getResource(&quot;/view/icones/uemg.png&quot;));&#xa;&#xa;Image image = icon.getImage();"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="foto" alignment="0" pref="1117" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1117" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="foto" alignment="0" pref="941" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="941" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
-      <SubComponents>
-        <Component class="javax.swing.JLabel" name="foto">
-          <Properties>
-            <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/view/icones/LOGO.png"/>
-            </Property>
-            <Property name="alignmentY" type="float" value="0.0"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-          </AuxValues>
-        </Component>
-      </SubComponents>
     </Container>
   </SubComponents>
 </Form>

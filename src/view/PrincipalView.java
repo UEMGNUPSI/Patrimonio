@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Frame;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
@@ -58,8 +59,15 @@ public class PrincipalView extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
-        pnlPrincipal = new javax.swing.JPanel();
-        foto = new javax.swing.JLabel();
+        ImageIcon icon = new ImageIcon(getClass().getResource("/view/icones/uemg.png"));
+
+        Image image = icon.getImage();
+        pnlPrincipal = new javax.swing.JDesktopPane(){
+
+            public void paintComponent(Graphics g){
+                g.drawImage(image,pnlPrincipal.getWidth()/2 - icon.getIconWidth()/2,pnlPrincipal.getHeight()/2 - icon.getIconHeight()/2,this);
+            }
+        };
         mnbPrincipal = new javax.swing.JMenuBar();
         mnuCadastrar = new javax.swing.JMenu();
         mniOrgao = new javax.swing.JMenuItem();
@@ -101,23 +109,18 @@ public class PrincipalView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Patrimônio - UEMG");
 
-        pnlPrincipal.setName("NUPSI"); // NOI18N
-
-        foto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        foto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/LOGO.png"))); // NOI18N
-        foto.setAlignmentY(0.0F);
-        foto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
         javax.swing.GroupLayout pnlPrincipalLayout = new javax.swing.GroupLayout(pnlPrincipal);
         pnlPrincipal.setLayout(pnlPrincipalLayout);
         pnlPrincipalLayout.setHorizontalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, 1117, Short.MAX_VALUE)
+            .addGap(0, 1117, Short.MAX_VALUE)
         );
         pnlPrincipalLayout.setVerticalGroup(
             pnlPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(foto, javax.swing.GroupLayout.DEFAULT_SIZE, 941, Short.MAX_VALUE)
+            .addGap(0, 941, Short.MAX_VALUE)
         );
+
+        mnbPrincipal.setBackground(new java.awt.Color(255, 255, 255));
 
         mnuCadastrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/icones/Crystal_Clear_action_edit_add.png"))); // NOI18N
         mnuCadastrar.setText("Arquivo");
@@ -363,11 +366,11 @@ public class PrincipalView extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlPrincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlPrincipal)
         );
 
         pack();
@@ -576,7 +579,6 @@ public class PrincipalView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public javax.swing.JLabel foto;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
@@ -611,6 +613,6 @@ public class PrincipalView extends javax.swing.JFrame {
     private javax.swing.JMenu mnuRelatorios;
     private javax.swing.JMenu mnuSobre;
     private javax.swing.JMenu mnuUsuario;
-    private javax.swing.JPanel pnlPrincipal;
+    private javax.swing.JDesktopPane pnlPrincipal;
     // End of variables declaration//GEN-END:variables
 }

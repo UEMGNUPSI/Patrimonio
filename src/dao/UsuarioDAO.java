@@ -20,7 +20,7 @@ public class UsuarioDAO {
            UsuarioM usuario = null;
            ResultSet rs = pst.executeQuery();
            while(rs.next()){
-               usuario = new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("admin"),
+               usuario = new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("adm"),
                        rs.getString("nome"), rs.getString("masp"), rs.getString("contato"));
             }
             pst.close();
@@ -34,7 +34,7 @@ public class UsuarioDAO {
         UsuarioM user = null;
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-            user = new UsuarioM(rs.getInt("id"), rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("admin"),
+            user = new UsuarioM(rs.getInt("id"), rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("adm"),
                        rs.getString("nome"), rs.getString("masp"), rs.getString("contato"));
            
         }
@@ -48,7 +48,7 @@ public class UsuarioDAO {
         pst = Conexao.getInstance().prepareStatement(sql);
         ResultSet rs = pst.executeQuery();
         while(rs.next()){
-           listaUser.add(new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getBoolean("admin"),
+           listaUser.add(new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getBoolean("adm"),
                    rs.getString("nome"), rs.getString("masp"), rs.getString("contato")));
         }
         pst.close();
@@ -83,7 +83,7 @@ public class UsuarioDAO {
         pst.close();
     }
         public void alterar(UsuarioM usuario) throws SQLException{
-         sql = "update Usuario set usuario = ?, senha = ?, admin = ?, masp = ?, nome = ?, contato = ? where id = ?";
+         sql = "update Usuario set usuario = ?, senha = ?, adm = ?, masp = ?, nome = ?, contato = ? where id = ?";
          pst = Conexao.getInstance().prepareStatement(sql);
          pst.setString(1, usuario.getUsuario());
          pst.setString(2, usuario.getSenha());
@@ -103,7 +103,7 @@ public class UsuarioDAO {
         pst.executeQuery();
         ResultSet rs = pst.getResultSet();
         while(rs.next()){
-               usuario = new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("admin"),
+               usuario = new UsuarioM(rs.getInt("id"),rs.getString("usuario"), rs.getString("senha"), rs.getBoolean("adm"),
                        rs.getString("nome"), rs.getString("masp"), rs.getString("contato"));
         }
         pst.close();

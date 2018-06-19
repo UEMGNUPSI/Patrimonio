@@ -128,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `Usuario`(
  `id` INT NOT NULL AUTO_INCREMENT,
  `usuario` VARCHAR(20) NOT NULL UNIQUE,
  `senha` VARCHAR(20) NOT NULL,
- `admin` boolean NOT NULL,
+ `adm` boolean NOT NULL,
  `nome` VARCHAR(45) NOT NULL,
  `masp` VARCHAR(45) NOT NULL,
  `contato` VARCHAR(45) NOT NULL,
