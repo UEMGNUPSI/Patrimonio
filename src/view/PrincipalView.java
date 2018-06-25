@@ -380,6 +380,7 @@ public class PrincipalView extends javax.swing.JFrame {
         // TODO add your handling code here:
         OrgaoView entidade = new OrgaoView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        entidade.setLocation(pnlPrincipal.getWidth()/2 - entidade.getWidth()/2,pnlPrincipal.getHeight()/2 - entidade.getHeight()/2);
         pnlPrincipal.add(entidade);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniOrgaoActionPerformed
@@ -393,6 +394,7 @@ public class PrincipalView extends javax.swing.JFrame {
             Logger.getLogger(PrincipalView.class.getName()).log(Level.SEVERE, null, ex);
         }
         pnlPrincipal.removeAll();
+        patrimonio.setLocation(pnlPrincipal.getWidth()/2 - patrimonio.getWidth()/2,pnlPrincipal.getHeight()/2 - patrimonio.getHeight()/2);
         pnlPrincipal.add(patrimonio);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniIncluirPatrimonioActionPerformed
@@ -401,6 +403,7 @@ public class PrincipalView extends javax.swing.JFrame {
         // TODO add your handling code here:
         TipoSubtipoView tipoSubtipo = new TipoSubtipoView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        tipoSubtipo.setLocation(pnlPrincipal.getWidth()/2 - tipoSubtipo.getWidth()/2,pnlPrincipal.getHeight()/2 - tipoSubtipo.getHeight()/2);
         pnlPrincipal.add(tipoSubtipo);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniTipoSubtipoActionPerformed
@@ -408,6 +411,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mniConservacaoStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConservacaoStatusActionPerformed
         ConservacaoStatusView conservacaoStatus = new ConservacaoStatusView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        conservacaoStatus.setLocation(pnlPrincipal.getWidth()/2 - conservacaoStatus.getWidth()/2,pnlPrincipal.getHeight()/2 - conservacaoStatus.getHeight()/2);
         pnlPrincipal.add(conservacaoStatus);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniConservacaoStatusActionPerformed
@@ -416,6 +420,7 @@ public class PrincipalView extends javax.swing.JFrame {
         // TODO add your handling code here:
         UnidadeView unidade = new UnidadeView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        unidade.setLocation(pnlPrincipal.getWidth()/2 - unidade.getWidth()/2,pnlPrincipal.getHeight()/2 - unidade.getHeight()/2);
         pnlPrincipal.add(unidade);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniUnidadeActionPerformed
@@ -424,6 +429,7 @@ public class PrincipalView extends javax.swing.JFrame {
         // TODO add your handling code here:
         BlocoView bloco = new BlocoView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        bloco.setLocation(pnlPrincipal.getWidth()/2 - bloco.getWidth()/2,pnlPrincipal.getHeight()/2 - bloco.getHeight()/2);
         pnlPrincipal.add(bloco);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniBlocoActionPerformed
@@ -432,6 +438,7 @@ public class PrincipalView extends javax.swing.JFrame {
         // TODO add your handling code here:
         PisoView piso = new PisoView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        piso.setLocation(pnlPrincipal.getWidth()/2 - piso.getWidth()/2,pnlPrincipal.getHeight()/2 - piso.getHeight()/2);
         pnlPrincipal.add(piso);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniPisoActionPerformed
@@ -440,6 +447,7 @@ public class PrincipalView extends javax.swing.JFrame {
         // TODO add your handling code here:
         SalaView sala = new SalaView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        sala.setLocation(pnlPrincipal.getWidth()/2 - sala.getWidth()/2,pnlPrincipal.getHeight()/2 - sala.getHeight()/2);
         pnlPrincipal.add(sala);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniSalaActionPerformed
@@ -447,6 +455,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mnuSobreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuSobreMouseClicked
         SobreView sobre = new SobreView();
         pnlPrincipal.removeAll();
+        sobre.setLocation(pnlPrincipal.getWidth()/2 - sobre.getWidth()/2,pnlPrincipal.getHeight()/2 - sobre.getHeight()/2);
         pnlPrincipal.add(sobre);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mnuSobreMouseClicked
@@ -458,6 +467,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mniAdicionarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniAdicionarUsuarioActionPerformed
         UsuarioView usuario = new UsuarioView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        usuario.setLocation(pnlPrincipal.getWidth()/2 - usuario.getWidth()/2,pnlPrincipal.getHeight()/2 - usuario.getHeight()/2);
         pnlPrincipal.add(usuario);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniAdicionarUsuarioActionPerformed
@@ -485,6 +495,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mniRelatorioSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRelatorioSalaActionPerformed
         RelatorioSalaView relatorio = new RelatorioSalaView();
         pnlPrincipal.removeAll();
+        relatorio.setLocation(pnlPrincipal.getWidth()/2 - relatorio.getWidth()/2,pnlPrincipal.getHeight()/2 - relatorio.getHeight()/2);
         pnlPrincipal.add(relatorio);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniRelatorioSalaActionPerformed
@@ -492,6 +503,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mniRelatorioDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRelatorioDescricaoActionPerformed
         RelatorioDescricaoView relatorio = new RelatorioDescricaoView();
         pnlPrincipal.removeAll();
+        relatorio.setLocation(pnlPrincipal.getWidth()/2 - relatorio.getWidth()/2,pnlPrincipal.getHeight()/2 - relatorio.getHeight()/2);
         pnlPrincipal.add(relatorio);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniRelatorioDescricaoActionPerformed
@@ -503,6 +515,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mniMinhaContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniMinhaContaActionPerformed
         MinhaContaView minhaConta = new MinhaContaView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        minhaConta.setLocation(pnlPrincipal.getWidth()/2 - minhaConta.getWidth()/2,pnlPrincipal.getHeight()/2 - minhaConta.getHeight()/2);
         pnlPrincipal.add(minhaConta);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniMinhaContaActionPerformed
@@ -510,6 +523,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mnuMovimentacoesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuMovimentacoesMouseClicked
         MovimentacaoView movimentacao = new MovimentacaoView(usuarioAtivo);
         pnlPrincipal.removeAll();
+        movimentacao.setLocation(pnlPrincipal.getWidth()/2 - movimentacao.getWidth()/2,pnlPrincipal.getHeight()/2 - movimentacao.getHeight()/2);
         pnlPrincipal.add(movimentacao);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mnuMovimentacoesMouseClicked
@@ -517,6 +531,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mnuInventarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_mnuInventarioMouseClicked
         InventarioView inventario = new InventarioView();
         pnlPrincipal.removeAll();
+        inventario.setLocation(pnlPrincipal.getWidth()/2 - inventario.getWidth()/2,pnlPrincipal.getHeight()/2 - inventario.getHeight()/2);
         pnlPrincipal.add(inventario);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mnuInventarioMouseClicked
@@ -541,6 +556,7 @@ public class PrincipalView extends javax.swing.JFrame {
             Logger.getLogger(PrincipalView.class.getName()).log(Level.SEVERE, null, ex);
         }
         pnlPrincipal.removeAll();
+        consulta.setLocation(pnlPrincipal.getWidth()/2 - consulta.getWidth()/2,pnlPrincipal.getHeight()/2 - consulta.getHeight()/2);
         pnlPrincipal.add(consulta);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniConsultaPatrimonioActionPerformed
@@ -554,8 +570,9 @@ public class PrincipalView extends javax.swing.JFrame {
             Logger.getLogger(PrincipalView.class.getName()).log(Level.SEVERE, null, ex);
         }
         pnlPrincipal.removeAll();
-            pnlPrincipal.add(historico);
-            pnlPrincipal.updateUI();
+        historico.setLocation(pnlPrincipal.getWidth()/2 - historico.getWidth()/2,pnlPrincipal.getHeight()/2 - historico.getHeight()/2);
+        pnlPrincipal.add(historico);
+        pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniConsultaHistóricoActionPerformed
 
     private void mniConsultaBaixadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniConsultaBaixadosActionPerformed
@@ -566,6 +583,7 @@ public class PrincipalView extends javax.swing.JFrame {
             Logger.getLogger(PrincipalView.class.getName()).log(Level.SEVERE, null, ex);
         }
         pnlPrincipal.removeAll();
+        baixado.setLocation(pnlPrincipal.getWidth()/2 - baixado.getWidth()/2,pnlPrincipal.getHeight()/2 - baixado.getHeight()/2);
         pnlPrincipal.add(baixado);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniConsultaBaixadosActionPerformed
@@ -573,6 +591,7 @@ public class PrincipalView extends javax.swing.JFrame {
     private void mniRelatorioOrgaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniRelatorioOrgaoActionPerformed
         RelatorioOrgaoView relatorio = new RelatorioOrgaoView();
         pnlPrincipal.removeAll();
+        relatorio.setLocation(pnlPrincipal.getWidth()/2 - relatorio.getWidth()/2,pnlPrincipal.getHeight()/2 - relatorio.getHeight()/2);
         pnlPrincipal.add(relatorio);
         pnlPrincipal.updateUI();
     }//GEN-LAST:event_mniRelatorioOrgaoActionPerformed
